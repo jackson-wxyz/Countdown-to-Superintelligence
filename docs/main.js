@@ -2474,6 +2474,10 @@ function updateStats(){
     document.getElementById('clipmakerRate2').innerHTML = numberCruncher(clipRate);
     }      
     document.getElementById('nanoWire').innerHTML = numberCruncher(wire);
+    //GPU stuff
+    document.getElementById("GPUs").innerHTML = funds.toLocaleString();
+    document.getElementById("dataTokens").innerHTML = funds.toLocaleString();
+    document.getElementById("algorithmicProgress").innerHTML = funds.toLocaleString(); 
     document.getElementById("funds").innerHTML = funds.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
     document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
     document.getElementById("demand").innerHTML = (demand*10).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
