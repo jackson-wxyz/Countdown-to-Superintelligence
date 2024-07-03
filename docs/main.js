@@ -1682,7 +1682,7 @@ function GPUClick(number){
         
     // document.getElementById("wire").innerHTML = Math.floor(wire).toLocaleString();
     // document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
-    // }
+    }
     
     
 }
