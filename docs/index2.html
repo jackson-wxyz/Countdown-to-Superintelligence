@@ -51,6 +51,10 @@
         
         <button class = "button2" id ="btnMakePaperclip" onclick="clipClick(1)">Make Paperclip</button><br />
         <br />
+
+        <!-- GPU stuff -->
+        <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU</button><br />
+        <br />
         
         <div id = "creationDiv">
         
@@ -228,7 +232,17 @@
         
             
         Available Funds: $ <span id="funds">0</span><br />
-        <div id="revPerSecDiv">  
+
+        <div id="GPUDiv">  
+           
+            GPUs: <span id="GPUs">0</span><br />
+            Training Data: <span id="dataTokens">0</span> tokens<br />    
+            Algorithmic efficiency: <span id="algorithmicProgress">0</span> % <br />
+                
+        </div>  
+
+
+        <div id="GPUDiv">  
            
         Avg. Rev. per sec: $ <span id="avgRev">0</span><br />
         Avg. Clips Sold per sec: <span id="avgSales">0</span><br />    

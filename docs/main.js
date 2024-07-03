@@ -1662,6 +1662,31 @@ function clipClick(number){
     
     
 }
+
+
+function GPUClick(number){
+    
+    if(funds >= 5){
+    if (number > funds/5) {
+        number = funds/5;
+        }    
+        
+    GPUs = GPUs + number;
+    funds = funds - number*5;
+    
+
+        
+    // if (milestoneFlag < 15){
+    //     document.getElementById("clips").innerHTML = Math.ceil(clips).toLocaleString();
+    //     }    
+        
+    // document.getElementById("wire").innerHTML = Math.floor(wire).toLocaleString();
+    // document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
+    // }
+    
+    
+}
+
     
 function makeClipper(){  
     if(funds >= clippperCost){

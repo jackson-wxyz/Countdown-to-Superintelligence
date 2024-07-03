@@ -1,3 +1,12 @@
+
+var GPUs = 0;
+var dataTokens = 0;
+var algorithmicProgress = 0;
+
+
+
+
+
 var clips = 0;
 var unusedClips = 0;
 var clipRate = 0;
