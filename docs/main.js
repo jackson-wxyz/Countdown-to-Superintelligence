@@ -1672,6 +1672,7 @@ function GPUClick(number){
         }    
         
     GPUs = GPUs + number;
+    GPUs++;
     funds = funds - number*5;
     
 

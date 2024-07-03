@@ -1,7 +1,7 @@
 
 var GPUs = 0;
 var dataTokens = 0;
-var algorithmicProgress = 0;
+var algorithmicProgress = 5;
 
 
 
