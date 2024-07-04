@@ -1728,6 +1728,7 @@ function TrainAI(){
     Capability3 = AIcapabilities/1000000;
     Capability4 = AIcapabilities/10000000;
 
+    displayMessage("you just trained a bigger AI model!");
     
     document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString();
     document.getElementById("Capability1").innerHTML = Capability1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -1736,7 +1737,6 @@ function TrainAI(){
     document.getElementById("Capability4").innerHTML = Capability4.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     
 
-    displayMessage("you just trained a bigger AI model!");
     //remember to add much more about how exactly the capabilities go into various individual tasks, affected by various multipliers, etc!
     //}
     
@@ -3412,7 +3412,7 @@ window.setInterval(function(){
         GPUBuyerFlag=1;
     }
 
-    if (GPUBuyerFlag==1 && GPUBuyerStatus==1 && jFunds<=500){
+    if (GPUBuyerFlag==1 && GPUBuyerStatus==1 && jFunds>=500){
         buyGPU();
     }   
 
@@ -3774,6 +3774,7 @@ window.setInterval(function(){
     
     secTimer++;
         if (secTimer >= 300){
+            yValues = [Capability1, Capability2, Capability3, Capability4]
             new Chart("CapabilitiesChart", {
                 type: "bar",
                 data: {

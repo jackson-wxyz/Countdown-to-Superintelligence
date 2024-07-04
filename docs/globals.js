@@ -19,7 +19,7 @@ var Capability4 = 0;
 
 //CapabilityChart
 var xValues = ["Images", "Translation", "Coding", "Bio"];
-var yValues = [Capability1, Capability2, Capability3, Capability4];
+var yValues = [];
 var barColors = ["orange", "brown","blue","green"];
 
 
