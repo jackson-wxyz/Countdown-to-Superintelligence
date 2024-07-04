@@ -3437,8 +3437,8 @@ window.setInterval(function(){
     }   
 
     GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/100.0;
-    DailyWage = AIcapabilities; // * some factors based on projects and policies, idk??
-    GPUavgRev = DailyWage * GPUs*(100.0-TrainPercent)/100.0;
+    //DailyWage = AIcapabilities; // * some factors based on projects and policies, idk??
+    GPUavgRev = AIcapabilities * GPUs*(100.0-TrainPercent)/100.0;
     jFunds = jFunds + GPUavgRev/100;
 
 
