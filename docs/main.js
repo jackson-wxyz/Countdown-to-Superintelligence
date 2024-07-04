@@ -1698,8 +1698,9 @@ function GPUClick(number){
 
 function buyGPU(){
     if(jFunds >= 500){
-        GPUs++;
-        jFunds = jFunds - 500;
+        quotient = Math.floor(jFunds/500)
+        GPUs = GPUs + quotient;
+        jFunds = jFunds - 500*quotient;
         document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
         document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
     }
