@@ -537,14 +537,10 @@ if (autoClipperFlag == 0){
             
             document.getElementById("autoClipperDiv").style.display="none";
             } else {
-            document.getElementById("autoClipperDiv").style.display="";      
-            } 
-    
-            if (funds>=5) {
-                autoClipperFlag = 1;
-            }
-    
-if (revPerSecFlag == 0){
+            document.getEle    slider.oninput = function() {
+        TrainPercent.innerHTML = this.value;
+        document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
+    }vPerSecFlag == 0){
             
             document.getElementById("revPerSecDiv").style.display="none";
             } else {
@@ -3343,6 +3339,36 @@ if (localStorage.getItem("savePrestige") != null) {
 }
 
 
+
+new Chart("CapabilitiesChart", {
+    type: "bar",
+    data: {
+        labels: xValues,
+        datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+        }]
+    },
+    options: {
+        legend: {display: false},
+        title: {
+        display: true,
+        text: "Current Model Capabilities, % of human perf:"
+        }
+    }
+    });
+
+    
+    // Update the current slider value (each time you drag the slider handle)
+    slider = document.getElementById("InferenceSlider");
+    output.innerHTML = slider.value; // Display the default slider value
+    slider.oninput = function() {
+        TrainPercent.innerHTML = this.value;
+        //TrainPercent = this.value;
+        document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
+        document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
+    }
+
 // MAIN LOOP
 
 window.setInterval(function(){
@@ -3410,32 +3436,8 @@ window.setInterval(function(){
     GPUavgRev = AIcapabilities * (100.0-TrainPercent)/100.0 * DailyWage;
     jFunds = jFunds + GPUavgRev/100;
 
-    // Update the current slider value (each time you drag the slider handle)
-    slider = document.getElementById("InferenceSlider");
-    output.innerHTML = slider.value; // Display the default slider value
-    slider.oninput = function() {
-        TrainPercent = this.value;
-        document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
-    }
 
 
-    new Chart("CapabilitiesChart", {
-    type: "bar",
-    data: {
-        labels: xValues,
-        datasets: [{
-        backgroundColor: barColors,
-        data: yValues
-        }]
-    },
-    options: {
-        legend: {display: false},
-        title: {
-        display: true,
-        text: "Current Model Capabilities, % of human perf:"
-        }
-    }
-    });
 
     
 // First, Explore
