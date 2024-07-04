@@ -1736,6 +1736,24 @@ function TrainAI(){
     document.getElementById("Capability3").innerHTML = Capability3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Capability4").innerHTML = Capability4.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     
+    yValues = [Capability1, Capability2, Capability3, Capability4]
+    new Chart("CapabilitiesChart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+            display: true,
+            text: "Current Model Capabilities, % of human perf:"
+            }
+        }
+    });
     } else {
     displayMessage("Can't train a bigger AI model; not enough GPU hours!");
     }
@@ -3419,8 +3437,8 @@ window.setInterval(function(){
     }   
 
     GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/100.0;
-    DailyWage = AIcapabilities * DailyWage;
-    GPUavgRev = AIcapabilities * GPUs*(100.0-TrainPercent)/100.0 * DailyWage;
+    DailyWage = AIcapabilities; // * some factors based on projects and policies, idk??
+    GPUavgRev = DailyWage * GPUs*(100.0-TrainPercent)/100.0;
     jFunds = jFunds + GPUavgRev/100;
 
 
@@ -3766,25 +3784,6 @@ window.setInterval(function(){
         if (secTimer >= 10){
             calculateRev();
             Days++;
-            
-            yValues = [Capability1, Capability2, Capability3, Capability4]
-            new Chart("CapabilitiesChart", {
-                type: "bar",
-                data: {
-                    labels: xValues,
-                    datasets: [{
-                    backgroundColor: barColors,
-                    data: yValues
-                    }]
-                },
-                options: {
-                    legend: {display: false},
-                    title: {
-                    display: true,
-                    text: "Current Model Capabilities, % of human perf:"
-                    }
-                }
-            });
             secTimer = 0;
         }
         
