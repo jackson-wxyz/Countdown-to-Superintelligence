@@ -10,7 +10,7 @@ var TrainPercent = 0.5;
 var DailyWage = 0.01;
 
 var GPUBuyerFlag = 0;
-var GPUBuyerStatus = 1;
+var GPUBuyerStatus = 0;
 
 var Capability1 = 0;
 var Capability2 = 0;

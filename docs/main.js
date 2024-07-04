@@ -1718,7 +1718,7 @@ function toggleGPUBuyer(){
 
 function TrainAI(){
     
-    //if(GPUhours >= last-gpu-hours){     //some kind of check to make sure you can't train a weaker AI than your last one...
+    if(GPUhours >= AIcapabilities){     //some kind of check to make sure you can't train a weaker AI than your last one...
         
     AIcapabilities = GPUhours;
     GPUhours = 0;
@@ -1728,7 +1728,7 @@ function TrainAI(){
     Capability3 = AIcapabilities/1000000;
     Capability4 = AIcapabilities/10000000;
 
-    displayMessage("you just trained a bigger AI model!");
+    displayMessage("You just trained a bigger AI model!");
     
     document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString();
     document.getElementById("Capability1").innerHTML = Capability1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -1736,7 +1736,9 @@ function TrainAI(){
     document.getElementById("Capability3").innerHTML = Capability3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Capability4").innerHTML = Capability4.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     
-
+    } else {
+    displayMessage("Can't train a bigger AI model; not enough GPU hours!");
+    }
     //remember to add much more about how exactly the capabilities go into various individual tasks, affected by various multipliers, etc!
     //}
     
@@ -3417,7 +3419,8 @@ window.setInterval(function(){
     }   
 
     GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/100.0;
-    GPUavgRev = AIcapabilities * (100.0-TrainPercent)/100.0 * DailyWage;
+    DailyWage = AIcapabilities * DailyWage;
+    GPUavgRev = AIcapabilities * GPUs*(100.0-TrainPercent)/100.0 * DailyWage;
     jFunds = jFunds + GPUavgRev/100;
 
 
@@ -3763,17 +3766,7 @@ window.setInterval(function(){
         if (secTimer >= 10){
             calculateRev();
             Days++;
-            secTimer = 0;
-        }
-        
-    }    
-    
-
-
-    // Fire Once every 30 Seconds
-    
-    secTimer++;
-        if (secTimer >= 300){
+            
             yValues = [Capability1, Capability2, Capability3, Capability4]
             new Chart("CapabilitiesChart", {
                 type: "bar",
@@ -3794,6 +3787,9 @@ window.setInterval(function(){
             });
             secTimer = 0;
         }
+        
+    }    
+
         
      
     
