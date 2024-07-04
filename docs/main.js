@@ -3345,34 +3345,9 @@ if (localStorage.getItem("savePrestige") != null) {
 
 
 
-new Chart("CapabilitiesChart", {
-    type: "bar",
-    data: {
-        labels: xValues,
-        datasets: [{
-        backgroundColor: barColors,
-        data: yValues
-        }]
-    },
-    options: {
-        legend: {display: false},
-        title: {
-        display: true,
-        text: "Current Model Capabilities, % of human perf:"
-        }
-    }
-    });
+
 
     
-    // Update the current slider value (each time you drag the slider handle)
-    slider = document.getElementById("InferenceSlider");
-    output.innerHTML = slider.value; // Display the default slider value
-    slider.oninput = function() {
-        TrainPercent.innerHTML = this.value;
-        //TrainPercent = this.value;
-        document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
-        //document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
-    }
 
 
 // MAIN LOOP
@@ -3443,6 +3418,15 @@ window.setInterval(function(){
     jFunds = jFunds + GPUavgRev/100;
 
 
+    // Update the current slider value (each time you drag the slider handle)
+    slider = document.getElementById("InferenceSlider");
+    output.innerHTML = slider.value; // Display the default slider value
+    slider.oninput = function() {
+        TrainPercent.innerHTML = this.value;
+        //TrainPercent = this.value;
+        document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
+        //document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
+    }
 
 
     
@@ -3776,6 +3760,23 @@ window.setInterval(function(){
             calculateRev();
             Days++;
             secTimer = 0;
+            new Chart("CapabilitiesChart", {
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                    }]
+                },
+                options: {
+                    legend: {display: false},
+                    title: {
+                    display: true,
+                    text: "Current Model Capabilities, % of human perf:"
+                    }
+                }
+                });
         }
         
     }    
