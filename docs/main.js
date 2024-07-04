@@ -374,6 +374,12 @@ if (wireBuyerFlag==1) {
     document.getElementById("wireBuyerDiv").style.display="none";    
     }
     
+if (GPUBuyerFlag==1) {
+    document.getElementById("GPUBuyerDiv").style.display="";
+    } else {
+    document.getElementById("GPUBuyerDiv").style.display="none";    
+    }
+    
 if (resultsFlag == 1 && autoTourneyFlag == 1 && autoTourneyStatus ==1 && document.getElementById("tournamentResultsTable").style.display == "") {
     resultsTimer++;
     
@@ -1666,7 +1672,7 @@ function clipClick(number){
 
 function GPUClick(number){
     
-    if(funds >= 5){
+    if(jFunds >= 500){
     if (number > jFunds/500) {
         number = jFunds/500;
         }
@@ -1689,6 +1695,25 @@ function GPUClick(number){
 
 
 
+function buyGPU(){
+    if(jFunds >= 500){
+        GPUs++;
+        jFunds = jFunds - 500;
+        document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
+        document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
+    }
+}
+
+
+function toggleGPUBuyer(){
+    if (GPUBuyerStatus==1){
+        GPUBuyerStatus=0;
+        document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
+    } else {
+        GPUBuyerStatus=1;
+        document.getElementById('GPUBuyerStatus').innerHTML = "ON";
+    }
+}
 
 function TrainAI(){
     
@@ -1696,6 +1721,19 @@ function TrainAI(){
         
     AIcapabilities = GPUhours;
     GPUhours = 0;
+
+    Capability1 = AIcapabilities/100;
+    Capability2 = AIcapabilities/10000;
+    Capability3 = AIcapabilities/1000000;
+    Capability4 = AIcapabilities/10000000;
+
+    
+    document.getElementById("Capability1").innerHTML = Capability1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById("Capability2").innerHTML = Capability2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById("Capability3").innerHTML = Capability3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById("Capability4").innerHTML = Capability4.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    
+
     displayMessage("you just trained a bigger AI model!");
     //remember to add much more about how exactly the capabilities go into various individual tasks, affected by various multipliers, etc!
     //}
@@ -2494,14 +2532,21 @@ function updateStats(){
     document.getElementById('clipmakerRate2').innerHTML = numberCruncher(clipRate);
     }      
     document.getElementById('nanoWire').innerHTML = numberCruncher(wire);
+    
+    
+    
+    
+    
     //GPU stuff
     document.getElementById("GPUs").innerHTML = GPUs.toLocaleString();
-    document.getElementById("algorithmicProgress").innerHTML = algorithmicProgress.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById("algorithmicProgress").innerHTML = (algorithmicProgress*100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
     document.getElementById("jFunds").innerHTML = jFunds.toLocaleString();
     document.getElementById("GPUavgRev").innerHTML = GPUavgRev.toLocaleString();
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString();
     document.getElementById("Days").innerHTML = Days.toLocaleString();
+
+    
 
 
 
@@ -3351,7 +3396,13 @@ window.setInterval(function(){
         buyWire();
     }   
     
-    
+
+// GPU stuff
+
+    if (GPUBuyerFlag==1 && GPUBuyerStatus==1 && jFunds<=500){
+        buyGPU();
+    }   
+
     
 // First, Explore
     
@@ -3651,7 +3702,6 @@ if (dismantle >= 7) {
     }
     
     
-    GPUhours = GPUhours + GPUs * algorithmicProgress * 24/10;
     
     
 }, 10);
@@ -3682,13 +3732,14 @@ window.setInterval(function(){
     secTimer++;
         if (secTimer >= 10){
             calculateRev();
+            Days++;
             secTimer = 0;
         }
         
     }    
     
     //GPU stuff
-    Days++;
+    GPUhours = GPUhours + GPUs * algorithmicProgress * 24/10;
 
     
     // Auto-Save
