@@ -3417,6 +3417,25 @@ window.setInterval(function(){
         document.getElementById("TrainPercent") = TrainPercent;
     }
 
+
+    new Chart("CapabilitiesChart", {
+    type: "bar",
+    data: {
+        labels: xValues,
+        datasets: [{
+        backgroundColor: barColors,
+        data: yValues
+        }]
+    },
+    options: {
+        legend: {display: false},
+        title: {
+        display: true,
+        text: "Current Model Capabilities, % of human perf:"
+        }
+    }
+    });
+
     
 // First, Explore
     
