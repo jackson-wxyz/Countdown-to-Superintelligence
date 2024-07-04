@@ -259,7 +259,7 @@
         <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button><br />
         <div id = "GPUBuyerDiv">
         <button class = "button2" id ="btnToggleGPUBuyer"
-        onclick="toggleGPUBuyer()">Automatically Reinvest in GPUs: </button> <span class = "engineText6" id = "GPUBuyerStatus">ON</span>    <!-- this should eventually be a real toggle -->
+        onclick="toggleGPUBuyer()">Automatically Reinvest in GPUs: </button> <span class = "engineText6" id = "GPUBuyerStatus">OFF</span>    <!-- this should eventually be a real toggle -->
         </div>
         <br />
             
@@ -284,7 +284,7 @@
             
         <b>AI Model Training</b><br />
         <hr>
-        % of time devoted to training new model vs using old model: <span id="TrainPercent"></span>%<br />
+        % of time devoted to training new model vs using old model: <span id="TrainPercentDisplay"></span>%<br />
         <div class="slidecontainer">
             <input type="range" min="0" max="100" value="51" class="slider" id="InferenceSlider">
         </div>
@@ -468,7 +468,7 @@
             
             <br />
             <!--chart of AI capabilities -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
             <canvas id="CapabilitiesChart" style="width:100%;max-width:600px"></canvas>
             </div>
             

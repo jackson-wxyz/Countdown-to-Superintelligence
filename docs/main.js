@@ -1731,7 +1731,7 @@ function TrainAI(){
 
     displayMessage("You just trained a bigger AI model!");
     
-    document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString();
+    document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Capability1").innerHTML = Capability1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Capability2").innerHTML = Capability2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Capability3").innerHTML = Capability3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -1752,6 +1752,14 @@ function TrainAI(){
             title: {
             display: true,
             text: "Current Model Capabilities, % of human perf:"
+            }
+        },
+        scales: {
+            y: {
+                display: true,
+                type: 'logarithmic',
+                min: 1,
+                max: 1000
             }
         }
     });
@@ -2571,6 +2579,7 @@ function updateStats(){
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Days").innerHTML = Days.toLocaleString();
     document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
+    document.getElementById("DailyWage").innerHTML = TrainPercent.toLocaleString();
     
 
 
@@ -3429,7 +3438,7 @@ window.setInterval(function(){
     
 
 // GPU stuff
-    if (GPUs>20){
+    if (GPUs>19){
         GPUBuyerFlag=1;
     }
 
@@ -3437,10 +3446,6 @@ window.setInterval(function(){
         buyGPU();
     }   
 
-    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/100.0;
-    DailyWage = AIcapabilities * 0.001; // * some factors based on projects and policies, idk??
-    GPUavgRev = DailyWage * GPUs*(100.0-TrainPercent)/100.0;
-    jFunds = jFunds + GPUavgRev/100;
 
 
     // Update the current slider value (each time you drag the slider handle)
@@ -3452,7 +3457,8 @@ window.setInterval(function(){
     // }
 
     
-    TrainPercent = document.getElementById("InferenceSlider").value;
+    TrainPercentDisplay = document.getElementById("InferenceSlider").value;
+    TrainPercent = document.getElementById("InferenceSlider").value/100;
 
 
     
@@ -3790,7 +3796,11 @@ window.setInterval(function(){
         
     }    
 
-        
+    
+    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent * 24/10;
+    DailyWage = AIcapabilities * 0.003; // * some factors based on projects and policies, idk??
+    GPUavgRev = DailyWage * GPUs*(1-TrainPercent); //could avoid a multiplication here i guess
+    jFunds = jFunds + GPUavgRev/10;
      
     
 
