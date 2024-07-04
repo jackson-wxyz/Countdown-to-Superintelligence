@@ -1,7 +1,11 @@
 
 var GPUs = 0;
-var dataTokens = 0;
-var algorithmicProgress = 5;
+var algorithmicProgress = 0.20;
+var jFunds = 5000;
+var GPUavgRev = 0;
+var GPUhours = 0;
+var Days = 0;
+var AIcapabilities = 0; // find some way of turning "gpuhours" into an actual metric like FLOPs, to enable greater realism
 
 
 

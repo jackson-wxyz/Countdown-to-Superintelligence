@@ -43,6 +43,7 @@
         <div class = "toolTip">
         <span id = "clipCountCrunched" class = "toolTipText">total clips produced</span>    
         <h2>Paperclips: <span id="clips">0</span></h2>
+        Jan 1, 2016 (this should change 1 day per second... actual number of days elapsed: <span id="Days">0</span>)
         </div>
             
         </div>    
@@ -52,9 +53,6 @@
         <button class = "button2" id ="btnMakePaperclip" onclick="clipClick(1)">Make Paperclip</button><br />
         <br />
 
-        <!-- GPU stuff -->
-        <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU</button><br />
-        <br />
         
         <div id = "creationDiv">
         
@@ -224,7 +222,103 @@
             
         </div>    
             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
+        <div id="GPUDiv">
+            
+        <b>GPU Stuff</b><br />
+        <hr>
+        <!-- GPU stuff -->
+        <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button><br />
+        <br />
+            
+        GPUs: <span id="GPUs">0</span><br />  
+        Algorithmic efficiency: <span id="algorithmicProgress">0</span> % <br />
+        GPU Funds: $ <span id="jFunds">0</span><br />
+        Training hours per day (GPUs * calendar hours * algo efficiency): <span id="GPUhours">0</span><br /> <!-- This is just GPUs & algorithmic efficiency -->
+        <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
+        </div>  
+
+        <br />    
+
+        <div id="InferenceDiv">
+            
+        <b>AI / Inference Stuff</b><br />
+        <hr>
+
+        <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize AI Model (uses all GPU training hours) </button><br />
+        <br />
+
+            
+        Revenue per day: $ <span id="GPUavgRev">0</span><br />
+        <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
+        </div>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div id="businessDiv">
             
         <b>Business</b><br />
@@ -232,15 +326,6 @@
         
             
         Available Funds: $ <span id="funds">0</span><br />
-
-        <div id="GPUDiv">  
-           
-            GPUs: <span id="GPUs">0</span><br />
-            Training Data: <span id="dataTokens">0</span> tokens<br />    
-            Algorithmic efficiency: <span id="algorithmicProgress">0</span> % <br />
-                
-        </div>  
-
 
         <div id="revPerSecDiv">  
            

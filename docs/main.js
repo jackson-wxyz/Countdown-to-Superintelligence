@@ -1667,15 +1667,14 @@ function clipClick(number){
 function GPUClick(number){
     
     if(funds >= 5){
-    if (number > funds/5) {
-        number = funds/5;
-        }    
+    if (number > jFunds/500) {
+        number = jFunds/500;
+        }
         
     GPUs = GPUs + number;
-    GPUs++;
-    funds = funds - number*5;
+    jFunds = jFunds - number*500;
     
-
+// do milestones based on when you pass real-life metrics of, ie, datacenter sizes or whatever!
         
     // if (milestoneFlag < 15){
     //     document.getElementById("clips").innerHTML = Math.ceil(clips).toLocaleString();
@@ -1687,6 +1686,27 @@ function GPUClick(number){
     
     
 }
+
+
+
+
+function TrainAI(){
+    
+    //if(GPUhours >= last-gpu-hours){     //some kind of check to make sure you can't train a weaker AI than your last one...
+        
+    AIcapabilities = GPUhours;
+    GPUhours = 0;
+    displayMessage("you just trained a bigger AI model!");
+    //remember to add much more about how exactly the capabilities go into various individual tasks, affected by various multipliers, etc!
+    //}
+    
+    
+}
+
+
+
+
+
 
     
 function makeClipper(){  
@@ -2475,9 +2495,18 @@ function updateStats(){
     }      
     document.getElementById('nanoWire').innerHTML = numberCruncher(wire);
     //GPU stuff
-    document.getElementById("GPUs").innerHTML = funds.toLocaleString();
-    document.getElementById("dataTokens").innerHTML = funds.toLocaleString();
-    document.getElementById("algorithmicProgress").innerHTML = funds.toLocaleString(); 
+    document.getElementById("GPUs").innerHTML = GPUs.toLocaleString();
+    document.getElementById("algorithmicProgress").innerHTML = algorithmicProgress.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+    document.getElementById("jFunds").innerHTML = jFunds.toLocaleString();
+    document.getElementById("GPUavgRev").innerHTML = GPUavgRev.toLocaleString();
+    document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString();
+    document.getElementById("Days").innerHTML = Days.toLocaleString();
+
+
+
+
+
     document.getElementById("funds").innerHTML = funds.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
     document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
     document.getElementById("demand").innerHTML = (demand*10).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
@@ -3622,7 +3651,7 @@ if (dismantle >= 7) {
     }
     
     
-
+    GPUhours = GPUhours + GPUs * algorithmicProgress * 24/10;
     
     
 }, 10);
@@ -3657,7 +3686,10 @@ window.setInterval(function(){
         }
         
     }    
- 
+    
+    //GPU stuff
+    Days++;
+
     
     // Auto-Save
     
