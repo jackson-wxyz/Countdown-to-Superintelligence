@@ -2545,11 +2545,11 @@ function updateStats(){
     document.getElementById("GPUs").innerHTML = GPUs.toLocaleString();
     document.getElementById("algorithmicProgress").innerHTML = (algorithmicProgress*100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-    document.getElementById("jFunds").innerHTML = jFunds.toLocaleString();
+    document.getElementById("jFunds").innerHTML = jFunds.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("GPUavgRev").innerHTML = GPUavgRev.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Days").innerHTML = Days.toLocaleString();
-
+    document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
     
 
 
@@ -3408,12 +3408,15 @@ window.setInterval(function(){
     
 
 // GPU stuff
+    if (GPUs>20){
+        GPUBuyerFlag=1;
+    }
 
     if (GPUBuyerFlag==1 && GPUBuyerStatus==1 && jFunds<=500){
         buyGPU();
     }   
 
-    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent * 24/100.0;
+    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/100.0;
     GPUavgRev = AIcapabilities * (100.0-TrainPercent)/100.0 * DailyWage;
     jFunds = jFunds + GPUavgRev/100;
 
@@ -3428,7 +3431,6 @@ window.setInterval(function(){
 
     
     TrainPercent = document.getElementById("InferenceSlider").value;
-    document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
 
 
     

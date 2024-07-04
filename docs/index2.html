@@ -257,6 +257,10 @@
         <hr>
         <!-- GPU stuff -->
         <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button><br />
+        <div id = "GPUBuyerDiv">
+        <button class = "button2" id ="btnToggleGPUBuyer"
+        onclick="toggleGPUBuyer()">Automatically Reinvest in GPUs: </button> <span class = "engineText6" id = "GPUBuyerStatus">ON</span>    <!-- this should eventually be a real toggle -->
+        </div>
         <br />
             
         GPU Funds: $ <span id="jFunds">0</span><br />
@@ -265,10 +269,6 @@
         
         <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
 
-            <div id = "GPUBuyerDiv">
-            <button class = "button2" id ="btnToggleGPUBuyer"
-            onclick="toggleGPUBuyer()">Automatically Reinvest into GPUs </button> <span class = "engineText6" id = "GPUBuyerStatus">ON</span>    
-            </div>
 
         </div>
 
@@ -302,6 +302,11 @@
         Daily profit per running model: $ <span id="DailyWage">0</span><br />   
         Revenue per day (skillz * % for inference): $ <span id="GPUavgRev">0</span><br />
         <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
+         
+        Image recognition: <span id="Capability1">0</span>%<br />
+        Translation: <span id="Capability2">0</span>%<br />
+        Coding skillz: <span id="Capability3">0</span>%<br />
+        Bioweapon design: <span id="Capability4">0</span>%<br />
         </div>  
 
 
