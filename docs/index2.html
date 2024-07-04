@@ -284,7 +284,11 @@
             
         <b>AI Model Training</b><br />
         <hr>
-        % of time devoted to training new model vs using old model: <span id="TrainPercent">50</span><br />%
+        % of time devoted to training new model vs using old model: <span id="TrainPercent">50</span>%<br />
+        <div class="slidecontainer">
+            <input type="range" min="0" max="100" value="51" class="slider" id="InferenceSlider">
+        </div>
+
         Training hours (GPUs * calendar hours * algo efficiency * percent for training... aka effective FLOPs): <span id="GPUhours">0</span><br /> <!-- This is just GPUs & algorithmic efficiency -->
         <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize new Model (uses all GPU training hours) </button><br />
         <br />
@@ -300,6 +304,7 @@
 
         
         <div id="Inference Div">
+        Daily profit per running model: $ <span id="DailyWage">0</span><br />   
         Revenue per day (skillz * % for inference): $ <span id="GPUavgRev">0</span><br />
         <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
         </div>  

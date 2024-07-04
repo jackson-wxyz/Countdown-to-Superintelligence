@@ -1728,6 +1728,7 @@ function TrainAI(){
     Capability4 = AIcapabilities/10000000;
 
     
+    document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString();
     document.getElementById("Capability1").innerHTML = Capability1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Capability2").innerHTML = Capability2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Capability3").innerHTML = Capability3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -1740,6 +1741,8 @@ function TrainAI(){
     
     
 }
+
+
 
 
 
@@ -2543,7 +2546,7 @@ function updateStats(){
 
     document.getElementById("jFunds").innerHTML = jFunds.toLocaleString();
     document.getElementById("GPUavgRev").innerHTML = GPUavgRev.toLocaleString();
-    document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString();
+    document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Days").innerHTML = Days.toLocaleString();
 
     
@@ -3403,6 +3406,17 @@ window.setInterval(function(){
         buyGPU();
     }   
 
+    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent * 24/100.0;
+    GPUavgRev = AIcapabilities * (100.0-TrainPercent)/100.0 * DailyWage;
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider = document.getElementById("InferenceSlider");
+    output.innerHTML = slider.value; // Display the default slider value
+    slider.oninput = function() {
+        TrainPercent = this.value;
+        document.getElementById("TrainPercent") = TrainPercent;
+    }
+
     
 // First, Explore
     
@@ -3738,8 +3752,6 @@ window.setInterval(function(){
         
     }    
     
-    //GPU stuff
-    GPUhours = GPUhours + GPUs * algorithmicProgress * 24/10;
 
     
     // Auto-Save
