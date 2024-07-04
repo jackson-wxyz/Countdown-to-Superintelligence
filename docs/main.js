@@ -537,10 +537,15 @@ if (autoClipperFlag == 0){
             
             document.getElementById("autoClipperDiv").style.display="none";
             } else {
-            document.getEle    slider.oninput = function() {
-        TrainPercent.innerHTML = this.value;
-        document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
-    }vPerSecFlag == 0){
+            document.getElementById("autoClipperDiv").style.display="";      
+    } 
+
+    if (funds>=5) {
+        autoClipperFlag = 1;
+    }
+
+if (revPerSecFlag == 0){
+    
             
             document.getElementById("revPerSecDiv").style.display="none";
             } else {
@@ -3366,8 +3371,9 @@ new Chart("CapabilitiesChart", {
         TrainPercent.innerHTML = this.value;
         //TrainPercent = this.value;
         document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
-        document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
+        //document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
     }
+
 
 // MAIN LOOP
 
