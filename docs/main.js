@@ -3418,15 +3418,15 @@ window.setInterval(function(){
     jFunds = jFunds + GPUavgRev/100;
 
 
-    // Update the current slider value (each time you drag the slider handle)
-    slider = document.getElementById("InferenceSlider");
-    output.innerHTML = slider.value; // Display the default slider value
-    slider.oninput = function() {
-        TrainPercent.innerHTML = this.value;
-        //TrainPercent = this.value;
-        document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
-        //document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
-    }
+    // // Update the current slider value (each time you drag the slider handle)
+    // slider = document.getElementById("InferenceSlider");
+    // output.innerHTML = slider.value; // Display the default slider value
+    // slider.oninput = function() {
+    //     TrainPercent.innerHTML = this.value;
+    //     //TrainPercent = this.value;
+    //     document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
+    //     //document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
+    // }
 
 
     
