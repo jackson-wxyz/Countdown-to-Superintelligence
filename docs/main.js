@@ -2545,7 +2545,7 @@ function updateStats(){
     document.getElementById("algorithmicProgress").innerHTML = (algorithmicProgress*100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
     document.getElementById("jFunds").innerHTML = jFunds.toLocaleString();
-    document.getElementById("GPUavgRev").innerHTML = GPUavgRev.toLocaleString();
+    document.getElementById("GPUavgRev").innerHTML = GPUavgRev.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Days").innerHTML = Days.toLocaleString();
 
@@ -3408,13 +3408,14 @@ window.setInterval(function(){
 
     GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent * 24/100.0;
     GPUavgRev = AIcapabilities * (100.0-TrainPercent)/100.0 * DailyWage;
+    jFunds = jFunds + GPUavgRev/100;
 
     // Update the current slider value (each time you drag the slider handle)
     slider = document.getElementById("InferenceSlider");
     output.innerHTML = slider.value; // Display the default slider value
     slider.oninput = function() {
         TrainPercent = this.value;
-        document.getElementById("TrainPercent") = TrainPercent;
+        document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
     }
 
 

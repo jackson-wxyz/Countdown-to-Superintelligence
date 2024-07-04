@@ -259,9 +259,9 @@
         <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button><br />
         <br />
             
+        GPU Funds: $ <span id="jFunds">0</span><br />
         GPUs: <span id="GPUs">0</span><br />  
         Algorithmic efficiency: <span id="algorithmicProgress">0</span> % <br />
-        GPU Funds: $ <span id="jFunds">0</span><br />
         
         <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
 
@@ -293,15 +293,10 @@
         <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize new Model (uses all GPU training hours) </button><br />
         <br />
 
-        Capabilities of current model vs human perf:
-        capability: <span id="AIcapabilities">0</span> <br />
-        Image recognition: <span id="Capability1">0</span>%<br />
-        Translation: <span id="Capability2">0</span>%<br />
-        Coding skillz: <span id="Capability3">0</span>%<br />
-        Bioweapon design: <span id="Capability4">0</span>%<br />
-        
         </div>
 
+        <b>AI Model Inference</b><br />
+        <hr>
         
         <div id="Inference Div">
         Daily profit per running model: $ <span id="DailyWage">0</span><br />   
@@ -450,7 +445,25 @@
 <!--Right Column-->
             
         <div id="middleColumn">
+
+
+            <!--GPU stuff-->
+            <div id="ModelDiv">    
+                <b>Current AI Model</b><br />
+                <hr>
+        
+            Capabilities of current model vs human perf:
+            <!--capability: <span id="AIcapabilities">0</span> <br /> -->
+            Image recognition: <span id="Capability1">0</span>%<br />
+            Translation: <span id="Capability2">0</span>%<br />
+            Coding skillz: <span id="Capability3">0</span>%<br />
+            Bioweapon design: <span id="Capability4">0</span>%<br />
             
+            <br />
+            <!--chart of AI capabilities -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <canvas id="CapabilitiesChart" style="width:100%;max-width:600px"></canvas>
+            </div>
             
             
         <div id="compDiv">    
