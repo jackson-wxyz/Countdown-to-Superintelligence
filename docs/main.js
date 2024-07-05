@@ -2579,7 +2579,7 @@ function updateStats(){
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Days").innerHTML = Days.toLocaleString();
     document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
-    document.getElementById("DailyWage").innerHTML = TrainPercent.toLocaleString();
+    document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString();
     
 
 
@@ -3457,8 +3457,7 @@ window.setInterval(function(){
     // }
 
     
-    TrainPercentDisplay = document.getElementById("InferenceSlider").value;
-    TrainPercent = document.getElementById("InferenceSlider").value/100;
+    TrainPercent = document.getElementById("InferenceSlider").value;
 
 
     
@@ -3797,9 +3796,9 @@ window.setInterval(function(){
     }    
 
     
-    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent * 24/10;
+    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/10;
     DailyWage = AIcapabilities * 0.003; // * some factors based on projects and policies, idk??
-    GPUavgRev = DailyWage * GPUs*(1-TrainPercent); //could avoid a multiplication here i guess
+    GPUavgRev = DailyWage * GPUs*(100-TrainPercent)/100; //could avoid a multiplication here i guess
     jFunds = jFunds + GPUavgRev/10;
      
     

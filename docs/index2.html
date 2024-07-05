@@ -284,7 +284,7 @@
             
         <b>AI Model Training</b><br />
         <hr>
-        % of time devoted to training new model vs using old model: <span id="TrainPercentDisplay"></span>%<br />
+        % of time devoted to training new model vs using old model: <span id="TrainPercent"></span>%<br />
         <div class="slidecontainer">
             <input type="range" min="0" max="100" value="51" class="slider" id="InferenceSlider">
         </div>
@@ -301,7 +301,7 @@
         <div id="Inference Div">
         Model Size: <span id="AIcapabilities">0</span> GPU-hrs <br /> 
         <br />
-        Per-model profitability: $<span id="DailyWage">0</span> / day<br />   
+        Per-model profitability: $<span id="DailyWage"></span> / day<br />   
         Total profit: $<span id="GPUavgRev">0</span> / day<br /> <!-- (skillz * % for inference)-->
         <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
          
