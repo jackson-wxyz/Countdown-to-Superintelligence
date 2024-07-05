@@ -33,7 +33,7 @@ var project2 = {
     title: "Image-recognition app ",
     priceTag: "($4,000; Image recognition at 50% of human perf)",
     description: "Develop an app so your GPUs can earn money classifying pictures",
-    trigger: function(){return portTotal<wireCost && funds<wireCost && wire<1 && unsoldClips<1},
+    trigger: function(){return Capability1>=0.01},
     uses: 1,
     cost: function(){return jFunds>=4000},
     flag: 0,

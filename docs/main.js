@@ -380,13 +380,13 @@ if (GPUBuyerFlag==1) {
     document.getElementById("GPUBuyerDiv").style.display="none";    
     }
     
-// if (InferenceSliderFlag==1) {
-//     document.getElementById("InferenceSlideSection").style.display="";
-//     document.getElementById("InferenceDiv").style.display="";
-//     } else {
-//     document.getElementById("InferenceSlideSection").style.display="none";  
-//     document.getElementById("InferenceDiv").style.display="none";   
-//     }
+if (InferenceSliderFlag==1) {
+    document.getElementById("InferenceSlideSection").style.display="";
+    document.getElementById("InferenceDiv").style.display="";
+    } else {
+    document.getElementById("InferenceSlideSection").style.display="none";  
+    document.getElementById("InferenceDiv").style.display="none";   
+    }
 
 if (TrainedModelFlag==1) {
     document.getElementById("ModelDiv").style.display="";
