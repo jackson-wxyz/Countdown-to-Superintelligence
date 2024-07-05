@@ -13,8 +13,8 @@ var DailyWage = 0.01;
 var GPUBuyerFlag = 0;
 var GPUBuyerStatus = 0;
 
-var InferenceSliderFlag = 0;
-var TrainedModelFlag = 0;
+var InferenceSliderFlag = 1;
+var TrainedModelFlag = 1;
 
 var Capability1 = 0;
 var Capability2 = 0;
@@ -79,7 +79,7 @@ var strategyEngineFlag = 0;
 var investmentEngineFlag = 0;
 var revPerSecFlag = 0;
 var compFlag = 0;
-var projectsFlag = 0;
+var projectsFlag = 1;
 var autoClipperFlag = 0;
 var megaClipperFlag = 0;
 var megaClipperCost = 500;
