@@ -1775,15 +1775,15 @@ function TrainAI(){
             display: true,
             text: "Current Model Capabilities, % of human perf:"
             }
-        },
-        scales: {
-            y: {
-                display: true,
-                type: 'logarithmic',
-                min: 1,
-                max: 1000
-            }
-        }
+        }//,
+        // scales: {
+        //     y: {
+        //         display: true,
+        //         type: 'logarithmic'//,
+        //         //min: 1,
+        //         //max: 1000
+        //     }
+        // }
     });
     } else {
     displayMessage("Can't train a bigger AI model; not enough GPU hours!");
