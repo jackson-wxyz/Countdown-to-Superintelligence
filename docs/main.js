@@ -3477,8 +3477,7 @@ window.setInterval(function(){
 
 
     
-    TrainPercentDisplay = document.getElementById("InferenceSlider").value;
-    TrainPercent = document.getElementById("InferenceSlider").value/100;
+    TrainPercent = (document.getElementById("InferenceSlider").value)/100;
 
 
     
@@ -3818,6 +3817,7 @@ window.setInterval(function(){
 
     
     GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent * 24/10;
+    TrainPercentDisplay = TrainPercent * 100;
     DailyWage = AIcapabilities * 0.003; // * some factors based on projects and policies, idk??
     GPUavgRev = DailyWage * GPUs*(1-TrainPercent); //could avoid a multiplication here i guess
     jFunds = jFunds + GPUavgRev/10;
