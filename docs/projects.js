@@ -10,7 +10,7 @@ var project1 = {
     title: "Academic Grants",
     priceTag: "(Image recognition at 10% of human perf)",
     description: "What a fascinating classifier you've built...",
-    trigger: function(){return Capability1>=10},
+    trigger: function(){return Capability1>=0.001},
     uses: 1,
     cost: function(){return jFunds>=0},
     flag: 0,

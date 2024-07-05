@@ -2885,11 +2885,11 @@ function milestoneCheck(){
     //     displayMessage("Trust-Constrained Self-Modification enabled");
     // }
     
-    if (compFlag == 0 && Math.ceil(clips) >= 2000){    
-        compFlag = 1;    
-        projectsFlag = 1;
-        displayMessage("Trust-Constrained Self-Modification enabled");
-    }
+    // if (compFlag == 0 && Math.ceil(clips) >= 2000){    
+    //     compFlag = 1;    
+    //     projectsFlag = 1;
+    //     displayMessage("Trust-Constrained Self-Modification enabled");
+    // }
         
         
     if (milestoneFlag == 3 && Math.ceil(clips) >= 10000){
