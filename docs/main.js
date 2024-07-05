@@ -1742,6 +1742,8 @@ function toggleGPUBuyer(){
 function TrainAI(){
     
     if(GPUhours > AIcapabilities){     //some kind of check to make sure you can't train a weaker AI than your last one...
+    
+    TrainedModelFlag = 1;
         
     AIcapabilities = GPUhours;
     GPUhours = 0;
