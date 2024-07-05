@@ -373,13 +373,35 @@ if (wireBuyerFlag==1) {
     } else {
     document.getElementById("wireBuyerDiv").style.display="none";    
     }
-    
+//GPU stuff
 if (GPUBuyerFlag==1) {
     document.getElementById("GPUBuyerDiv").style.display="";
     } else {
     document.getElementById("GPUBuyerDiv").style.display="none";    
     }
     
+if (InferenceSliderFlag==1) {
+    document.getElementById("InferenceSlideSection").style.display="";
+    document.getElementById("InferenceDiv").style.display="";
+    } else {
+    document.getElementById("InferenceSlideSection").style.display="none";  
+    document.getElementById("InferenceDiv").style.display="none";   
+    }
+
+if (TrainedModelFlag==1) {
+    document.getElementById("ModelDiv").style.display="";
+    } else {
+    document.getElementById("ModelDiv").style.display="none";   
+    }
+
+
+
+
+
+
+
+
+
 if (resultsFlag == 1 && autoTourneyFlag == 1 && autoTourneyStatus ==1 && document.getElementById("tournamentResultsTable").style.display == "") {
     resultsTimer++;
     
@@ -2835,6 +2857,10 @@ function calculateOperations(){
 
 function milestoneCheck(){
     
+    if (TrainedModelFlag == 1){  
+        projectsFlag = 1;
+        displayMessage("Interesting model; consider applying for a grant?");
+    }
     
     if (milestoneFlag == 0 && funds >= 5){
         milestoneFlag = milestoneFlag + 1;
@@ -2850,12 +2876,11 @@ function milestoneCheck(){
         displayMessage("1,000 clips created in " + timeCruncher(ticks));
     }
     
-    
-    if (compFlag == 0 && unsoldClips<1 && funds<wireCost && wire<1){
-        compFlag = 1;    
-        projectsFlag = 1;
-        displayMessage("Trust-Constrained Self-Modification enabled");
-    }
+    // if (compFlag == 0 && unsoldClips<1 && funds<wireCost && wire<1){
+    //     compFlag = 1;    
+    //     projectsFlag = 1;
+    //     displayMessage("Trust-Constrained Self-Modification enabled");
+    // }
     
     if (compFlag == 0 && Math.ceil(clips) >= 2000){    
         compFlag = 1;    

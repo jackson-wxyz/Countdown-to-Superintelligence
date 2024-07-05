@@ -253,7 +253,7 @@
             
         <div id="GPUDiv">
             
-        <b>GPU Stuff</b><br />
+        <b>GPU Computing Cluster</b><br />
         <hr>
         <!-- GPU stuff -->
         <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button><br />
@@ -284,23 +284,25 @@
             
         <b>AI Model Training</b><br />
         <hr>
-        % of time devoted to training new model vs using old model: <span id="TrainPercentDisplay"></span>%<br />
+        <div id="InferenceSlideSection"></div>
+        GPUs devoted to training vs inference: <span id="TrainPercentDisplay"></span>%<br />
         <div class="slidecontainer">
             <input type="range" min="0" max="100" value="51" class="slider" id="InferenceSlider">
         </div>
+        </div>
 
-        Training hours (GPUs * calendar hours * algo efficiency * percent for training... aka effective FLOPs): <span id="GPUhours">0</span><br /> <!-- This is just GPUs & algorithmic efficiency -->
+        Effective compute used for training: <span id="GPUhours">0</span><br /> GPU-hrs <!-- This is just GPUs & algorithmic efficiency -->
         <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize new Model (uses all GPU training hours) </button><br />
         <br />
 
         </div>
 
+        
+        <div id="InferenceDiv">
+        
         <b>AI Model Inference</b><br />
         <hr>
         
-        <div id="Inference Div">
-        Model Size: <span id="AIcapabilities">0</span> GPU-hrs <br /> 
-        <br />
         Per-model profitability: $<span id="DailyWage">0</span> / day<br />   
         Total profit: $<span id="GPUavgRev">0</span> / day<br /> <!-- (skillz * % for inference)-->
         <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
@@ -458,6 +460,8 @@
             <div id="ModelDiv">    
                 <b>Current AI Model</b><br />
                 <hr>
+                
+            Model Size: <span id="AIcapabilities">0</span> GPU-hrs <br /> 
         
             Capabilities of current model vs human perf:
             <!--capability: <span id="AIcapabilities">0</span> <br /> -->

@@ -7,19 +7,17 @@ var activeProjects = [];
 
 var project1 = {
     id: "projectButton1",
-    title: "Improved AutoClippers ",
-    priceTag: "(750 ops)",
-    description: "Increases AutoClipper performance 25%",
-    trigger: function(){return clipmakerLevel>=1},
+    title: "Academic Grants",
+    priceTag: "(Image recognition at 10% of human perf)",
+    description: "What a fascinating classifier you've built...",
+    trigger: function(){return Capability1>=10},
     uses: 1,
-    cost: function(){return operations>=750},
+    cost: function(){return jFunds>=0},
     flag: 0,
     effect: function(){
         project1.flag = 1;
-        displayMessage("AutoClippper performance boosted by 25%");
-        standardOps = standardOps - 750;
-        clipperBoost = clipperBoost + .25;
-        boostLvl = 1;
+        displayMessage("You get $10K to continue your AI research");
+        jFunds = jFunds + 10000;
         var element = document.getElementById("projectButton1");
         element.parentNode.removeChild(element);
         var index = activeProjects.indexOf(project1);
@@ -32,19 +30,21 @@ projects.push(project1);
 
 var project2 = {
     id: "projectButton2",
-    title: "Beg for More Wire ",
-    priceTag: "(1 Trust)",
-    description: "Admit failure, ask for budget increase to cover cost of 1 spool",
+    title: "Image-recognition app ",
+    priceTag: "($4,000; Image recognition at 50% of human perf)",
+    description: "Develop an app so your GPUs can earn money classifying pictures",
     trigger: function(){return portTotal<wireCost && funds<wireCost && wire<1 && unsoldClips<1},
     uses: 1,
-    cost: function(){return trust>=-100},
+    cost: function(){return jFunds>=4000},
     flag: 0,
     effect: function(){
         project2.flag = 1;
-        displayMessage("Budget overage approved, 1 spool of wire requisitioned from HQ");
-        trust = trust - 1;
-        wire = wireSupply;
-        project2.uses = (project2.uses + 1);
+        displayMessage("Each GPU can now earn $0.05/hr doing inference");
+        jFunds = jFunds - 4000;
+        InferenceSliderFlag = 1;
+        TrainPercent = 0.75;
+        TrainPercentDisplay = 75;
+        //idk, revamp the income system somehow...
         var element = document.getElementById("projectButton2");
         element.parentNode.removeChild(element);
         var index = activeProjects.indexOf(project2);
@@ -57,9 +57,9 @@ projects.push(project2);
 
 var project3 = {
     id: "projectButton3",
-    title: "Creativity ",
-    priceTag: "(1,000 ops)",
-    description: "Use idle operations to generate new problems and new solutions",
+    title: "Stack more layers ", // pure capabilities boosts: scaling laws, quantilization (boosts inference disproportionately), switch to next-gen GPUs (good excuse to cut zeros from some numbers), etc 
+    priceTag: "(10 research points)",
+    description: "Make your GPUs more effective with a deeper neural net",
     trigger: function(){return operations>=(memory*1000)},
     uses: 1,
     cost: function(){return operations>=(1000)},
@@ -77,6 +77,79 @@ var project3 = {
 }
 
 projects.push(project3);
+
+// var project1 = {
+//     id: "projectButton1",
+//     title: "Improved AutoClippers ",
+//     priceTag: "(750 ops)",
+//     description: "Increases AutoClipper performance 25%",
+//     trigger: function(){return clipmakerLevel>=1},
+//     uses: 1,
+//     cost: function(){return operations>=750},
+//     flag: 0,
+//     effect: function(){
+//         project1.flag = 1;
+//         displayMessage("AutoClippper performance boosted by 25%");
+//         standardOps = standardOps - 750;
+//         clipperBoost = clipperBoost + .25;
+//         boostLvl = 1;
+//         var element = document.getElementById("projectButton1");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(project1);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+
+// projects.push(project1);
+
+
+// var project2 = {
+//     id: "projectButton2",
+//     title: "Beg for More Wire ",
+//     priceTag: "(1 Trust)",
+//     description: "Admit failure, ask for budget increase to cover cost of 1 spool",
+//     trigger: function(){return portTotal<wireCost && funds<wireCost && wire<1 && unsoldClips<1},
+//     uses: 1,
+//     cost: function(){return trust>=-100},
+//     flag: 0,
+//     effect: function(){
+//         project2.flag = 1;
+//         displayMessage("Budget overage approved, 1 spool of wire requisitioned from HQ");
+//         trust = trust - 1;
+//         wire = wireSupply;
+//         project2.uses = (project2.uses + 1);
+//         var element = document.getElementById("projectButton2");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(project2);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+
+// projects.push(project2);
+
+
+// var project3 = {
+//     id: "projectButton3",
+//     title: "Creativity ",
+//     priceTag: "(1,000 ops)",
+//     description: "Use idle operations to generate new problems and new solutions",
+//     trigger: function(){return operations>=(memory*1000)},
+//     uses: 1,
+//     cost: function(){return operations>=(1000)},
+//     flag: 0,
+//     effect: function(){
+//         project3.flag = 1;
+//         displayMessage("Creativity unlocked (creativity increases while operations are at max)");
+//         standardOps = standardOps - 1000;
+//         creativityOn = true;
+//         var element = document.getElementById("projectButton3");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(project3);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+
+// projects.push(project3);
 
 
 
