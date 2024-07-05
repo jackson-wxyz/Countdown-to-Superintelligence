@@ -388,11 +388,11 @@ if (GPUBuyerFlag==1) {
 //     document.getElementById("InferenceDiv").style.display="none";   
 //     }
 
-// if (TrainedModelFlag==1) {
-//     document.getElementById("ModelDiv").style.display="";
-//     } else {
-//     document.getElementById("ModelDiv").style.display="none";   
-//     }
+if (TrainedModelFlag==1) {
+    document.getElementById("ModelDiv").style.display="";
+    } else {
+    document.getElementById("ModelDiv").style.display="none";   
+    }
 
 
 
@@ -2861,7 +2861,7 @@ function calculateOperations(){
 
 function milestoneCheck(){
     
-    if (TrainedModelFlag == 1){  
+    if (TrainedModelFlag == 1 && projectsFlag ==0){  
         projectsFlag = 1;
         displayMessage("Interesting model; consider applying for a grant?");
     }
