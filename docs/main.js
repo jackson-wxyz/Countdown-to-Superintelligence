@@ -1741,7 +1741,7 @@ function toggleGPUBuyer(){
 
 function TrainAI(){
     
-    if(GPUhours >= AIcapabilities){     //some kind of check to make sure you can't train a weaker AI than your last one...
+    if(GPUhours > AIcapabilities){     //some kind of check to make sure you can't train a weaker AI than your last one...
         
     AIcapabilities = GPUhours;
     GPUhours = 0;
@@ -2601,7 +2601,8 @@ function updateStats(){
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Days").innerHTML = Days.toLocaleString();
     document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString();
-    document.getElementById("DailyWage").innerHTML = TrainPercent.toLocaleString();
+    document.getElementById("TrainPercentDisplay").innerHTML = TrainPercentDisplay.toLocaleString();
+    document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString();
     
 
 
@@ -3471,15 +3472,6 @@ window.setInterval(function(){
         buyGPU();
     }   
 
-
-
-    // Update the current slider value (each time you drag the slider handle)
-    // slider = document.getElementById("InferenceSlider");
-    // output.innerHTML = slider.value; // Display the default slider value
-    // slider.oninput = function() {
-    //     TrainPercent = this.value;
-    //     document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
-    // }
 
     
     TrainPercentDisplay = document.getElementById("InferenceSlider").value;
