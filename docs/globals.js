@@ -6,8 +6,7 @@ var GPUavgRev = 0;
 var GPUhours = 0;
 var Days = 0;
 var AIcapabilities = 0; // find some way of turning "gpuhours" into an actual metric like FLOPs, to enable greater realism
-var TrainPercent = 1;
-var TrainPercentDisplay = 100;
+var TrainPercent = 100;
 var DailyWage = 0.01;
 
 var GPUBuyerFlag = 0;

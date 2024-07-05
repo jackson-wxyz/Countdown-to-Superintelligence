@@ -10,7 +10,7 @@ var project1 = {
     title: "Academic Grants",
     priceTag: "(Image recognition at 10% of human perf)",
     description: "What a fascinating classifier you've built...",
-    trigger: function(){return Capability1>=0.001},
+    trigger: function(){return jFunds>=1},
     uses: 1,
     cost: function(){return jFunds>=0},
     flag: 0,
@@ -42,8 +42,7 @@ var project2 = {
         displayMessage("Each GPU can now earn $0.05/hr doing inference");
         jFunds = jFunds - 4000;
         InferenceSliderFlag = 1;
-        TrainPercent = 0.75;
-        TrainPercentDisplay = 75;
+        TrainPercent = 75;
         //idk, revamp the income system somehow...
         var element = document.getElementById("projectButton2");
         element.parentNode.removeChild(element);

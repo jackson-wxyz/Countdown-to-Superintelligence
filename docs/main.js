@@ -3816,10 +3816,9 @@ window.setInterval(function(){
     }    
 
     
-    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent * 24/10;
-    TrainPercentDisplay = TrainPercent * 100;
+    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/10;
     DailyWage = AIcapabilities * 0.003; // * some factors based on projects and policies, idk??
-    GPUavgRev = DailyWage * GPUs*(1-TrainPercent); //could avoid a multiplication here i guess
+    GPUavgRev = DailyWage * GPUs*(100-TrainPercent)/100; //could avoid a multiplication here i guess
     jFunds = jFunds + GPUavgRev/10;
      
     
