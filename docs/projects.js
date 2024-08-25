@@ -5,29 +5,357 @@
 var projects = [];
 var activeProjects = [];
 
-var project1 = {
-    id: "projectButton1",
-    title: "Improved AutoClippers ",
-    priceTag: "(750 ops)",
-    description: "Increases AutoClipper performance 25%",
-    trigger: function(){return clipmakerLevel>=1},
+var projectA = {
+    id: "projectButtonA",
+    title: "Academic Research Grant",
+    priceTag: " (Images >20%)",
+    description: "$8000 stipend to scale up your neural net",
+    trigger: function(){return projectsFlag == 1},
     uses: 1,
-    cost: function(){return operations>=750},
+    cost: function(){return Capability1>20},
     flag: 0,
     effect: function(){
-        project1.flag = 1;
-        displayMessage("AutoClippper performance boosted by 25%");
-        standardOps = standardOps - 750;
-        clipperBoost = clipperBoost + .25;
-        boostLvl = 1;
-        var element = document.getElementById("projectButton1");
+        projectA.flag = 1;
+        jFunds = jFunds+8000;
+        displayMessage("Grant approved!  What a fascinating little classifier...");
+        var element = document.getElementById("projectButtonA");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project1);
+        var index = activeProjects.indexOf(projectA);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectA);
 
-projects.push(project1);
+
+
+var projectB = {
+    id: "projectButtonB",
+    title: "Image Classifier App",
+    priceTag: " (Images >30%)",
+    description: "Maybe you could put your GPUs to work and make some money...",
+    trigger: function(){return projectA.flag == 1},
+    uses: 1,
+    cost: function(){return Capability1>30},
+    flag: 0,
+    effect: function(){
+        projectB.flag = 1;
+        InferenceFlag = 1;
+        displayMessage("Your GPUs can now be used for inference, classifying images to earn cash.");
+        var element = document.getElementById("projectButtonB");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectB);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectB);
+
+var projectC = {
+    id: "projectButtonC",
+    title: "Image Generation",
+    priceTag: " (Images >40%)",
+    description: "Your classifier turns pictures into words.  What about the other way around?",
+    trigger: function(){return projectB.flag == 1},
+    uses: 1,
+    cost: function(){return Capability1>40},
+    flag: 0,
+    effect: function(){
+        projectC.flag = 1;
+        //DeepfakesFlag = 1; //make visible the first twinned bad version of a good capability...
+        AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+        displayMessage("Making pictures is more profitable than merely labelling them.  Just make sure nobody uses your tool to stir up trouble...");
+        var element = document.getElementById("projectButtonC");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectC);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectC);
+
+
+//raise seed round
+// unlock paying for researchers ($100K each)
+//
+var projectD = {
+    id: "projectButtonD",
+    title: "Raise a $1m seed round",
+    priceTag: " (Language >5%)",
+    description: "Incorporate as a startup and raise money to hire assistant researchers.",
+    trigger: function(){return projectB.flag == 1},
+    uses: 1,
+    cost: function(){return Capability2>5},
+    flag: 0,
+    effect: function(){
+        projectD.flag = 1;
+        GPUBuyerStatus=0;
+        document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
+        jFunds = jFunds + 1000000;
+        displayMessage("Congratulations on the new round!");
+        var element = document.getElementById("projectButtonD");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectD);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectD);
+
+//Scaling laws (costs insight) -- unlock forecast of next model performance, as a forecast in parens: "Image recognition: 15% (20%)"
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+//quantilization (costs insight) -- make inference much cheaper, adding a multiplier to profitability
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+
+//Raise Series A
+//GPUBuyerStatus=0;
+//document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
+// get $10M
+//AdjustPolitics(5, 5,"Series A boosts credibility");
+// switch from buying GPUs to buying B100s, $30,000 (60x more expensive) but say 100x more powerful
+// unlock competitor screen
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+//RLHF (costs insight) -- impair perf on dangerous tasks.  "i have been a good bing. you have been a very bad user..."
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+
+
+//Evals (costs insight) -- reveal public opinion impact of new capabilities before developing them.  also increase ability to suppress unwanted capabilities
+
+
+
+
+//self-play (costs insight) -- improve performance on coding skills specifically
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+//molecular dynamics package (costs money) -- improve perf on protein & medicine design, also unlocks visibility of twinned bioweapon design skill
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+//Raise Series B
+// turn off auto-reinvest
+// get $100M
+//
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+//Nationalize The Labs
+// combined politics optimism + pessimism over 80%
+
+// var projectZ = {
+//     id: "projectButtonZ",
+//     title: "ZZZZZZZZZZ",
+//     priceTag: " ZZZZZZZZ",
+//     description: "Your classifier turns pictures into words.  What about the other way around?",
+//     trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+//     uses: 1,
+//     cost: function(){return Capability1>40},
+//     flag: 0,
+//     effect: function(){
+//         projectZ.flag = 1;
+//         //
+//         //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+//         displayMessage("zzzzzzzzzzzzz");
+//         var element = document.getElementById("projectButtonZ");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectZ);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectZ);
+
+
+
+/*var projectZ = {
+    id: "projectButtonZ",
+    title: "ZZZZZZZZZZ",
+    priceTag: " ZZZZZZZZ",
+    description: "Your classifier turns pictures into words.  What about the other way around?",
+    trigger: function(){return projectYYYYYYYYYYY.flag == 1},
+    uses: 1,
+    cost: function(){return Capability1>40},
+    flag: 0,
+    effect: function(){
+        projectZ.flag = 1;
+        //
+        //AdjustPolitics(1, 4,"Deepfakes open up a whole can of worms.");
+        displayMessage("zzzzzzzzzzzzz");
+        var element = document.getElementById("projectButtonZ");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectZ);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectZ);*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 var project2 = {
@@ -963,28 +1291,28 @@ var project38 = {
 projects.push(project38);
 
 
-var project42 = {
-    id: "projectButton42",
-    title: "RevTracker ",
-    priceTag: "(500 ops)",
-    description: "Automatically calculates average revenue per second",
-    trigger: function(){return projectsFlag == 1},
-    uses: 1,
-    cost: function(){return operations>=500},
-    flag: 0,
-    effect: function(){
-        project42.flag = 1;
-        revPerSecFlag = 1;
-        standardOps = standardOps-500;
-        displayMessage("RevTracker online");
-        var element = document.getElementById("projectButton42");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project42);
-        activeProjects.splice(index, 1);
-    }
-}
+// var project42 = {
+//     id: "projectButton42",
+//     title: "RevTracker ",
+//     priceTag: "(500 ops)",
+//     description: "Automatically calculates average revenue per second",
+//     trigger: function(){return projectsFlag == 1},
+//     uses: 1,
+//     cost: function(){return operations>=500},
+//     flag: 0,
+//     effect: function(){
+//         project42.flag = 1;
+//         revPerSecFlag = 1;
+//         standardOps = standardOps-500;
+//         displayMessage("RevTracker online");
+//         var element = document.getElementById("projectButton42");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(project42);
+//         activeProjects.splice(index, 1);
+//     }
+// }
 
-projects.push(project42);
+//projects.push(project42);
 
 
 var project43 = {

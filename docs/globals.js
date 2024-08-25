@@ -1,28 +1,46 @@
+var Researchers = 0;
+var Insights = 0;
 
 var GPUs = 0;
 var algorithmicProgress = 0.20;
-var jFunds = 5000;
+var jFunds = 1000;
 var GPUavgRev = 0;
 var GPUhours = 0;
 var Days = 0;
 var AIcapabilities = 0; // find some way of turning "gpuhours" into an actual metric like FLOPs, to enable greater realism
-var TrainPercent = 75;
+var TrainPercent = 100;
 var DailyWage = 0.01;
 
 var GPUBuyerFlag = 0;
 var GPUBuyerStatus = 0;
+
+var TrainedModelFlag = 0;
+var InferenceFlag = 0;
 
 var Capability1 = 0;
 var Capability2 = 0;
 var Capability3 = 0;
 var Capability4 = 0;
 
+var Capability1_bad = 0;
+var Capability2_bad = 0;
+var Capability3_bad = 0;
+var Capability4_bad = 0;
+
 //CapabilityChart
 var xValues = ["Images", "Translation", "Coding", "Bio"];
 var yValues = [];
 var barColors = ["orange", "brown","blue","green"];
 
+//PoliticsChart
+var optimism = 0;
+var pessimism = 0
 
+var rawData = [
+    {uninterested:100,pessimist:0,optimist:0,label:'public doesn\'t care about AI'},
+    //{uninterested:75,pessimist:25,optimist:0,label:'public opinion 2'},
+    //{uninterested:65,pessimist:25,optimist:10,label:'public opinion 3'},
+];;
 
 
 var clips = 0;
