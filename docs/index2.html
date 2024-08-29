@@ -39,7 +39,7 @@
             </div>        
         <div class = "toolTip">
             <span id = "clipCountCrunched" class = "toolTipText">total clips produced</span>    
-            <h3>Paperclips: <span id="clips">0</span></h3>
+            <h3>Training Compute: <span id="GPUhours">0</span></h3>
             Dec 11, 2015 (this should change 1 day per second... actual number of days elapsed: <span id="Days">0</span>)
         </div>
     </div>    
@@ -354,7 +354,12 @@
             - 
         - idk
         - 
-        - 
+        - scaling path
+        - to double every 1.5 mins (thus OOM every 4.5 mins)
+        ...need the training of 45 secs to make a model that can generate $500 over next 45 secs.
+        - and since base capability only 3xes per OOM / 1.4xes per doubling, we need 3 1.4x bonuses per OOM,
+        ..one bonus every 45 seconds, remember to reckon this INCLUSIVE OF COST
+
         -->
 
         <br />

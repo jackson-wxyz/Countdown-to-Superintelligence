@@ -357,7 +357,7 @@ function buttonUpdate(){
         document.getElementById("swarmSliderDiv").style.display="none";
     }
     
-    document.getElementById("clipCountCrunched").innerHTML = numberCruncher(clips, 1);
+    document.getElementById("clipCountCrunched").innerHTML = numberCruncher(GPUhours, 1);
     
     if (autoTourneyFlag==1) {
         document.getElementById("autoTourneyStatusDiv").style.display="";
@@ -377,6 +377,12 @@ function buttonUpdate(){
         }
 
         //GPU Stuff, making sections appear and disappear
+    if (GPU_Flag==1) {
+        document.getElementById("GPUDiv").style.display="";
+        } else {
+        document.getElementById("GPUDiv").style.display="none";    
+        }
+
     if (GPUBuyerFlag==1) {
         document.getElementById("GPUBuyerDiv").style.display="";
         } else {
@@ -2044,11 +2050,11 @@ function TrainAI(){
     GPUhours = 0;
 
     BaseCapability = Math.log10(AIcapabilities)*10;
-    Skill_Visu = BaseCapability + Skill_Visu_mod; //25% to 125%
-    Skill_Lang = BaseCapability + Skill_Lang_mod; //15% to 115%
-    Skill_Code = BaseCapability + Skill_Code_mod; //10% to 110%
-    Skill_Biol = BaseCapability + Skill_Biol_mod; //0% to 95%
-    Skill_Robo = BaseCapability + Skill_Robo_mod; //-5% to 85%
+    Skill_Visu = BaseCapability*2.0 + Skill_Visu_mod;
+    Skill_Lang = BaseCapability*1.5 + Skill_Lang_mod;
+    Skill_Code = BaseCapability*2.5 + Skill_Code_mod;
+    Skill_Biol = BaseCapability*2.0 + Skill_Biol_mod;
+    Skill_Robo = BaseCapability*2.5 + Skill_Robo_mod;
 
 
     displayMessage("You just trained a bigger AI model!");
@@ -3282,11 +3288,7 @@ function calculateOperations(){
 
 
 function milestoneCheck(){
-    if (milestoneFlag == 0 && Skill_Visu > 0.1){
-        milestoneFlag = milestoneFlag + 1;
-        projectsFlag = 1;
-        //displayMessage("Projects??");
-    }
+    projectsFlag = 1;
     
     if (milestoneFlag == 0 && funds >= 5){
         milestoneFlag = milestoneFlag + 1;
@@ -4251,7 +4253,7 @@ window.setInterval(function(){
     //GPUhours per GPU over 90 secs = 24/10*900 = 6480
 
     //Training Hours
-    GPUhours = GPUhours + GPUs * 24/5;
+    GPUhours = GPUhours + GPUs/5; //Exaflops
 
     //Revenue
     var BaseRev = Math.sqrt(AIcapabilities/3888*5);
@@ -4290,11 +4292,11 @@ window.setInterval(function(){
     
     if (ScalingFlag == 1){
         BaseCapability = Math.log10(GPUhours)*10;
-        Skill_Visu_Scale = BaseCapability + Skill_Visu_mod; //25% to 125%
-        Skill_Lang_Scale = BaseCapability + Skill_Lang_mod; //15% to 115%
-        Skill_Code_Scale = BaseCapability + Skill_Code_mod; //10% to 110%
-        Skill_Biol_Scale = BaseCapability + Skill_Biol_mod; //0% to 95%
-        Skill_Robo_Scale = BaseCapability + Skill_Robo_mod; //-5% to 85%
+        Skill_Visu_Scale = BaseCapability*2.0 + Skill_Visu_mod;
+        Skill_Lang_Scale = BaseCapability*1.5 + Skill_Lang_mod;
+        Skill_Code_Scale = BaseCapability*2.5 + Skill_Code_mod;
+        Skill_Biol_Scale = BaseCapability*2.0 + Skill_Biol_mod;
+        Skill_Robo_Scale = BaseCapability*2.5 + Skill_Robo_mod;
         document.getElementById("Skill_Visu_Scale").innerHTML = Skill_Visu_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         document.getElementById("Skill_Lang_Scale").innerHTML = Skill_Lang_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         document.getElementById("Skill_Code_Scale").innerHTML = Skill_Code_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});

@@ -2,8 +2,36 @@
 var projects = [];
 var activeProjects = [];
 
-//Image classifier app, Visual 25%
+//OOM 1
+
+//read the sequences -- would be a funny way to start things off, free insight that unlocks train AI button
+//unlock train AI button
+//displaymessage= quote from power of intelligence or something
 var projectA = {
+    id: "projectButtonA",
+    title: "Read the Sequences",
+    priceTag: " ",
+    description: "Superintelligent AI would remake the planet.  But to what end?",
+    trigger: function(){return projectsFlag == 1},
+    uses: 1,
+    cost: function(){return Skill_Visu>24.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("'If one does not quite understand that power which put footprints on the Moon, nonetheless, the footprints are still there.'");
+        GPU_Flag = 1;
+
+        projectA.flag = 1;
+        var element = document.getElementById("projectButtonA");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectA);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectA);
+
+
+//Visu_1, Image classifier app, Visual 25%
+var projectVisu = {
     id: "projectButtonA",
     title: "Image Classifier App",
     priceTag: " (Visual 25%+)",
@@ -23,7 +51,12 @@ var projectA = {
         activeProjects.splice(index, 1);
     }
 }
-projects.push(projectA);
+projects.push(projectVisu);
+
+
+
+
+//OOM 2
 
 //$4000 research grant, Visual 30%
 var projectB = {
@@ -47,206 +80,6 @@ var projectB = {
     }
 }
 projects.push(projectB);
-
-//Attend ML conference, gain insight, costs $200
-var projectE = {
-    id: "projectButtonE",
-    title: "Attend ML conference",
-    priceTag: " ($200)",
-    description: "Meeting fellow researchers might spark insights.",
-    trigger: function(){return (projectB.flag == 1) && (GPUs>7)},
-    uses: 1,
-    cost: function(){return jFunds>200},
-    flag: 0,
-    effect: function(){
-        displayMessage("Attend ML conference: People still aren't taking the Bitter Lesson seriously, you think.  What if scale was all you need?");
-        jFunds = jFunds-200;
-        Insights = Insights +1;
-        AISFlag = 1;
-
-        projectE.flag = 1;
-        var element = document.getElementById("projectButtonE");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectE);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectE);
-
-//translation app, 1 insight
-var projectD = {
-    id: "projectButtonD",
-    title: "Machine Translation",
-    priceTag: " (1 insight)",
-    description: "Try applying a neural net to tokens, not pixels...",
-    trigger: function(){return projectB.flag == 1},
-    uses: 1,
-    cost: function(){return Skill_Lang>9.5 && Insights>0},
-    flag: 0,
-    effect: function(){
-        displayMessage("Machine translation: is this statistical model of language just a stochastic parrot, or is their real world-modeling somewhere in there?");
-        Insights = Insights -1;
-        Lang_Flag = 1;
-
-        projectD.flag = 1;
-        var element = document.getElementById("projectButtonD");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectD);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectD);
-
-//web crawl, $2000
-var projectD2 = {
-    id: "projectButtonD2",
-    title: "Web crawl",
-    priceTag: " ($2000)",
-    description: "Scrape websites for text to use as training data. (+100% boost to Language profits)",
-    trigger: function(){return (projectD.flag == 1)},
-    uses: 1,
-    cost: function(){return  jFunds>2000},
-    flag: 0,
-    effect: function(){
-        displayMessage("The internet seems boundless, but pretty soon you're going to need even more tokens...");
-        jFunds = jFunds -2000;
-        Skill_Lang_mod = Skill_Lang_mod + 3;
-        Skill_Lang = Skill_Lang + 3;
-        Profit_Lang_1 = Profit_Lang_1 * 2;
-        Profit_Lang_2 = Profit_Lang_2 * 2;
-        Profit_Lang_3 = Profit_Lang_3 * 2;
-
-        projectD.flag = 1;
-        var element = document.getElementById("projectButtonD2");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectD2);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectD2);
-
-//chatbot, language 30%
-var projectI = {
-    id: "projectButtonI",
-    title: "Chatbot App",
-    priceTag: " (Lang. 30%+)",
-    description: "Fine-tune your LLM for engaging conversations with users.",
-    trigger: function(){return projectH.flag == 1},
-    uses: 1,
-    cost: function(){return Skill_Lang>29.5},
-    flag: 0,
-    effect: function(){
-        displayMessage("Chatbot App: 'I have been a good Bing.  You have been a very bad user.'");
-        Lang_Flag = 2;
-        PoliticsFlag=1;
-
-        projectI.flag = 1;
-        var element = document.getElementById("projectButtonI");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectI);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectI);
-
-//digitize libraries, $5000
-var projectI2 = {
-    id: "projectButtonI2",
-    title: "Digitize libraries",
-    priceTag: " ($5,000)",
-    description: "Many high-quality tokens aren't even on the web. (+50% Language boost)",
-    trigger: function(){return (projectD2.flag == 1)},
-    uses: 1,
-    cost: function(){return  jFunds>5000},
-    flag: 0,
-    effect: function(){
-        displayMessage("Digitize libraries: not as much data as the internet, but books' higher average quality will help you fine-tune your LLMs.");
-        jFunds = jFunds -5000;
-        Skill_Lang_mod = Skill_Lang_mod + 1.75;
-        Skill_Lang = Skill_Lang + 1.75;
-        Profit_Lang_1 = Profit_Lang_1 * 1.5;
-        Profit_Lang_2 = Profit_Lang_2 * 1.5;
-        Profit_Lang_3 = Profit_Lang_3 * 1.5;
-
-        projectI2.flag = 1;
-        var element = document.getElementById("projectButtonI2");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectI2);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectI2);
-
-//Publish paper, gain insight, visual 35%
-var projectF = {
-    id: "projectButtonF",
-    title: "Publish paper",
-    priceTag: " (Visual 35%+)",
-    description: "Solicit feedback on your current ML architecture (+3 insight)",
-    trigger: function(){return projectD.flag == 1},
-    uses: 1,
-    cost: function(){return Skill_Visu>34.5},
-    flag: 0,
-    effect: function(){
-        displayMessage("Publish paper: Everyone says to just stack more layers...");
-        Insights = Insights +3;
-
-        projectF.flag = 1;
-        var element = document.getElementById("projectButtonF");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectF);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectF);
-
-//Scaling laws (costs insight)
-var projectH = {
-    id: "projectButtonH",
-    title: "Scaling Laws",
-    priceTag: " (2 insight)",
-    description: "Predict the benchmark performance of larger training runs.",
-    trigger: function(){return projectD.flag == 1},
-    uses: 1,
-    cost: function(){return Insights > 0},
-    flag: 0,
-    effect: function(){
-        displayMessage("Scaling laws: they're helpful, but they can't answer the most important question -- how close are we to transformative capabilities?");
-        ScalingFlag = 1;
-        Insights = Insights -2;
-        //TODO: ALSO unlock cool graph of capabilities!
-
-        projectH.flag = 1;
-        var element = document.getElementById("projectButtonH");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectH);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectH);
-
-//do image generation, also unlock threats panel but not yet public opinion panel, Visual 45%, 2 insight
-var projectC = {
-    id: "projectButtonC",
-    title: "Image Generation",
-    priceTag: " (Visual 45%+)",
-    description: "Your classifier turns pictures into words.  What about the other way around?",
-    trigger: function(){return projectF.flag == 1},
-    uses: 1,
-    cost: function(){return Skill_Visu>44.5},
-    flag: 0,
-    effect: function(){
-        displayMessage("Image Generation: Making pictures is more profitable than merely labelling them.  Just make sure nobody uses your tool to stir up trouble...");
-        Visu_Flag = 2;
-
-        projectC.flag = 1;
-        var element = document.getElementById("projectButtonC");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectC);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectC);
 
 //Adversarial robustness (costs insight)
 //use jittering, etc, to defeat adversarial attacks and strengthen image classifer performance
@@ -279,10 +112,220 @@ var projectC2 = {
 projects.push(projectC2);
 
 
-//cheat project to help get out the gate fast during development
-//        jFunds = jFunds + 1000000;
-//        GPUBuyerStatus=0;
-//        document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
+//translation app, 1 insight
+var projectD = {
+    id: "projectButtonD",
+    title: "Machine Translation",
+    priceTag: " (1 insight)",
+    description: "Try applying a neural net to tokens, not pixels...",
+    trigger: function(){return projectB.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Lang>9.5 && Insights>0},
+    flag: 0,
+    effect: function(){
+        displayMessage("Machine translation: is this statistical model of language just a stochastic parrot, or is their real world-modeling somewhere in there?");
+        Insights = Insights -1;
+        Lang_Flag = 1;
+
+        projectD.flag = 1;
+        var element = document.getElementById("projectButtonD");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectD);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectD);
+
+//Scaling laws (visual %, lang %)
+var projectH = {
+    id: "projectButtonH",
+    title: "Scaling Laws",
+    priceTag: " (2 insight)",
+    description: "Predict the benchmark performance of larger training runs.",
+    trigger: function(){return projectD.flag == 1},
+    uses: 1,
+    cost: function(){return Insights > 0},
+    flag: 0,
+    effect: function(){
+        displayMessage("Scaling laws: they're helpful, but they can't answer the most important question -- how close are we to transformative capabilities?");
+        ScalingFlag = 1;
+        Insights = Insights -2;
+        //TODO: ALSO unlock cool graph of capabilities!
+
+        projectH.flag = 1;
+        var element = document.getElementById("projectButtonH");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectH);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectH);
+
+//Publish paper, gain insight, visual 35%
+var projectF = {
+    id: "projectButtonF",
+    title: "Publish paper",
+    priceTag: " (Visual 35%+)",
+    description: "Solicit feedback on your current ML architecture (+3 insight)",
+    trigger: function(){return projectD.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Visu>34.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Publish paper: Everyone says to just stack more layers...");
+        Insights = Insights +3;
+
+        projectF.flag = 1;
+        var element = document.getElementById("projectButtonF");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectF);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectF);
+
+
+
+//OOM 3
+
+//web crawl, $200
+var projectD2 = {
+    id: "projectButtonD2",
+    title: "Web crawl",
+    priceTag: " ($2000)",
+    description: "Scrape websites for text to use as training data. (+100% boost to Language profits)",
+    trigger: function(){return (projectD.flag == 1)},
+    uses: 1,
+    cost: function(){return  jFunds>2000},
+    flag: 0,
+    effect: function(){
+        displayMessage("The internet seems boundless, but pretty soon you're going to need even more tokens...");
+        jFunds = jFunds -2000;
+        Skill_Lang_mod = Skill_Lang_mod + 3;
+        Skill_Lang = Skill_Lang + 3;
+        Profit_Lang_1 = Profit_Lang_1 * 2;
+        Profit_Lang_2 = Profit_Lang_2 * 2;
+        Profit_Lang_3 = Profit_Lang_3 * 2;
+
+        projectD.flag = 1;
+        var element = document.getElementById("projectButtonD2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectD2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectD2);
+
+//do image generation, also unlock threats panel but not yet public opinion panel, Visual 45%
+var projectC = {
+    id: "projectButtonC",
+    title: "Image Generation",
+    priceTag: " (Visual 45%+)",
+    description: "Your classifier turns pictures into words.  What about the other way around?",
+    trigger: function(){return projectF.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Visu>44.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Image Generation: Making pictures is more profitable than merely labelling them.  Just make sure nobody uses your tool to stir up trouble...");
+        Visu_Flag = 2;
+
+        projectC.flag = 1;
+        var element = document.getElementById("projectButtonC");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectC);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectC);
+
+//introdce coding -- language 40%
+var projectK = {
+    id: "projectButtonK",
+    title: "Coding Assistant App",
+    priceTag: " (Lang. 40%+)",
+    description: "Use your LLM to catch typos in code, explain functions, etc.",
+    trigger: function(){return projectI.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Lang>39.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Chatbot App: 'I have been a good Bing.  You have been a very bad user.'");
+        Code_Flag = 1;
+
+        projectK.flag = 1;
+        var element = document.getElementById("projectButtonK");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectK);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectK);
+
+//introduce bio -- costs insight idk
+//would be great to have a starter "game" category, like alphago, which goes superhuman very early,
+//...and is used for thresholds, but never returns money (until it becomes geostrategic in superintelligence)
+
+//Attend ML conference, gain insight, costs $1000
+var projectE = {
+    id: "projectButtonE",
+    title: "Attend ML conference",
+    priceTag: " ($200)",
+    description: "Meeting fellow researchers might spark insights.",
+    trigger: function(){return (projectB.flag == 1) && (GPUs>7)},
+    uses: 1,
+    cost: function(){return jFunds>200},
+    flag: 0,
+    effect: function(){
+        displayMessage("Attend ML conference: People still aren't taking the Bitter Lesson seriously, you think.  What if scale was all you need?");
+        jFunds = jFunds-200;
+        Insights = Insights +1;
+        AISFlag = 1;
+
+        projectE.flag = 1;
+        var element = document.getElementById("projectButtonE");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectE);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectE);
+
+
+
+//OOM 4
+
+//chatbot, language 30%
+var projectI = {
+    id: "projectButtonI",
+    title: "Chatbot App",
+    priceTag: " (Lang. 30%+)",
+    description: "Fine-tune your LLM for engaging conversations with users.",
+    trigger: function(){return projectH.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Lang>29.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Chatbot App: 'I have been a good Bing.  You have been a very bad user.'");
+        Lang_Flag = 2;
+        PoliticsFlag=1;
+
+        projectI.flag = 1;
+        var element = document.getElementById("projectButtonI");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectI);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectI);
+
+//self-play (costs insight) -- improve performance on coding skills specifically
+//spring from project K
+
+//molecular dynamics package (costs money) -- improve perf on protein & medicine design
+
+//chip upgrade -- Buy cutting-edge A100 chips, 
+//100x more powerful than ordnary gaming gpus (1.67x boost) 
 
 //Incorporate and unlock paying for researchers ($200K each), -$30,000
 var projectG = {
@@ -310,6 +353,60 @@ projects.push(projectG);
 
 
 
+//OOM 5
+
+//digitize libraries, $50000
+var projectI2 = {
+    id: "projectButtonI2",
+    title: "Digitize libraries",
+    priceTag: " ($5,000)",
+    description: "Many high-quality tokens aren't even on the web. (+50% Language boost)",
+    trigger: function(){return (projectD2.flag == 1)},
+    uses: 1,
+    cost: function(){return  jFunds>5000},
+    flag: 0,
+    effect: function(){
+        displayMessage("Digitize libraries: not as much data as the internet, but books' higher average quality will help you fine-tune your LLMs.");
+        jFunds = jFunds -5000;
+        Skill_Lang_mod = Skill_Lang_mod + 1.75;
+        Skill_Lang = Skill_Lang + 1.75;
+        Profit_Lang_1 = Profit_Lang_1 * 1.5;
+        Profit_Lang_2 = Profit_Lang_2 * 1.5;
+        Profit_Lang_3 = Profit_Lang_3 * 1.5;
+
+        projectI2.flag = 1;
+        var element = document.getElementById("projectButtonI2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectI2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectI2);
+
+//pair programmer -- costs insight, plus coding threshold
+var projectK2 = {
+    id: "projectButtonK2",
+    title: "AI Pair Programmer",
+    priceTag: " (Lang. 50%+)",
+    description: "An app that can code autonomously at a junior-engineer level.",
+    trigger: function(){return projectK.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Lang>49.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Action Transformers: ");
+        Code_Flag = 2;
+
+        projectK2.flag = 1;
+        var element = document.getElementById("projectButtonK2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectK2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectK2);
+
+//introduce robo skill, visual threshold
 
 //quantilization (costs insight) -- make inference much cheaper, adding a multiplier to profitability
 var projectJ = {
@@ -351,42 +448,20 @@ var projectJ = {
 }
 projects.push(projectJ);
 
+//actually start buying researchers around this stage
 
-//introdce coding -- costs insight, language 40%
-var projectK = {
-    id: "projectButtonK",
-    title: "Coding Assistant App",
-    priceTag: " (Lang. 40%+)",
-    description: "Use your LLM as a virtual pair-programmer to explain functions, catch typos, etc.",
-    trigger: function(){return projectI.flag == 1},
-    uses: 1,
-    cost: function(){return Skill_Lang>39.5},
-    flag: 0,
-    effect: function(){
-        displayMessage("Chatbot App: 'I have been a good Bing.  You have been a very bad user.'");
-        Code_Flag = 1;
 
-        projectK.flag = 1;
-        var element = document.getElementById("projectButtonK");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectK);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectK);
 
-//self-play (costs insight) -- improve performance on coding skills specifically
-//spring from project K
-
-//tree-of-thought prompting -- costs insight, favors language
+//OOM 6
 
 //Video generation
 //only NOW do public opinion screen
 
-//RLHF (costs insight) -- impair perf on dangerous tasks.
-//trigger on project G and also video generation one...
+//tree-of-thought prompting -- costs insight, favors language +75%
 
-//multimodal: 
+//bio skill 2, protein design
+
+//multimodality: 
 var projectI3 = {
     id: "projectButtonI3",
     title: "Multimodality",
@@ -410,54 +485,18 @@ var projectI3 = {
 }
 projects.push(projectI3);
 
-//searching for more data -- costs money.  maybe youtube videos, etc, after multimodal
-//spring from I3
-
-
-//multimodal personal assistant
-//spring from I3
-
-//q-star learning -- costs insight, favors coding
-
-//synthetic data -- costs insight, favors coding & language
-
-//Pre-deployment Evals (costs dollars) -- further increase ability to suppress unwanted capabilities
-//trigger on RLHF project
-
-//action transformers -- costs insight, plus coding threshold
-var projectK2 = {
-    id: "projectButtonK2",
-    title: "Action Transformers",
-    priceTag: " (Lang. 50%+)",
-    description: "An app that can code autonomously at a junior-engineer level.",
-    trigger: function(){return projectK.flag == 1},
-    uses: 1,
-    cost: function(){return Skill_Lang>49.5},
-    flag: 0,
-    effect: function(){
-        displayMessage("Action Transformers: ");
-        Code_Flag = 2;
-
-        projectK2.flag = 1;
-        var element = document.getElementById("projectButtonK2");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectK2);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectK2);
+//action transformers
 
 
 
-//lobby for government funding for GPUs -- optimism over XX%
 
-//lobby for government funding for safety researchers -- optimism below XX%, 
+//OOM 7
 
-//(milestone events based on policy...)
+//robo skill 2, self-driving (robo + visual threshold)
 
+//custom hardware (costs money & insight idk)
 
-
-//action transformers -- costs insight, plus coding threshold
+//cybersecurity expert, coding threshold
 var projectK3 = {
     id: "projectButtonK3",
     title: "Cybersecurity expert",
@@ -480,7 +519,63 @@ var projectK3 = {
 }
 projects.push(projectK3);
 
-//molecular dynamics package (costs money) -- improve perf on protein & medicine design, also unlocks visibility of twinned bioweapon design skill
+//multimodal personal assistant, lang + visual threshold
+//spring from I3
+
+
+
+//OOM 8
+
+//NATIONALIZE THE LABS
+
+//keep: training compute, model size, most model skills (merge visual + language into "communication")
+//some measure of "deceptivness"...
+//
+
+//GPUS automatically increase; some percent of GDP is reinvested (this percent can be increased by events)
+//you can set how much to reinvest in GPUs vs spend on safety efforts, maybe?
+
+//GDP depends on amount of tasks automated, which is boosted by developing new capabilities...
+
+//each distinct category of threat gets its own line graph, or something...
+
+
+
+//searching for more data -- costs money.  maybe youtube videos, etc, after multimodal
+//spring from I3
+
+
+
+//AIS / PUBLIC OPINION STUFF
+//==================================================================================================
+
+//RLHF (costs insight) -- impair perf on dangerous tasks.
+//trigger on project G and also video generation one...
+
+//Pre-deployment Evals (costs dollars) -- further increase ability to suppress unwanted capabilities
+//trigger on RLHF project
+
+//lobby for government funding for GPUs -- optimism over XX%
+
+//lobby for government funding for safety researchers -- optimism below XX%, 
+
+//(milestone events based on policy...)
+
+
+
+//SUPERINTELLIGENCE STUFF
+//==================================================================================================
+//q-star learning -- costs insight, favors coding
+
+//synthetic data -- costs insight, favors coding & language (or save this for superhuman temps)
+
+
+
+
+
+
+
+
 
 //Nationalize The Labs
 // combined politics optimism + pessimism over 90%

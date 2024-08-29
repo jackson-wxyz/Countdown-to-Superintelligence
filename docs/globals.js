@@ -14,6 +14,7 @@ var DailyWage = 0;
 var plusSentiment = 2;
 var minusSentiment = 1;
 
+var GPU_Flag = 0;
 var GPUBuyerFlag = 0;
 var GPUBuyerStatus = 0;
 
@@ -34,11 +35,11 @@ var Skill_Lang = 0;
 var Skill_Code = 0;
 var Skill_Biol = 0;
 var Skill_Robo = 0;
-var Skill_Visu_mod = 0;
-var Skill_Lang_mod = -10;
-var Skill_Code_mod = -15;
-var Skill_Biol_mod = -25;
-var Skill_Robo_mod = -30;
+var Skill_Visu_mod = -20;
+var Skill_Lang_mod = -30;
+var Skill_Code_mod = -75;
+var Skill_Biol_mod = -60;
+var Skill_Robo_mod = -125;
 
 var Skill_Visu_bad_mod = 0;
 var Skill_Lang_bad_mod = 0;
