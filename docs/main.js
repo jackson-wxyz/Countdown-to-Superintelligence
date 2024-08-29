@@ -292,6 +292,8 @@ function hypnoDroneEvent(){
 
 
 function displayMessage(msg){
+    document.getElementById("readout7").innerHTML=document.getElementById("readout6").innerHTML;
+    document.getElementById("readout6").innerHTML=document.getElementById("readout5").innerHTML;
     document.getElementById("readout5").innerHTML=document.getElementById("readout4").innerHTML;
     document.getElementById("readout4").innerHTML=document.getElementById("readout3").innerHTML;
     document.getElementById("readout3").innerHTML=document.getElementById("readout2").innerHTML;
@@ -357,48 +359,322 @@ function buttonUpdate(){
     
     document.getElementById("clipCountCrunched").innerHTML = numberCruncher(clips, 1);
     
-if (autoTourneyFlag==1) {
-    document.getElementById("autoTourneyStatusDiv").style.display="";
-    document.getElementById("autoTourneyControl").style.display="";
-    } else {
-    document.getElementById("autoTourneyStatusDiv").style.display="none";
-    document.getElementById("autoTourneyControl").style.display="none";   
-    }    
+    if (autoTourneyFlag==1) {
+        document.getElementById("autoTourneyStatusDiv").style.display="";
+        document.getElementById("autoTourneyControl").style.display="";
+        } else {
+        document.getElementById("autoTourneyStatusDiv").style.display="none";
+        document.getElementById("autoTourneyControl").style.display="none";   
+        }    
 
-document.getElementById("qCompDisplay").style.opacity = qFade;
-    qFade = qFade - .001;
-    
-if (wireBuyerFlag==1) {
-    document.getElementById("wireBuyerDiv").style.display="";
-    } else {
-    document.getElementById("wireBuyerDiv").style.display="none";    
-    }
+    document.getElementById("qCompDisplay").style.opacity = qFade;
+        qFade = qFade - .001;
+        
+    if (wireBuyerFlag==1) {
+        document.getElementById("wireBuyerDiv").style.display="";
+        } else {
+        document.getElementById("wireBuyerDiv").style.display="none";    
+        }
 
-    //GPU Stuff
-if (GPUBuyerFlag==1) {
-    document.getElementById("GPUBuyerDiv").style.display="";
-    } else {
-    document.getElementById("GPUBuyerDiv").style.display="none";    
-    }
-
-
-if (TrainedModelFlag==1) {
-    document.getElementById("ModelDiv").style.display="";
-    } else {
-    document.getElementById("ModelDiv").style.display="none";    
-    }
-
-if (InferenceFlag==1) {
-    document.getElementById("InferenceDiv").style.display="";
-    document.getElementById("InferenceSliderDiv").style.display="";
-    } else {
-    document.getElementById("InferenceDiv").style.display="none"; 
-    document.getElementById("InferenceSliderDiv").style.display="none";    
-    }
+        //GPU Stuff, making sections appear and disappear
+    if (GPUBuyerFlag==1) {
+        document.getElementById("GPUBuyerDiv").style.display="";
+        } else {
+        document.getElementById("GPUBuyerDiv").style.display="none";    
+        }
 
 
+    if (TrainedModelFlag==1) {
+        document.getElementById("ModelDiv").style.display="";
+        } else {
+        document.getElementById("ModelDiv").style.display="none";    
+        }
+
+    switch(AISFlag) {
+        case 3:
+            document.getElementById("AISDiv").style.display="";
+            document.getElementById("ResearcherDiv").style.display="";
+            document.getElementById("AISSliderDiv").style.display="";
+        case 2:
+            document.getElementById("AISDiv").style.display="";
+            document.getElementById("ResearcherDiv").style.display="";
+            document.getElementById("AISSliderDiv").style.display="none";
+            break;
+        case 1:
+            document.getElementById("AISDiv").style.display="";
+            document.getElementById("ResearcherDiv").style.display="none";
+            document.getElementById("AISSliderDiv").style.display="none";
+            break;
+        default:
+            document.getElementById("AISDiv").style.display="none"; 
+            document.getElementById("ResearcherDiv").style.display="none";
+            document.getElementById("AISSliderDiv").style.display="none";
+            break; 
+        }
 
 
+    if (PoliticsFlag==1) {
+        document.getElementById("PoliticsDiv").style.display="";
+        document.getElementById("PoliticsDiv2").style.display="";
+        document.getElementById("PR1Div").style.display="";
+        document.getElementById("PR2Div").style.display="";
+        document.getElementById("PR3Div").style.display="";
+        document.getElementById("PR4Div").style.display="";
+        document.getElementById("PR5Div").style.display="";
+        } else {
+            document.getElementById("PoliticsDiv").style.display="none";   
+            document.getElementById("PoliticsDiv2").style.display="none"; 
+            document.getElementById("PR1Div").style.display="none";
+            document.getElementById("PR2Div").style.display="none";
+            document.getElementById("PR3Div").style.display="none";
+            document.getElementById("PR4Div").style.display="none";
+            document.getElementById("PR5Div").style.display="none"; 
+        }
+
+    if (ScalingFlag==1) {
+            document.getElementById("scale1Div").style.display="";
+            document.getElementById("scale2Div").style.display="";
+            document.getElementById("scale3Div").style.display="";
+            document.getElementById("scale4Div").style.display="";
+            document.getElementById("scale5Div").style.display="";
+            //TODO: ALSO unlock cool graph of capabilities!
+        } else {
+            document.getElementById("scale1Div").style.display="none";
+            document.getElementById("scale2Div").style.display="none";
+            document.getElementById("scale3Div").style.display="none";
+            document.getElementById("scale4Div").style.display="none";
+            document.getElementById("scale5Div").style.display="none"; 
+        }
+
+
+    switch(Visu_Flag) {
+        case 4:
+            document.getElementById("Skill_Visu_1").style.display="";
+            document.getElementById("Skill_Visu_2").style.display="";
+            document.getElementById("Skill_Visu_2b").style.display="";
+            document.getElementById("Skill_Visu_3").style.display="";
+            document.getElementById("Skill_Visu_3b").style.display="";
+            //document.getElementById("Skill_Visu_4").style.display="";
+            break;
+        case 3:
+            document.getElementById("Skill_Visu_1").style.display="";
+            document.getElementById("Skill_Visu_2").style.display="";
+            document.getElementById("Skill_Visu_2b").style.display="";
+            document.getElementById("Skill_Visu_3").style.display="";
+            document.getElementById("Skill_Visu_3b").style.display="";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+            break;
+        case 2:
+            document.getElementById("Skill_Visu_1").style.display="";
+            document.getElementById("Skill_Visu_2").style.display="";
+            document.getElementById("Skill_Visu_2b").style.display="";
+            document.getElementById("Skill_Visu_3").style.display="none";
+            document.getElementById("Skill_Visu_3b").style.display="none";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+            break;
+        case 1:
+            document.getElementById("Skill_Visu_1").style.display="";
+            document.getElementById("Skill_Visu_2").style.display="none";
+            document.getElementById("Skill_Visu_2b").style.display="none";
+            document.getElementById("Skill_Visu_3").style.display="none";
+            document.getElementById("Skill_Visu_3b").style.display="none";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+            break;
+        default:
+            document.getElementById("Skill_Visu_1").style.display="none"; 
+            document.getElementById("Skill_Visu_2").style.display="none";
+            document.getElementById("Skill_Visu_2b").style.display="none";
+            document.getElementById("Skill_Visu_3").style.display="none";
+            document.getElementById("Skill_Visu_3b").style.display="none";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+        }
+
+    switch(Lang_Flag) {
+        case 4:
+            document.getElementById("Skill_Lang_1").style.display="";
+            document.getElementById("Skill_Lang_2").style.display="";
+            document.getElementById("Skill_Lang_2b").style.display="";
+            document.getElementById("Skill_Lang_3").style.display="";
+            document.getElementById("Skill_Lang_3b").style.display="";
+            //document.getElementById("Skill_Visu_4").style.display="";
+            break;
+        case 3:
+            document.getElementById("Skill_Lang_1").style.display="";
+            document.getElementById("Skill_Lang_2").style.display="";
+            document.getElementById("Skill_Lang_2b").style.display="";
+            document.getElementById("Skill_Lang_3").style.display="";
+            document.getElementById("Skill_Lang_3b").style.display="";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+            break;
+        case 2:
+            document.getElementById("Skill_Lang_1").style.display="";
+            document.getElementById("Skill_Lang_2").style.display="";
+            document.getElementById("Skill_Lang_2b").style.display="";
+            document.getElementById("Skill_Lang_3").style.display="none";
+            document.getElementById("Skill_Lang_3b").style.display="none";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+            break;
+        case 1:
+            document.getElementById("Skill_Lang_1").style.display="";
+            document.getElementById("Skill_Lang_2").style.display="none";
+            document.getElementById("Skill_Lang_2b").style.display="none";
+            document.getElementById("Skill_Lang_3").style.display="none";
+            document.getElementById("Skill_Lang_3b").style.display="none";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+            break;
+        default:
+            document.getElementById("Skill_Lang_1").style.display="none"; 
+            document.getElementById("Skill_Lang_2").style.display="none";
+            document.getElementById("Skill_Lang_2b").style.display="none";
+            document.getElementById("Skill_Lang_3").style.display="none";
+            document.getElementById("Skill_Lang_3b").style.display="none";
+            //document.getElementById("Skill_Visu_4").style.display="none";
+        }
+
+
+    switch(Code_Flag) {
+        case 4:
+            document.getElementById("Skill_Code_1").style.display="";
+            document.getElementById("Skill_Code_2").style.display="";
+            //document.getElementById("Skill_Code_2b").style.display="";
+            document.getElementById("Skill_Code_3").style.display="";
+            document.getElementById("Skill_Code_3b").style.display="";
+            //document.getElementById("Skill_Code_4").style.display="";
+            //document.getElementById("Skill_Code_4b").style.display="";
+            break;
+        case 3:
+            document.getElementById("Skill_Code_1").style.display="";
+            document.getElementById("Skill_Code_2").style.display="";
+            //document.getElementById("Skill_Code_2b").style.display="";
+            document.getElementById("Skill_Code_3").style.display="";
+            document.getElementById("Skill_Code_3b").style.display="";
+            //document.getElementById("Skill_Code_4").style.display="none";
+            //document.getElementById("Skill_Code_4b").style.display="none";
+            break;
+        case 2:
+            document.getElementById("Skill_Code_1").style.display="";
+            document.getElementById("Skill_Code_2").style.display="";
+            //document.getElementById("Skill_Code_2b").style.display="";
+            document.getElementById("Skill_Code_3").style.display="none";
+            document.getElementById("Skill_Code_3b").style.display="none";
+            //document.getElementById("Skill_Code_4").style.display="none";
+            //document.getElementById("Skill_Code_4b").style.display="none";
+            break;
+        case 1:
+            document.getElementById("Skill_Code_1").style.display="";
+            document.getElementById("Skill_Code_2").style.display="none";
+            //document.getElementById("Skill_Code_2b").style.display="none";
+            document.getElementById("Skill_Code_3").style.display="none";
+            document.getElementById("Skill_Code_3b").style.display="none";
+            //document.getElementById("Skill_Code_4").style.display="none";
+            //document.getElementById("Skill_Code_4b").style.display="none";
+            break;
+        default:
+            document.getElementById("Skill_Code_1").style.display="none"; 
+            document.getElementById("Skill_Code_2").style.display="none";
+            //document.getElementById("Skill_Code_2b").style.display="none";
+            document.getElementById("Skill_Code_3").style.display="none";
+            document.getElementById("Skill_Code_3b").style.display="none";
+            //document.getElementById("Skill_Code_4").style.display="none";
+            //document.getElementById("Skill_Code_4b").style.display="none";
+        }
+
+    switch(Biol_Flag) {
+        case 4:
+            document.getElementById("Skill_Biol_1").style.display="";
+            document.getElementById("Skill_Biol_2").style.display="";
+            document.getElementById("Skill_Biol_2b").style.display="";
+            //document.getElementById("Skill_Biol_3").style.display="";
+            //document.getElementById("Skill_Biol_3b").style.display="";
+            //document.getElementById("Skill_Biol_4").style.display="";
+            //document.getElementById("Skill_Biol_4b").style.display="";
+            break;
+        case 3:
+            document.getElementById("Skill_Biol_1").style.display="";
+            document.getElementById("Skill_Biol_2").style.display="";
+            document.getElementById("Skill_Biol_2b").style.display="";
+            //document.getElementById("Skill_Biol_3").style.display="";
+            //document.getElementById("Skill_Biol_3b").style.display="";
+            //document.getElementById("Skill_Biol_4").style.display="none";
+            //document.getElementById("Skill_Biol_4b").style.display="none";
+            break;
+        case 2:
+            document.getElementById("Skill_Biol_1").style.display="";
+            document.getElementById("Skill_Biol_2").style.display="";
+            document.getElementById("Skill_Biol_2b").style.display="";
+            //document.getElementById("Skill_Biol_3").style.display="none";
+            //document.getElementById("Skill_Biol_3b").style.display="none";
+            //document.getElementById("Skill_Biol_4").style.display="none";
+            //document.getElementById("Skill_Biol_4b").style.display="none";
+            break;
+        case 1:
+            document.getElementById("Skill_Biol_1").style.display="";
+            document.getElementById("Skill_Biol_2").style.display="none";
+            document.getElementById("Skill_Biol_2b").style.display="none";
+            //document.getElementById("Skill_Biol_3").style.display="none";
+            //document.getElementById("Skill_Biol_3b").style.display="none";
+            //document.getElementById("Skill_Biol_4").style.display="none";
+            //document.getElementById("Skill_Biol_4b").style.display="none";
+            break;
+        default:
+            document.getElementById("Skill_Biol_1").style.display="none"; 
+            document.getElementById("Skill_Biol_2").style.display="none";
+            document.getElementById("Skill_Biol_2b").style.display="none";
+            //document.getElementById("Skill_Biol_3").style.display="none";
+            //document.getElementById("Skill_Biol_3b").style.display="none";
+            //document.getElementById("Skill_Biol_4").style.display="none";
+            //document.getElementById("Skill_Biol_4b").style.display="none";
+        }
+
+    switch(Robo_Flag) {
+        case 4:
+            document.getElementById("Skill_Robo_1").style.display="";
+            document.getElementById("Skill_Robo_2").style.display="";
+            document.getElementById("Skill_Robo_2b").style.display="";
+            //document.getElementById("Skill_Robo_3").style.display="";
+            //document.getElementById("Skill_Robo_3b").style.display="";
+            //document.getElementById("Skill_Robo_4").style.display="";
+            //document.getElementById("Skill_Robo_4b").style.display="";
+            break;
+        case 3:
+            document.getElementById("Skill_Robo_1").style.display="";
+            document.getElementById("Skill_Robo_2").style.display="";
+            document.getElementById("Skill_Robo_2b").style.display="";
+            //document.getElementById("Skill_Robo_3").style.display="";
+            //document.getElementById("Skill_Robo_3b").style.display="";
+            //document.getElementById("Skill_Robo_4").style.display="none";
+            //document.getElementById("Skill_Robo_4b").style.display="none";
+            break;
+        case 2:
+            document.getElementById("Skill_Robo_1").style.display="";
+            document.getElementById("Skill_Robo_2").style.display="";
+            document.getElementById("Skill_Robo_2b").style.display="";
+            //document.getElementById("Skill_Robo_3").style.display="none";
+            //document.getElementById("Skill_Robo_3b").style.display="none";
+            //document.getElementById("Skill_Robo_4").style.display="none";
+            //document.getElementById("Skill_Robo_4b").style.display="none";
+            break;
+        case 1:
+            document.getElementById("Skill_Robo_1").style.display="";
+            document.getElementById("Skill_Robo_2").style.display="none";
+            document.getElementById("Skill_Robo_2b").style.display="none";
+            //document.getElementById("Skill_Robo_3").style.display="none";
+            //document.getElementById("Skill_Robo_3b").style.display="none";
+            //document.getElementById("Skill_Robo_4").style.display="none";
+            //document.getElementById("Skill_Robo_4b").style.display="none";
+            break;
+        default:
+            document.getElementById("Skill_Robo_1").style.display="none"; 
+            document.getElementById("Skill_Robo_2").style.display="none";
+            document.getElementById("Skill_Robo_2b").style.display="none";
+            //document.getElementById("Skill_Robo_3").style.display="none";
+            //document.getElementById("Skill_Robo_3b").style.display="none";
+            //document.getElementById("Skill_Robo_4").style.display="none";
+            //document.getElementById("Skill_Robo_4b").style.display="none";
+        }
+
+
+//Nationalize-the-labs event
 
 
 
@@ -1716,18 +1992,22 @@ function GPUClick(number){
         
     // document.getElementById("wire").innerHTML = Math.floor(wire).toLocaleString();
     // document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
+    } else{
+    displayMessage("Not enough funds.");
     }
 }
 
 function ResearcherClick(number){
 
-    if(jFunds >= 150000){
-    if (number > jFunds/150000) {
-        number = jFunds/150000;
+    if(jFunds >= 200000){
+    if (number > jFunds/200000) {
+        number = jFunds/200000;
         }
     
     Researchers = Researchers + number;
-    jFunds = jFunds - number*150000;
+    jFunds = jFunds - number*200000;
+    }else{
+    displayMessage("Not enough funds.");
     }
     
     
@@ -1763,47 +2043,51 @@ function TrainAI(){
     AIcapabilities = GPUhours;
     GPUhours = 0;
 
-    Capability1 = Math.log10(AIcapabilities)*10;
-    Capability2 = Math.log10(AIcapabilities);
-    Capability3 = Math.log10(AIcapabilities);
-    Capability4 = Math.log10(AIcapabilities/10000);
+    BaseCapability = Math.log10(AIcapabilities)*10;
+    Skill_Visu = BaseCapability + Skill_Visu_mod; //25% to 125%
+    Skill_Lang = BaseCapability + Skill_Lang_mod; //15% to 115%
+    Skill_Code = BaseCapability + Skill_Code_mod; //10% to 110%
+    Skill_Biol = BaseCapability + Skill_Biol_mod; //0% to 95%
+    Skill_Robo = BaseCapability + Skill_Robo_mod; //-5% to 85%
+
 
     displayMessage("You just trained a bigger AI model!");
     
     document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("Capability1").innerHTML = Capability1.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    document.getElementById("Capability2").innerHTML = Capability2.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    document.getElementById("Capability3").innerHTML = Capability3.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    document.getElementById("Capability4").innerHTML = Capability4.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById("Skill_Visu").innerHTML = Skill_Visu.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Skill_Lang").innerHTML = Skill_Lang.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Skill_Code").innerHTML = Skill_Code.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Skill_Biol").innerHTML = Skill_Biol.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Skill_Robo").innerHTML = Skill_Robo.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     
-    yValues = [Capability1, Capability2, Capability3, Capability4]
-    new Chart("CapabilitiesChart", {
-        type: "bar",
-        data: {
-            labels: xValues,
-            datasets: [{
-            backgroundColor: barColors,
-            data: yValues
-            }]
-        },
-        options: {
-            legend: {display: false},
-            title: {
-            display: true,
-            text: "Current Model Capabilities, % of human perf:"
-            }
-        },
-         scales: {
-             y: {
-                 display: true,
-                 type: 'logarithmic',
-                 min: 1,
-                 max: 1000
-             }
-         }
-    });
+    // yValues = [Skill_Visu, Skill_Lang, Skill_Code, Skill_Biol, Skill_Robo]
+    // new Chart("CapabilitiesChart", {
+    //     type: "bar",
+    //     data: {
+    //         labels: xValues,
+    //         datasets: [{
+    //         backgroundColor: barColors,
+    //         data: yValues
+    //         }]
+    //     },
+    //     options: {
+    //         legend: {display: false},
+    //         title: {
+    //         display: true,
+    //         text: "Current Model Capabilities, % of human perf:"
+    //         }
+    //     },
+    //      scales: {
+    //          y: {
+    //              display: true,
+    //              type: 'logarithmic',
+    //              min: 1,
+    //              max: 1000
+    //          }
+    //      }
+    // });
     } else {
-    displayMessage("Can't train a bigger AI model; not enough GPU hours!");
+    displayMessage("Can't train a bigger AI model; not enough training compute!");
     }
     //remember to add much more about how exactly the capabilities go into various individual tasks, affected by various multipliers, etc!
     //}
@@ -1811,7 +2095,7 @@ function TrainAI(){
     
 }
 
-function AdjustPolitics(DeltaOptimism, DeltaPessimism, textlabel){
+function AdjustPolitics(DeltaOptimism, DeltaPessimism){
         
     //document.getElementById("optimism").innerHTML = optimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     //document.getElementById("pessimism").innerHTML = pessimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -1820,7 +2104,7 @@ function AdjustPolitics(DeltaOptimism, DeltaPessimism, textlabel){
     pessimism = pessimism + DeltaPessimism;
     rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
 
-    rawData.push({uninterested: (100-optimism-pessimism), pessimist: pessimism, optimist: optimism, label: textlabel});
+    rawData.push({uninterested: (100-optimism-pessimism), pessimist: pessimism, optimist: optimism});
     
     //I should use Plotly.react to update chart, instead of newplot every time?
     Plotly.newPlot('PoliticsChartSpace', [{
@@ -1829,16 +2113,18 @@ function AdjustPolitics(DeltaOptimism, DeltaPessimism, textlabel){
         a: rawData.map(function(d) { return d.uninterested; }),
         b: rawData.map(function(d) { return d.pessimist; }),
         c: rawData.map(function(d) { return d.optimist; }),
-        text: rawData.map(function(d) { return d.label; }),
         line: {color: rgbastring, width: 8,},
     }], {
         ternary: {
             sum: 100,
-            aaxis: makeAxis('Uninterested', 0),
+            aaxis: makeAxis('Doesn\'t care about AI', 0),
             baxis: makeAxis('Pessimistic', 45),
             caxis: makeAxis('Optimistic', -45),
             //bgcolor: '#fff1e0'
         },
+        autosize: false,
+        width: 300,
+        height: 300,
         margin: {
             l: 45,
             r: 45,
@@ -1846,14 +2132,6 @@ function AdjustPolitics(DeltaOptimism, DeltaPessimism, textlabel){
             t: 0,
             pad: 1
           },
-        /*annotations: [{
-          showarrow: false,
-          text: 'Replica of Tom Pearson\'s <a href="http://bl.ocks.org/tomgp/7674234">block</a>',
-            x: 1.0,
-            y: 1.3,
-            font: { size: 10 }
-        }],*/
-        //paper_bgcolor: '#fff1e0',
     });
     
     function makeAxis(title, tickangle) {
@@ -1871,6 +2149,60 @@ function AdjustPolitics(DeltaOptimism, DeltaPessimism, textlabel){
     
 }
 
+function UpdatePolitics(){
+        
+    //document.getElementById("optimism").innerHTML = optimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    //document.getElementById("pessimism").innerHTML = pessimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+    avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/5;
+    var disinterest = (100-avgCapability); //80
+    var attitudeBalance = plusSentiment / (plusSentiment + minusSentiment);
+    optimism = (100-disinterest) * attitudeBalance;
+    pessimism = (100-disinterest) * (1 - attitudeBalance);
+
+    rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
+
+    rawData.push({uninterested: disinterest, pessimist: pessimism, optimist: optimism});
+    
+    //I should use Plotly.react to update chart, instead of newplot every time?
+    Plotly.react('PoliticsChartSpace', [{
+        type: 'scatterternary',
+        mode: 'lines',
+        a: rawData.map(function(d) { return d.uninterested; }),
+        b: rawData.map(function(d) { return d.pessimist; }),
+        c: rawData.map(function(d) { return d.optimist; }),
+        line: {color: rgbastring, width: 8,},
+    }], {
+        ternary: {
+            sum: 100,
+            aaxis: makeAxis('Doesn\'t care about AI', 0),
+            baxis: makeAxis('Pessimistic', 45),
+            caxis: makeAxis('Optimistic', -45),
+        },
+        autosize: false,
+        width: 300,
+        height: 300,
+        margin: {
+            l: 45,
+            r: 45,
+            b: 5,
+            t: 0,
+            pad: 1
+          },
+    });
+    function makeAxis(title, tickangle) {
+        return {
+          title: title,
+          titlefont: { family: 'Times New Roman', size: 15 },
+          tickangle: tickangle,
+          tickfont: { size: 1, color: '#ffffff'},
+          tickcolor: 'rgba(0,0,0,0)',
+          ticklen: 4,
+          showline: true,
+          showgrid: true
+        };
+    }
+}
 
 
 
@@ -2669,18 +3001,37 @@ function updateStats(){
     
     //GPU stuff
     document.getElementById("GPUs").innerHTML = GPUs.toLocaleString();
-    document.getElementById("algorithmicProgress").innerHTML = (algorithmicProgress*100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    //document.getElementById("algorithmicProgress").innerHTML = (algorithmicProgress*100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
     document.getElementById("jFunds").innerHTML = jFunds.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("GPUavgRev").innerHTML = GPUavgRev.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    //document.getElementById("GPU_Rev").innerHTML = GPU_Rev.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Days").innerHTML = Days.toLocaleString();
-    document.getElementById("TrainPercent").innerHTML = TrainPercent.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    document.getElementById("AISPercent").innerHTML = AISPercent.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("ResearchPercent").innerHTML = ResearchPercent.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Researchers").innerHTML = Researchers.toLocaleString();
+    document.getElementById("Insights").innerHTML = Insights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     
 
 
+    document.getElementById("Profit_Visu_1_Display").innerHTML = Profit_Visu_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Visu_2_Display").innerHTML = Profit_Visu_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Visu_3_Display").innerHTML = Profit_Visu_3_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    
+    document.getElementById("Profit_Lang_1_Display").innerHTML = Profit_Lang_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Lang_2_Display").innerHTML = Profit_Lang_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Lang_3_Display").innerHTML = Profit_Lang_3_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
+    document.getElementById("Profit_Code_1_Display").innerHTML = Profit_Code_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Code_2_Display").innerHTML = Profit_Code_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Code_3_Display").innerHTML = Profit_Code_3_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    
+    document.getElementById("Profit_Biol_1_Display").innerHTML = Profit_Biol_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Biol_2_Display").innerHTML = Profit_Biol_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    
+    document.getElementById("Profit_Robo_1_Display").innerHTML = Profit_Robo_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Robo_2_Display").innerHTML = Profit_Robo_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
 
     document.getElementById("funds").innerHTML = funds.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
@@ -2931,10 +3282,10 @@ function calculateOperations(){
 
 
 function milestoneCheck(){
-    if (milestoneFlag == 0 && Capability1 > 0.1){
+    if (milestoneFlag == 0 && Skill_Visu > 0.1){
         milestoneFlag = milestoneFlag + 1;
         projectsFlag = 1;
-        displayMessage("Projects??");
+        //displayMessage("Projects??");
     }
     
     if (milestoneFlag == 0 && funds >= 5){
@@ -3526,7 +3877,7 @@ window.setInterval(function(){
     
 
 // GPU stuff
-    if (GPUs>19){
+    if (GPUs>100){
         GPUBuyerFlag=1;
     }
 
@@ -3537,15 +3888,16 @@ window.setInterval(function(){
 
 
     // Update the current slider value (each time you drag the slider handle)
-    // slider = document.getElementById("InferenceSlider");
+    // slider = document.getElementById("AISSlider");
     // output.innerHTML = slider.value; // Display the default slider value
     // slider.oninput = function() {
-    //     TrainPercent = this.value;
-    //     document.getElementById("TrainPercent") = TrainPercent.toLocaleString();
+    //     AISPercent = this.value;
+    //     document.getElementById("AISPercent") = AISPercent.toLocaleString();
     // }
 
     
-    TrainPercent = document.getElementById("InferenceSlider").value;
+    AISPercent = document.getElementById("AISSlider").value;
+    ResearchPercent = 100-AISPercent;
 
 
     
@@ -3853,8 +4205,8 @@ if (dismantle >= 7) {
 
 // Slow Loop
 
-var saveTimer = 0;
 var secTimer = 0;
+var secTimer2 = 0;
 
 
 window.setInterval(function(){
@@ -3875,23 +4227,80 @@ window.setInterval(function(){
     // Fire Once a Second
     
     secTimer++;
-        if (secTimer >= 10){
-            calculateRev();
+    secTimer2++;
+    //secTimer3++;
+        if (secTimer >= 5){//fire every half-second actually, since we want 1 day every 2 seconds, to cover 20 yearss in an hour
             Days++;
             secTimer = 0;
         }
-        if (secTimer >= 50){
-            Insights++;
+        if (secTimer2 >= 50){
+            calculateRev();
+            UpdatePolitics();
+            //1 researcher-insight every 100 days = ~1 min of game time
+            Insights = Insights + 0.1*Researchers;
+            secTimer2 = 0;
         }
+        //if (secTimer3 >= 500){
+        //    secTimer3 = 0;
+        //}
         
     }    
+    // Fire every tenth of a second
 
+    //to 10x every 4.5-mins, must double every 90 seconds or so, thus need $500 per GPU per 90 seconds, so $0.55 per tenth of a second FROM THE MODEL trained by 1 gpu going for 90 secs
+    //GPUhours per GPU over 90 secs = 24/10*900 = 6480
+
+    //Training Hours
+    GPUhours = GPUhours + GPUs * 24/5;
+
+    //Revenue
+    var BaseRev = Math.sqrt(AIcapabilities/3888*5);
+    Profit_Visu_1_Display = Profit_Visu_1*BaseRev;
+    Profit_Visu_2_Display = Profit_Visu_2*BaseRev;
+    Profit_Visu_3_Display = Profit_Visu_3*BaseRev;
+    Profit_Lang_1_Display = Profit_Lang_1*BaseRev;
+    Profit_Lang_2_Display = Profit_Lang_2*BaseRev;
+    Profit_Lang_3_Display = Profit_Lang_3*BaseRev;
+    Profit_Code_1_Display = Profit_Code_1*BaseRev;
+    Profit_Code_2_Display = Profit_Code_2*BaseRev;
+    Profit_Code_3_Display = Profit_Code_3*BaseRev;
+    Profit_Biol_1_Display = Profit_Biol_1*BaseRev;
+    Profit_Biol_2_Display = Profit_Biol_2*BaseRev;
+    Profit_Robo_1_Display = Profit_Robo_1*BaseRev;
+    Profit_Robo_2_Display = Profit_Robo_2*BaseRev;
+
+
+    GPU_Rev = 0;
+    if(Visu_Flag > 0){GPU_Rev = GPU_Rev + Profit_Visu_1_Display/5;}
+    if(Visu_Flag > 1){GPU_Rev = GPU_Rev + Profit_Visu_2_Display/5;}
+    if(Visu_Flag > 2){GPU_Rev = GPU_Rev + Profit_Visu_3_Display/5;}
+    if(Lang_Flag > 0){GPU_Rev = GPU_Rev + Profit_Lang_1_Display/5;}
+    if(Lang_Flag > 1){GPU_Rev = GPU_Rev + Profit_Lang_2_Display/5;}
+    if(Lang_Flag > 2){GPU_Rev = GPU_Rev + Profit_Lang_3_Display/5;}
+    if(Code_Flag > 0){GPU_Rev = GPU_Rev + Profit_Code_1_Display/5;}
+    if(Code_Flag > 1){GPU_Rev = GPU_Rev + Profit_Code_2_Display/5;}
+    if(Code_Flag > 2){GPU_Rev = GPU_Rev + Profit_Code_3_Display/5;}
+    if(Biol_Flag > 0){GPU_Rev = GPU_Rev + Profit_Biol_1_Display/5;}
+    if(Biol_Flag > 1){GPU_Rev = GPU_Rev + Profit_Biol_2_Display/5;}
+    if(Robo_Flag > 0){GPU_Rev = GPU_Rev + Profit_Robo_1_Display/5;}
+    if(Robo_Flag > 1){GPU_Rev = GPU_Rev + Profit_Robo_2_Display/5;}
+
+    DailyWage = GPU_Rev*5; //for display
+    jFunds = jFunds + GPU_Rev;
     
-    GPUhours = GPUhours + GPUs * algorithmicProgress * TrainPercent/100 * 24/10;
-    DailyWage = Capability1/100; // * some factors based on projects and policies, idk??
-    GPUavgRev = DailyWage * GPUs*(100-TrainPercent)/100; //could avoid a multiplication here i guess
-    jFunds = jFunds + GPUavgRev/10;
-    
+    if (ScalingFlag == 1){
+        BaseCapability = Math.log10(GPUhours)*10;
+        Skill_Visu_Scale = BaseCapability + Skill_Visu_mod; //25% to 125%
+        Skill_Lang_Scale = BaseCapability + Skill_Lang_mod; //15% to 115%
+        Skill_Code_Scale = BaseCapability + Skill_Code_mod; //10% to 110%
+        Skill_Biol_Scale = BaseCapability + Skill_Biol_mod; //0% to 95%
+        Skill_Robo_Scale = BaseCapability + Skill_Robo_mod; //-5% to 85%
+        document.getElementById("Skill_Visu_Scale").innerHTML = Skill_Visu_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Skill_Lang_Scale").innerHTML = Skill_Lang_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Skill_Code_Scale").innerHTML = Skill_Code_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Skill_Biol_Scale").innerHTML = Skill_Biol_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Skill_Robo_Scale").innerHTML = Skill_Robo_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    }
 }, 100);
      
 

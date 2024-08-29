@@ -296,15 +296,25 @@ canvas {
   float: left ;
   width: 275px;
 }
-#middleColumn {
+#leftmiddleColumn {
   float: left;
   width: 275px;
   margin-left: 10px;
 }
+#middleColumn {
+  float: left;
+  width: 300px;
+  margin-left: 10px;
+}
 #rightColumn {
   float: left;
-  width: 320px;
+  width: 300px;
   margin-left: 10px;    
+}
+#farrightColumn {
+  float: left;
+  width: 300px;
+  margin-left: 10px;
 }
 
 #investmentDiv1 {

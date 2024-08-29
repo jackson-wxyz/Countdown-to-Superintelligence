@@ -1,34 +1,99 @@
 var Researchers = 0;
 var Insights = 0;
 
-var GPUs = 0;
-var algorithmicProgress = 0.20;
-var jFunds = 1000;
-var GPUavgRev = 0;
-var GPUhours = 0;
 var Days = 0;
+var GPUs = 0;
+var jFunds = 1000;
+
+var GPUhours = 0;
 var AIcapabilities = 0; // find some way of turning "gpuhours" into an actual metric like FLOPs, to enable greater realism
-var TrainPercent = 100;
-var DailyWage = 0.01;
+var GPU_Rev = 0;
+var DailyWage = 0;
+
+//Politics stuff
+var plusSentiment = 2;
+var minusSentiment = 1;
 
 var GPUBuyerFlag = 0;
 var GPUBuyerStatus = 0;
 
 var TrainedModelFlag = 0;
-var InferenceFlag = 0;
+var AISFlag = 0;
+var PoliticsFlag = 0;
+var ScalingFlag = 0;
 
-var Capability1 = 0;
-var Capability2 = 0;
-var Capability3 = 0;
-var Capability4 = 0;
+var Visu_Flag = 0;
+var Lang_Flag = 0;
+var Code_Flag = 0;
+var Biol_Flag = 0;
+var Robo_Flag = 0;
 
-var Capability1_bad = 0;
-var Capability2_bad = 0;
-var Capability3_bad = 0;
-var Capability4_bad = 0;
+var BaseCapability = 0;
+var Skill_Visu = 0;
+var Skill_Lang = 0;
+var Skill_Code = 0;
+var Skill_Biol = 0;
+var Skill_Robo = 0;
+var Skill_Visu_mod = 0;
+var Skill_Lang_mod = -10;
+var Skill_Code_mod = -15;
+var Skill_Biol_mod = -25;
+var Skill_Robo_mod = -30;
+
+var Skill_Visu_bad_mod = 0;
+var Skill_Lang_bad_mod = 0;
+var Skill_Code_bad_mod = 0;
+var Skill_Biol_bad_mod = 0;
+var Skill_Robo_bad_mod = 0;
+
+var Skill_Visu_PR = 3;
+var Skill_Lang_PR = 3;
+var Skill_Code_PR = 3;
+var Skill_Biol_PR = 3;
+var Skill_Robo_PR = 3;
+
+var Skill_Visu_Scale = 0;
+var Skill_Lang_Scale = 0;
+var Skill_Code_Scale = 0;
+var Skill_Biol_Scale = 0;
+var Skill_Robo_Scale = 0;
+
+
+//1 unit of profit = 1 90-second doubling time, currently.
+//gotta start applying this to the square root of capabilities in order to give myself room to give more bonuses, etc?
+var Profit_Visu_1 = 1;
+var Profit_Visu_1_Display = 0;
+var Profit_Visu_2 = 2;
+var Profit_Visu_2_Display = 0;
+var Profit_Visu_3 = 4;
+var Profit_Visu_3_Display = 0;
+
+var Profit_Lang_1 = 1.5;
+var Profit_Lang_1_Display = 0;
+var Profit_Lang_2 = 3;
+var Profit_Lang_2_Display = 0;
+var Profit_Lang_3 = 6;
+var Profit_Lang_3_Display = 0;
+
+var Profit_Code_1 = 2;
+var Profit_Code_1_Display = 0;
+var Profit_Code_2 = 4;
+var Profit_Code_2_Display = 0;
+var Profit_Code_3 = 8;
+var Profit_Code_3_Display = 0;
+
+var Profit_Biol_1 = 4;
+var Profit_Biol_1_Display = 0;
+var Profit_Biol_2 = 8;
+var Profit_Biol_2_Display = 0;
+
+var Profit_Robo_1 = 4;
+var Profit_Robo_1_Display = 0;
+var Profit_Robo_2 = 8;
+var Profit_Robo_2_Display = 0;
 
 //CapabilityChart
-var xValues = ["Images", "Translation", "Coding", "Bio"];
+var xValues = ["Images", "Language", "Coding", "Bio"];
 var yValues = [];
 var barColors = ["orange", "brown","blue","green"];
 
@@ -37,9 +102,9 @@ var optimism = 0;
 var pessimism = 0
 
 var rawData = [
-    {uninterested:100,pessimist:0,optimist:0,label:'public doesn\'t care about AI'},
-    //{uninterested:75,pessimist:25,optimist:0,label:'public opinion 2'},
-    //{uninterested:65,pessimist:25,optimist:10,label:'public opinion 3'},
+    {uninterested:100,pessimist:0,optimist:0},
+    //{uninterested:75,pessimist:25,optimist:0},
+    //{uninterested:65,pessimist:25,optimist:10},
 ];;
 
 

@@ -6,9 +6,8 @@
     
     <body>
         
-<!--     <audio id="threnody1">
+<!--<audio id="threnody1">
         <source src="test.mp3" type="audio/mpeg">
-        
     </audio>   -->  
         
     <div id="page">
@@ -21,42 +20,34 @@
         </div>
         
         <div id="consoleDiv">
-
             <p class = "consoleOld"> 
+                <span>&nbsp;.&nbsp;</span><span id="readout7"></span><br />
+                <span>&nbsp;.&nbsp;</span><span id="readout6"></span><br />
                 <span>&nbsp;.&nbsp;</span><span id="readout5"></span><br />
                 <span>&nbsp;.&nbsp;</span><span id="readout4"></span><br />
                 <span>&nbsp;.&nbsp;</span><span id="readout3"></span><br />
                 <span>&nbsp;.&nbsp;</span><span id="readout2"></span><br />
             </p>
             <p class = "console"> 
-                <span>&nbsp;>&nbsp;</span><span id="readout1">Welcome to Universal Paperclips</span><span id="cursor" class = "pulsate">|</span>
-            </p>
-            
+                <span>&nbsp;>&nbsp;</span><span id="readout1">"Countown to Superintelligence"</span><span id="cursor" class = "pulsate">|</span>
+            </p>  
         </div> 
         
-        <div id="topDiv">
-            
+    <div id="topDiv">
             <div id="prestigeDiv">
-            
-            &nbsp;Universe: <span id = "prestigeUcounter">0</span> / Sim Level: <span id = "prestigeScounter">0</span>
-            
+                &nbsp;Universe: <span id = "prestigeUcounter">0</span> / Sim Level: <span id = "prestigeScounter">0</span>        
             </div>        
         <div class = "toolTip">
-        <span id = "clipCountCrunched" class = "toolTipText">total clips produced</span>    
-        <h2>Paperclips: <span id="clips">0</span></h2>
-        Jan 1, 2015 (this should change 1 day per second... actual number of days elapsed: <span id="Days">0</span>)
+            <span id = "clipCountCrunched" class = "toolTipText">total clips produced</span>    
+            <h3>Paperclips: <span id="clips">0</span></h3>
+            Dec 11, 2015 (this should change 1 day per second... actual number of days elapsed: <span id="Days">0</span>)
         </div>
-            
-        </div>    
-            
-        <div id="leftColumn">
-        
+    </div>    
+    
+    <div id="leftColumn">
         <button class = "button2" id ="btnMakePaperclip" onclick="clipClick(1)">Make Paperclip</button><br />
-        <br />
 
-        
         <div id = "creationDiv">
-        
         <b>Manufacturing</b><br />
         <hr>
         <div id = factoryUpgradeDisplay>
@@ -64,17 +55,13 @@
         Next Upgrade at: <span id = "nextFactoryUpgrade">0</span> Factories <br />  
         </p>    
         </div>  
-        
         <div id = "clipsPerSecDiv">
         Clips per Second: <span id="clipmakerRate2">0</span><br />
-        </div>        
-        
+        </div>     
         <div id = "tothDiv">    
         Unused Clips: <span id="unusedClipsDisplay">0</span><br />
         </div>
         <br /> 
-           
-            
         <div id = "factoryDiv">
         <p class = "engineText5">
         <button class = "button2" id = "btnMakeFactory"
@@ -91,16 +78,13 @@
             
         Cost: <span id="factoryCostDisplay">0</span> clips<br />
         <br />
-        </div>
-            
+        </div>  
         <div id="wireTransDiv">
         Wire: <span id="transWire">0</span> <span id = "inchSpan">inches</span><br />
         </div>      
-            
         <div id = "factoryDivSpace">
         Factories: <span id="factoryLevelDisplaySpace">0</span><br /><br />     
         </div>    
-            
         </div>   
             
         <div id="wireProductionDiv">
@@ -227,111 +211,151 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         Funds: $ <span id="jFunds">0</span><br />
-        
-        <div id="ResearcherDiv">
-        <b>Researchers</b><br />
-        <button class = "button2" id ="btnMakeResearcher" onclick="ResearcherClick(1)">Hire Researcher ($150,000) </button>
-            <!--<div id="SafetySliderDiv">
-            Effort on safety vs research: <span id="SafetyPercent"></span>%<br />
-                <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="100" class="slider" id="SafetySlider">
-                </div>
-            </div> -->
-            <br />
-        Research insights:  <span id="Insights">0</span><br />
-        <!-- supression of unwanted capabilities, or something... -->
-        </div>
+        <br />
 
-        <br />   
-            
         <div id="GPUDiv">
-            
-        <b>GPU Compute Cluster</b><br />
-        <hr>
-        <!-- GPU stuff -->
-        <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button>
-        <div id = "GPUBuyerDiv">
-        <button class = "button2" id ="btnToggleGPUBuyer"
-        onclick="toggleGPUBuyer()">Auto-Reinvest: </button> <span class = "engineText6" id = "GPUBuyerStatus">OFF</span>    <!-- this should eventually be a real toggle -->
-        </div>
-        <br />
-            
-        Funds: $ <span id="jFunds">0</span><br />
-        GPUs: <span id="GPUs">0</span><br />  
-        Algorithmic efficiency: <span id="algorithmicProgress">0</span> % <br />
-        
-        <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
-
-
-        </div>
-
-        <br />    
-
-
-
-
-
-
-
-        <div id="AIDiv">
-            
-        <b>AI Model Training</b><br />
-        <hr>
-        
-            <div id="InferenceSliderDiv">
-            GPUs on training vs inference: <span id="TrainPercent"></span>%<br />
-            <div class="slidecontainer">
-                <input type="range" min="0" max="100" value="100" class="slider" id="InferenceSlider">
+            <b>GPU Compute Cluster</b><br />
+            <hr>
+            <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button>
+            <div id = "GPUBuyerDiv">
+                <button class = "button2" id ="btnToggleGPUBuyer"
+                onclick="toggleGPUBuyer()">Auto-Reinvest: </button> <span class = "engineText6" id = "GPUBuyerStatus">OFF</span>
             </div>
+            <br />
+            GPUs: <span id="GPUs">0</span><br />  
+            Training compute: <span id="GPUhours">0</span> TFLOPs<br />
+            <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize new model (uses all GPU training hours) </button><br />
+            <br />
+        </div> 
+
+        <div id="AISDiv">
+            <b>AI Research</b><br />
+            <hr>
+            <div id="ResearcherDiv">
+                <button class = "button2" id ="btnMakeResearcher" onclick="ResearcherClick(1)">Hire Researcher ($200,000) </button>
+                <br />
+                Researchers:  <span id="Researchers">0</span><br />
             </div>
+            Insights:  <span id="Insights">0</span><br />
+            <br />
+            <!-- supression of unwanted capabilities, or something... -->
 
-        GPU training compute: <span id="GPUhours">0</span> TFLOPs<br /> <!-- This is just GPUs & algorithmic efficiency (GPUs * calendar hours * algo efficiency * percent for training... aka effective FLOPs)-->
-        <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize new model (uses all GPU training hours) </button><br />
-        <br />
-        </div>
+            <div id="AISSliderDiv">
+                Staff effort on applying safety techniques <br />
+                (<span id="AISPercent"></span>%) versus on new research (<span id="ResearchPercent"></span>%):<br />
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="100" value="100" class="slider" id="AISSlider">
+                </div>
+            </div>
+        </div> 
 
-        
 
-        <div id="InferenceDiv">
-        <b>AI Model Inference</b><br />
-        <hr>
-        
-        <br />
-        Per-GPU profitability: $<span id="DailyWage"></span> / day<br />   
-        Total profit: $<span id="GPUavgRev">0</span> / day<br /> <!-- (skillz * % for inference)-->
-        <!-- Each game should be about 1 hour long, 60 minutes, and cover 10 years... so every 6 minutes is 1 year, so every minute is 2 months or 60 days, so every second is 1 day!  So convert "sec" to "day" from original game -->
+        <!--
+        Game pacing & planning:
+
+        Each game should be about 1.25 hours long, 75 minutes, and cover 25 years, 2016 - 2041... 
+        so every 3 minutes is 1 year, so every minute is 4 months or 120 days, so every second is 2 days!  
+        So convert "sec" to "day" from original game, with 2x factor.
+
+        Aim for "nationalize the labs" to happen 3/5 through, about 2031, at around 10^30 flops.
+        Thus scale 2 OOMs every 3 years... so go from 20 in 2016 to 30 in 2031.  Plausible, roughly fits epoch & takeoffspeeds.
          
-        </div>  
+        So we have 45 mins to cover 10 OOMs of scaling, from 10^20 to 10^30, so each OOM gets 4.5 mins
+
+        so every 4.5 mins we need 10x TFLOPs, which should come from 
+        
+        2016 - 20 = 10 gpus * 30 seconds; grant to get more money, before profitability system is even introduced
+        2017 - NEW SYSTEM: profitability system arrives at the next capability threshold.
+        2018 - profitability bumps based on introducing new areas
+        2019 - 22 = 100 gpus ($50K) * 4.5 mins -- introduce insights system via project that gives a few insight points ("attend ML conference", costs money, "publish paper", triggered by training a model over X flops), but not hiring researchers yet
+        2020 - profitability bumps that cost insight.  also, previews that cost insight
+        2021 - NEW SYSTEM: introduce hiring researchers for $200K each, via project that incorporates as startup (trigger = own 1000 gpus)
+        2022 - 24 = 10K gpus ($500K) * 4.5 mins, plus profitability bumps that benefit from previews of thresholds
+        2023 - more profitability bumps that cost insight
+        2024 - NEW SYSTEM: introduce public relations system
+
+        2025 - 26 = 1M gpus ($5000K) * 4.5 mins, also 
+        2026 - 
+        2027 - NEW SYSTEM: introduce competitor system (maybe??)
+        2028 - 28 = 100M gpus * 4.5 mins
+        2029 - 
+        2030 - 
+
+        nationalize labs, switch to takeoffspeeds.com dynamics (plus maybe an international "competitive vs cooperative" axis, and a competitor system)
+
+        2031 - 30 = 10B gpus * 4.5 mins
+        2032
+        2033
+        2034
+        2035
+        2036
+        2037
+        2038
+        2039
+        2040
+        2041
+        
+
+        to fund a 10xing:
+        - each gpu should produce $4500 every 4.5 mins
+        - could just make each GPU pump out a static $1000/min and call it a day, but that would be boring
+        - maybe start out with big grants, end with big expenses?  nah, inauthentic
+
+        - alternatively, get rid of number-of-GPUs factor in profitability, and have the AI model 10x in profitability for each OOM
+        - but it would be boring to just equate profit with TFLOPs... instead, split improvements between natural increase in profitability
+        ...and artificial bonuses (another 3x per OOM from adding multipliers and opening up new domains and, initially, grants...)
+        - 3x natural increase = model profitability goes as square root of model size
+
+        - buy GPUs & train first model, this unlocks project for image app
+        - image app unlocks profitability
+        - give players "capability previews" early, so they can get excited about 
+
+        politics:
+        - introduce & display bad capabilities, displayed as a balance of bad capability vs good capability
+        - public relations system starts doing policies that penalize profitability (watermarks on images, ban on AI girlfriends, etc)
+        unless you devote resources to safety efforts to tip the good-vs-bad capability balance and please the public, which also come with costs
+        similar to what would otherwise be imposed by the public relations system
+
+        - represent bad capabilities in a "threats" section to the right of Current Model info (public opinion will be below this)
+        - each time a new model is trained, public opinion jumps hypeward (downward) in proportion to log of model power (or whatever)...
+        ...and updates left/right based on the balance of threats vs capabilities at that time
+        
+        - use "milestones" to have bad events occur (ideally with red text?), like involuntary/unexpected versions of projects
+
+        - hopefully draw circles/squares/whatever on the chart that you can hover over, representing policy triggers
 
 
 
+        todo:
+        - have auto-gpu-buyer come in much later; after the researchers-vs-gpus tradeoff is established
+        - flip around and reword the training-vs-inference slider
+        - make the notification window a couple lines longer, since I'll be using it more.
 
+        - GET RID OF number-of-GPUS bearing on profitability!
 
+        - public opinion should LIVE UPDATE based on the balance of positive vs negative threats... 
+        ...start off easy with disinfo (favorable starting balance), then make stuff like bioterror really hard balance.
+        - FAIL condition if public opinion gets too low
+
+        nationalization phase:
+        - nationalize with four different starting bonuses depending on public sentiment:
+            - doomer = ai might destroy the world, need international cooperation to slow down and solve alignment
+            - regulatory = companies can't be trusted, harms need to be mitigated and shared
+            - arms race = need to race to beat rival nations
+            - accelerationist = if we race ahead, we can defeat death etc
+        - threats from:
+            - competitor nations pulling ahead (keep capabilities ahead of others, either by advancing or by spending resources to build trust)
+            - biorisk terrorism
+            - cyberattack terrorism
+            - war from competitor nations
+            - biorisk / nanorisk from rogue AI
+            - cyberattacks from rogue AI
+            - 
+        - idk
+        - 
+        - 
+        -->
 
         <br />
         <br />
@@ -341,38 +365,18 @@
         <br />
         <br />
         <br />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         <div id="businessDiv">
             
@@ -442,60 +446,119 @@
         </div>    
                   
         </div>
-
-        <br />
-
-           
-
-
-        <button id ="resetButton" onclick="reset()">RESET ALL PROGRESS</button><br />       
-
-        <button id ="freeClipsButton" onclick="cheatClips()">Free Clips</button><br />    
-        <button id ="freeMoneyButton" onclick="cheatMoney()">Free Money</button><br />
-        <button id ="freeTrustButton" onclick="cheatTrust()">Free Trust</button><br />        
-        <button id ="freeOpsButton" onclick="cheatOps()">Free Ops</button><br />
-        <button id ="freeCreatButton" onclick="cheatCreat()">Free Creativity</button><br />
-        <button id ="freeYomiButton" onclick="cheatYomi()">Free Yomi</button><br />    
-        <button id ="resetPrestige" onclick="resetPrestige()">Reset Prestige</button><br />     
+    </div>
             
-        <button id ="destroyAllHumansButton" onclick="cheatHypno()">Destroy all Humans</button><br />    
-        <button id ="freePrestigeU" onclick="cheatPrestigeU()">Free Prestige U</button>
-        <button id ="freePrestigeS" onclick="cheatPrestigeS()">Free Prestige S</button>
-        <button id ="debugBattleNumbers" onclick="setB()">Set Battle Number 1 to 7</button><br /> 
-        <button id ="availMatterZero" onclick="zeroMatter()">Set Avail Matter to 0</button><br />     
-
-
-
-
-             
-        </div>
+    <div id="leftmiddleColumn">
+        <div id="projectsDiv">  
+            <b>Projects</b><br />
+            <hr> 
+            <div id="projectListTop">
+            </div>    
+        </div>  
+    </div>
             
-<!--Right Column-->
-            
-        <div id="middleColumn">
+    <div id="middleColumn">
 
 
-            <!--GPU stuff-->
-            <div id="ModelDiv">    
-            <b>Current AI Model</b><br />
+        <!--GPU stuff-->
+        <div id="ModelDiv">    
+            <b>AI Capabilities (% of human-level)</b><br />
             <hr>
                 
             Model Size: <span id="AIcapabilities">0</span> TFLOPs <br /> 
-        
-            Model skills vs human perf:<br />
-            <!--capability: <span id="AIcapabilities">0</span> <br /> -->
-            Image recognition: <span id="Capability1">0</span>%<br />
-            Translation: <span id="Capability2">0</span>%<br />
-            Coding skillz: <span id="Capability3">0</span>%<br />
-            Bioweapon design: <span id="Capability4">0</span>%<br />
-            
             <br />
-            <!--chart of AI capabilities -->
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-            <canvas id="CapabilitiesChart" style="width:100%;max-width:600px"></canvas>
+
+            Visual: <span id="Skill_Visu">0</span>%<div id="scale1Div"> (<span id="Skill_Visu_Scale">0</span>%)</div><div id="PR1Div"><span id="Skill_Visu_PR" style="color:green;font-weight: bold;">+3</span></div><br />
+
+            <div id="Skill_Visu_1">
+                -  Image classification: +$<span id="Profit_Visu_1_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Visu_2">
+                -  Image generation: +$<span id="Profit_Visu_2_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Visu_3">
+                -  Video generation: +$<span id="Profit_Visu_3_Display">0</span>/day<br />
             </div>
             
+            <div id="Skill_Lang_1">
+                <br />
+                Language: <span id="Skill_Lang">0</span>%
+                <div id="scale2Div"> 
+                    (<span id="Skill_Lang_Scale">0</span>%),
+                </div>
+                <div id="PR2Div">
+                    <span id="Skill_Lang_PR" style="color:green;font-weight: bold;">+3 </span>
+                </div><br />
+                -  Translation: +$<span id="Profit_Lang_1_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Lang_2">
+                -  Chatbot: +$<span id="Profit_Lang_2_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Lang_3">
+                -  Multimodal assistant: +$<span id="Profit_Lang_3_Display">0</span>/day<br />
+            </div>
             
+            <div id="Skill_Code_1">
+                <br />
+                Coding: <span id="Skill_Code">0</span>%
+                <div id="scale3Div">
+                    (<span id="Skill_Code_Scale">0</span>%),
+                </div>
+                <div id="PR3Div">
+                    <span id="Skill_Code_PR" style="color:green;font-weight: bold;">+3 </span>
+                </div><br />
+                -  Pair-programmer app: +$<span id="Profit_Code_1_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Code_2">
+            -  Autonomous junior coder: +$<span id="Profit_Code_2_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Code_3">
+            -  Cybersecurity expert: +$<span id="Profit_Code_3_Display">0</span>/day<br />
+            </div>
+            </div>
+            <div id="Skill_Biol_1">
+                <br />
+                Biology: <span id="Skill_Biol">0</span>%
+                <div id="scale4Div">
+                    (<span id="Skill_Biol_Scale">0</span>%)
+                </div>, 
+                <div id="PR4Div">
+                    <span id="Skill_Biol_PR" style="color:green;font-weight: bold;">+3 </span>
+                </div><br />
+                    -  Protein folding: +$<span id="Profit_Biol_1_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Biol_2">
+                -  Protein interaction & design: +$<span id="Profit_Biol_2_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Robo_1">
+                <br />
+                Robotics: <span id="Skill_Robo">0</span>%
+                <div id="scale5Div">
+                    (<span id="Skill_Robo_Scale">0</span>%)
+                </div>, 
+                <div id="PR5Div">
+                    <span id="Skill_Robo_PR" style="color:green;font-weight: bold;">+3 </span>
+                </div><br />
+                -  Aerial drone control: +$<span id="Profit_Robo_1_Display">0</span>/day<br />
+            </div>
+            <div id="Skill_Robo_2">
+                -  Self-driving vehicles: +$<span id="Profit_Robo_2_Display">0</span>/day<br />
+            </div>
+            
+            <hr>
+            Total profit: $<span id="DailyWage">0</span> / day<br />
+            <!--chart of AI capabilities -->
+
+            <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+            <canvas id="CapabilitiesChart" style="width:100%;max-width:600px"></canvas> -->
+
+        </div>
+        
+
+
+
+
+        <br />
         <div id="compDiv">    
         <b>Computational Resources</b><br />
         <hr>
@@ -596,34 +659,49 @@
    
         </div>    
 
-        <div id="projectsDiv">  
-        <b>Projects</b><br />
             
+    </div>    
         
-        <hr> 
-   
-            
-        <div id="projectListTop">
-        </div>    
-        </div>      
-        </div>    
-        
-        <div id="rightColumn">
+    <div id="rightColumn">
 
-
-            
-            <!--GPU stuff-->
-            <div id="PoliticsDiv">    
-                <b>Public Opinion</b><br />
-                <hr>
-                <!--chart of public sentiment -->
-                <div id="PoliticsChartSpace"> 
-                    
-                  </div>    
-                </div>
-                <!--list of various effects on public opinion... ideally red for pessimistic, green for optimistic -->
+        <!--GPU stuff-->
+        <div id="PoliticsDiv">    
+            <b>Misuse & Misalignment Harms</b><br /> <!--change to "threats" when nationalized -->
+            <hr>
+            <div id="Skill_Visu_2b">
+            Visual: -50% <br />
+                - Deepfake images: <span style="color:red;font-weight: bold;">-3</span><br />
+            </div>
+            <div id="Skill_Visu_3b">
+                - Deepfake-enabled scams/fraud: <span style="color:red;font-weight: bold;">-3</span><br />
+            </div>    
+            <div id="Skill_Lang_2b">
+            Language: -50% <br />
+                - AI spam & propaganda: <span style="color:red;font-weight: bold;">-3</span><br />
+            </div>
+            <div id="Skill_Lang_3b">
+                - Addictive AI companion app: <span style="color:red;font-weight: bold;">-3</span><br />
+            </div>
+            <div id="Skill_Code_3b">
+            Coding: -50% <br />
+                - Autonomous hacking tools: <span style="color:red;font-weight: bold;">-3</span><br />
+            </div>
+            <div id="Skill_Biol_2b">
+            Biology: -50% <br />
+                - Virus design: <span style="color:red;font-weight: bold;">-3</span><br />
+            </div>
+            <div id="Skill_Robo_2b">
+            Robotics: -50% <br />
+                - Autonomous loitering munitions: <span style="color:red;font-weight: bold;">-3</span><br />
+            </div>
+        </div>
+            <!--list of various effects on public opinion... ideally red for pessimistic, green for optimistic -->
                 
         
+
+
+
+
         <div class = "engine" id="investmentEngine">
         
         <p class = engineText>    
@@ -829,8 +907,7 @@
         <p class = "engineText8">Cost: <span id="newTourneyCost">1,000</span> ops</p>  
         </div> 
             
-<!--       BATTLE-->            
-            
+<!--       BATTLE-->      
         <div id = "battleCanvasDiv">    
         <canvas id = "canvas"></canvas>
         <div id = "battleInterfaceDiv">
@@ -861,7 +938,6 @@
         </div>    
             
 <!--        POWER-->
-        
         <div id="powerDiv">
         <b>Power</b>
         <hr>    
@@ -928,9 +1004,7 @@
                       
         </div>               
   
- <!--        POWER-->           
-            
-           
+ <!--        POWER-->     
         <div class=engine2 id="probeDesignDiv">
             
         <p class=engineText>
@@ -1068,20 +1142,19 @@
         <button class = "button2" id = "btnIncreaseMaxTrust"
         onclick="increaseMaxTrust()">Increase Max Trust</button><br />
         <p class = "engineText8">Cost: <span id="maxTrustCostDisplay">91,117.99</span> honor</p>  
-        </div>    
-            
-<!--
-        <div class=engine2 id="battleReportsDiv">
-        <p class=engineText>
-            <b>Battles</b><br /> 
-            
-            <div id="battleListTop"> </div>       
-            
-        </div>     
--->
-            
-            
+        </div>  
+    </div>
+
+    <div id="farrightColumn">
+        <div id="PoliticsDiv2"> 
+            <b>Public Opinion</b><br />
+            <hr>
+            Increasingly powerful AI attracts attention.  Reduce AI harms to keep sentiment positive.
+            <div id="PoliticsChartSpace"> 
+                <!--chart of public sentiment -->
+            </div>
         </div>
+    </div>
         <script type="text/javascript" src="combat.js?v2"></script>     
         <script type="text/javascript" src="globals.js?v2"></script>      
         <script type="text/javascript" src="projects.js?v2"></script>   
