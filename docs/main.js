@@ -167,15 +167,45 @@ function blink(elemID){
 
 
 function buttonUpdate(){
-    
-
-    //GPU Stuff, making sections appear and disappear
     document.getElementById("dateCountCrunched").innerHTML = DateCruncher(Days);
     document.getElementById("clipCountCrunched").innerHTML = numberCruncher(GPUhours, 1);
+    
+
+//Nationalize-the-labs event
+if (Nationalized){
+        document.getElementById("GPUDiv").style.display="none";
+        document.getElementById("ModelDiv").style.display="none";
+        document.getElementById("PoliticsDiv").style.display="none";   
+        document.getElementById("PoliticsDiv2").style.display="none";
+
+        document.getElementById("Nat_Economy_Div").style.display="";
+        document.getElementById("Nat_Research_Div").style.display="";
+
+        document.getElementById("Nat_Competition_Div").style.display="";
+        document.getElementById("Nat_Alignment_Div").style.display="";
+        
+        document.getElementById("Nat_Robo_Div").style.display="";
+        document.getElementById("Nat_Biol_Div").style.display="";
+        document.getElementById("Nat_Code_Div").style.display="";
+        document.getElementById("Nat_Lang_Div").style.display="";
+
+} else {
+    
+    document.getElementById("Nat_Economy_Div").style.display="none";
+    document.getElementById("Nat_Research_Div").style.display="none";
+
+    document.getElementById("Nat_Competition_Div").style.display="none";
+    document.getElementById("Nat_Alignment_Div").style.display="none";
+    
+    document.getElementById("Nat_Robo_Div").style.display="none";
+    document.getElementById("Nat_Biol_Div").style.display="none";
+    document.getElementById("Nat_Code_Div").style.display="none";
+    document.getElementById("Nat_Lang_Div").style.display="none";
+
+    //GPU Stuff, making sections appear and disappear
     if (GPU_Flag==1) {
         document.getElementById("GPUDiv").style.display="";
-        } else {
-        document.getElementById("GPUDiv").style.display="none";    
+        } else {   
         }
 
     if (GPUBuyerFlag==1) {
@@ -481,9 +511,7 @@ function buttonUpdate(){
             //document.getElementById("Skill_Robo_4").style.display="none";
             //document.getElementById("Skill_Robo_4b").style.display="none";
         }
-
-
-//Nationalize-the-labs event
+}//non-nationalized
 
 
 
@@ -1702,7 +1730,7 @@ function UpdateSentiment(){
     if(Robo_Flag > 1){sentiment = sentiment + Skill_Robo_PR_2b;}
 
     //Ternary math
-    avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/5;
+    avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/3.5;
     hype = (avgCapability-10)*1;
     attitudeBalance = 10 / (10 - sentiment);
     optimism = hype * attitudeBalance;
@@ -3307,10 +3335,6 @@ window.setInterval(function(){
 
 
 
-
-
-
-
     if(AISFlag>2){
         alignment_Display = -10/(0.005*negInsights+.1)+100;
         document.getElementById('alignment_Display').innerHTML = alignment_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%";
@@ -3320,25 +3344,26 @@ window.setInterval(function(){
         alignment_Display = -10/(0.005*(negInsights+Evalhours)+.1)+100;
         document.getElementById('alignment_Display').innerHTML = alignment_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%";
 
-        Skill_Visu_PR_2b_Display = Skill_Visu_Scale/20 * -1;
-        Skill_Visu_PR_3b_Display = Skill_Visu_Scale/20 * -3;
-        Skill_Lang_PR_2b_Display = Skill_Lang_Scale/20 * -1;
-        Skill_Lang_PR_3b_Display = Skill_Lang_Scale/20 * -3;
-        Skill_Code_PR_3b_Display = Skill_Code_Scale/20 * -3;
-        Skill_Biol_PR_2b_Display = Skill_Biol_Scale/20 * -10;
-        Skill_Robo_PR_2b_Display = Skill_Robo_Scale/20 * -10;
+        var alignpercent = (100-alignment_Display)/100;
+        Skill_Visu_PR_2b_Display = Skill_Visu_Scale/20 * -1*alignpercent;
+        Skill_Visu_PR_3b_Display = Skill_Visu_Scale/20 * -3*alignpercent;
+        Skill_Lang_PR_2b_Display = Skill_Lang_Scale/20 * -1*alignpercent;
+        Skill_Lang_PR_3b_Display = Skill_Lang_Scale/20 * -3*alignpercent;
+        Skill_Code_PR_3b_Display = Skill_Code_Scale/20 * -3*alignpercent;
+        Skill_Biol_PR_2b_Display = Skill_Biol_Scale/20 * -10*alignpercent;
+        Skill_Robo_PR_2b_Display = Skill_Robo_Scale/20 * -10*alignpercent;
     
         Sentiment_Display = 0;
-        if(Visu_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Visu_PR_2b;}
-        if(Visu_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Visu_PR_3b;}
-        if(Lang_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Lang_PR_2b;}
-        if(Lang_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Lang_PR_3b;}
-        if(Code_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Code_PR_3b;}
-        if(Biol_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Biol_PR_2b;}
-        if(Robo_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Robo_PR_2b;}
+        if(Visu_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Visu_PR_2b_Display;}
+        if(Visu_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Visu_PR_3b_Display;}
+        if(Lang_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Lang_PR_2b_Display;}
+        if(Lang_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Lang_PR_3b_Display;}
+        if(Code_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Code_PR_3b_Display;}
+        if(Biol_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Biol_PR_2b_Display;}
+        if(Robo_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Robo_PR_2b_Display;}
     
         //Ternary math
-        avgCapability_Display = (Skill_Visu_Scale + Skill_Lang_Scale + Skill_Code_Scale + Skill_Biol_Scale + Skill_Robo_Scale)/5;
+        avgCapability_Display = (Skill_Visu_Scale + Skill_Lang_Scale + Skill_Code_Scale + Skill_Biol_Scale + Skill_Robo_Scale)/3.5;
         hype_Display = (avgCapability_Display-10)*1;
         attitudeBalance_Display = 10 / (10 - Sentiment_Display);
         document.getElementById('Skill_Visu_PR_2b').innerHTML = Skill_Visu_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Visu_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
@@ -3349,7 +3374,8 @@ window.setInterval(function(){
         document.getElementById('Skill_Biol_PR_2b').innerHTML = Skill_Biol_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Biol_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
         document.getElementById('Skill_Robo_PR_2b').innerHTML = Skill_Robo_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Robo_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
         document.getElementById('hype').innerHTML = hype.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + hype_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
-        document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + attitudeBalance_Display.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "%)";
+        //document.getElementById('sentiment').innerHTML = sentiment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + Sentiment_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+        document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + (attitudeBalance_Display*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
     }
 
 

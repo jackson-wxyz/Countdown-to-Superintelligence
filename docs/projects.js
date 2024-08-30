@@ -195,7 +195,7 @@ var projectI2 = {
     effect: function(){
         displayMessage("Scaling laws: These extrapolations are helpful, but can't answer the most important question -- how close are transformative real-world impacts?");
         ScalingFlag = 1;
-        //TODO: ALSO unlock cool graph of capabilities!
+        //TODO: ALSO unlock cool graph of capabilities!  probably sneak this under "misuse" since there's plenty of space there.
 
         projectI2.flag = 1;
         var element = document.getElementById("projectButtonI2");
@@ -853,11 +853,11 @@ projects.push(projectA3);
 var projectC5 = {
     id: "projectButtonC5",
     title: "Autonomous Coding",
-    priceTag: " (Code. 90%)",
+    priceTag: " (Code. 65%)",
     description: "Slow takeoff starts with entry-level code monkey jobs.",
     trigger: function(){return projectC4.flag == 1},
     uses: 1,
-    cost: function(){return Skill_Code>89.5},
+    cost: function(){return Skill_Code>64.5},
     flag: 0,
     effect: function(){
         displayMessage("Autonomous Coding: todo");
@@ -900,22 +900,8 @@ projects.push(projectL6);
 
 
 
-//OOM 8
-
-//NATIONALIZE THE LABS
-
-//keep: training compute, model size, most model skills (merge visual + language into "communication")
-//some measure of "deceptivness"...
-//
-
-//GPUS automatically increase; some percent of GDP is reinvested (this percent can be increased by events)
-//you can set how much to reinvest in GPUs vs spend on safety efforts, maybe?
-
-//GDP depends on amount of tasks automated, which is boosted by developing new capabilities...
-
-//each distinct category of threat gets its own line graph, or something...
-
-
+//AIS / PUBLIC OPINION STUFF
+//==================================================================================================
 
 //searching for more data -- costs money.  maybe youtube videos, etc, after multimodal
 //spring from I3
@@ -923,19 +909,116 @@ projects.push(projectL6);
 
 //consider prize awards like "turing test competition", or whatever.
 
-//AIS / PUBLIC OPINION STUFF
-//==================================================================================================
-
-
 //lobby for government funding for GPUs -- optimism over XX%
 
 //lobby for government funding for safety researchers -- optimism below XX%, 
 
 //(milestone events based on policy...)
 
+//OOM 8
+
+//NATIONALIZE THE LABS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var projectN = {
+    id: "projectButtonN",
+    title: "Nationalize the AI Labs",
+    priceTag: " (Societal importance >90%)",
+    description: " We stand at the hinge of history.",
+    trigger: function(){return hype >70},
+    uses: 1,
+    cost: function(){return hype>90},
+    flag: 0,
+    effect: function(){
+        displayMessage("Nationalize the AI Labs: todo");
+        Nationalized = true;
+        GPUBuyerStatus=0;
+        document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
+        AISPercent = 100;
+        //figure out how to clear most previous projects... gotta keep some around like RLHF, unless I just assume I have them going forward, making nationalization imitate their effects.
+
+        //set jFunds and all Skills to zero, killing all profit?  then I can rebuild jFunds using labor force GDP stuff, which runs automatically
+        //no more training rounds!!  the AI is continously training now.  remember to get the math right on growth here, so it feels nice and snappy...
+        
+        //via "hire top experts" project, recruit a (fixed) crack team of 60 researchers
+        //repurpose researchers to become a 60-person team (10 for each area) where individual people can be allocated to different categories of defensive effort -- research (bucket category when others are decreased), counter-cyber, counter-bio, AI control, AI alignment, and war/competition
+        //eventually get autonomous virtual researchers, which just follow the main ones & multiply their efforts
+
+        /**
+         * competition stat affects how aggressive other nations are.
+         * - research treaties (tradeoff stuff like "strong NATO treaty?", which boosts alignment but hurts competition vs "weak UN treaty?", which does the opposite)
+         * - random boosts to name-drop stuff and help fight the tide (compute governance sanctions vs no, share-vs-hoard medical research (tradeoff with biorisk!!), etc)
+         * alignment stat affects how aggressive the AI is at fighting humanity.
+         * - secretive development? vs open development? geopolitics tradeoff just like the treaty
+         * - random boosts to name-drop stuff and help fight the tide
+         * - all this research is done with generic research points, and the tradeoff decisions are always free, there is not like seperate alignment vs competition research currencies
+         * 
+         * four actual areas:
+         * 
+         * cyber / control stat (from coding stat):
+         * - enemy nation-state human-hacking to steal AI (effects competition/war)
+         * - self-exfiltration to autonomously replicate (proceeds to nuclear hacking)
+         * - (ai or enemy nation) hacking nuclear weapons systems to do a terminator (game over)
+         * counter by:
+         * - adversarial code analysis, use AI against itself
+         * - air-gapped network
+         * - 
+         * 
+         * bio (from bio stat):
+         * - terrorist bioattack (can lose this without losing game; take like a 1/3 population hit on the deaths counter and call it a day)
+         * - (ai or enemy nation) AI-engineered stealth pandemic
+         * - AI-engineered nanotech
+         * counter by:
+         * - locking down DNA synthesis
+         * - metagenomic sequencing
+         * 
+         * manufacturing / war (from robotics stat)
+         * - slaughterbots etc (use these for advantage in war, but the AI can also use them against you)
+         * - general war between nations, escalating into nuclear
+         * - hypnodrones (ties into language, and callback from paperclips -- "Autonomous aerial brand ambassadors / 'Wanna buy some paperclips?' ")
+         * 
+         * language:
+         * - targeted propaganda
+         * - something about surveillance, censorship, totalitarianism (maybe tradeoffs where you consider AI censorship of biorisk, but that alienates other nations that don't like totalitarianism)
+         * - superpersausion
+         * 
+         * you win if you can hold off the threats long enough to get the alignment & control stats trending positive, then either sign an international treaty to ban, or solve alignment and create CEV utopia.
+         * each type of win/loss takes you to a modified ending page with a picture and comment on the ending, then a "thanks for playing" and encouragement to play another round.
+         */
+
+        //projects of two kinds: economic multipliers that 1. increase the labor force automation % of the economy, 2. give flavor text about superintelligence, 3. occasionally up the threat level in one of the defense categories
+
+        //
+//GPUS automatically increase; some percent of GDP is reinvested (this percent can be increased by events)
+//you can set how much to reinvest in GPUs vs spend on safety efforts, maybe?
+
+//GDP depends on amount of tasks automated, which is boosted by developing new capabilities...
+
+//each distinct category of threat gets its own line graph, or something...
+
+        projectN.flag = 1;
+        var element = document.getElementById("projectButtonN");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectN);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectN);
 
 
-//SUPERINTELLIGENCE STUFF
+
+
+
+
+
+
+
+
+
+
+
+
+//SUPERINTELLIGENCE EVENTS
 //==================================================================================================
 //q-star learning -- costs insight, favors coding
 
@@ -944,9 +1027,27 @@ projects.push(projectL6);
 
 
 
+//bioweapons stuff
+
+//military slaughterbot stuff
 
 
 
+
+//
+//drop-in remote worker (increases labor force)
+
+//automated ai alignment researcher -- just make the AIs do our AI alignment homework
+
+//humanoid robots (increases labor force, also creates military bots)
+
+//breakthrough medicines (increases labor force via less aging, also creates biorisk)
+
+//IQ-boosting gene therapy for ai researchers
+
+//automated factories manufacturing
+
+//BCIs for ai researchers, but they also make everyone hackable
 
 
 //Nationalize The Labs

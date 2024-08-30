@@ -43,7 +43,7 @@ var Skill_Visu_mod = -15;
 var Skill_Lang_mod = -20;
 var Skill_Code_mod = -75;
 var Skill_Biol_mod = -60;
-var Skill_Robo_mod = -100;
+var Skill_Robo_mod = -95;
 
 var Skill_Visu_bad_mod = 0;
 var Skill_Lang_bad_mod = 0;
@@ -119,6 +119,24 @@ var rawData = [
     //{uninterested:75,pessimist:25,optimist:0},
     //{uninterested:65,pessimist:25,optimist:10},
 ];;
+
+
+
+
+
+
+//Nationalization stuff
+var Nationalized = false;
+
+
+
+
+
+
+
+
+
+
 
 
 var clips = 0;
