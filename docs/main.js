@@ -172,35 +172,37 @@ function buttonUpdate(){
     
 
 //Nationalize-the-labs event
-if (Nationalized){
+if (Nationalized == true){
         document.getElementById("GPUDiv").style.display="none";
         document.getElementById("ModelDiv").style.display="none";
         document.getElementById("PoliticsDiv").style.display="none";   
         document.getElementById("PoliticsDiv2").style.display="none";
 
         document.getElementById("Nat_Economy_Div").style.display="";
-        document.getElementById("Nat_Research_Div").style.display="";
+        // document.getElementById("Nat_Research_Div").style.display="";
 
-        document.getElementById("Nat_Competition_Div").style.display="";
-        document.getElementById("Nat_Alignment_Div").style.display="";
+        // document.getElementById("Nat_Competition_Div").style.display="";
+        // document.getElementById("Nat_Alignment_Div").style.display="";
         
-        document.getElementById("Nat_Robo_Div").style.display="";
-        document.getElementById("Nat_Biol_Div").style.display="";
-        document.getElementById("Nat_Code_Div").style.display="";
-        document.getElementById("Nat_Lang_Div").style.display="";
+        // document.getElementById("Nat_Robo_Div").style.display="";
+        // document.getElementById("Nat_Biol_Div").style.display="";
+        // document.getElementById("Nat_Code_Div").style.display="";
+        // document.getElementById("Nat_Lang_Div").style.display="";
 
 } else {
-    
-    document.getElementById("Nat_Economy_Div").style.display="none";
-    document.getElementById("Nat_Research_Div").style.display="none";
+    if(Nationalized == false){
+        document.getElementById("Nat_Economy_Div").style.display="none";
+        // document.getElementById("Nat_Research_Div").style.display="none";
 
-    document.getElementById("Nat_Competition_Div").style.display="none";
-    document.getElementById("Nat_Alignment_Div").style.display="none";
+    }
+
+    // document.getElementById("Nat_Competition_Div").style.display="none";
+    // document.getElementById("Nat_Alignment_Div").style.display="none";
     
-    document.getElementById("Nat_Robo_Div").style.display="none";
-    document.getElementById("Nat_Biol_Div").style.display="none";
-    document.getElementById("Nat_Code_Div").style.display="none";
-    document.getElementById("Nat_Lang_Div").style.display="none";
+    // document.getElementById("Nat_Robo_Div").style.display="none";
+    // document.getElementById("Nat_Biol_Div").style.display="none";
+    // document.getElementById("Nat_Code_Div").style.display="none";
+    // document.getElementById("Nat_Lang_Div").style.display="none";
 
     //GPU Stuff, making sections appear and disappear
     if (GPU_Flag==1) {
