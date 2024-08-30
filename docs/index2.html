@@ -29,203 +29,39 @@
                 <span>&nbsp;.&nbsp;</span><span id="readout2"></span><br />
             </p>
             <p class = "console"> 
-                <span>&nbsp;>&nbsp;</span><span id="readout1">"Countown to Superintelligence"</span><span id="cursor" class = "pulsate">|</span>
+                <span>&nbsp;>&nbsp;</span><span id="readout1">Welcome to "Countown to Superintelligence" (modded from Frank Lantz's "Universal Paperclips")</span><span id="cursor" class = "pulsate">|</span>
             </p>  
         </div> 
         
     <div id="topDiv">
-            <div id="prestigeDiv">
-                &nbsp;Universe: <span id = "prestigeUcounter">0</span> / Sim Level: <span id = "prestigeScounter">0</span>        
-            </div>        
         <div class = "toolTip">
             <span id = "clipCountCrunched" class = "toolTipText">total clips produced</span>    
-            <h3>Training Compute: <span id="GPUhours">0</span></h3>
-            Dec 11, 2015 (this should change 1 day per second... actual number of days elapsed: <span id="Days">0</span>)
+            <h3>AI Training Compute: <span id="GPUhours">0</span> Exaflops</h3>
+            <span id="dateCountCrunched">date</span>
         </div>
     </div>    
     
     <div id="leftColumn">
-        <button class = "button2" id ="btnMakePaperclip" onclick="clipClick(1)">Make Paperclip</button><br />
-
-        <div id = "creationDiv">
-        <b>Manufacturing</b><br />
-        <hr>
-        <div id = factoryUpgradeDisplay>
-        <p class = "clean">
-        Next Upgrade at: <span id = "nextFactoryUpgrade">0</span> Factories <br />  
-        </p>    
-        </div>  
-        <div id = "clipsPerSecDiv">
-        Clips per Second: <span id="clipmakerRate2">0</span><br />
-        </div>     
-        <div id = "tothDiv">    
-        Unused Clips: <span id="unusedClipsDisplay">0</span><br />
-        </div>
-        <br /> 
-        <div id = "factoryDiv">
-        <p class = "engineText5">
-        <button class = "button2" id = "btnMakeFactory"
-        onclick="makeFactory()">Clip Factory</button> <span class = "engineText6" id="factoryLevelDisplay">0</span></p>
-            
-        <div class = "toolTip3">    
-            
-        <span id = "factoryRebootToolTip" class = "toolTipText3">0</span>    
-            
-        <button class = "button2" id = "btnFactoryReboot" onclick="factoryReboot()">&nbsp Disassemble All &nbsp</button>
-        
-        </div>    
-        <br />    
-            
-        Cost: <span id="factoryCostDisplay">0</span> clips<br />
         <br />
-        </div>  
-        <div id="wireTransDiv">
-        Wire: <span id="transWire">0</span> <span id = "inchSpan">inches</span><br />
-        </div>      
-        <div id = "factoryDivSpace">
-        Factories: <span id="factoryLevelDisplaySpace">0</span><br /><br />     
-        </div>    
-        </div>   
-            
-        <div id="wireProductionDiv">
-            
-        <b>Wire Production</b><br />
-        <hr>  
-        <div id = droneUpgradeDisplay>
-        <p class = "clean">
-        Next Upgrade at: <span id = "nextDroneUpgrade">0</span> Drones <br />  
-        </p>        
-        </div>    
-            
-        Available Matter: <span id="availableMatterDisplay">0</span> g<br />
-        <div id="mdpsDiv">(<span id="mdps">0</span> g per sec)<br /></div>     
-        Acquired Matter: <span id="acquiredMatterDisplay">0</span> g<br />
-        (<span id="maps">0</span> g per sec)<br />        
-        Wire: <span id="nanoWire">0</span> inches<br />
-        (<span id="wpps">0</span> inches per sec) <br />    
-        <br />
-            
-        <div id = "harvesterDiv">
-            
-        <p class = "engineText5">
-        <button class = "button2" id = "btnMakeHarvester"
-        onclick="makeHarvester(1)">&nbsp Harvester Drone &nbsp</button> 
-        <span class = "engineText6" id="harvesterLevelDisplay">0</span>
-        </p>
-            
-        <div id = "harvesterMultiButtons">    
-            
-        <p class = "engineText5">    
-        <button class = "button2" id = "btnHarvesterx10" onclick="makeHarvester(10)">+10</button>
-        <button class = "button2" id = "btnHarvesterx100" onclick="makeHarvester(100)">+100</button>   
-        <button class = "button2" id = "btnHarvesterx1000" onclick="makeHarvester(1000)">+1k</button>  
-        </p>
-            
-        </div>    
-            
-        <div class = "toolTip3">    
-            
-        <span id = "harvesterRebootToolTip" class = "toolTipText3">0</span>     
-            
-        <button class = "button2" id = "btnHarvesterReboot" onclick="harvesterReboot()">&nbsp Disassemble All &nbsp</button>
-            
-        </div>    
-        <br />    
-            
-        Cost: <span id="harvesterCostDisplay">0</span> clips<br /><br />
-        
-        </div> 
-            
-        <div id = "wireDroneDiv">
-        <p class = "engineText5">
-        <button class = "button2" id = "btnMakeWireDrone"
-        onclick="makeWireDrone(1)">&nbsp &nbsp &nbsp Wire Drone &nbsp &nbsp</button> <span class = "engineText6" id="wireDroneLevelDisplay">0</span></p>
-            
-        <div id = "wireDroneMultiButtons">    
-            
-        <p class = "engineText5">
-        <button class = "button2" id = "btnWireDronex10" onclick="makeWireDrone(10)">+10</button>
-        <button class = "button2" id = "btnWireDronex100" onclick="makeWireDrone(100)">+100</button>   
-        <button class = "button2" id = "btnWireDronex1000" onclick="makeWireDrone(1000)">+1k</button></p>
-        </div>    
-            
-        <div class = "toolTip3">    
-            
-        <span id = "wireDroneRebootToolTip" class = "toolTipText3">0</span>    
-          
-        <button class = "button2" id = "btnWireDroneReboot" onclick="wireDroneReboot()">&nbsp Disassemble All &nbsp</button>
-            
-        </div>    
-        <br />    
-            
-        Cost: <span id="wireDroneCostDisplay">0</span> clips<br />
-        <br />
-        </div>  
-            
-        <div id = "droneDivSpace">
-            
-        Harvester Drones: <span id = "harvesterLevelSpace">0</span><br />
-        Wire Drones: <span id = "wireDroneLevelSpace">0</span><br /><br /> 
-        
-        </div>     
-            
-        </div>   
-            
-        <div id="spaceDiv">
-            
-        <b>Space Exploration</b><br />
-        <hr>  
-        
-        <span id="colonizedDisplay">0</span>% of universe explored<br />
-        <br />
-            
-        <div id = "probeDiv">
-        <p class = "engineText5">
-        <button class = "button2" id = "btnMakeProbe"
-        onclick="makeProbe()">Launch Probe</button><br />
-        Cost: <span id="probeCostDisplay">0</span> clips<br />
-        <br />
-        </div>   
-        
-        Launched: <span id="probesLaunchedDisplay">0</span><br />    
-        Descendents: <span id="probesBornDisplay">0</span><br />  
-        <br />
-            
-        <div id = "hazardBodyCount">Lost to hazards: (<span id="probesLostHazardsDisplay">0</span>)<br /></div>
-        <div id = "driftBodyCount">Lost to value drift: (<span id="probesLostDriftDisplay">0</span>)<br /></div>
-        <div id = "combatBodyCount">Lost in combat: (<span id="probesLostCombatDisplay">0</span>)<br /></div>     
-        
-        <hr class = "short">
-            
-        Total: <span id="probesTotalDisplay">0</span><br /> 
-        <br />
-            
-        <div id = "drifterDiv">
-        Drifters Killed: <span id="driftersKilled">0</span><br />
-        Drifters: <span id="drifterCount">0</span><br />      
-        </div>    
-            
-        </div>    
-            
-
-
-
-
-        Funds: $ <span id="jFunds">0</span><br />
+        Funds: $<span id="jFunds">0</span><br />
         <br />
 
         <div id="GPUDiv">
             <b>GPU Compute Cluster</b><br />
             <hr>
             <button class = "button2" id ="btnMakeGPU" onclick="GPUClick(1)">Buy GPU ($500) </button>
+            <div id="H100Div">
+                <button class = "button2" id ="btnMakeH100" onclick="H100Click(1)">Buy H100 ($30,000) </button>
+            </div>
             <div id = "GPUBuyerDiv">
                 <button class = "button2" id ="btnToggleGPUBuyer"
                 onclick="toggleGPUBuyer()">Auto-Reinvest: </button> <span class = "engineText6" id = "GPUBuyerStatus">OFF</span>
             </div>
             <br />
-            GPUs: <span id="GPUs">0</span><br />  
-            Training compute: <span id="GPUhours">0</span> TFLOPs<br />
-            <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize new model (uses all GPU training hours) </button><br />
+            Each GPU provides 1 EFLOP per day.<br />
+            GPUs: <span id="GPUs">0</span><br />
+            <br />
+            <button class = "button2" id ="btnMakeAI" onclick="TrainAI()">Finalize new model (uses all training compute) </button><br />
             <br />
         </div> 
 
@@ -239,14 +75,18 @@
             </div>
             Insights:  <span id="Insights">0</span><br />
             <br />
-            <!-- supression of unwanted capabilities, or something... -->
 
             <div id="AISSliderDiv">
                 Staff effort on applying safety techniques <br />
-                (<span id="AISPercent"></span>%) versus on new research (<span id="ResearchPercent"></span>%):<br />
+                (<span id="AISPercent"></span>%) versus on new insights (<span id="ResearchPercent"></span>%):<br />
                 <div class="slidecontainer">
-                    <input type="range" min="0" max="100" value="100" class="slider" id="AISSlider">
+                    <input type="range" min="0" max="100" value="0" class="slider" id="AISSlider">
                 </div>
+                <br />
+                Alignment (applies to next model): <span id="alignment_Display">0</span><br />
+                -  RLHF: <span id="negInsights">0</span><br />
+                -  Evals: <span id="Evalhours">0</span><br />
+                <!--RLHF energy should be log-scale just like the harms.  Researchers cost money the same as GPUs so it's fair.  -->
             </div>
         </div> 
 
@@ -361,96 +201,6 @@
         ..one bonus every 45 seconds, remember to reckon this INCLUSIVE OF COST
 
         -->
-
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-
-        <div id="businessDiv">
-            
-        <b>Business</b><br />
-        <hr>
-        
-            
-        Available Funds: $ <span id="funds">0</span><br />
-
-        <div id="revPerSecDiv">  
-           
-        Avg. Rev. per sec: $ <span id="avgRev">0</span><br />
-        Avg. Clips Sold per sec: <span id="avgSales">0</span><br />    
-            
-        </div>  
-        Unsold Inventory: <span id="unsoldClips">0</span><br /> 
-            
-        <button class = "button2" id = "btnLowerPrice"
-        onclick="lowerPrice()">lower</button>
-        <button class = "button2" id = "btnRaisePrice"
-        onclick="raisePrice()">raise</button>
-        Price per Clip: $ <span id="margin">.25</span><br />
-            
-        Public Demand: <span id="demand">10</span>%<br />
-        <br />    
-        
-        <button class = "button2" id = "btnExpandMarketing"
-        onclick="buyAds()">Marketing</button> <span class = "engineText6"> Level: </span><span class = "engineText6" id="marketingLvl">1</span><br />
-        Cost: $ <span id="adCost">100.00</span><br />
-        <br />    
-        
-        
-            
-        </div>   
-        
-        <div id="manufacturingDiv">
-        <b>Manufacturing</b><br />
-        <hr>
-        
-        Clips per Second: <span id="clipmakerRate">0</span><br />
-        <br /> 
-            
-        <div id = "wireBuyerDiv">
-        <button class = "button2" id ="btnToggleWireBuyer"
-        onclick="toggleWireBuyer()">WireBuyer</button> <span class = "engineText6" id = "wireBuyerStatus">ON</span>    
-        </div>
-          
-            
-        <button class = "button2" id ="btnBuyWire"
-        onclick="buyWire()">Wire</button> <span class = "engineText6" id="wire">1000</span><span class = "engineText6"> inches</span><br /> 
-        Cost: $ <span id="wireCost">20</span><br />
-        <br />
-            
-        <div id = "autoClipperDiv">
-        <p class = "engineText5">
-        <button class = "button2" id = "btnMakeClipper"
-        onclick="makeClipper()">AutoClippers</button> <span class = "engineText6" id="clipmakerLevel2">0</span></p>
-        Cost: $ <span id="clipperCost">5.00</span><br />
-        <br />
-        </div>    
-            
-        <div id = "megaClipperDiv">
-        <p class = "engineText5">
-        <button class = "button2" id = "btnMakeMegaClipper"
-        onclick="makeMegaClipper()">MegaClippers</button> <span class = "engineText6" id="megaClipperLevel">0</span></p>
-        Cost: $ <span id="megaClipperCost">500</span><br />
-        </div>    
-                  
-        </div>
     </div>
             
     <div id="leftmiddleColumn">
@@ -463,17 +213,15 @@
     </div>
             
     <div id="middleColumn">
-
-
         <!--GPU stuff-->
         <div id="ModelDiv">    
             <b>AI Capabilities (% of human-level)</b><br />
             <hr>
                 
-            Model Size: <span id="AIcapabilities">0</span> TFLOPs <br /> 
+            Model Size: <span id="AIcapabilities">0</span> EFLOPs <br /> 
             <br />
 
-            Visual: <span id="Skill_Visu">0</span>%<div id="scale1Div"> (<span id="Skill_Visu_Scale">0</span>%)</div><div id="PR1Div"><span id="Skill_Visu_PR" style="color:green;font-weight: bold;">+3</span></div><br />
+            Visual: <span id="Skill_Visu_Scale">0</span><br />
 
             <div id="Skill_Visu_1">
                 -  Image classification: +$<span id="Profit_Visu_1_Display">0</span>/day<br />
@@ -487,13 +235,8 @@
             
             <div id="Skill_Lang_1">
                 <br />
-                Language: <span id="Skill_Lang">0</span>%
-                <div id="scale2Div"> 
-                    (<span id="Skill_Lang_Scale">0</span>%),
-                </div>
-                <div id="PR2Div">
-                    <span id="Skill_Lang_PR" style="color:green;font-weight: bold;">+3 </span>
-                </div><br />
+                
+                Language: <span id="Skill_Lang_Scale">0</span><br />
                 -  Translation: +$<span id="Profit_Lang_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Lang_2">
@@ -505,13 +248,7 @@
             
             <div id="Skill_Code_1">
                 <br />
-                Coding: <span id="Skill_Code">0</span>%
-                <div id="scale3Div">
-                    (<span id="Skill_Code_Scale">0</span>%),
-                </div>
-                <div id="PR3Div">
-                    <span id="Skill_Code_PR" style="color:green;font-weight: bold;">+3 </span>
-                </div><br />
+                Coding: <span id="Skill_Code_Scale">0</span><br />
                 -  Pair-programmer app: +$<span id="Profit_Code_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Code_2">
@@ -520,16 +257,9 @@
             <div id="Skill_Code_3">
             -  Cybersecurity expert: +$<span id="Profit_Code_3_Display">0</span>/day<br />
             </div>
-            </div>
             <div id="Skill_Biol_1">
                 <br />
-                Biology: <span id="Skill_Biol">0</span>%
-                <div id="scale4Div">
-                    (<span id="Skill_Biol_Scale">0</span>%)
-                </div>, 
-                <div id="PR4Div">
-                    <span id="Skill_Biol_PR" style="color:green;font-weight: bold;">+3 </span>
-                </div><br />
+                Biology: <span id="Skill_Biol_Scale">0</span><br />
                     -  Protein folding: +$<span id="Profit_Biol_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Biol_2">
@@ -537,13 +267,7 @@
             </div>
             <div id="Skill_Robo_1">
                 <br />
-                Robotics: <span id="Skill_Robo">0</span>%
-                <div id="scale5Div">
-                    (<span id="Skill_Robo_Scale">0</span>%)
-                </div>, 
-                <div id="PR5Div">
-                    <span id="Skill_Robo_PR" style="color:green;font-weight: bold;">+3 </span>
-                </div><br />
+                Robotics: <span id="Skill_Robo_Scale">0</span><br />
                 -  Aerial drone control: +$<span id="Profit_Robo_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Robo_2">
@@ -551,120 +275,13 @@
             </div>
             
             <hr>
-            Total profit: $<span id="DailyWage">0</span> / day<br />
+            Total daily profit: $<span id="DailyWage">0</span><br />
             <!--chart of AI capabilities -->
 
             <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
             <canvas id="CapabilitiesChart" style="width:100%;max-width:600px"></canvas> -->
 
         </div>
-        
-
-
-
-
-        <br />
-        <div id="compDiv">    
-        <b>Computational Resources</b><br />
-        <hr>
-            
-        <div id="trustDiv">    
-        Trust: <span id="trust">2</span><br />
-        +1 Trust at: <span id="nextTrust">1000</span> clips<br />    
-        <br />
-        </div>
-            
-        <div id="swarmGiftDiv">    
-        Swarm Gifts: <span id="swarmGifts">0</span><br /> 
-        </div>    
-         
-            
-        <div id = "processorDisplay">    
-        <button class = "button2" id="btnAddProc" onclick="addProc()">Processors</button> 
-        <span class="engineText10" id="processors">1</span>  
-        </div>    
-        
-        <br />        
-        
-        <div id = "memoryDisplay">    
-        <button class = "button2" id="btnAddMem" onclick="addMem()">&nbsp Memory &nbsp</button> 
-        <span class="engineText10" id="memory">1</span>   
-        </div>   
-            
-        <br />  
-            
-        <br />
-        Operations: <span id="operations">0</span> / <span id="maxOps">1,000</span><br />
-       
-        <div id = "creativityDiv">
-            
-        Creativity: <span id="creativity">0</span>    
-            
-        </div>    
-            
-         <br />  
-            
-        <div class = "swarmEngine" id = "swarmEngine">
-            
-        <b>Swarm Computing</b><br />
-        Drones: <span id="swarmSize">0</span><br />   
-        <div id ="swarmStatusDiv">Status: <span id="swarmStatus">x </span></div>
-        <div id="giftTimer">Next gift in <span id="giftCountdown">17 seconds</span></div> 
-            
-        <div id="feedButtonDiv"><button class = "button2" id = "btnFeedSwarm" onclick = "feedSwarm()">Feed the Swarm</button> <br />   
-        Cost: <span id="swarmFeedCost">0</span> MWs</div>
-        
-        <div id="teachButtonDiv"><button class = "button2" id = "btnTeachSwarm" onclick = "teachSwarm()">Teach the Swarm</button><br />   
-        Cost: <span id="swarmFeedCost">0</span> MWs</div>  
-            
-        <div id="entertainButtonDiv"><button class = "button2" id = "btnEntertainSwarm" onclick = "entertainSwarm()">Entertain the Swarm</button><br />   
-        Cost: <span id="swarmEntertainCost">0</span> creat</div>  
-            
-        <div id="cladButtonDiv"><button class = "button2" id = "btnCladSwarm" onclick = "cladSwarm()">Clad the Swarm</button><br />   
-        Cost: <span id="swarmFeedCost">0</span> MWs</div>  
-        
-        <div id="synchButtonDiv"><button class = "button2" id = "btnSynchSwarm" onclick = "synchSwarm()">Synchronize the Swarm</button><br />   
-        Cost: <span id="swarmFeedCost">5,000</span> yomi</div>     
-        </div>  
-            
-        <div id = "swarmSliderDiv">    
-        <div id = "sliderLabelWork">Work</div>    
-        <div id = "swarmSlider">
-        <input type="range" min="0" max="200" value="0" class="slider" id="slider">
-            
-        </div>  
-        <div id = "sliderLabelThink">Think</div>
-        </div>    
-            
-        <div class = "qEngine" id = "qComputing">
-            
-        <b>Quantum Computing</b><br />
-            
-        <div class = "qChip" id = "qChip0"> </div>      
-        <div class = "qChip" id = "qChip1"> </div> 
-        <div class = "qChip" id = "qChip2"> </div> 
-        <div class = "qChip" id = "qChip3"> </div> 
-        <div class = "qChip" id = "qChip4"> </div>
-        <div class = "qChip" id = "qChip5"> </div>
-        <div class = "qChip" id = "qChip6"> </div> 
-        <div class = "qChip" id = "qChip7"> </div>  
-        <div class = "qChip" id = "qChip8"> </div>
-        <div class = "qChip" id = "qChip9"> </div>    
-    
-        <br />   
-            
-        <button class = "button2" id = "btnQcompute" onclick = "qComp()">    
-        Compute
-        </button>   
-        <span id="qCompDisplay">
-        &nbsp;
-        </span>    
-            
-        </div>    
-   
-        </div>    
-
-            
     </div>    
         
     <div id="rightColumn">
@@ -674,30 +291,34 @@
             <b>Misuse & Misalignment Harms</b><br /> <!--change to "threats" when nationalized -->
             <hr>
             <div id="Skill_Visu_2b">
-            Visual: -50% <br />
-                - Deepfake images: <span style="color:red;font-weight: bold;">-3</span><br />
+            Visual: <span id="alignment_Visu">0</span>% suppressed <br />
+                - Deepfake news images: <span id="Skill_Visu_PR_2b" style="color:darkred;font-weight: bold;">0</span><br />
             </div>
             <div id="Skill_Visu_3b">
-                - Deepfake-enabled scams/fraud: <span style="color:red;font-weight: bold;">-3</span><br />
+                - Deepfake phone scams/fraud: <span id="Skill_Visu_PR_3b" style="color:darkred;font-weight: bold;">0</span><br />
             </div>    
             <div id="Skill_Lang_2b">
-            Language: -50% <br />
-                - AI spam & propaganda: <span style="color:red;font-weight: bold;">-3</span><br />
+            <br />
+            Language: <span id="alignment_Lang">0</span>% suppressed <br />
+                - AI spam & propaganda: <span id="Skill_Lang_PR_2b" style="color:darkred;font-weight: bold;">-3</span><br />
             </div>
             <div id="Skill_Lang_3b">
-                - Addictive AI companion app: <span style="color:red;font-weight: bold;">-3</span><br />
+                - Addictive AI companion app: <span id="Skill_Lang_PR_3b" style="color:darkred;font-weight: bold;">-3</span><br />
             </div>
             <div id="Skill_Code_3b">
-            Coding: -50% <br />
-                - Autonomous hacking tools: <span style="color:red;font-weight: bold;">-3</span><br />
+            <br />
+            Coding: <span id="alignment_Code">0</span>% suppressed <br />
+                - Autonomous hacking tools: <span id="Skill_Code_PR_3b" style="color:darkred;font-weight: bold;">-3</span><br />
             </div>
             <div id="Skill_Biol_2b">
-            Biology: -50% <br />
-                - Virus design: <span style="color:red;font-weight: bold;">-3</span><br />
+            <br />
+            Biology: <span id="alignment_Biol">0</span>% suppressed <br />
+                - Virus design & modification: <span id="Skill_Biol_PR_2b" style="color:darkred;font-weight: bold;">-3</span><br />
             </div>
             <div id="Skill_Robo_2b">
-            Robotics: -50% <br />
-                - Autonomous loitering munitions: <span style="color:red;font-weight: bold;">-3</span><br />
+            <br />
+            Robotics: <span id="alignment_Robo">0</span>% suppressed <br />
+                - "Slaughterbot" loitering munitions: <span id="Skill_Robo_PR_2b" style="color:darkred;font-weight: bold;">-3</span><br />
             </div>
         </div>
             <!--list of various effects on public opinion... ideally red for pessimistic, green for optimistic -->
@@ -938,10 +559,6 @@
         </div>    
         </div>
             
-        <div id = "honorDiv">
-        <p class="engineText4">Honor: <span id="honorDisplay">0</span></p>
-        </div>    
-            
 <!--        POWER-->
         <div id="powerDiv">
         <b>Power</b>
@@ -1143,21 +760,20 @@
         <p class = "engineText8">Cost: <span id="probeTrustCostDisplay">0</span> yomi</p>  
         </div>  
             
-        <div class = enginetext1 id = "increaseMaxTrustDiv">    
-        <button class = "button2" id = "btnIncreaseMaxTrust"
-        onclick="increaseMaxTrust()">Increase Max Trust</button><br />
-        <p class = "engineText8">Cost: <span id="maxTrustCostDisplay">91,117.99</span> honor</p>  
-        </div>  
     </div>
 
     <div id="farrightColumn">
         <div id="PoliticsDiv2"> 
             <b>Public Opinion</b><br />
             <hr>
-            Increasingly powerful AI attracts attention.  Reduce AI harms to keep sentiment positive.
+            Societal importance of AI issues: <span id="hype">0</span><br />
+            <br />
+            Sentiment: <span style="color:green;font-weight: bold;">+10</span> vs <span id="sentiment" style="color:darkred;font-weight: bold;">0</span> = <span id="attitudeBalanceDisplay">0</span> positive</span><br />
             <div id="PoliticsChartSpace"> 
                 <!--chart of public sentiment -->
             </div>
+            Policies:
+            -  idk
         </div>
     </div>
         <script type="text/javascript" src="combat.js?v2"></script>     

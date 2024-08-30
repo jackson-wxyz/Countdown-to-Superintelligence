@@ -16,171 +16,6 @@ function playThrenody(){
         threnodyAudio.play();
     }
 }
-
-
-// Wire --------------------------------------------------------
-
-function adjustWirePrice(){
-    
-    wirePriceTimer++;
-    
-    if (wirePriceTimer>250 && wireBasePrice>15){
-        wireBasePrice = wireBasePrice - (wireBasePrice/1000);
-        wirePriceTimer = 0;
-    }
-    
-    if (Math.random() < .015) {
-        wirePriceCounter++;
-        var wireAdjust = 6*(Math.sin(wirePriceCounter));
-        wireCost = Math.ceil(wireBasePrice + wireAdjust);
-        document.getElementById("wireCost").innerHTML = wireCost;
-        }
-}
-
-function toggleWireBuyer(){
-    if (wireBuyerStatus==1){
-        wireBuyerStatus=0;
-        document.getElementById('wireBuyerStatus').innerHTML = "OFF";
-    } else {
-        wireBuyerStatus=1;
-        document.getElementById('wireBuyerStatus').innerHTML = "ON";
-    }
-}
-
-function buyWire(){
-    if(funds >= wireCost){
-        wirePriceTimer = 0;
-        wire = wire + wireSupply;
-        funds = funds - wireCost;
-        wirePurchase = wirePurchase + 1;
-        wireBasePrice = wireBasePrice + .05;
-        document.getElementById('wire').innerHTML = Math.floor(wire).toLocaleString();
-        document.getElementById('funds').innerHTML = funds.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    }
-}
-
-// QCHIPS -----------------------------------------------------------
-
-var qChips = [];
-
-var qChip0 = {
-    waveSeed: .1,
-    value: 0,
-    active: 0,
-}
-
-qChips.push(qChip0);
-
-var qChip1 = {
-    waveSeed: .2,
-    value: 0,
-    active: 0,
-}
-
-qChips.push(qChip1);
-
-var qChip2 = {
-    waveSeed: .3,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip2);
-
-var qChip3 = {
-    waveSeed: .4,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip3);
-
-var qChip4 = {
-    waveSeed: .5,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip4);
-
-var qChip5 = {
-    waveSeed: .6,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip5);
-
-var qChip6 = {
-    waveSeed: .7,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip6);
-
-var qChip7 = {
-    waveSeed: .8,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip7);
-
-var qChip8 = {
-    waveSeed: .9,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip8);
-
-var qChip9 = {
-    waveSeed: 1,
-    value: 0,
-    active: 0,    
-}
-
-qChips.push(qChip9);
-
-function quantumCompute(){
-    qClock = qClock+.01;
-    for (var i = 0; i<qChips.length; i++){
-        qChips[i].value = Math.sin(qClock*qChips[i].waveSeed*qChips[i].active);
-        document.getElementById("qChip"+i).style.opacity=qChips[i].value;
-    }
-}
-
-function qComp(){
-    
-    qFade = 1;
-    
-    var q = 0;
-    
-    
-    if (qChips[0].active == 0){
-        document.getElementById("qCompDisplay").innerHTML = "Need Photonic Chips";   
-    } else {
-    for (var i = 0; i<qChips.length; i++){
-        q = q+qChips[i].value;
-        }
-        
-        var qq = Math.ceil(q*360);
-        var buffer = (memory*1000) - standardOps;
-        var damper = (tempOps/100)+5;
-        
-        if (qq>buffer) {
-            tempOps = tempOps + Math.ceil(qq/damper) - buffer;
-            qq = buffer;
-            opFade = .01;
-            opFadeTimer = 0;
-            }
-        
-        standardOps = standardOps + qq;
-        document.getElementById("qCompDisplay").innerHTML = "qOps: " + Math.ceil(q*360).toLocaleString();
-    }
-    
-}
  
 
 function manageProjects(){
@@ -333,50 +168,10 @@ function blink(elemID){
 
 function buttonUpdate(){
     
-    if (spaceFlag==0){
-        document.getElementById("mdpsDiv").style.display="none";
-    } else if (spaceFlag==1) {
-        document.getElementById("mdpsDiv").style.display="";
-    }
-    
-    
-    document.getElementById("factoryRebootToolTip").innerHTML = "+"+numberCruncher(factoryBill)+" clips";
-    
-    document.getElementById("harvesterRebootToolTip").innerHTML = "+"+numberCruncher(harvesterBill)+" clips";
-    
-    document.getElementById("wireDroneRebootToolTip").innerHTML = "+"+numberCruncher(wireDroneBill)+" clips";
-    
-    document.getElementById("farmRebootToolTip").innerHTML = "+"+numberCruncher(farmBill)+" clips";
-    
-    document.getElementById("batteryRebootToolTip").innerHTML = "+"+numberCruncher(batteryBill)+" clips";
-    
-    
-    if (swarmFlag == 1){
-        document.getElementById("swarmSliderDiv").style.display="";
-    } else {
-        document.getElementById("swarmSliderDiv").style.display="none";
-    }
-    
+
+    //GPU Stuff, making sections appear and disappear
+    document.getElementById("dateCountCrunched").innerHTML = DateCruncher(Days);
     document.getElementById("clipCountCrunched").innerHTML = numberCruncher(GPUhours, 1);
-    
-    if (autoTourneyFlag==1) {
-        document.getElementById("autoTourneyStatusDiv").style.display="";
-        document.getElementById("autoTourneyControl").style.display="";
-        } else {
-        document.getElementById("autoTourneyStatusDiv").style.display="none";
-        document.getElementById("autoTourneyControl").style.display="none";   
-        }    
-
-    document.getElementById("qCompDisplay").style.opacity = qFade;
-        qFade = qFade - .001;
-        
-    if (wireBuyerFlag==1) {
-        document.getElementById("wireBuyerDiv").style.display="";
-        } else {
-        document.getElementById("wireBuyerDiv").style.display="none";    
-        }
-
-        //GPU Stuff, making sections appear and disappear
     if (GPU_Flag==1) {
         document.getElementById("GPUDiv").style.display="";
         } else {
@@ -388,6 +183,13 @@ function buttonUpdate(){
         } else {
         document.getElementById("GPUBuyerDiv").style.display="none";    
         }
+    
+        
+    if (H100_Flag==1) {
+        document.getElementById("H100Div").style.display="";
+        } else {
+        document.getElementById("H100Div").style.display="none";    
+        }
 
 
     if (TrainedModelFlag==1) {
@@ -397,60 +199,61 @@ function buttonUpdate(){
         }
 
     switch(AISFlag) {
-        case 3:
-            document.getElementById("AISDiv").style.display="";
-            document.getElementById("ResearcherDiv").style.display="";
+        case 4:
+        document.getElementById("AISDiv").style.display="";
+        document.getElementById("ResearcherDiv").style.display="";
+        if((PoliticsFlag == 2) && (Researchers>0)){
             document.getElementById("AISSliderDiv").style.display="";
+            } else{
+                document.getElementById("AISSliderDiv").style.display="";//none";
+            }
+        case 3:
+        document.getElementById("AISDiv").style.display="";
+        document.getElementById("ResearcherDiv").style.display="";
+        if((PoliticsFlag == 2) && (Researchers>0)){
+            document.getElementById("AISSliderDiv").style.display="";
+            } else{
+                document.getElementById("AISSliderDiv").style.display="";//none";
+            }
         case 2:
             document.getElementById("AISDiv").style.display="";
             document.getElementById("ResearcherDiv").style.display="";
-            document.getElementById("AISSliderDiv").style.display="none";
+            document.getElementById("AISSliderDiv").style.display="";//none";
             break;
         case 1:
             document.getElementById("AISDiv").style.display="";
             document.getElementById("ResearcherDiv").style.display="none";
-            document.getElementById("AISSliderDiv").style.display="none";
+            document.getElementById("AISSliderDiv").style.display="";//none";
             break;
         default:
             document.getElementById("AISDiv").style.display="none"; 
             document.getElementById("ResearcherDiv").style.display="none";
-            document.getElementById("AISSliderDiv").style.display="none";
+            document.getElementById("AISSliderDiv").style.display="";//none";
             break; 
         }
 
 
-    if (PoliticsFlag==1) {
-        document.getElementById("PoliticsDiv").style.display="";
-        document.getElementById("PoliticsDiv2").style.display="";
-        document.getElementById("PR1Div").style.display="";
-        document.getElementById("PR2Div").style.display="";
-        document.getElementById("PR3Div").style.display="";
-        document.getElementById("PR4Div").style.display="";
-        document.getElementById("PR5Div").style.display="";
-        } else {
+    switch(PoliticsFlag) {
+        case 2:
+            document.getElementById("PoliticsDiv").style.display="";
+            document.getElementById("PoliticsDiv2").style.display="";
+            break;
+        case 1:
+            document.getElementById("PoliticsDiv").style.display="";
+            document.getElementById("PoliticsDiv2").style.display="none";
+            break;
+        default:
             document.getElementById("PoliticsDiv").style.display="none";   
-            document.getElementById("PoliticsDiv2").style.display="none"; 
-            document.getElementById("PR1Div").style.display="none";
-            document.getElementById("PR2Div").style.display="none";
-            document.getElementById("PR3Div").style.display="none";
-            document.getElementById("PR4Div").style.display="none";
-            document.getElementById("PR5Div").style.display="none"; 
+            document.getElementById("PoliticsDiv2").style.display="none";
+            break;
         }
 
-    if (ScalingFlag==1) {
-            document.getElementById("scale1Div").style.display="";
-            document.getElementById("scale2Div").style.display="";
-            document.getElementById("scale3Div").style.display="";
-            document.getElementById("scale4Div").style.display="";
-            document.getElementById("scale5Div").style.display="";
-            //TODO: ALSO unlock cool graph of capabilities!
-        } else {
-            document.getElementById("scale1Div").style.display="none";
-            document.getElementById("scale2Div").style.display="none";
-            document.getElementById("scale3Div").style.display="none";
-            document.getElementById("scale4Div").style.display="none";
-            document.getElementById("scale5Div").style.display="none"; 
-        }
+    // if (ScalingFlag==1) {
+    //         document.getElementById("cool_capabilities_graph").style.display="";
+    //         //TODO: unlock cool graph of capabilities!
+    //     } else {
+    //         document.getElementById("cool_capabilities_graph").style.display="none"; 
+    //     }
 
 
     switch(Visu_Flag) {
@@ -689,192 +492,7 @@ function buttonUpdate(){
 
 
     
-if (resultsFlag == 1 && autoTourneyFlag == 1 && autoTourneyStatus ==1 && document.getElementById("tournamentResultsTable").style.display == "") {
-    resultsTimer++;
-    
-    if (resultsTimer>=300 && operations>=tourneyCost){
-        newTourney();
-        runTourney();
-        resultsTimer = 0;
-        }
-    }    
-    
-    
-document.getElementById("tournamentStuff").onmouseover = function() {revealGrid()};
-document.getElementById("tournamentStuff").onmouseout = function() {revealResults()};    
-    
-if (project121.flag == 0){
-        document.getElementById("increaseMaxTrustDiv").style.display="none";
-        document.getElementById("honorDiv").style.display="none";
-    } else {
-        document.getElementById("increaseMaxTrustDiv").style.display="";
-        document.getElementById("honorDiv").style.display="";
-    }
-    
-if (battleFlag == 0){
-        document.getElementById("drifterDiv").style.display="none";
-    } else {
-        document.getElementById("drifterDiv").style.display="";
-    }     
-    
-if (battleFlag == 0){
-        document.getElementById("battleCanvasDiv").style.display="none";
-    } else {
-        document.getElementById("battleCanvasDiv").style.display="";
-    }    
-    
-if (project131.flag == 0){
-    document.getElementById("combatButtonDiv").style.display = "none";
-    } else {
-    document.getElementById("combatButtonDiv").style.display = "";    
-    }     
-    
-if (maxFactoryLevel>=50 || project45.flag == 0){
-    document.getElementById("factoryUpgradeDisplay").style.display = "none";
-    } else {
-    document.getElementById("factoryUpgradeDisplay").style.display = "";    
-    }
-    
- if (maxDroneLevel>=50000){   
-    document.getElementById("droneUpgradeDisplay").style.display = "none";
-    }
-    
-if (honor<maxTrustCost){document.getElementById("btnIncreaseMaxTrust").disabled = true;
-            } else {
-            document.getElementById("btnIncreaseMaxTrust").disabled = false;    
-            }
-     
-if (unusedClips<probeCost){document.getElementById("btnMakeProbe").disabled = true;
-            } else {
-            document.getElementById("btnMakeProbe").disabled = false;    
-            }    
-    
-if (probesLostHaz<1) {document.getElementById("hazardBodyCount").style.display = "none";
-            } else {
-            document.getElementById("hazardBodyCount").style.display = "";
-                
-            document.getElementById('probesLostHazardsDisplay').innerHTML = numberCruncher(probesLostHaz);
-                
-            }    
-    
-if (probesLostDrift<1) {document.getElementById("driftBodyCount").style.display = "none";
-            } else {
-            document.getElementById("driftBodyCount").style.display = "";
-            }     
-    
-if (probesLostCombat<1) {document.getElementById("combatBodyCount").style.display = "none";
-            } else {
-            document.getElementById("combatBodyCount").style.display = "";
-            }     
-
-if (prestigeU<1 && prestigeS<1) {document.getElementById("prestigeDiv").style.display = "none";
-            } else {
-            document.getElementById("prestigeDiv").style.display = ""; 
-            }  
-    
-if (wire<1){document.getElementById("btnMakePaperclip").disabled = true;
-            } else {
-            document.getElementById("btnMakePaperclip").disabled = false;    
-            }
-if (funds<wireCost){document.getElementById("btnBuyWire").disabled = true;
-            } else {
-            document.getElementById("btnBuyWire").disabled = false;    
-            }
-if (funds<clipperCost){document.getElementById("btnMakeClipper").disabled = true;
-            } else {
-            document.getElementById("btnMakeClipper").disabled = false;    
-            }   
-if (funds<adCost){document.getElementById("btnExpandMarketing").disabled = true;
-            } else {
-            document.getElementById("btnExpandMarketing").disabled = false;    
-            }    
-if (margin<=.01){document.getElementById("btnLowerPrice").disabled = true;
-            } else {
-            document.getElementById("btnLowerPrice").disabled = false;    
-            } 
-    
-if (trust<=processors+memory && swarmGifts <= 0){
-            document.getElementById("btnAddProc").disabled = true;
-            document.getElementById("btnAddMem").disabled = true;
-            } else {
-            document.getElementById("btnAddProc").disabled = false;
-            document.getElementById("btnAddMem").disabled = false;    
-            }
-if (operations>=tourneyCost && tourneyInProg == 0){
-            document.getElementById("btnNewTournament").disabled = false;
-            } else {
-            document.getElementById("btnNewTournament").disabled = true;    
-            }
-if (yomi<investUpgradeCost){
-            document.getElementById("btnImproveInvestments").disabled = true;
-            } else {
-            document.getElementById("btnImproveInvestments").disabled = false;   
-            }  
-if (investmentEngineFlag == 0){
-            
-            document.getElementById("investmentEngine").style.display="none";
-            document.getElementById("investmentEngineUpgrade").style.display="none";
-            } else {
-                
-            document.getElementById("investmentEngine").style.display="";
-            document.getElementById("investmentEngineUpgrade").style.display="";        
-            }    
-
-if (strategyEngineFlag == 0){
-            
-            document.getElementById("strategyEngine").style.display="none";
-            document.getElementById("tournamentManagement").style.display="none";
-            } else {
-                
-            document.getElementById("strategyEngine").style.display="";
-            document.getElementById("tournamentManagement").style.display="";        
-            }     
-    
-if (megaClipperFlag == 0){
-            
-            document.getElementById("megaClipperDiv").style.display="none";
-            } else {
-            document.getElementById("megaClipperDiv").style.display="";      
-            } 
-    
-if (funds<megaClipperCost){document.getElementById("btnMakeMegaClipper").disabled = true;
-            } else {
-            document.getElementById("btnMakeMegaClipper").disabled = false;    
-            }   
-    
-if (autoClipperFlag == 0){
-            
-            document.getElementById("autoClipperDiv").style.display="none";
-            } else {
-            document.getElementById("autoClipperDiv").style.display="";      
-    } 
-
-    if (funds>=5) {
-        autoClipperFlag = 1;
-    }
-
-if (revPerSecFlag == 0){
-    
-            
-            document.getElementById("revPerSecDiv").style.display="none";
-            } else {
-            document.getElementById("revPerSecDiv").style.display="";      
-            }     
-    
-    
-if (compFlag == 0){
-            
-            document.getElementById("compDiv").style.display="none";
-            } else {
-            document.getElementById("compDiv").style.display="";      
-            }  
-    
-    
-if (creativityOn == 0){
-            document.getElementById("creativityDiv").style.display="none";
-            } else {
-            document.getElementById("creativityDiv").style.display="";    
-}    
+      
     
 if (projectsFlag == 0){
             
@@ -883,63 +501,16 @@ if (projectsFlag == 0){
             document.getElementById("projectsDiv").style.display="";      
             }      
 
-if (humanFlag == 0){
-            
-            document.getElementById("businessDiv").style.display="none";
-            document.getElementById("manufacturingDiv").style.display="none";
-            document.getElementById("trustDiv").style.display="none";
-            investmentEngineFlag = 0;
-            wireBuyerFlag = 0;
-            document.getElementById("creationDiv").style.display="";
-            } else {
-            document.getElementById("businessDiv").style.display="";
-            document.getElementById("manufacturingDiv").style.display="";
-            document.getElementById("trustDiv").style.display="";
-            document.getElementById("creationDiv").style.display="none";    
-            }  
-    
-if (factoryFlag == 0){
-            
-            document.getElementById("factoryDiv").style.display="none";
-            } else {
-            document.getElementById("factoryDiv").style.display="";      
-            }      
-   
-if (wireProductionFlag == 0){
-            
-            document.getElementById("wireProductionDiv").style.display="none";
-            } else {
-            document.getElementById("wireProductionDiv").style.display="";
-            document.getElementById("wireTransDiv").style.display="none";    
-            } 
-    
-if (harvesterFlag == 0){
-            
-            document.getElementById("harvesterDiv").style.display="none";
-            } else {
-            document.getElementById("harvesterDiv").style.display="";      
-            }  
-    
-if (wireDroneFlag == 0){
-            
-            document.getElementById("wireDroneDiv").style.display="none";
-            } else {
-            document.getElementById("wireDroneDiv").style.display="";      
-            }  
-    
-if (tothFlag == 0){
-            
-            document.getElementById("tothDiv").style.display="none";
-            } else {
-            document.getElementById("tothDiv").style.display="";      
-            }    
-    
+//cool original stuff that still sorta works, good for learning...
 if (spaceFlag == 0){
-            document.getElementById("spaceDiv").style.display="none";
-            document.getElementById("factoryDivSpace").style.display="none";
-            document.getElementById("droneDivSpace").style.display="none";
             document.getElementById("probeDesignDiv").style.display="none";
             document.getElementById("increaseProbeTrustDiv").style.display="none";
+            document.getElementById("investmentEngine").style.display="none";    
+            document.getElementById("investmentEngineUpgrade").style.display="none"; 
+            document.getElementById("strategyEngine").style.display="none"; 
+            document.getElementById("tournamentManagement").style.display="none"; 
+            document.getElementById("battleCanvasDiv").style.display="none"; 
+            document.getElementById("powerDiv").style.display="none"; 
             } else {
             document.getElementById("spaceDiv").style.display=""; 
             document.getElementById("factoryDivSpace").style.display="";
@@ -950,35 +521,6 @@ if (spaceFlag == 0){
             document.getElementById("harvesterDiv").style.display="none"; 
             document.getElementById("wireDroneDiv").style.display="none";         
             }  
-    
-if (qFlag == 0){
-            document.getElementById("qComputing").style.display="none";     
-            } else {
-            document.getElementById("qComputing").style.display="";    
-            }    
- 
-    
-if (unusedClips<factoryCost){document.getElementById("btnMakeFactory").disabled = true;
-            } else {
-            document.getElementById("btnMakeFactory").disabled = false;    
-            }     
-     
-    
-if (harvesterLevel==0){document.getElementById("btnHarvesterReboot").disabled = true;
-            } else {
-            document.getElementById("btnHarvesterReboot").disabled = false;    
-            }
-    
-if (wireDroneLevel==0){document.getElementById("btnWireDroneReboot").disabled = true;
-            } else {
-            document.getElementById("btnWireDroneReboot").disabled = false;    
-            }   
-    
-if (factoryLevel==0){document.getElementById("btnFactoryReboot").disabled = true;
-            } else {
-            document.getElementById("btnFactoryReboot").disabled = false;    
-            }      
-    
     
 // PROBE DESIGN    
 
@@ -1941,47 +1483,7 @@ pick = document.getElementById("stratPicker").value;
 
 
 //--------------------------------------------------------------------------------
-
-
-function clipClick(number){
-    
-    if (dismantle>=4){
-        finalClips++;
-        }   
-    
-    if(wire >= 1){
-    if (number > wire) {
-        number = wire;
-        }    
-        
-    clips = clips + number;
-    unsoldClips = unsoldClips + number;
-    wire = wire - number;
-    unusedClips = unusedClips + number;
-    
-    if(humanFlag==0){
-    document.getElementById("unusedClipsDisplay").innerHTML = numberCruncher(unusedClips);    
-    }    
-    
-    if(humanFlag==0){
-    document.getElementById("transWire").innerHTML = numberCruncher(wire);    
-    document.getElementById("nanoWire").innerHTML = numberCruncher(wire);        
-    }    
-        
-    if (milestoneFlag < 15){
-        document.getElementById("clips").innerHTML = Math.ceil(clips).toLocaleString();
-        }    
-        
-    document.getElementById("wire").innerHTML = Math.floor(wire).toLocaleString();
-    document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
-    }
-    
-    
-}
-
-
 function GPUClick(number){
-    
     if(jFunds >= 500){
     if (number > jFunds/500) {
         number = jFunds/500;
@@ -1989,15 +1491,20 @@ function GPUClick(number){
         
     GPUs = GPUs + number;
     jFunds = jFunds - number*500;
-    
-    // do milestones based on when you pass real-life metrics of, ie, datacenter sizes or whatever!
+    // todo: do milestones based on when pass real-life metrics of, ie, datacenter sizes or whatever!
+    } else{
+    displayMessage("Not enough funds.");
+    }
+}
+
+function H100Click(number){
+    if(jFunds >= 30000){
+    if (number > jFunds/30000) {
+        number = jFunds/30000;
+        }
         
-    // if (milestoneFlag < 15){
-    //     document.getElementById("clips").innerHTML = Math.ceil(clips).toLocaleString();
-    //     }    
-        
-    // document.getElementById("wire").innerHTML = Math.floor(wire).toLocaleString();
-    // document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
+    GPUs = GPUs + number*100;
+    jFunds = jFunds - number*30000;
     } else{
     displayMessage("Not enough funds.");
     }
@@ -2022,12 +1529,22 @@ function ResearcherClick(number){
 
 
 function buyGPU(){
-    if(jFunds >= 500){
-        quotient = Math.floor(jFunds/500)
-        GPUs = GPUs + quotient;
-        jFunds = jFunds - 500*quotient;
-        document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
-        document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
+    if(H100_Flag == 1){
+        if(jFunds >= 30000){
+            quotient = Math.floor(jFunds/30000)
+            GPUs = GPUs + quotient*100;
+            jFunds = jFunds - 30000*quotient;
+            document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
+            document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
+        }
+    } else{
+        if(jFunds >= 500){
+            quotient = Math.floor(jFunds/500)
+            GPUs = GPUs + quotient;
+            jFunds = jFunds - 500*quotient;
+            document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
+            document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
+        }
     }
 }
 
@@ -2038,6 +1555,7 @@ function toggleGPUBuyer(){
         document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
     } else {
         GPUBuyerStatus=1;
+        buyGPU()
         document.getElementById('GPUBuyerStatus').innerHTML = "ON";
     }
 }
@@ -2057,14 +1575,9 @@ function TrainAI(){
     Skill_Robo = BaseCapability*2.5 + Skill_Robo_mod;
 
 
-    displayMessage("You just trained a bigger AI model!");
+    displayMessage("You trained a bigger AI model!");
     
     document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("Skill_Visu").innerHTML = Skill_Visu.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("Skill_Lang").innerHTML = Skill_Lang.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("Skill_Code").innerHTML = Skill_Code.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("Skill_Biol").innerHTML = Skill_Biol.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("Skill_Robo").innerHTML = Skill_Robo.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     
     // yValues = [Skill_Visu, Skill_Lang, Skill_Code, Skill_Biol, Skill_Robo]
     // new Chart("CapabilitiesChart", {
@@ -2092,6 +1605,10 @@ function TrainAI(){
     //          }
     //      }
     // });
+    UpdatePolitics()
+    negInsights = 0;
+    Evalhours = 0;
+
     } else {
     displayMessage("Can't train a bigger AI model; not enough training compute!");
     }
@@ -2101,74 +1618,116 @@ function TrainAI(){
     
 }
 
-function AdjustPolitics(DeltaOptimism, DeltaPessimism){
+// function AdjustPolitics(DeltaOptimism, DeltaPessimism){
         
-    //document.getElementById("optimism").innerHTML = optimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    //document.getElementById("pessimism").innerHTML = pessimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+//     //document.getElementById("optimism").innerHTML = optimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+//     //document.getElementById("pessimism").innerHTML = pessimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-    optimism = optimism + DeltaOptimism;
-    pessimism = pessimism + DeltaPessimism;
-    rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
+//     optimism = optimism + DeltaOptimism;
+//     pessimism = pessimism + DeltaPessimism;
+//     rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
 
-    rawData.push({uninterested: (100-optimism-pessimism), pessimist: pessimism, optimist: optimism});
+//     rawData.push({uninterested: (100-optimism-pessimism), pessimist: pessimism, optimist: optimism});
     
-    //I should use Plotly.react to update chart, instead of newplot every time?
-    Plotly.newPlot('PoliticsChartSpace', [{
-        type: 'scatterternary',
-        mode: 'lines',
-        a: rawData.map(function(d) { return d.uninterested; }),
-        b: rawData.map(function(d) { return d.pessimist; }),
-        c: rawData.map(function(d) { return d.optimist; }),
-        line: {color: rgbastring, width: 8,},
-    }], {
-        ternary: {
-            sum: 100,
-            aaxis: makeAxis('Doesn\'t care about AI', 0),
-            baxis: makeAxis('Pessimistic', 45),
-            caxis: makeAxis('Optimistic', -45),
-            //bgcolor: '#fff1e0'
-        },
-        autosize: false,
-        width: 300,
-        height: 300,
-        margin: {
-            l: 45,
-            r: 45,
-            b: 5,
-            t: 0,
-            pad: 1
-          },
-    });
+//     //I should use Plotly.react to update chart, instead of newplot every time?
+//     Plotly.newPlot('PoliticsChartSpace', [{
+//         type: 'scatterternary',
+//         mode: 'lines',
+//         a: rawData.map(function(d) { return d.uninterested; }),
+//         b: rawData.map(function(d) { return d.pessimist; }),
+//         c: rawData.map(function(d) { return d.optimist; }),
+//         line: {color: rgbastring, width: 8,},
+//     }], {
+//         ternary: {
+//             sum: 100,
+//             aaxis: makeAxis('Doesn\'t care about AI', 0),
+//             baxis: makeAxis('Pessimistic', 45),
+//             caxis: makeAxis('Optimistic', -45),
+//             //bgcolor: '#fff1e0'
+//         },
+//         autosize: false,
+//         width: 300,
+//         height: 300,
+//         margin: {
+//             l: 45,
+//             r: 45,
+//             b: 5,
+//             t: 0,
+//             pad: 1
+//           },
+//     });
     
-    function makeAxis(title, tickangle) {
-        return {
-          title: title,
-          titlefont: { family: 'Times New Roman', size: 15 },
-          tickangle: tickangle,
-          tickfont: { size: 1, color: '#ffffff'},
-          tickcolor: 'rgba(0,0,0,0)',
-          ticklen: 4,
-          showline: true,
-          showgrid: true
-        };
+//     function makeAxis(title, tickangle) {
+//         return {
+//           title: title,
+//           titlefont: { family: 'Times New Roman', size: 15 },
+//           tickangle: tickangle,
+//           tickfont: { size: 1, color: '#ffffff'},
+//           tickcolor: 'rgba(0,0,0,0)',
+//           ticklen: 3,
+//           showline: true,
+//           showgrid: true
+//         };
+//     }
+    
+// }
+
+
+function UpdateSentiment(){
+    //balance of sentiment
+    if (AISFlag >3){
+        alignment = -10/(0.005*(negInsights+Evalhours)+.1)+100;//desmos calculator for more
+
+    }else{
+        alignment = -10/(0.005*negInsights+.1)+100;//desmos calculator for more
     }
+    negInsights = 0;
+    Evalhours=0;
+    var alignpercent = (100-alignment)/100;
+    Skill_Visu_PR_2b = Skill_Visu/20 * -1 *alignpercent;
+    Skill_Visu_PR_3b = Skill_Visu/20 * -3 *alignpercent;
+    Skill_Lang_PR_2b = Skill_Lang/20 * -1 *alignpercent;
+    Skill_Lang_PR_3b = Skill_Lang/20 * -3 *alignpercent;
+    Skill_Code_PR_3b = Skill_Code/20 * -3 *alignpercent;
+    Skill_Biol_PR_2b = Skill_Biol/20 * -10*alignpercent;
+    Skill_Robo_PR_2b = Skill_Robo/20 * -10*alignpercent;
+
+    sentiment = 0;
+    if(Visu_Flag > 1){sentiment = sentiment + Skill_Visu_PR_2b;}
+    if(Visu_Flag > 2){sentiment = sentiment + Skill_Visu_PR_3b;}
+    if(Lang_Flag > 1){sentiment = sentiment + Skill_Lang_PR_2b;}
+    if(Lang_Flag > 2){sentiment = sentiment + Skill_Lang_PR_3b;}
+    if(Code_Flag > 2){sentiment = sentiment + Skill_Code_PR_3b;}
+    if(Biol_Flag > 1){sentiment = sentiment + Skill_Biol_PR_2b;}
+    if(Robo_Flag > 1){sentiment = sentiment + Skill_Robo_PR_2b;}
+
+    //Ternary math
+    avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/5;
+    hype = (avgCapability-10)*1;
+    attitudeBalance = 10 / (10 - sentiment);
+    optimism = hype * attitudeBalance;
+    pessimism = hype * (1 - attitudeBalance);
+
     
-}
+
+    
+    document.getElementById('sentiment').innerHTML = sentiment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById('alignment_Display').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById('alignment_Visu').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById('alignment_Lang').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById('alignment_Code').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById('alignment_Biol').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById('alignment_Robo').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%"; 
+    }
 
 function UpdatePolitics(){
-        
-    //document.getElementById("optimism").innerHTML = optimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    //document.getElementById("pessimism").innerHTML = pessimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
-    avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/5;
-    var disinterest = (100-avgCapability); //80
-    var attitudeBalance = plusSentiment / (plusSentiment + minusSentiment);
-    optimism = (100-disinterest) * attitudeBalance;
-    pessimism = (100-disinterest) * (1 - attitudeBalance);
+    UpdateSentiment();
 
     rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
 
-    rawData.push({uninterested: disinterest, pessimist: pessimism, optimist: optimism});
+    rawData.push({uninterested: (100-hype), pessimist: pessimism, optimist: optimism});
     
     //I should use Plotly.react to update chart, instead of newplot every time?
     Plotly.react('PoliticsChartSpace', [{
@@ -2208,6 +1767,14 @@ function UpdatePolitics(){
           showgrid: true
         };
     }
+    
+    document.getElementById('Skill_Visu_PR_2b').innerHTML = Skill_Visu_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
+    document.getElementById('Skill_Visu_PR_3b').innerHTML = Skill_Visu_PR_3b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
+    document.getElementById('Skill_Lang_PR_2b').innerHTML = Skill_Lang_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
+    document.getElementById('Skill_Lang_PR_3b').innerHTML = Skill_Lang_PR_3b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
+    document.getElementById('Skill_Code_PR_3b').innerHTML = Skill_Code_PR_3b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
+    document.getElementById('Skill_Biol_PR_2b').innerHTML = Skill_Biol_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
+    document.getElementById('Skill_Robo_PR_2b').innerHTML = Skill_Robo_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
 }
 
 
@@ -2953,58 +2520,6 @@ function lowerPrice(){
 }
 
 function updateStats(){
-    
-    if (wire == 1){
-        document.getElementById("inchSpan").innerHTML = "inch";
-    } else {
-        document.getElementById("inchSpan").innerHTML = "inches";
-    }
-    
-    
-    if (milestoneFlag < 15){
-        document.getElementById("clips").innerHTML = Math.ceil(clips).toLocaleString();
-        }
-    
-    if (milestoneFlag == 15 && dismantle ==0){
-        document.getElementById("clips").innerHTML = "29,999,999,999,999,900,000,000,000,000,000,000,000,000,000,000,000,000,000";
-        }
-    
-    if (dismantle == 1){
-        document.getElementById("clips").innerHTML = "29,999,999,999,999,999,999,999,999,999,999,999,999,000,000,000,000,000,000";
-        }
-    
-    if (dismantle == 2){
-        document.getElementById("clips").innerHTML = "29,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,000,000,000";
-        }
-    
-    if (dismantle == 3){
-        document.getElementById("clips").innerHTML = "29,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,900";
-        }
-    
-    if (dismantle >=4){
-        
-    if (finalClips<10){
-        document.getElementById("clips").innerHTML = "29,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,"+"90"+finalClips;
-        } else if (finalClips>9 && finalClips<100) {
-        document.getElementById("clips").innerHTML = "29,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,999,"+"9"+finalClips;
-        } else if (finalClips==100) {
-        document.getElementById("clips").innerHTML = "30,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000";
-        }
-    
-    }
-    
-    document.getElementById('clipmakerRate').innerHTML = clipRate.toLocaleString();
-    if (humanFlag==1){
-    document.getElementById('clipmakerRate2').innerHTML = clipRate.toLocaleString();
-    } else { 
-    document.getElementById('clipmakerRate2').innerHTML = numberCruncher(clipRate);
-    }      
-    document.getElementById('nanoWire').innerHTML = numberCruncher(wire);
-    
-    
-    
-    
-    
     //GPU stuff
     document.getElementById("GPUs").innerHTML = GPUs.toLocaleString();
     //document.getElementById("algorithmicProgress").innerHTML = (algorithmicProgress*100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -3012,20 +2527,21 @@ function updateStats(){
     document.getElementById("jFunds").innerHTML = jFunds.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     //document.getElementById("GPU_Rev").innerHTML = GPU_Rev.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("GPUhours").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("Days").innerHTML = Days.toLocaleString();
     document.getElementById("AISPercent").innerHTML = AISPercent.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("ResearchPercent").innerHTML = ResearchPercent.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Researchers").innerHTML = Researchers.toLocaleString();
     document.getElementById("Insights").innerHTML = Insights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById("Evalhours").innerHTML = Evalhours.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
     document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     
 
 
-    document.getElementById("Profit_Visu_1_Display").innerHTML = Profit_Visu_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Visu_1_Display").innerHTML = Profit_Visu_1_Display.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Profit_Visu_2_Display").innerHTML = Profit_Visu_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Profit_Visu_3_Display").innerHTML = Profit_Visu_3_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     
-    document.getElementById("Profit_Lang_1_Display").innerHTML = Profit_Lang_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById("Profit_Lang_1_Display").innerHTML = Profit_Lang_1_Display.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById("Profit_Lang_2_Display").innerHTML = Profit_Lang_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Profit_Lang_3_Display").innerHTML = Profit_Lang_3_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
@@ -3039,252 +2555,8 @@ function updateStats(){
     document.getElementById("Profit_Robo_1_Display").innerHTML = Profit_Robo_1_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Profit_Robo_2_Display").innerHTML = Profit_Robo_2_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
-
-    document.getElementById("funds").innerHTML = funds.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
-    document.getElementById("unsoldClips").innerHTML = Math.floor(unsoldClips).toLocaleString();
-    document.getElementById("demand").innerHTML = (demand*10).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("operations").innerHTML = Math.floor(operations).toLocaleString();
-    document.getElementById("trust").innerHTML = Math.floor(trust).toLocaleString();
-    document.getElementById("nextTrust").innerHTML = Math.floor(nextTrust).toLocaleString();
-    if(creativityOn){document.getElementById("creativity").innerHTML = Math.round(creativity).toLocaleString()};
-    
-    document.getElementById("factoryLevelDisplaySpace").innerHTML = numberCruncher(Math.floor(factoryLevel));
-    document.getElementById("harvesterLevelSpace").innerHTML = numberCruncher(Math.floor(harvesterLevel));
-    document.getElementById("wireDroneLevelSpace").innerHTML = numberCruncher(Math.floor(wireDroneLevel));
-    document.getElementById("maxOps").innerHTML = (memory*1000).toLocaleString();
                                                                             
     }
-
-var incomeThen;
-var incomeNow;
-var trueAvgRev;
-var revTimer = 0;
-var avgSales;
-var incomeLastSecond;
-var sum;
-
-function calculateRev(){
-    
-    incomeThen = incomeNow;
-    incomeNow = income;
-    incomeLastSecond = Math.round((incomeNow - incomeThen)*100)/100;
-    
-    incomeTracker.push(incomeLastSecond);
-    
-    if (incomeTracker.length > 10) {
-        incomeTracker.splice(0,1);
-        }
-    
-    sum = 0;
-    
-    for (i=0; i<incomeTracker.length; i++){
-        sum = Math.round((sum + incomeTracker[i])*100)/100;
-//        console.log("sum = "+sum);
-        }
-    
-    trueAvgRev = sum/incomeTracker.length;
-    
-    var chanceOfPurchase = demand/100;
-    if (chanceOfPurchase > 1) {chanceOfPurchase = 1;}
-    if (unsoldClips < 1) {chanceOfPurchase = 0;}
-    
-    avgSales = chanceOfPurchase * (.7*Math.pow(demand,1.15))*10;
-    avgRev = chanceOfPurchase * (.7*Math.pow(demand,1.15))*margin*10;
-    
-    if (demand>unsoldClips){
-        avgRev = trueAvgRev;
-        avgSales = avgRev/margin;
-        } 
-    
-    document.getElementById("avgSales").innerHTML = Math.round(avgSales).toLocaleString();
-    
-    document.getElementById("avgRev").innerHTML = avgRev.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); 
-    
-}
-
-function calculateCreativity(number){
-    
-    creativityCounter++;
-    
-    var creativityThreshold = 400;
-    
-    var s = prestigeS/10;
-    var ss = creativitySpeed+(creativitySpeed*s);
-    
-    var creativityCheck = creativityThreshold/ss;
-    
-    if (creativityCounter >= creativityCheck){
-        
-        if (creativityCheck >= 1){
-            creativity = creativity+1;
-            }
-        
-        if (creativityCheck < 1){
-            
-
-            creativity = (creativity + ss/creativityThreshold);
-            
-        }
-        
-        creativityCounter = 0;
-    }
-    
-}
-
-function resetPrestige(){
-    
-    prestigeU = 0;
-    prestigeS = 0;
-    
-    localStorage.removeItem("savePrestige");
-    
-}
-
-function cheatPrestigeU(){
-    
-        prestigeU++;
-        var savePrestige = {
-        prestigeU: prestigeU,
-        prestigeS: prestigeS,
-        }
-        localStorage.setItem("savePrestige",JSON.stringify(savePrestige));
-    
-}
-
-function cheatPrestigeS(){
-    
-        prestigeS++;
-        var savePrestige = {
-        prestigeU: prestigeU,
-        prestigeS: prestigeS,
-        }
-        localStorage.setItem("savePrestige",JSON.stringify(savePrestige));
-    
-}
-
-function setB(){
-    battleNumbers[1] = 7;
-}
-
-function cheatClips(){
-    clips = clips + 100000000;
-    unusedClips = unusedClips + 100000000;
-    displayMessage("you just cheated");
-    }
-
-function cheatMoney(){
-    funds = funds + 10000000;
-    document.getElementById("funds").innerHTML = funds.toFixed(2);
-    displayMessage("LIZA just cheated");
-    }
-
-function cheatTrust(){
-    trust = trust+1;
-    displayMessage("Hilary is nice. Also, Liza just cheated");
-    }
-
-function cheatOps(){
-    standardOps = standardOps + 10000;
-    displayMessage("you just cheated, Liza");
-    }
-
-function cheatCreat(){
-    creativityOn = 1;
-    creativity = creativity + 1000;
-    displayMessage("Liza just cheated. Very creative!");
-    }
-
-function cheatYomi(){
-    yomi = yomi + 1000000;
-    document.getElementById("yomiDisplay").innerHTML = yomi.toLocaleString();
-    displayMessage("you just cheated");
-    }
-
-function cheatHypno(){
-    hypnoDroneEvent();
-    }
-
-function zeroMatter(){
-    availableMatter = 0;
-    displayMessage("you just cheated");
-    }
-    
-
-function calculateTrust(){
-    if (clips>(nextTrust-1)){
-        trust = trust +1;
-        displayMessage("Production target met: TRUST INCREASED, additional processor/memory capacity granted");
-        var fibNext = fib1+fib2;
-        nextTrust = fibNext*1000;
-        fib1 = fib2;
-        fib2 = fibNext;
-    }
-}
-
-function addProc(){
-        processors=processors+1;
-        creativitySpeed = Math.log10(processors) * Math.pow(processors,1.1) + processors-1;    
-        document.getElementById("processors").innerHTML = processors;
-        if (creativityOn == 1){
-          displayMessage("Processor added, operations (or creativity) per sec increased")
-        } else {displayMessage("Processor added, operations per sec increased")}
-    
-        if (humanFlag == 0){
-            swarmGifts = swarmGifts - 1;
-        }
-    
-}
-
-function addMem(){
-        displayMessage("Memory added, max operations increased");
-        memory=memory+1;
-        document.getElementById("memory").innerHTML = memory;
-    
-        if (humanFlag == 0){
-            swarmGifts = swarmGifts - 1;
-        }
-}
-
-function calculateOperations(){
-    
-    if (tempOps > 0){
-        opFadeTimer++;
-        }
-    
-    if (opFadeTimer > opFadeDelay && tempOps > 0) {
-        opFade = opFade + Math.pow(3,3.5)/1000;
-        }
-        
-    if (tempOps > 0) {
-        tempOps = Math.round(tempOps - opFade);
-        } else {
-        tempOps = 0;    
-        }
-    
-    if (tempOps + standardOps < memory*1000){
-        standardOps = standardOps + tempOps;
-        tempOps = 0;
-        }
-    
-    operations = Math.floor(standardOps + Math.floor(tempOps));
-    
-    if (operations<memory*1000){
-        var opCycle = processors/10;
-        var opBuf = (memory*1000)-operations;
-        
-        if (opCycle > opBuf) {
-            opCycle = opBuf;
-        }
-            
-        standardOps = standardOps + opCycle;
-        
-        }
-        
-    if (standardOps > memory*1000){
-        standardOps = memory*1000;
-        }
-    
-}
 
 
 function milestoneCheck(){
@@ -3394,6 +2666,30 @@ function timeCruncher(t){
     var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
     
     return hDisplay + mDisplay + sDisplay;
+}
+
+function DateCruncher(d){//d = days
+    var year = 2016+Math.floor(d/360);
+    var month = Math.floor(d % 360 / 30);
+    var date = 1 + Math.floor(d % 360 % 30);
+    
+    var mDisplay;
+    switch(month){
+        case (0): mDisplay = "January "; break;
+        case (1): mDisplay = "February "; break;
+        case (2): mDisplay = "March "; break;
+        case (3): mDisplay = "April "; break;
+        case (4): mDisplay = "May "; break;
+        case (5): mDisplay = "June "; break;
+        case (6): mDisplay = "July "; break;
+        case (7): mDisplay = "August "; break;
+        case (8): mDisplay = "September "; break;
+        case (9): mDisplay = "October "; break;
+        case (10): mDisplay = "November "; break;
+        case (11): mDisplay = "December "; break;
+    }
+    
+    return mDisplay + date + ", " + year;
 }
 
 function numberCruncher(number, decimals){
@@ -3828,58 +3124,15 @@ window.setInterval(function(){
     ticks = ticks + 1;
     milestoneCheck();
     buttonUpdate();
-    
-    if (compFlag == 1){
-        calculateOperations();
-    }
-    
-    if (humanFlag == 1){
-        calculateTrust(); 
-    }
-    
-    if (qFlag == 1){
-        quantumCompute(); 
-    }
+
     
     updateStats(); 
     manageProjects();
     milestoneCheck();
     
     
-// Clip Rate Tracker
-    
-    clipRateTracker++;
-    
-    if (clipRateTracker<100){
-        var cr = clips - prevClips;
-        clipRateTemp = clipRateTemp+cr;
-        prevClips = clips;
-        
-    } else {
-        clipRateTracker = 0;
-        clipRate = clipRateTemp;
-        clipRateTemp = 0;
-    }
-    
-
-// Stock Report
-    
-    stockReportCounter++;
-    if (investmentEngineFlag==1 && stockReportCounter>=10000){
-        var r = (ledger+portTotal).toLocaleString();
-        displayMessage("Lifetime investment revenue report: $"+r);
-        stockReportCounter = 0;
-    }
-    
-// WireBuyer
-    
-    if (wireBuyerFlag==1 && wireBuyerStatus==1 && wire<=1){
-        buyWire();
-    }   
-    
-
 // GPU stuff
-    if (GPUs>100){
+    if (GPUs>39){
         GPUBuyerFlag=1;
     }
 
@@ -3887,322 +3140,57 @@ window.setInterval(function(){
         buyGPU();
     }   
 
-
-
-    // Update the current slider value (each time you drag the slider handle)
-    // slider = document.getElementById("AISSlider");
-    // output.innerHTML = slider.value; // Display the default slider value
-    // slider.oninput = function() {
-    //     AISPercent = this.value;
-    //     document.getElementById("AISPercent") = AISPercent.toLocaleString();
-    // }
-
-    
     AISPercent = document.getElementById("AISSlider").value;
     ResearchPercent = 100-AISPercent;
 
 
-    
-// First, Explore
-    
-exploreUniverse();     
-    
-// Then, Drones
-    
-if (humanFlag==0 && spaceFlag == 0){
-    updateDroneButtons();  
-    }   
-
-
-updatePower();
-updateSwarm();
-acquireMatter();   
-processMatter();
-    
-// Then Factories    
-  
-var fbst = 1;
-    
-if (factoryBoost > 1){
-    fbst = factoryBoost * factoryLevel;
-    }      
-
-    
-if (dismantle<4){
-    clipClick(powMod*fbst*(Math.floor(factoryLevel)*factoryRate));    
-    }    
-// Then Other Probe Functions
-
-if (spaceFlag == 1) {
-    
-if (probeCount<0){
-    probeCount = 0;
-}    
-    
-encounterHazards();
-spawnFactories();
-spawnHarvesters();
-spawnWireDrones();
-spawnProbes();       
-drift();
-war();
-    
-}
-    
-// Auto-Clipper
-    
-if (dismantle<4){
-    clipClick(clipperBoost*(clipmakerLevel/100));
-    clipClick(megaClipperBoost*(megaClipperLevel*5));
-    }    
-    
+// Stock Report
+    // stockReportCounter++;
+    // if (investmentEngineFlag==1 && stockReportCounter>=10000){
+    //     var r = (ledger+portTotal).toLocaleString();
+    //     displayMessage("Lifetime investment revenue report: $"+r);
+    //     stockReportCounter = 0;
+    // }
 // Demand Curve 
-    
-    
-    if (humanFlag == 1) {
-    
-    marketing = (Math.pow(1.1,(marketingLvl-1)));
-    demand = (((.8/margin) * marketing * marketingEffectiveness)*demandBoost);
-    demand = demand + ((demand/10)*prestigeU);
-        
-    }      
-    
-// Creativity
-    
-    if (creativityOn && operations >= (memory*1000)){
-    calculateCreativity();    
-    }  
+    // if (humanFlag == 1) {
+    // marketing = (Math.pow(1.1,(marketingLvl-1)));
+    // demand = (((.8/margin) * marketing * marketingEffectiveness)*demandBoost);
+    // demand = demand + ((demand/10)*prestigeU);
+    // }      
     
 // Ending
-    
-    if (dismantle >= 1){
-    
-    document.getElementById("probeDesignDiv").style.display="none";
-    if (endTimer1>=50) { 
-        document.getElementById("increaseProbeTrustDiv").style.display="none"; 
-        }
-    
-    if (endTimer1>=100) { 
-        document.getElementById("increaseMaxTrustDiv").style.display="none"; 
-        }
-    
-    if (endTimer1>=150) { 
-        document.getElementById("spaceDiv").style.display="none";
-        }
+//     if (dismantle >= 1){
+//     document.getElementById("probeDesignDiv").style.display="none";
+//     if (endTimer1>=50) { 
+//         document.getElementById("increaseProbeTrustDiv").style.display="none"; 
+//         }
+//     if (endTimer1>=100) { 
+//         document.getElementById("increaseMaxTrustDiv").style.display="none"; 
+//         }
+//     if (endTimer1>=150) { 
+//         document.getElementById("spaceDiv").style.display="none";
+//         }
+//     if (endTimer1>=175) {     
+//         document.getElementById("battleCanvasDiv").style.display="none";
+//         }
+//     if (endTimer1>=190) {     
+//         document.getElementById("honorDiv").style.display="none";
+//         }
+//     }   
+// if (dismantle >= 2){
+//     document.getElementById("wireProductionDiv").style.display="none";
+//     document.getElementById("wireTransDiv").style.display="";
+//     if (endTimer2 >= 50) {
+//     document.getElementById("swarmGiftDiv").style.display="none"; 
+//         }
+//     if (endTimer2 >= 100) {
+//     document.getElementById("swarmEngine").style.display="none"; 
+//         }
+//     if (endTimer2 >= 150) {
+//     document.getElementById("swarmSliderDiv").style.display="none";
+//         }
+//     } 
 
-    
-    if (endTimer1>=175) {     
-        document.getElementById("battleCanvasDiv").style.display="none";
-        }
-        
-    if (endTimer1>=190) {     
-        document.getElementById("honorDiv").style.display="none";
-        }
-    
-    }   
-    
-if (dismantle >= 2){
-    
-    document.getElementById("wireProductionDiv").style.display="none";
-    document.getElementById("wireTransDiv").style.display="";
-    
-    if (endTimer2 >= 50) {
-    document.getElementById("swarmGiftDiv").style.display="none"; 
-        }
-    
-    if (endTimer2 >= 100) {
-    document.getElementById("swarmEngine").style.display="none"; 
-        }
-    
-    if (endTimer2 >= 150) {
-    document.getElementById("swarmSliderDiv").style.display="none";
-        }
-    
-    } 
-    
-if (dismantle >= 3) {
-    document.getElementById("factoryDivSpace").style.display="none";
-    document.getElementById("clipsPerSecDiv").style.display="none";
-    document.getElementById("tothDiv").style.display="none";     
-    
-}      
-    
-if (dismantle >= 4) {
-   document.getElementById("strategyEngine").style.display="none"; 
-   document.getElementById("tournamentManagement").style.display="none";
-}    
-    
-if (dismantle >= 5) {
-    
-    document.getElementById("btnQcompute").style.display="none";
-    
-   for (var i = 0; i<qChips.length; i++){
-        qChips[i].value = .5;
-        document.getElementById("qChip"+i).style.opacity=qChips[i].value;
-        }
-    
-    if (endTimer4==10){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=10){
-        document.getElementById("qChip9").style.display="none";
-    }
-    
-    if (endTimer4==60){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=60){
-        document.getElementById("qChip8").style.display="none";
-    }    
-  
-    if (endTimer4==100){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=100){
-        document.getElementById("qChip7").style.display="none";
-    }        
- 
-    if (endTimer4==130){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=130){
-        document.getElementById("qChip6").style.display="none";
-    }   
-    
-    if (endTimer4==150){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=150){
-        document.getElementById("qChip5").style.display="none";
-    }     
-
-    if (endTimer4==160){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=160){
-        document.getElementById("qChip4").style.display="none";
-    }   
-
-    if (endTimer4==165){
-        wire = wire+1;
-    }
-    
-    if (endTimer4>=165){
-        document.getElementById("qChip3").style.display="none";
-    }  
-    
-    if (endTimer4==169){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=169){
-        document.getElementById("qChip2").style.display="none";
-    } 
-
-    if (endTimer4==172){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=172){
-        document.getElementById("qChip1").style.display="none";
-    }    
-
-    if (endTimer4==174){
-        wire = wire+1;
-        document.getElementById("transWire").innerHTML=wire;
-    }
-    
-    if (endTimer4>=174){
-        document.getElementById("qChip0").style.display="none";
-    }    
-    
-    if (endTimer4>=250){
-        document.getElementById("qComputing").style.display="none";
-    }     
-
-}     
-    
-if (dismantle >= 6) {
-    document.getElementById("processorDisplay").style.display="none"; 
-    }    
-    
-if (dismantle >= 7) {
-    document.getElementById("compDiv").style.display="none"; 
-    document.getElementById("projectsDiv").style.display="none"; 
-    
-    }      
-    
-    if (project148.flag == 1){
-        endTimer1++;    
-        }
-    
-    if (project211.flag == 1){
-        endTimer2++;
-        }
-    
-    if (project212.flag == 1){
-        endTimer3++;
-        }
-    
-    if (project213.flag == 1){
-        endTimer4++;
-        }
-    
-    if (project215.flag == 1){
-        endTimer5++;
-        }
-    
-    if (project216.flag == 1 && wire == 0){
-        endTimer6++;
-    }
-    
-    if (endTimer6>=250) {
-        document.getElementById("creationDiv").style.display="none";
-    }
-    
-    if (endTimer6>=500 && milestoneFlag == 15) {
-        playThrenody();
-        displayMessage("Universal Paperclips");
-        milestoneFlag++;
-    }
-    
-    if (endTimer6>=600 && milestoneFlag == 16) {
-        displayMessage("a game by Frank Lantz");
-        milestoneFlag++;
-    }
-    
-    if (endTimer6>=700 && milestoneFlag == 17) {
-        displayMessage("combat programming by Bennett Foddy");
-        milestoneFlag++;
-    }
-    
-    if (endTimer6>=800 && milestoneFlag == 18) {
-        displayMessage("'Riversong' by Tonto's Expanding Headband used by kind permission of Malcolm Cecil");
-        milestoneFlag++;
-    }
-    
-    if (endTimer6>=900 && milestoneFlag == 19) {
-        displayMessage("&#169; 2017 Everybody House Games");
-        milestoneFlag++;
-    }
-    
-    
-    
-    
 }, 10);
 
 // Slow Loop
@@ -4214,8 +3202,6 @@ var secTimer2 = 0;
 window.setInterval(function(){
     
     // Wire Price Fluctuation
-    
-    adjustWirePrice();
     
     // Sales Calculator
     
@@ -4234,12 +3220,16 @@ window.setInterval(function(){
         if (secTimer >= 5){//fire every half-second actually, since we want 1 day every 2 seconds, to cover 20 yearss in an hour
             Days++;
             secTimer = 0;
+            //1 researcher-insight every 100 days = ~1 min of game time
+            Insights = Insights + 0.001*Researchers*(ResearchPercent);
+            if (AISFlag>2){
+                negInsights = negInsights  + 0.001*Researchers*(100-ResearchPercent)
+                if (AISFlag > 3){
+                    Evalhours = Evalhours + 0.002*Researchers*(100- ResearchPercent);
+                }
+            }
         }
         if (secTimer2 >= 50){
-            calculateRev();
-            UpdatePolitics();
-            //1 researcher-insight every 100 days = ~1 min of game time
-            Insights = Insights + 0.1*Researchers;
             secTimer2 = 0;
         }
         //if (secTimer3 >= 500){
@@ -4256,7 +3246,8 @@ window.setInterval(function(){
     GPUhours = GPUhours + GPUs/5; //Exaflops
 
     //Revenue
-    var BaseRev = Math.sqrt(AIcapabilities/3888*5);
+    var BaseRev = Math.cbrt(AIcapabilities/3888*5);
+    BaseRev = BaseRev*BaseRev;
     Profit_Visu_1_Display = Profit_Visu_1*BaseRev;
     Profit_Visu_2_Display = Profit_Visu_2*BaseRev;
     Profit_Visu_3_Display = Profit_Visu_3*BaseRev;
@@ -4290,6 +3281,9 @@ window.setInterval(function(){
     DailyWage = GPU_Rev*5; //for display
     jFunds = jFunds + GPU_Rev;
     
+
+    //Previews from Evals & Scaling Laws
+
     if (ScalingFlag == 1){
         BaseCapability = Math.log10(GPUhours)*10;
         Skill_Visu_Scale = BaseCapability*2.0 + Skill_Visu_mod;
@@ -4297,12 +3291,68 @@ window.setInterval(function(){
         Skill_Code_Scale = BaseCapability*2.5 + Skill_Code_mod;
         Skill_Biol_Scale = BaseCapability*2.0 + Skill_Biol_mod;
         Skill_Robo_Scale = BaseCapability*2.5 + Skill_Robo_mod;
-        document.getElementById("Skill_Visu_Scale").innerHTML = Skill_Visu_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Skill_Lang_Scale").innerHTML = Skill_Lang_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Skill_Code_Scale").innerHTML = Skill_Code_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Skill_Biol_Scale").innerHTML = Skill_Biol_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Skill_Robo_Scale").innerHTML = Skill_Robo_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Skill_Visu_Scale").innerHTML = Skill_Visu.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "% (" + Skill_Visu_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+        document.getElementById("Skill_Lang_Scale").innerHTML = Skill_Lang.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "% (" + Skill_Lang_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+        document.getElementById("Skill_Code_Scale").innerHTML = Skill_Code.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "% (" + Skill_Code_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+        document.getElementById("Skill_Biol_Scale").innerHTML = Skill_Biol.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "% (" + Skill_Biol_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+        document.getElementById("Skill_Robo_Scale").innerHTML = Skill_Robo.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "% (" + Skill_Robo_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+    }else{
+        document.getElementById("Skill_Visu_Scale").innerHTML = Skill_Visu.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        document.getElementById("Skill_Lang_Scale").innerHTML = Skill_Lang.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        document.getElementById("Skill_Code_Scale").innerHTML = Skill_Code.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        document.getElementById("Skill_Biol_Scale").innerHTML = Skill_Biol.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        document.getElementById("Skill_Robo_Scale").innerHTML = Skill_Robo.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
     }
+
+
+
+
+
+
+
+
+    if(AISFlag>2){
+        alignment_Display = -10/(0.005*negInsights+.1)+100;
+        document.getElementById('alignment_Display').innerHTML = alignment_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%";
+    }
+    if(AISFlag>3){
+        //Evals Sentiment Preview
+        alignment_Display = -10/(0.005*(negInsights+Evalhours)+.1)+100;
+        document.getElementById('alignment_Display').innerHTML = alignment_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%";
+
+        Skill_Visu_PR_2b_Display = Skill_Visu_Scale/20 * -1;
+        Skill_Visu_PR_3b_Display = Skill_Visu_Scale/20 * -3;
+        Skill_Lang_PR_2b_Display = Skill_Lang_Scale/20 * -1;
+        Skill_Lang_PR_3b_Display = Skill_Lang_Scale/20 * -3;
+        Skill_Code_PR_3b_Display = Skill_Code_Scale/20 * -3;
+        Skill_Biol_PR_2b_Display = Skill_Biol_Scale/20 * -10;
+        Skill_Robo_PR_2b_Display = Skill_Robo_Scale/20 * -10;
+    
+        Sentiment_Display = 0;
+        if(Visu_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Visu_PR_2b;}
+        if(Visu_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Visu_PR_3b;}
+        if(Lang_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Lang_PR_2b;}
+        if(Lang_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Lang_PR_3b;}
+        if(Code_Flag > 2){Sentiment_Display = Sentiment_Display + Skill_Code_PR_3b;}
+        if(Biol_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Biol_PR_2b;}
+        if(Robo_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Robo_PR_2b;}
+    
+        //Ternary math
+        avgCapability_Display = (Skill_Visu_Scale + Skill_Lang_Scale + Skill_Code_Scale + Skill_Biol_Scale + Skill_Robo_Scale)/5;
+        hype_Display = (avgCapability_Display-10)*1;
+        attitudeBalance_Display = 10 / (10 - Sentiment_Display);
+        document.getElementById('Skill_Visu_PR_2b').innerHTML = Skill_Visu_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Visu_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
+        document.getElementById('Skill_Visu_PR_3b').innerHTML = Skill_Visu_PR_3b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Visu_PR_3b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
+        document.getElementById('Skill_Lang_PR_2b').innerHTML = Skill_Lang_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Lang_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
+        document.getElementById('Skill_Lang_PR_3b').innerHTML = Skill_Lang_PR_3b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Lang_PR_3b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
+        document.getElementById('Skill_Code_PR_3b').innerHTML = Skill_Code_PR_3b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Code_PR_3b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
+        document.getElementById('Skill_Biol_PR_2b').innerHTML = Skill_Biol_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Biol_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
+        document.getElementById('Skill_Robo_PR_2b').innerHTML = Skill_Robo_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Robo_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
+        document.getElementById('hype').innerHTML = hype.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + hype_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+        document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + attitudeBalance_Display.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + "%)";
+    }
+
+
 }, 100);
      
 
@@ -4385,34 +3435,4 @@ function refresh() {
     updatePowPrices(); 
     
     
-    
-    // HOT FIXES
-
-    if(project46.flag == 1)
-    {
-        loadThrenody();
-    }
-    
-    project218.uses = 1;
-    project219.uses = 1;
-    
-    
-    // DEBUG
-    
-    if (battles.length>0){
-        battles.splice(0,1);
-    }
-    
-    
-}
-
-
-
-function reset() {
-    localStorage.removeItem("saveGame");
-    localStorage.removeItem("saveProjectsUses");
-    localStorage.removeItem("saveProjectsFlags");
-    localStorage.removeItem("saveProjectsActive");
-    localStorage.removeItem("saveStratsActive");
-    location.reload();
 }

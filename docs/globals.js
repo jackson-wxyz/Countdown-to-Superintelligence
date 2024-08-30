@@ -1,5 +1,12 @@
 var Researchers = 0;
 var Insights = 0;
+var negInsights = 0;
+var Evalhours = 0;
+var alignment = 0;
+
+var AISFlag = 0;
+var AISPercent = 0;
+var ResearchPercent = 100;
 
 var Days = 0;
 var GPUs = 0;
@@ -10,16 +17,13 @@ var AIcapabilities = 0; // find some way of turning "gpuhours" into an actual me
 var GPU_Rev = 0;
 var DailyWage = 0;
 
-//Politics stuff
-var plusSentiment = 2;
-var minusSentiment = 1;
 
 var GPU_Flag = 0;
+var H100_Flag = 0;
 var GPUBuyerFlag = 0;
 var GPUBuyerStatus = 0;
 
 var TrainedModelFlag = 0;
-var AISFlag = 0;
 var PoliticsFlag = 0;
 var ScalingFlag = 0;
 
@@ -35,11 +39,11 @@ var Skill_Lang = 0;
 var Skill_Code = 0;
 var Skill_Biol = 0;
 var Skill_Robo = 0;
-var Skill_Visu_mod = -20;
-var Skill_Lang_mod = -30;
+var Skill_Visu_mod = -15;
+var Skill_Lang_mod = -20;
 var Skill_Code_mod = -75;
 var Skill_Biol_mod = -60;
-var Skill_Robo_mod = -125;
+var Skill_Robo_mod = -100;
 
 var Skill_Visu_bad_mod = 0;
 var Skill_Lang_bad_mod = 0;
@@ -47,11 +51,18 @@ var Skill_Code_bad_mod = 0;
 var Skill_Biol_bad_mod = 0;
 var Skill_Robo_bad_mod = 0;
 
-var Skill_Visu_PR = 3;
-var Skill_Lang_PR = 3;
-var Skill_Code_PR = 3;
-var Skill_Biol_PR = 3;
-var Skill_Robo_PR = 3;
+//Politics stuff
+var hype = 0;
+var sentiment = 0;
+var attitudeBalance = 0;
+var Skill_Visu_PR_2b = -1;
+var Skill_Visu_PR_3b = -3;
+var Skill_Lang_PR_2b = -1;
+var Skill_Lang_PR_3b = -3;
+var Skill_Code_PR_3b = -3;
+var Skill_Biol_PR_2b = -10;
+var Skill_Robo_PR_2b = -10;
+
 
 var Skill_Visu_Scale = 0;
 var Skill_Lang_Scale = 0;
@@ -60,18 +71,19 @@ var Skill_Biol_Scale = 0;
 var Skill_Robo_Scale = 0;
 
 
+
 //1 unit of profit = 1 90-second doubling time, currently.
 //gotta start applying this to the square root of capabilities in order to give myself room to give more bonuses, etc?
 var Profit_Visu_1 = 1;
 var Profit_Visu_1_Display = 0;
-var Profit_Visu_2 = 2;
+var Profit_Visu_2 = 1.5;
 var Profit_Visu_2_Display = 0;
-var Profit_Visu_3 = 4;
+var Profit_Visu_3 = 3.5;
 var Profit_Visu_3_Display = 0;
 
 var Profit_Lang_1 = 1.5;
 var Profit_Lang_1_Display = 0;
-var Profit_Lang_2 = 3;
+var Profit_Lang_2 = 2;
 var Profit_Lang_2_Display = 0;
 var Profit_Lang_3 = 6;
 var Profit_Lang_3_Display = 0;
@@ -83,14 +95,14 @@ var Profit_Code_2_Display = 0;
 var Profit_Code_3 = 8;
 var Profit_Code_3_Display = 0;
 
-var Profit_Biol_1 = 4;
+var Profit_Biol_1 = 1.5;
 var Profit_Biol_1_Display = 0;
-var Profit_Biol_2 = 8;
+var Profit_Biol_2 = 6;
 var Profit_Biol_2_Display = 0;
 
-var Profit_Robo_1 = 4;
+var Profit_Robo_1 = 8;
 var Profit_Robo_1_Display = 0;
-var Profit_Robo_2 = 8;
+var Profit_Robo_2 = 16;
 var Profit_Robo_2_Display = 0;
 
 //CapabilityChart

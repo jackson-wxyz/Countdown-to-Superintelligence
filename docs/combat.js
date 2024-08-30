@@ -521,15 +521,15 @@ function battleRestart(){
                 numLeftShips--;
                 if (unitSize>probeCount){unitSize=probeCount;}
                 probeCount = probeCount - unitSize;
-                probesLostCombat = probesLostCombat + unitSize;
-                document.getElementById('probesLostCombatDisplay').innerHTML = numberCruncher(probesLostCombat);
+                probesLostCombat = 0;
+                //document.getElementById('probesLostCombatDisplay').innerHTML = probesLostCombat;
                 } else {
                 numRightShips--;
                 if (unitSize>drifterCount){unitSize=drifterCount;}
                 drifterCount = drifterCount - unitSize;
                 driftersKilled = driftersKilled + unitSize;  
-                document.getElementById('driftersKilled').innerHTML = numberCruncher(driftersKilled);
-                document.getElementById('drifterCount').innerHTML = numberCruncher(drifterCount);
+                //document.getElementById('driftersKilled').innerHTML = numberCruncher(driftersKilled);
+                //document.getElementById('drifterCount').innerHTML = numberCruncher(drifterCount);
             }
           }
             
