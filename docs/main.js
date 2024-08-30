@@ -237,7 +237,7 @@ if (Nationalized == true){
         if((PoliticsFlag == 2) && (Researchers>0)){
             document.getElementById("AISSliderDiv").style.display="";
             } else{
-                document.getElementById("AISSliderDiv").style.display="";//none";
+                document.getElementById("AISSliderDiv").style.display="none";
             }
         case 3:
         document.getElementById("AISDiv").style.display="";
@@ -245,22 +245,22 @@ if (Nationalized == true){
         if((PoliticsFlag == 2) && (Researchers>0)){
             document.getElementById("AISSliderDiv").style.display="";
             } else{
-                document.getElementById("AISSliderDiv").style.display="";//none";
+                document.getElementById("AISSliderDiv").style.display="none";
             }
         case 2:
             document.getElementById("AISDiv").style.display="";
             document.getElementById("ResearcherDiv").style.display="";
-            document.getElementById("AISSliderDiv").style.display="";//none";
+            document.getElementById("AISSliderDiv").style.display="none";
             break;
         case 1:
             document.getElementById("AISDiv").style.display="";
             document.getElementById("ResearcherDiv").style.display="none";
-            document.getElementById("AISSliderDiv").style.display="";//none";
+            document.getElementById("AISSliderDiv").style.display="none";
             break;
         default:
             document.getElementById("AISDiv").style.display="none"; 
             document.getElementById("ResearcherDiv").style.display="none";
-            document.getElementById("AISSliderDiv").style.display="";//none";
+            document.getElementById("AISSliderDiv").style.display="none";
             break; 
         }
 
