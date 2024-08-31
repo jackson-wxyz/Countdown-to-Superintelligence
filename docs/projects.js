@@ -270,9 +270,9 @@ projects.push(projectI3);
 //...and is used for thresholds, but never returns money (until it becomes geostrategic in superintelligence) //self-play
 var projectB1 = {
     id: "projectButtonB1",
-    title: "Protein Folding App",
+    title: "Protein Folding",
     priceTag: " (1 Insight, Visual 45%)",
-    description: "If AI can beat us at chess, maybe it'll beat us at Foldit.",
+    description: "AI beats us at chess. Maybe it'll beat us at Foldit.",
     trigger: function(){return (projectL2.flag) == 1},
     uses: 1,
     cost: function(){return (Insights>0.95) && (Skill_Visu>44.5)},//lower than this and it will be negative on arrival
@@ -302,7 +302,7 @@ var projectC1 = {
     cost: function(){return Skill_Lang>29.5},//lower than 25 and it will be negative on arrival
     flag: 0,
     effect: function(){
-        displayMessage("Code Checker App: todo!");
+        displayMessage("Code Checker App: 'It looks like you're trying to take over the world. Would you like help with that?' - Clippy");
         Code_Flag = 1;
 
         projectC1.flag = 1;
@@ -409,8 +409,8 @@ var projectB2 = {
     cost: function(){return  jFunds>2500},
     flag: 0,
     effect: function(){
-        displayMessage("Molecular Dynamics Package: todo!");
-        jFunds = jFunds -2500;
+        displayMessage("Molecular Dynamics Package: Giving AI a deep understanding of biology will help us find new cures for lots of diseases.");
+       jFunds = jFunds -2500;
         Skill_Biol_mod = Skill_Biol_mod + 4.5;
         Skill_Biol = Skill_Biol + 4.5;//log(2^(3/2))*10
         Profit_Biol_1 = Profit_Biol_1 * 2;
@@ -460,13 +460,13 @@ var projectL5 = {
     id: "projectButtonL5",
     title: "Tree-of-Thought Prompting",
     priceTag: " (1 Insight)",
-    description: "Let's think step-by-step... (+75% Lang. profit)",
+    description: "Let's think step-by-step... \n(+75% Lang. profit)",
     trigger: function(){return projectL3.flag == 1},
     uses: 1,
     cost: function(){return Insights>0.95},
     flag: 0,
     effect: function(){
-        displayMessage("Tree-of-Thought Prompting: todo");
+        displayMessage("Tree-of-Thought Prompting: 'Imagine if, when asked to solve a hard math problem, you had to instantly answer with the very first thing that came to mind.' - Leopold Aschenbrenner");
         Insights = Insights -1;
         Skill_Lang_mod = Skill_Lang_mod + 33.6;
         Skill_Lang = Skill_Lang + 3.6;//log(1.75^(3/2))*10
@@ -614,7 +614,7 @@ var projectR1 = {
     cost: function(){return (Skill_Visu > 69.5)},
     flag: 0,
     effect: function(){
-        displayMessage("Aerial Drone Control: todo");
+        displayMessage("Aerial Drone Control: Pushing the envelope.");
         Robo_Flag = 1;
 
         projectR1.flag = 1;
@@ -639,7 +639,7 @@ var projectC3 = {
     cost: function(){return Skill_Code>69.5},
     flag: 0,
     effect: function(){
-        displayMessage("Action Transformers: ");
+        displayMessage("AI Pair Programmer: This would've been helpful while I was coding up this very game!");
         Code_Flag = 2;
 
         projectC3.flag = 1;
@@ -691,13 +691,13 @@ var projectV5 = {
     id: "projectButtonV5",
     title: "Video Generation",
     priceTag: " (Visual 90%)",
-    description: "todo",
+    description: "Photorealistic footage of people and places that never were.",
     trigger: function(){return projectR1.flag == 1},
     uses: 1,
     cost: function(){return Skill_Visu>89.5},
     flag: 0,
     effect: function(){
-        displayMessage("Video Generation: todo");
+        displayMessage("Video Generation: 'Have you ever had a dream, Neo, that you were so sure was real?  How do you know the difference between the dream world and the real world?' - The Matrix, 1999");
         Visu_Flag = 3;
         UpdatePolitics();
 
@@ -721,7 +721,7 @@ var projectB3 = {
     cost: function(){return (Skill_Biol>59.5)},//lower than this and it will be negative on arrival
     flag: 0,
     effect: function(){
-        displayMessage("Protein Interaction & Design: translating RNA sequences into 3D protein structures was an unsolved problem in medical research for decades.");
+        displayMessage("Protein Interaction & Design: Don't worry.  'Diamondoid bacteria' aren't real.  They can't hurt you.");
         Biol_Flag = 2;
         UpdatePolitics();
 
@@ -745,7 +745,7 @@ var projectM4 = {
     cost: function(){return Insights>2.95},
     flag: 0,
     effect: function(){
-        displayMessage("Multimodality: todo");
+        displayMessage("Multimodality: 'Bodhisattva, practicing deep meditation, clearly saw that all five skandhas are empty: no eyes, no ears, no nose, no tongue, no body, no mind.' - Heart Sutra");
         Insights = Insights -3;
         Skill_Visu_mod = Skill_Visu_mod + 4.5;
         Skill_Lang_mod = Skill_Lang_mod + 4.5;
@@ -771,7 +771,7 @@ projects.push(projectM4);
 //action transformers
 var projectC4 = {
     id: "projectButtonC4",
-    title: "Action Transformer",
+    title: "Action Transformers",
     priceTag: " (4 Insights)",
     description: "AI uses a PC autonomously like humans. (+50% Code profit)",
     trigger: function(){return projectI4.flag == 1},
@@ -779,7 +779,7 @@ var projectC4 = {
     cost: function(){return Insights>3.95},
     flag: 0,
     effect: function(){
-        displayMessage("Multimodality: todo");
+        displayMessage("Action Transformers: no relation to Hasbro corporation or the planet Cybertron.");
         Insights = Insights -4;
         Skill_Code_mod = Skill_Code_mod + 2.6;
         Skill_Code = Skill_Code + 2.6;//log(1.5^(3/2))*10
@@ -802,13 +802,13 @@ var projectR2 = {
     id: "projectButtonR2",
     title: "Self-Driving Vehicles",
     priceTag: " (Robotics 35%)",
-    description: "todo",
+    description: "Cars, boats, antipersonnel drones...",
     trigger: function(){return projectR1.flag == 1},
     uses: 1,
     cost: function(){return (Skill_Robo > 34.5)},
     flag: 0,
     effect: function(){
-        displayMessage("Self-Driving Vehicles: todo");
+        displayMessage("Self-Driving Vehicles: 'People are so bad at driving cars that computers don't have to be that good to be much better.' - Marc Andreesen");
         Robo_Flag = 2;
 
         projectR2.flag = 1;
@@ -888,7 +888,7 @@ var projectL6 = {
     cost: function(){return Skill_Lang>89.5},
     flag: 0,
     effect: function(){
-        displayMessage("Multimodal Assistant: todo");
+        displayMessage("Multimodal Assistant: 'Incredibly prophetic and certainly, more than a little bit, inspired us.' - Sam Altman, on the movie 'Her'");
         Lang_Flag = 3;
         UpdatePolitics();
 
