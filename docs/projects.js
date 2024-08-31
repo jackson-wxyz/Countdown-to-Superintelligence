@@ -30,28 +30,28 @@ var projectA = {
 }
 projects.push(projectA);
 
-var projectA0 = {
-    id: "projectButtonA0",
-    title: "Cheat",
-    priceTag: " ",
-    description: "+1000 GPUs and +$1M funds",
-    trigger: function(){return projectsFlag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage("You cheated");
-        jFunds = jFunds + 3000000;
-        GPUs = GPUs + 1000;
+// var projectA0 = {
+//     id: "projectButtonA0",
+//     title: "Cheat",
+//     priceTag: " ",
+//     description: "+1000 GPUs and +$1M funds",
+//     trigger: function(){return projectsFlag == 1},
+//     uses: 1,
+//     cost: function(){return true},
+//     flag: 0,
+//     effect: function(){
+//         displayMessage("You cheated");
+//         jFunds = jFunds + 3000000;
+//         GPUs = GPUs + 1000;
 
-        projectA0.flag = 1;
-        var element = document.getElementById("projectButtonA0");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectA0);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectA0);
+//         projectA0.flag = 1;
+//         var element = document.getElementById("projectButtonA0");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectA0);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectA0);
 
 
 //Visu_1, Image classifier app
