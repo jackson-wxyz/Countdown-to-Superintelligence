@@ -30,28 +30,28 @@ var projectA = {
 }
 projects.push(projectA);
 
-// var projectA0 = {
-//     id: "projectButtonA0",
-//     title: "Cheat",
-//     priceTag: " ",
-//     description: "+1000 GPUs and +$1M funds",
-//     trigger: function(){return projectsFlag == 1},
-//     uses: 1,
-//     cost: function(){return true},
-//     flag: 0,
-//     effect: function(){
-//         displayMessage("You cheated");
-//         jFunds = jFunds + 3000000;
-//         GPUs = GPUs + 1000;
+var projectA0 = {
+    id: "projectButtonA0",
+    title: "Cheat",
+    priceTag: " ",
+    description: "+1000 GPUs and +$1M funds",
+    trigger: function(){return projectsFlag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("You cheated");
+        jFunds = jFunds + 3000000;
+        GPUs = GPUs + 1000;
 
-//         projectA0.flag = 1;
-//         var element = document.getElementById("projectButtonA0");
-//         element.parentNode.removeChild(element);
-//         var index = activeProjects.indexOf(projectA0);
-//         activeProjects.splice(index, 1);
-//     }
-// }
-// projects.push(projectA0);
+        projectA0.flag = 1;
+        var element = document.getElementById("projectButtonA0");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectA0);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectA0);
 
 
 //Visu_1, Image classifier app
@@ -828,16 +828,16 @@ projects.push(projectR2);
 var projectA3 = {
     id: "projectButtonA3",
     title: "Pre-deployment Evals",
-    priceTag: " ($1,000,000)",
+    priceTag: " ($200,000)",
     description: "Probe for dangerous capabilities pre-release.",
     trigger: function(){return projectA2.flag == 1},
     uses: 1,
-    cost: function(){return jFunds>1000000},
+    cost: function(){return jFunds>200000},
     flag: 0,
     effect: function(){
         displayMessage("Pre-deployment Evals: ");
         AISFlag = 4;
-        jFunds = jFunds - 1000000;
+        jFunds = jFunds - 200000;
 
         projectA3.flag = 1;
         var element = document.getElementById("projectButtonA3");
@@ -926,7 +926,7 @@ projects.push(projectL6);
 var projectN = {
     id: "projectButtonN",
     title: "Nationalize the AI Labs",
-    priceTag: " (Societal importance >95%)",
+    priceTag: " \n(Public opinion prominence >95%)",
     description: " We stand at the hinge of history.",
     trigger: function(){return hype >75},
     uses: 1,
@@ -1032,11 +1032,11 @@ var projectN = {
 
 
         //STATS upon hitting nationalization:
-        //GPUs:
-        //Profit per day:
-        //model size:
-        //researchers:
-        
+        //GPUs: 28k
+        //Profit per day: 78K
+        //model size: 3.3M exaflops
+        //researchers: 2
+
 
         projectN.flag = 1;
         var element = document.getElementById("projectButtonN");

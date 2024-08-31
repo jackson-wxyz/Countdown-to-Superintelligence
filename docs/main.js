@@ -2938,9 +2938,9 @@ function UpdateSentiment(){
     Skill_Visu_PR_2b = Skill_Visu/20 * -1 *alignpercent;
     Skill_Visu_PR_3b = Skill_Visu/20 * -3 *alignpercent;
     Skill_Lang_PR_2b = Skill_Lang/20 * -1 *alignpercent;
-    Skill_Lang_PR_3b = Skill_Lang/20 * -3 *alignpercent;
+    Skill_Lang_PR_3b = Skill_Lang/20 * -2 *alignpercent;
     Skill_Code_PR_3b = Skill_Code/20 * -3 *alignpercent;
-    Skill_Biol_PR_2b = Skill_Biol/20 * -10*alignpercent;
+    Skill_Biol_PR_2b = Skill_Biol/20 * -4*alignpercent;
     Skill_Robo_PR_2b = Skill_Robo/20 * -10*alignpercent;
 
     sentiment = 0;
@@ -2953,22 +2953,20 @@ function UpdateSentiment(){
     if(Robo_Flag > 1){sentiment = sentiment + Skill_Robo_PR_2b;}
 
     //Ternary math
-    avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/3.5;
+    avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/4.5;
     hype = (avgCapability-10)*1;
     attitudeBalance = 10 / (10 - sentiment);
     optimism = hype * attitudeBalance;
     pessimism = hype * (1 - attitudeBalance);
 
-    
-
-    
+    document.getElementById('hype').innerHTML = hype.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%";
     document.getElementById('sentiment').innerHTML = sentiment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById('alignment_Display').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById('alignment_Visu').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById('alignment_Lang').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById('alignment_Code').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById('alignment_Biol').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById('alignment_Robo').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
+    document.getElementById('alignment_Display').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById('alignment_Visu').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById('alignment_Lang').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById('alignment_Code').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById('alignment_Biol').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    document.getElementById('alignment_Robo').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%"; 
     }
 
@@ -3067,7 +3065,6 @@ function updateStats(){
     document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
     document.getElementById("Evalhours").innerHTML = Evalhours.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
     document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById('hype').innerHTML = hype.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     
 
 
@@ -3266,7 +3263,7 @@ function PreviewEffects(){
         if(Robo_Flag > 1){Sentiment_Display = Sentiment_Display + Skill_Robo_PR_2b_Display;}
     
         //Ternary math
-        avgCapability_Display = (Skill_Visu_Scale + Skill_Lang_Scale + Skill_Code_Scale + Skill_Biol_Scale + Skill_Robo_Scale)/3.5;
+        avgCapability_Display = (Skill_Visu_Scale + Skill_Lang_Scale + Skill_Code_Scale + Skill_Biol_Scale + Skill_Robo_Scale)/4.5;
         hype_Display = (avgCapability_Display-10)*1;
         attitudeBalance_Display = 10 / (10 - Sentiment_Display);
         document.getElementById('Skill_Visu_PR_2b').innerHTML = Skill_Visu_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Visu_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";

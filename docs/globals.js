@@ -55,13 +55,13 @@ var Skill_Robo_bad_mod = 0;
 var hype = 0;
 var sentiment = 0;
 var attitudeBalance = 0;
-var Skill_Visu_PR_2b = -1;
-var Skill_Visu_PR_3b = -3;
-var Skill_Lang_PR_2b = -1;
-var Skill_Lang_PR_3b = -3;
-var Skill_Code_PR_3b = -3;
-var Skill_Biol_PR_2b = -10;
-var Skill_Robo_PR_2b = -10;
+var Skill_Visu_PR_2b = 0;
+var Skill_Visu_PR_3b = 0;
+var Skill_Lang_PR_2b = 0;
+var Skill_Lang_PR_3b = 0;
+var Skill_Code_PR_3b = 0;
+var Skill_Biol_PR_2b = 0;
+var Skill_Robo_PR_2b = 0;
 
 
 var Skill_Visu_Scale = 0;
