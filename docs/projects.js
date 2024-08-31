@@ -372,11 +372,11 @@ projects.push(projectL3);
 var projectC2 = {
     id: "projectButtonC2",
     title: "Self-supervision",
-    priceTag: " (1 insight, Code 5%)",
+    priceTag: " (1 insight, Code 25%)",
     description: "LLM-made unit tests to evaluate LLM output. (+100% Coding profits)",
     trigger: function(){return (projectC1.flag == 1)},
     uses: 1,
-    cost: function(){return  (Insights>0.95) && (Skill_Code>4.5)},
+    cost: function(){return  (Insights>0.95) && (Skill_Code>24.5)},
     flag: 0,
     effect: function(){
         displayMessage("Self-supervision: Where objective training signals are possible, such as in chess or mathematics, the specter of far-superhuman performance begins to take shape.");
@@ -549,6 +549,31 @@ var projectM2 = {
 }
 projects.push(projectM2);
 
+//Incorporate and unlock paying for researchers ($200K each), -$70,000
+//this is an insight project, and should follow on from running out of insight
+var projectI4 = {
+    id: "projectButtonI4",
+    title: "Incorporate a Startup",
+    priceTag: " ($20,000)",
+    description: "Rent offices and hire employees to help develop insights",
+    trigger: function(){return (GPUs > 59)},
+    uses: 1,
+    cost: function(){return jFunds > 50000},
+    flag: 0,
+    effect: function(){
+        displayMessage("Found a business: Your employees will help you explore new ideas, develop products, and more.  First, let's all sign this NDA...");
+        if(AISFlag <2){AISFlag = 2;}
+        jFunds = jFunds - 50000;
+
+        projectI4.flag = 1;
+        var element = document.getElementById("projectButtonI4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectI4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectI4);
+
 //GPU Upgrade
 var projectM3 = {
     id: "projectButtonM3",
@@ -601,41 +626,17 @@ var projectR1 = {
 }
 projects.push(projectR1);
 
-//Incorporate and unlock paying for researchers ($200K each), -$70,000
-//this is an insight project, and should follow on from running out of insight
-var projectI4 = {
-    id: "projectButtonI4",
-    title: "Incorporate a Startup",
-    priceTag: " ($50,000)",
-    description: "Rent offices and hire employees to help develop insights",
-    trigger: function(){return (GPUs > 59)},
-    uses: 1,
-    cost: function(){return jFunds > 50000},
-    flag: 0,
-    effect: function(){
-        displayMessage("Found a business: Your employees will help you explore new ideas, develop products, and more.  First, let's all sign this NDA...");
-        if(AISFlag <2){AISFlag = 2;}
-        jFunds = jFunds - 50000;
-
-        projectI4.flag = 1;
-        var element = document.getElementById("projectButtonI4");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectI4);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectI4);
 
 
 //pair programmer
 var projectC3 = {
     id: "projectButtonC3",
     title: "AI Pair Programmer",
-    priceTag: " (Coding 50%)",
+    priceTag: " (Coding 70%)",
     description: "An app that can code almost autonomously at a junior-engineer level.",
     trigger: function(){return projectI3b.flag == 1},
     uses: 1,
-    cost: function(){return Skill_Code>49.5},
+    cost: function(){return Skill_Code>69.5},
     flag: 0,
     effect: function(){
         displayMessage("Action Transformers: ");
@@ -673,6 +674,8 @@ var projectA2 = {
         displayMessage("RLHF: 'To simulate a particular luigi, you must apply optimisation pressure. This can come from fine-tuning, RLHF, prompt-engineering, or something else entirely — but it must come from somewhere.'");
         AISFlag = 3;
         Insights = Insights - 1;
+        displayMessage("PoliticsFlag: "+ PoliticsFlag+", AISFlag: "+AISFlag+", Researchers: "+Researchers);
+        
 
         projectA2.flag = 1;
         var element = document.getElementById("projectButtonA2");
@@ -711,11 +714,11 @@ projects.push(projectV5);
 var projectB3 = {
     id: "projectButtonB3",
     title: "Protein Interaction & Design",
-    priceTag: " (Bio. 40%)",
+    priceTag: " (Bio. 60%)",
     description: "First, life engineered computers.  Now, computers engineer life.",
     trigger: function(){return (projectM3.flag) == 1},
     uses: 1,
-    cost: function(){return (Skill_Biol>39.5)},//lower than this and it will be negative on arrival
+    cost: function(){return (Skill_Biol>59.5)},//lower than this and it will be negative on arrival
     flag: 0,
     effect: function(){
         displayMessage("Protein Interaction & Design: translating RNA sequences into 3D protein structures was an unsolved problem in medical research for decades.");
@@ -798,11 +801,11 @@ projects.push(projectC4);
 var projectR2 = {
     id: "projectButtonR2",
     title: "Self-Driving Vehicles",
-    priceTag: " (Robotics 40%)",
+    priceTag: " (Robotics 35%)",
     description: "todo",
     trigger: function(){return projectR1.flag == 1},
     uses: 1,
-    cost: function(){return (Skill_Robo > 39.5)},
+    cost: function(){return (Skill_Robo > 34.5)},
     flag: 0,
     effect: function(){
         displayMessage("Self-Driving Vehicles: todo");
@@ -853,11 +856,11 @@ projects.push(projectA3);
 var projectC5 = {
     id: "projectButtonC5",
     title: "Autonomous Coding",
-    priceTag: " (Code. 65%)",
+    priceTag: " (Code. 80%)",
     description: "Slow takeoff starts with entry-level code monkey jobs.",
     trigger: function(){return projectC4.flag == 1},
     uses: 1,
-    cost: function(){return Skill_Code>64.5},
+    cost: function(){return Skill_Code>79.5},
     flag: 0,
     effect: function(){
         displayMessage("Autonomous Coding: todo");
@@ -923,25 +926,55 @@ projects.push(projectL6);
 var projectN = {
     id: "projectButtonN",
     title: "Nationalize the AI Labs",
-    priceTag: " (Societal importance >90%)",
+    priceTag: " (Societal importance >95%)",
     description: " We stand at the hinge of history.",
-    trigger: function(){return hype >70},
+    trigger: function(){return hype >75},
     uses: 1,
-    cost: function(){return hype>90},
+    cost: function(){return hype>95},
     flag: 0,
     effect: function(){
-        displayMessage("Nationalize the AI Labs: todo");
+        displayMessage("Nationalize the AI Labs: Welcome to the final years of the countdown to superintelligence.");
         Nationalized = true;
+        unfinishedGame = true; //enable in order to beg FLI, Lantz, etc, for more wire
+        H100_Flag=0;//buy GPUs individually; it's more fun
         GPUBuyerStatus=0;
         document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
-        AISPercent = 100;
-        //figure out how to clear most previous projects... gotta keep some around like RLHF, unless I just assume I have them going forward, making nationalization imitate their effects.
 
-        //set jFunds and all Skills to zero, killing all profit?  then I can rebuild jFunds using labor force GDP stuff, which runs automatically
-        //no more training rounds!!  the AI is continously training now.  remember to get the math right on growth here, so it feels nice and snappy...
+        //set all researchers to insight for now
+        AISPercent = 0;
+        ResearchPercent = 100;
+
+        //set jFunds and all Skills income to zero, killing all profit. 
+        jFunds = 0;
+        Profit_Visu_1 = 0;
+        Profit_Visu_2 = 0;
+        Profit_Visu_3 = 0;
+        Profit_Lang_1 = 0;
+        Profit_Lang_2 = 0;
+        Profit_Lang_3 = 0;
+        Profit_Code_1 = 0;
+        Profit_Code_2 = 0;
+        Profit_Code_3 = 0;
+        Profit_Biol_1 = 0;
+        Profit_Biol_2 = 0;
+        Profit_Robo_1 = 0;
+        Profit_Robo_2 = 0;
+
+
+        //Start the economy & labor force, based on flag
+
+        //trigger "longblink" per hypnodrone event??
+
+        //todo: clear previous projects on this page, and have Nationalization imitate their effects in case players didn't get some of the last ones
+
+
+        //okay actually there ARE four different research currencies.  unassigned researchers contribute evenly to everything, and provide no special bonuses.
+        //WAIT NO actually that's dumb, go back to earlier plan of free choices + general research points for capability upgrades
+        //specific people are for putting out fires in their specific area, then 
+
         
-        //via "hire top experts" project, recruit a (fixed) crack team of 60 researchers
-        //repurpose researchers to become a 60-person team (10 for each area) where individual people can be allocated to different categories of defensive effort -- research (bucket category when others are decreased), counter-cyber, counter-bio, AI control, AI alignment, and war/competition
+        //via "hire top experts" project, recruit a (fixed-size) crack team of 25 researchers
+        //repurpose researchers to become a 25-person team (5 for each area) where individual people can be allocated to different categories of defensive effort -- research (bucket category when others are decreased), counter-cyber, counter-bio, AI control, AI alignment, and war/competition
         //eventually get autonomous virtual researchers, which just follow the main ones & multiply their efforts
 
         /**
@@ -989,12 +1022,21 @@ var projectN = {
         //projects of two kinds: economic multipliers that 1. increase the labor force automation % of the economy, 2. give flavor text about superintelligence, 3. occasionally up the threat level in one of the defense categories
 
         //
-//GPUS automatically increase; some percent of GDP is reinvested (this percent can be increased by events)
-//you can set how much to reinvest in GPUs vs spend on safety efforts, maybe?
+        //GPUS automatically increase; some percent of GDP is reinvested (this percent can be increased by events)
+        //you can set how much to reinvest in GPUs vs spend on safety efforts, maybe?
 
-//GDP depends on amount of tasks automated, which is boosted by developing new capabilities...
+        //GDP depends on amount of tasks automated, which is boosted by developing new capabilities...
 
-//each distinct category of threat gets its own line graph, or something...
+        //each distinct category of threat gets its own line graph, or something...
+
+
+
+        //STATS upon hitting nationalization:
+        //GPUs:
+        //Profit per day:
+        //model size:
+        //researchers:
+        
 
         projectN.flag = 1;
         var element = document.getElementById("projectButtonN");
@@ -1006,8 +1048,168 @@ var projectN = {
 projects.push(projectN);
 
 
+var projectNE = {
+    id: "projectButtonNE",
+    title: "Continuous Training",
+    priceTag: " ",
+    description: "Multiple frontier models are under development in labs around the country.",
+    trigger: function(){return projectN.flag == 1},
+    uses: 1,
+    cost: function(){return true}, //would be nice to put a timer on this, give it a delay or something...
+    flag: 0,
+    effect: function(){
+        displayMessage("Continuous Training: Compute resources now flow directly into current model size.");
+        GPUhours = 0;
+        Continuous_Flag = 1;
+
+        projectNE.flag = 1;
+        var element = document.getElementById("projectButtonNE");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNE);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNE);
+
+var projectNI = {
+    id: "projectButtonNI",
+    title: "The Best of The Best",
+    priceTag: " ",
+    description: "Recruit an elite team to manage The Project. Money is no object.",
+    trigger: function(){return projectN.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("The Best of The Best: 'For three critical years, he directed the most extraordinary project in the history of mankind.' -- Glen Seaborg on the leader of the Manhattan Project");
+        Researchers = 50;
+        Nat_Research_Flag = 1;
+
+        projectNI.flag = 1;
+        var element = document.getElementById("projectButtonNI");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNI);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNI);
 
 
+var projectNI2 = {
+    id: "projectButtonNI2",
+    title: "Racing Through a Minefield",
+    priceTag: " ",
+    description: "We have to solve alignment.  But we also have to stay ahead.",
+    trigger: function(){return projectNI.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Racing Through a Minefield: Solve alignment, or we all die to rogue superintelligence.  But we can't allow less-cautious nations to deploy their AIs first.");
+        Nat_Minefield_Flag = 1;
+
+        projectNI2.flag = 1;
+        var element = document.getElementById("projectButtonNI2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNI2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNI2);
+
+
+var projectNI3 = {
+    id: "projectButtonNI3",
+    title: "Defence in Depth",
+    priceTag: " ",
+    description: "Buttress humanity against the risks of superintelligence.",
+    trigger: function(){return projectNI2.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Defence in Depth: Cover all the bases that a deceptive-misaligned AI might use to attack civilization.  Cyber, bio, nuclear... even hypnodrones.");
+        Nat_Defense_Flag = 1;
+
+        projectNI3.flag = 1;
+        var element = document.getElementById("projectButtonNI3");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNI3);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNI3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//NATO versus UN
+var projectNQ1a = {
+    id: "projectButtonNQ1a",
+    title: "Strong NATO AI Treaty?",
+    priceTag: " (10 diplo)",
+    description: "Tough rules boost AI safety, but spur geopolitical polarization. (Align. +15, Coop. +5)",
+    trigger: function(){return projectNI2.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        //Diplo = Diplo - 10;
+        displayMessage("The Best of The Best.: todo");
+        //Alignment = Alignment + 15;
+        //Cooperation = Cooperation + 5;
+
+        projectNI.flag = 1;
+        var element = document.getElementById("projectButtonNQ1a");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ1a);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ1b");
+        element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ1b);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ1a);
+var projectNQ1b = {
+    id: "projectButtonNQ1b",
+    title: "Weak U.N. AI Treaty?",
+    priceTag: "  (10 diplo)",
+    description: "Seek global consensus & cooperation, albeit on weaker rules. (Align. +5, Coop. +15)",
+    trigger: function(){return projectNI2.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        //Diplo = Diplo - 10;
+        displayMessage("The Best of The Best.: todo");
+        //Alignment = Alignment + 5;
+        //Cooperation = Cooperation + 15;
+
+        projectNI.flag = 1;
+        var element = document.getElementById("projectButtonNQ1b");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ1b);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ1a");
+        element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ1a);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ1b);
 
 
 

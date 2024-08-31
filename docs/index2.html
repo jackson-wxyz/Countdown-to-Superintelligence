@@ -35,75 +35,66 @@
         
     <div id="topDiv">
         <div class = "toolTip">
-            <span id = "clipCountCrunched" class = "toolTipText">total clips produced</span>    
-            <h3>AI Training Compute: <span id="GPUhours">0</span> Exaflops</h3>
+            <span id = "clipCountCrunched" class = "toolTipText"> quintillion floating point operations</span>    
+            <h3><span id="TitleStatName">AI Training Compute:</span><span id="TitleStat">0</span> Exaflops</h3>
             <span id="dateCountCrunched">date</span>
         </div>
     </div>    
     
     <div id="leftColumn">
         <br />
+
+        <!-- Post-Nationalization --------------------------------------------------------- -->
+
+
+        <div id="Nat_Economy_Div">
+            <b>Economy</b><br />
+            <hr>
+            Labor Force: <span id="LaborForce">180</span> million humans<br />
+            (<span id="Births">10</span>K births & <span id="Deaths">9</span>K deaths per day)<br />
+            <span id="Death_Note" style="color:darkred;font-weight: bold;"></span><br />
+            <br />
+            Fraction of economy automated: <span id="PercentAutomated">10</span>%<br />
+            -  $<span id="HumanGDP">180</span> trillion/year from humans<br />
+            -  $<span id="AIGDP">20</span> trillion/year from AI<br />
+            <br />
+            Reinvesting 1% of GDP into datacenters,<br />
+            power generation, etc, for AI training.<br />
+            -  Daily GPUs bought: +<span id="GPUsPerDay">20</span><br />
+            -  Total GPUs: <span id="NatGPUs">0</span><br />
+            <!--Daily reinvest 0.01% of GDP into GPUs = 200T/10000/360 = 55 million on training daily... gonna have to scale that down a lot for our purposes, to match approximate income at the end of the game (but maybe with a 10x boost or something, just for fun!)-->
+
+
+
+            <!--BaseGDP = 30;//Trillion -- bit higher than US GDP in 2024
+            PercentAutomated = 10 //todo: remove this from here, replace with a real calculation based on base model stats
+
+            //this stuff doesn't belong in a project, rather in the actual div:
+            HumanGDP = BaseGDP/180*LaborForce;
+            AIGDP= HumanGDP * PercentAutomated/(1-PercentAutomated);
+            TotalGDP = HumanGDP + AIGDP;
+            DailyReinvestedGDP = 0.05*TotalGDP/360;//some constant percentage that goes towards buying GPUs, divided by 360 days per year
+            GPUs = GPUs + buyGPU(DailyReinvestedGDP / some_factor_of_how_often_this_happens_per_day)
+            //GPUs generate exaflops as normal, but generate no profit
+            //instead, feedback cycle comes purely from continuous improvement -->
+        </div>
+        
+        <div id="Nat_Research_Div">
+            <br />
+            <b>New Research Panel, who dis</b><br />
+            <hr>
+            Researchers: <span id="NatResearchers">0</span><br />
+            <!-- remember not to repeat values -- gotta append "nat" and create a new buttonUpdate() entry... -->
+            
+        </div>
+
+        <!-- Pre-Nationalization ---------------------------------------------------------- -->
+
+        <div id="FundsDiv">
         Funds: $<span id="jFunds">0</span><br />
         <br />
-        <div id="Nat_Economy_Div">
-            This is a very unfinished game!!  This will soon be the ending section of the game: in lieu of a finished ending, here are some raw pasted-in notes on how it'll work:
-            <br /><br />
-            Replace earning money and buying GPUs with labor force GDP stuff inspired by Tom Davidson's "Takeoff Speeds" report.
-            <br /><br />
-            This runs automatically, no more training rounds!!  the AI is continously training now.  remember to get the math right on growth here, so it feels nice and snappy...
-            <br /><br />
-        //via "hire top experts" project, recruit a (fixed-size) crack team of 60 researchers, where individual people can be allocated to different categories of defensive effort -- research (bucket category when others are decreased), counter-cyber, counter-bio, AI control, AI alignment, and war/competition
-        //eventually get autonomous virtual researchers, which just follow the main ones & multiply their efforts
-        <br /><br />
-        /**
-         * competition stat affects how aggressive other nations are.
-         <br /><br />
-         * - research treaties (tradeoff stuff like "strong NATO treaty?", which boosts alignment but hurts competition vs "weak UN treaty?", which does the opposite)
-         <br /><br />
-         * - random boosts to name-drop stuff and help fight the tide (compute governance sanctions vs no, share-vs-hoard medical research (tradeoff with biorisk!!), etc)
-         <br /><br />
-         * alignment stat affects how aggressive the AI is at fighting humanity.
-         <br /><br />
-         * - secretive development? vs open development? geopolitics tradeoff just like the treaty
-         <br /><br />
-         * - random boosts to name-drop stuff and help fight the tide
-         <br /><br />
-         * - all this research is done with generic research points, and the tradeoff decisions are always free, there is not like seperate alignment vs competition research currencies
-         <br /><br />
-         * four actual areas:
-         <br /><br />
-         * cyber / control stat (from coding stat):
-         * - enemy nation-state human-hacking to steal AI (effects competition/war)
-         * - self-exfiltration to autonomously replicate (proceeds to nuclear hacking)
-         * - (ai or enemy nation) hacking nuclear weapons systems to do a terminator (game over)
-         * counter by:
-         * - adversarial code analysis, use AI against itself
-         * - air-gapped network
-         * - 
-         <br /><br />
-         * bio (from bio stat):
-         * - terrorist bioattack (can lose this without losing game; take like a 1/3 population hit on the deaths counter and call it a day)
-         * - (ai or enemy nation) AI-engineered stealth pandemic
-         * - AI-engineered nanotech
-         * counter by:
-         * - locking down DNA synthesis
-         * - metagenomic sequencing
-         <br /><br />
-         * manufacturing / war (from robotics stat)
-         * - slaughterbots etc (use these for advantage in war, but the AI can also use them against you)
-         * - general war between nations, escalating into nuclear
-         * - hypnodrones (ties into language, and callback from paperclips -- "Autonomous aerial brand ambassadors / 'Wanna buy some paperclips?' ")
-         <br /><br />
-         * language:
-         * - targeted propaganda
-         * - something about surveillance, censorship, totalitarianism (maybe tradeoffs where you consider AI censorship of biorisk, but that alienates other nations that don't like totalitarianism)
-         * - superpersausion
-         <br /><br />
-         * you win if you can hold off the threats long enough to get the alignment & control stats trending positive, then either sign an international treaty to ban, or solve alignment and create CEV utopia.
-         <br /><br />each type of win/loss takes you to a modified ending page with a picture and comment on the ending, then a "thanks for playing" and encouragement to play another round.
-         */
-
         </div>
+
         <div id="GPUDiv">
             <b>GPU Compute Cluster</b><br />
             <hr>
@@ -143,7 +134,9 @@
                 <br />
                 Alignment (applies to next model): <span id="alignment_Display">0</span><br />
                 -  RLHF: <span id="negInsights">0</span><br />
-                -  Evals: <span id="Evalhours">0</span><br />
+                <div id="EvalsDiv">
+                    -  Evals: <span id="Evalhours">0</span><br />
+                </div>
                 <!--RLHF energy should be log-scale just like the harms.  Researchers cost money the same as GPUs so it's fair.  -->
             </div>
         </div> 
@@ -271,7 +264,29 @@
     </div>
             
     <div id="middleColumn">
-        <!--GPU stuff-->
+        
+        <!--Post-nationalization //////////////////////////////////////////////////////////////////////////////////// -->
+
+        <div id="Nat_Competition_Div">
+            <b>Geopolitical Competition</b><br />
+            <hr>
+            Cooperation vs Competition:<br />
+            - [slider or graph or something showing coop vs compete stat]<br />
+            - sub-stats & effects<br />
+            - diplomats on the problem: <span id="Diplomats">0</span><br />
+            <br />
+            <br />
+            - stuff about going to war goes here<br />
+
+        </div>
+
+        <div id="Nat_Misalignment_Div">
+            <b>Deceptive Misalignment</b><br />
+            <hr>
+
+        </div>
+
+        <!--Pre-nationalization GPU stuff /////////////////////////////////////////////////////////////////////////// -->
         <div id="ModelDiv">    
             <b>AI Capabilities (% of human-level)</b><br />
             <hr>
@@ -279,7 +294,7 @@
             Model Size: <span id="AIcapabilities">0</span> EFLOPs <br /> 
             <br />
 
-            Visual: <span id="Skill_Visu_Scale">0</span><br />
+            Visual: <span id="Skill_Visu_Scale"style="font-weight: bold";>0</span><br />
 
             <div id="Skill_Visu_1">
                 -  Image classification: +$<span id="Profit_Visu_1_Display">0</span>/day<br />
@@ -294,7 +309,7 @@
             <div id="Skill_Lang_1">
                 <br />
                 
-                Language: <span id="Skill_Lang_Scale">0</span><br />
+                Language: <span id="Skill_Lang_Scale"style="font-weight: bold">0</span><br />
                 -  Translation: +$<span id="Profit_Lang_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Lang_2">
@@ -306,7 +321,7 @@
             
             <div id="Skill_Code_1">
                 <br />
-                Coding: <span id="Skill_Code_Scale">0</span><br />
+                Coding: <span id="Skill_Code_Scale"style="font-weight: bold">0</span><br />
                 -  Pair-programmer app: +$<span id="Profit_Code_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Code_2">
@@ -317,7 +332,7 @@
             </div>
             <div id="Skill_Biol_1">
                 <br />
-                Biology: <span id="Skill_Biol_Scale">0</span><br />
+                Biology: <span id="Skill_Biol_Scale"style="font-weight: bold">0</span><br />
                     -  Protein folding: +$<span id="Profit_Biol_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Biol_2">
@@ -325,7 +340,7 @@
             </div>
             <div id="Skill_Robo_1">
                 <br />
-                Robotics: <span id="Skill_Robo_Scale">0</span><br />
+                Robotics: <span id="Skill_Robo_Scale"style="font-weight: bold">0</span><br />
                 -  Aerial drone control: +$<span id="Profit_Robo_1_Display">0</span>/day<br />
             </div>
             <div id="Skill_Robo_2">
@@ -343,6 +358,20 @@
     </div>    
         
     <div id="rightColumn">
+        
+        <!--Post-nationalization //////////////////////////////////////////////////////////////////////////////////// -->
+        <div id="Nat_Robo_Div">
+            <b>War & Military Power</b><br />
+            <hr>
+
+        </div>
+        
+        <div id="Nat_Code_Div">
+            <b>Cybersecurity & AI Control</b><br />
+            <hr>
+
+        </div>
+        <!--Pre-nationalization GPU stuff /////////////////////////////////////////////////////////////////////////// -->
 
         <!--GPU stuff-->
         <div id="PoliticsDiv">    
@@ -821,6 +850,91 @@
     </div>
 
     <div id="farrightColumn">
+        <div id="Nat_Biol_Div">
+            <b>Biosecurity</b><br />
+            <hr>
+
+        </div>
+        
+        <div id="Nat_Lang_Div">
+            <b>Media & Persuasion</b><br />
+            <hr>
+
+        </div>
+        
+        <!--Post-nationalization //////////////////////////////////////////////////////////////////////////////////// -->
+        <div id="beg_for_more_wire_Div">
+        This is a very unfinished game!!  This will be the ending section of the game 
+        after a few more updates over the coming days/weeks.
+        In lieu of a finished ending, here are some notes on how it'll work:
+        <br /><br />
+        1. Replace earning money and buying GPUs with a snowball of GDP -> AI -> more GDP, 
+        inspired by Tom Davidson's "Takeoff Speeds" report.
+        <br /><br />
+        2. Frontier model increases in size smoothly and continously now.  
+        The vision is for the player to switch from thinking impatiently about scaling
+        to essentially "playing against the clock" of growing AI capabilities.
+        <br /><br />
+        3.Recruit a (fixed-size) team of 50 researchers.
+        Individual researchers can be allocated to different categories of defensive effort:
+        project research, geopolitics, AI alignment, cybersecurity, biosecurity, etc.
+        Eventually get autonomous virtual researchers, which just follow the main ones & multiply their efficacy.
+        <br /><br />
+         competition stat affects how aggressive other nations are.
+         <br /><br />
+         - research treaties (tradeoff stuff like "strong NATO treaty?", which boosts alignment but hurts competition vs "weak UN treaty?", which does the opposite)
+         <br /><br />
+         - random boosts to name-drop stuff and help fight the tide (compute governance sanctions vs no, share-vs-hoard medical research (tradeoff with biorisk!!), etc)
+         <br /><br />
+         alignment stat affects how aggressive the AI is at fighting humanity.
+         <br /><br />
+         - secretive development? vs open development? geopolitics tradeoff just like the treaty
+         <br /><br />
+         - random boosts to name-drop stuff and help fight the tide
+         <br /><br />
+         - all this research is done with generic research points, and the tradeoff decisions are always free, there is not like seperate alignment vs competition research currencies
+         <br /><br />
+         <br /><br />
+         If you win the game, you either manage to do it through the Alignment panel (by solving alignment)
+         or Competition panel (international agreement to stop AI scaling).  Meanwhile there are four threat categories
+         that create ways to lose the game:
+         <br /><br />
+         cyber / control stat (from coding stat):         <br />
+         - enemy nation-state human-hacking to steal AI (effects competition/war)<br />
+         - self-exfiltration to autonomously replicate (proceeds to nuclear hacking)<br />
+         - (ai or enemy nation) hacking nuclear weapons systems to do a terminator (game over)<br />
+         counter by:<br />
+         - adversarial code analysis, use AI against itself<br />
+         - air-gapped network<br />
+         <br /><br />
+         bio (from bio stat):<br />
+         - terrorist bioattack (can tank this without losing game; take like a 1/3 population hit on the deaths counter and call it a day)<br />
+         - (ai or enemy nation) AI-engineered stealth pandemic<br />
+         - AI-engineered nanotech<br />
+         counter by:<br />
+         - locking down DNA synthesis<br />
+         - metagenomic sequencing<br />
+         <br /><br />
+         manufacturing / war (from robotics stat)
+         - slaughterbots etc (use these for advantage in war, but the AI can also use them against you)
+         - general war between nations, escalating into nuclear
+         - hypnodrones (ties into language, and callback from paperclips -- "Autonomous aerial brand ambassadors / 'Wanna buy some paperclips?' ")
+         <br /><br />
+         language:<br />
+         - targeted propaganda<br />
+         - something about surveillance, censorship, totalitarianism 
+         (maybe tradeoffs where you consider AI censorship of biorisk, making the bio situation better, 
+         but that alienates other nations that don't like totalitarianism, making politics worse)<br />
+         - superpersausion incl. via hypnodrone callback to the original "Universal Paperclips<br />
+         <br /><br />
+         you win if you can hold off the threats long enough to get the political or alignment stats trending positive, 
+         then either sign an international treaty to ban, or solve alignment and create CEV utopia.
+         <br /><br />each type of win/loss takes you to a modified ending page with a picture and comment on the ending, then a "thanks for playing" and encouragement to play another round.
+         */
+
+        </div>
+        <!--Pre-nationalization GPU stuff /////////////////////////////////////////////////////////////////////////// -->
+
         <div id="PoliticsDiv2"> 
             <b>Public Opinion</b><br />
             <hr>
@@ -830,13 +944,13 @@
             <div id="PoliticsChartSpace"> 
                 <!--chart of public sentiment -->
             </div>
-            Policies (not yet implemented sorry):
-            - [40% approval, small tax on profits]<br />
-            - [20% approval, big tax on deepfakes]<br />
+            Policies (not yet implemented sorry):<br />
+            - [40% approval, small tax on deepfakes]<br />
+            - [20% approval, RSPs: 2x scaling limit]<br />
             - [10% approval, ban robo & bio techs]<br />
             - [5% approval, ban on gpu purchases]<br />
             - [50%+ prominence, CHIPS investment]<br />
-            - [90%+ prominence, nationalize labs]
+            - [95%+ prominence, nationalize labs]<br />
         </div>
     </div>
         <script type="text/javascript" src="combat.js?v2"></script>     
