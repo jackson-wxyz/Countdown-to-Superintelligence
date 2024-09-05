@@ -70,7 +70,7 @@ function displayProjects(project){
     
 }
 
-//  HYPNODRONE EVENT ----------------------------------------------------------------
+//  HYPNODRONE EVENT (used for nationalize the labs) ----------------------------------------------------------------
 
 document.getElementById("hypnoDroneEventDiv").style.display = "none"; 
 longBlinkCounter = 0;
@@ -85,32 +85,30 @@ function longBlink(elemID){
     function longToggleVisibility(elemID){
     longBlinkCounter++;    
         
-    if (longBlinkCounter > 5 && longBlinkCounter < 10){
-        document.getElementById("hypnoDroneText").innerHTML="Release"; 
+    if (longBlinkCounter > 5 && longBlinkCounter < 30){
+        document.getElementById("hypnoDroneText").innerHTML="Nationalize"; 
         }    
     
-    if (longBlinkCounter > 30 && longBlinkCounter < 40){
-        document.getElementById("hypnoDroneText").innerHTML="<br /><br /><br />Release"; 
+    if (longBlinkCounter > 30 && longBlinkCounter < 60){
+        document.getElementById("hypnoDroneText").innerHTML="Nationalize the"; 
         }   
         
-    if (longBlinkCounter > 45 && longBlinkCounter < 55){
-        document.getElementById("hypnoDroneText").innerHTML="<br />Release";
-        }       
-        
-     if (longBlinkCounter > 55){
-        document.getElementById("hypnoDroneText").innerHTML="Release<br/>the<br/>Hypno<br/>Drones";
+     if (longBlinkCounter > 60){
+        document.getElementById("hypnoDroneText").innerHTML="Nationalize the Labs";
         }       
         
     if (longBlinkCounter >= 120){
-        console.log("weed wizzard");
         clearInterval(handle);
         longBlinkCounter = 0;
         e.style.display = "none";
+        document.getElementById("consoleDiv").style.display = "";  
     } else {
         if (e.style.display != ""){
         e.style.display = "";
+        document.getElementById("consoleDiv").style.display = "none"; 
         } else {
-        e.style.display = "none";    
+        e.style.display = "none";  
+        document.getElementById("consoleDiv").style.display = "";   
         }
       }   
     }
@@ -118,8 +116,9 @@ function longBlink(elemID){
 }
 
 function hypnoDroneEvent(){
-    document.getElementById("hypnoDroneText").innerHTML="Release";
+    document.getElementById("hypnoDroneText").innerHTML="Nationalize";
     longBlink("hypnoDroneEventDiv");
+    document.getElementById("consoleDiv").style.display = "";  
 }     
 
 
@@ -2263,6 +2262,7 @@ if (Nationalized == true){
     document.getElementById("GPUDiv").style.display="none";
     document.getElementById("AISDiv").style.display="none";
     document.getElementById("ModelDiv").style.display="none";
+    document.getElementById("CoolGraphDiv").style.display="none";
     document.getElementById("PoliticsDiv").style.display="none";   
     document.getElementById("PoliticsDiv2").style.display="none";
 
@@ -2291,6 +2291,7 @@ if (Nationalized == true){
     }
     
     if (Nat_Defense_Flag ==1){
+        document.getElementById("Nat_Profession_Div").style.display="";
         document.getElementById("Nat_Robo_Div").style.display="";
         document.getElementById("Nat_Code_Div").style.display="";
         document.getElementById("Nat_Biol_Div").style.display="";
@@ -2308,6 +2309,7 @@ if (Nationalized == true){
     }
     document.getElementById("Nat_Competition_Div").style.display="none";
     document.getElementById("Nat_Misalignment_Div").style.display="none";
+    document.getElementById("Nat_Profession_Div").style.display="none";
     document.getElementById("Nat_Robo_Div").style.display="none";
     document.getElementById("Nat_Code_Div").style.display="none";
     document.getElementById("Nat_Biol_Div").style.display="none";
@@ -2337,8 +2339,10 @@ if (Nationalized == true){
 
     if (TrainedModelFlag==1) {
         document.getElementById("ModelDiv").style.display="";
+        document.getElementById("CoolGraphDiv").style.display="";
         } else {
-        document.getElementById("ModelDiv").style.display="none";    
+        document.getElementById("ModelDiv").style.display="none";  
+        document.getElementById("CoolGraphDiv").style.display="none";  
         }
 
     switch(AISFlag) {
@@ -2348,17 +2352,14 @@ if (Nationalized == true){
             document.getElementById("AISSliderDiv").style.display="";
             if((PoliticsFlag > 1) && (Researchers>0)){
                 document.getElementById("AISSliderDiv").style.display="";
-                document.getElementById("EvalsDiv").style.display="";
             } else{
                 document.getElementById("AISSliderDiv").style.display="none";
-                document.getElementById("EvalsDiv").style.display="none";
             }
             break;
         case 3:
             document.getElementById("AISDiv").style.display="";
             document.getElementById("ResearcherDiv").style.display="";
             document.getElementById("AISSliderDiv").style.display="";
-            document.getElementById("EvalsDiv").style.display="none";
             if((PoliticsFlag > 1) && (Researchers>0)){
                 document.getElementById("AISSliderDiv").style.display="";
             } else{
@@ -2369,19 +2370,16 @@ if (Nationalized == true){
             document.getElementById("AISDiv").style.display="";
             document.getElementById("ResearcherDiv").style.display="";
             document.getElementById("AISSliderDiv").style.display="none";
-            document.getElementById("EvalsDiv").style.display="none";
             break;
         case 1:
             document.getElementById("AISDiv").style.display="";
             document.getElementById("ResearcherDiv").style.display="none";
             document.getElementById("AISSliderDiv").style.display="none";
-            document.getElementById("EvalsDiv").style.display="none";
             break;
         default:
             document.getElementById("AISDiv").style.display="none"; 
             document.getElementById("ResearcherDiv").style.display="none";
             document.getElementById("AISSliderDiv").style.display="none";
-            document.getElementById("EvalsDiv").style.display="none";
             break; 
         }
 
@@ -2731,73 +2729,73 @@ if(true){//wrapper for all the original game stuff
 //#endregion
 
 
-//--------------------------------------------------------------------------------
+//#region FUNCTION LIBRARY--------------------------------------------------------------------------------
 function GPUClick(number){
-    if(jFunds >= 500){
-    if (number > jFunds/500) {
-        number = jFunds/500;
-        }
-        
-    GPUs = GPUs + number;
-    jFunds = jFunds - number*500;
+    if(jFunds >= 500 && GPUBan_Flag == 0){
+        if (number > jFunds/500) {
+            number = jFunds/500;
+            }
+            
+        GPUs = GPUs + number;
+        jFunds = jFunds - number*500;
     // todo: do milestones based on when pass real-life metrics of, ie, datacenter sizes or whatever!
-    } else{
-    displayMessage("Not enough funds.");
+    } else if (GPUBan_Flag == 1){
+        displayMessage("Ban on GPU purchases while public sentiment is under 5%.");
+    }  else{
+        displayMessage("Not enough funds.");
     }
 }
 
 function H100Click(number){
-    if(jFunds >= 30000){
-    if (number > jFunds/30000) {
-        number = jFunds/30000;
-        }
-        
-    GPUs = GPUs + number*100;
-    jFunds = jFunds - number*30000;
+    if(jFunds >= 30000 && GPUBan_Flag == 0){
+        if (number > jFunds/30000) {
+            number = jFunds/30000;
+            }
+            
+        GPUs = GPUs + number*100;
+        jFunds = jFunds - number*30000;
+    } else if (GPUBan_Flag == 1){
+        displayMessage("Ban on GPU purchases while public sentiment is under 5%.");
     } else{
-    displayMessage("Not enough funds.");
+        displayMessage("Not enough funds.");
     }
 }
 
 function ResearcherClick(number){
 
     if(jFunds >= 100000){
-    if (number > jFunds/100000) {
-        number = jFunds/100000;
-        }
-    
-    Researchers = Researchers + number;
-    jFunds = jFunds - number*100000;
+        if (number > jFunds/100000) {
+            number = jFunds/100000;
+            }
+        
+        Researchers = Researchers + number;
+        jFunds = jFunds - number*100000;
     }else{
-    displayMessage("Not enough funds.");
+        displayMessage("Not enough funds.");
     }
-    
-    
 }
-
-
 
 function buyGPU(){
-    if(H100_Flag == 1){
-        if(jFunds >= 30000){
-            quotient = Math.floor(jFunds/30000)
-            GPUs = GPUs + quotient*100;
-            jFunds = jFunds - 30000*quotient;
-            //document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
-            //document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
-        }
-    if(isNaN(GPUs)){throw new Error("nan...");}
-    } else{
-        if(jFunds >= 500){
-            quotient = Math.floor(jFunds/500)
-            GPUs = GPUs + quotient;
-            jFunds = jFunds - 500*quotient;
-            //document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
-            //document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
+    if(GPUBan_Flag == 0){
+        if(H100_Flag == 1){
+            if(jFunds >= 30000){
+                quotient = Math.floor(jFunds/30000)
+                GPUs = GPUs + quotient*100;
+                jFunds = jFunds - 30000*quotient;
+                //document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
+                //document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
+            }
+        } else{
+            if(jFunds >= 500){
+                quotient = Math.floor(jFunds/500)
+                GPUs = GPUs + quotient;
+                jFunds = jFunds - 500*quotient;
+                //document.getElementById('GPUs').innerHTML = GPUs.toLocaleString();
+                //document.getElementById('jFunds').innerHTML = jFunds.toLocaleString();
+            }
         }
     }
 }
-
 
 function toggleGPUBuyer(){
     if (GPUBuyerStatus==1){
@@ -2810,126 +2808,39 @@ function toggleGPUBuyer(){
     }
 }
 
-function TrainAI(){
-    if(GPUhours > AIcapabilities){     //some kind of check to make sure you can't train a weaker AI than your last one...
-        
-    TrainedModelFlag = 1;
-    AIcapabilities = GPUhours;
-    GPUhours = 0;
-
-    BaseCapability = Math.log10(AIcapabilities)*10;
-    Skill_Visu = BaseCapability*2.0 + Skill_Visu_mod;
-    Skill_Lang = BaseCapability*1.5 + Skill_Lang_mod;
-    Skill_Code = BaseCapability*2.5 + Skill_Code_mod;
-    Skill_Biol = BaseCapability*2.0 + Skill_Biol_mod;
-    Skill_Robo = BaseCapability*2.5 + Skill_Robo_mod;
-
-
-    displayMessage("You trained a bigger AI model!");
-    
-    document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    
-    // old capability bar chart
-    // yValues = [Skill_Visu, Skill_Lang, Skill_Code, Skill_Biol, Skill_Robo]
-    // new Chart("CapabilitiesChart", {
-    //     type: "bar",
-    //     data: {
-    //         labels: xValues,
-    //         datasets: [{
-    //         backgroundColor: barColors,
-    //         data: yValues
-    //         }]
-    //     },
-    //     options: {
-    //         legend: {display: false},
-    //         title: {
-    //         display: true,
-    //         text: "Current Model Capabilities, % of human perf:"
-    //         }
-    //     },
-    //      scales: {
-    //          y: {
-    //              display: true,
-    //              type: 'logarithmic',
-    //              min: 1,
-    //              max: 1000
-    //          }
-    //      }
-    // });
-
-    if (AISFlag >3){
-        alignment = -10/(0.005*(negInsights+Evalhours)+.1)+100;//desmos calculator for more
-
-    }else{
-        alignment = -10/(0.005*negInsights+.1)+100;//desmos calculator for more
+function DiplomatClick(number, profession){
+    if(number>0){
+        if (number>Researchers){
+            number = Researchers;
+        }
     }
 
-    UpdatePolitics()
-    negInsights = 0;
-    Evalhours = 0;
-
-    } else {
-    displayMessage("Can't train a bigger AI model; not enough training compute!");
+    switch (profession){
+        case "Diplomat":
+            if((-1*number)>Diplomats){number = -1*Diplomats;}
+            Diplomats = Diplomats + number;
+            document.getElementById('Diplomats').innerHTML = Diplomats;
+            break;
+        case "Engineer":
+            if((-1*number)>Engineers){number = -1*Engineers;}
+            Engineers = Engineers + number;
+            document.getElementById('Engineers').innerHTML = Engineers;
+            break;
+        // case "BioExpert":
+        //     if((-1*number)>Diplomats){number = -1*Diplomats;}
+        //     Diplomats = Diplomats + number;
+        //     document.getElementById('Diplomats').innerHTML = Diplomats;
+        //     break;
+        // case "BioExpert":
+        //     if((-1*number)>Diplomats){number = -1*Diplomats;}
+        //     Diplomats = Diplomats + number;
+        //     document.getElementById('Diplomats').innerHTML = Diplomats;
+        //     break;
     }
-    //remember to add much more about how exactly the capabilities go into various individual tasks, affected by various multipliers, etc!
-    //}
-    
+    Researchers = Researchers - number;
+    document.getElementById('NatResearchers').innerHTML = Researchers;
     
 }
-
-// function AdjustPolitics(DeltaOptimism, DeltaPessimism){
-        
-//     //document.getElementById("optimism").innerHTML = optimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-//     //document.getElementById("pessimism").innerHTML = pessimism.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-
-//     optimism = optimism + DeltaOptimism;
-//     pessimism = pessimism + DeltaPessimism;
-//     rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
-
-//     rawData.push({uninterested: (100-optimism-pessimism), pessimist: pessimism, optimist: optimism});
-    
-//     //I should use Plotly.react to update chart, instead of newplot every time?
-//     Plotly.newPlot('PoliticsChartSpace', [{
-//         type: 'scatterternary',
-//         mode: 'lines',
-//         a: rawData.map(function(d) { return d.uninterested; }),
-//         b: rawData.map(function(d) { return d.pessimist; }),
-//         c: rawData.map(function(d) { return d.optimist; }),
-//         line: {color: rgbastring, width: 8,},
-//     }], {
-//         ternary: {
-//             sum: 100,
-//             aaxis: makeAxis('Doesn\'t care about AI', 0),
-//             baxis: makeAxis('Pessimistic', 45),
-//             caxis: makeAxis('Optimistic', -45),
-//             //bgcolor: '#fff1e0'
-//         },
-//         autosize: false,
-//         width: 300,
-//         height: 300,
-//         margin: {
-//             l: 45,
-//             r: 45,
-//             b: 5,
-//             t: 0,
-//             pad: 1
-//           },
-//     });
-    
-//     function makeAxis(title, tickangle) {
-//         return {
-//           title: title,
-//           titlefont: { family: 'Times New Roman', size: 15 },
-//           tickangle: tickangle,
-//           tickfont: { size: 1, color: '#ffffff'},
-//           tickcolor: 'rgba(0,0,0,0)',
-//           ticklen: 3,
-//           showline: true,
-//           showgrid: true
-//         };
-//     }
-    
-// }
 
 
 function UpdateSentiment(){
@@ -2955,9 +2866,47 @@ function UpdateSentiment(){
     //Ternary math
     avgCapability = (Skill_Visu + Skill_Lang + Skill_Code + Skill_Biol + Skill_Robo)/4.5;
     hype = (avgCapability-10)*1;
-    attitudeBalance = 10 / (10 - sentiment);
-    optimism = hype * attitudeBalance;
-    pessimism = hype * (1 - attitudeBalance);
+    attitudeBalance = (10 / (10 - sentiment))*100;
+    optimism = hype * attitudeBalance/100;
+    pessimism = hype * (1 - attitudeBalance/100);
+
+    //Evaluate policies{
+    if(attitudeBalance<5){
+        activePolicies = "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x \n<10%, all AI Robo. & Bio. tech banned \n<5%, Ban on new GPU sales to AI labs";
+        potentialPolicies = "";
+        Tax_Flag = 1; //not yet implemented
+        RSP_Flag = 1;
+        BioBan_Flag = 1; //not yet implemented
+        GPUBan_Flag = 1;
+    }else if(attitudeBalance<10){
+        activePolicies =    "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x \n<10%, all AI Robo. & Bio. tech banned";
+        potentialPolicies = "<5%, Ban on new GPU sales to AI labs";
+        Tax_Flag = 1; //not yet implemented
+        RSP_Flag = 1;
+        BioBan_Flag = 1; //not yet implemented
+        GPUBan_Flag = 0;
+    }else if(attitudeBalance<20){
+        activePolicies =    "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x";
+        potentialPolicies = "<10%, AI Robo. & Bio. tech taxed 75% \n<5%, Ban on new GPU sales to AI labs";
+        Tax_Flag = 1; //not yet implemented
+        RSP_Flag = 1;
+        BioBan_Flag = 0; //not yet implemented
+        GPUBan_Flag = 0;
+    }else if(attitudeBalance<40){
+        activePolicies =    "<40%, Visual & Lang. tech taxed 25%";
+        potentialPolicies = "<20%, RSPs limit model scaling to 2x \n<10%, all AI Robo. & Bio. tech banned";
+        Tax_Flag = 1; //not yet implemented
+        RSP_Flag = 0;
+        BioBan_Flag = 0; //not yet implemented
+        GPUBan_Flag = 0;
+    }else{
+        activePolicies = "";
+        potentialPolicies = "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x";
+        Tax_Flag = 0; //not yet implemented
+        RSP_Flag = 0;
+        BioBan_Flag = 0; //not yet implemented
+        GPUBan_Flag = 0; //not yet implemented
+    }
 
     document.getElementById('hype').innerHTML = hype.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%";
     document.getElementById('sentiment').innerHTML = sentiment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
@@ -2967,7 +2916,9 @@ function UpdateSentiment(){
     document.getElementById('alignment_Code').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById('alignment_Biol').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById('alignment_Robo').innerHTML = alignment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%"; 
+    document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"%";
+    document.getElementById('activePolicies').innerHTML = activePolicies;
+    document.getElementById('potentialPolicies').innerHTML = potentialPolicies;
     }
 
 function UpdatePolitics(){
@@ -3026,8 +2977,140 @@ function UpdatePolitics(){
     document.getElementById('Skill_Robo_PR_2b').innerHTML = Skill_Robo_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
 }
 
+// function UpdateCoolGraph(){
+//     var trace1 = {
+//         x: [1, 2, 3, 4],
+//         y: [10, 15, 13, 17],
+//         mode: 'markers',
+//         name: 'Lang.'
+//       };
+      
+//       var trace2 = {
+//         x: [2, 3, 4, 5],
+//         y: [16, 5, 11, 9],
+//         mode: 'lines',
+//         name: 'Visual'
+//       };
+      
+//       var trace3 = {
+//         x: [1, 2, 3, 4],
+//         y: [12, 9, 15, 12],
+//         mode: 'lines+markers',
+//         name: 'Bio.'
+//       };
+      
+//         rawData.push({uninterested: (100-hype), pessimist: pessimism, optimist: optimism});
+      
+//       var data = [ trace1, trace2, trace3 ];
+      
+//       [{
+//         type: 'scatterternary',
+//         mode: 'lines',
+//         a: rawData.map(function(d) { return d.uninterested; }),
+//         b: rawData.map(function(d) { return d.pessimist; }),
+//         c: rawData.map(function(d) { return d.optimist; }),
+//         line: {color: rgbastring, width: 8,},
+//         }]
+      
 
 
+
+
+//       var layout = {
+//         showlegend: false
+//       };
+
+//       {
+//         autosize: false,
+//         width: 300,
+//         height: 300,
+//         margin: {
+//             l: 45,
+//             r: 45,
+//             b: 5,
+//             t: 0,
+//             pad: 1
+//           },
+//     }
+      
+//       Plotly.react('CoolGraphDiv', data, layout);
+// }
+
+function TrainAI(){
+    if(GPUhours > AIcapabilities){     //some kind of check to make sure you can't train a weaker AI than your last one...
+        
+    TrainedModelFlag = 1;
+    if (RSP_Flag == 1 && (GPUhours > (AIcapabilities*2))){
+        AIcapabilities = AIcapabilities*2;
+        GPUhours = GPUhours - AIcapabilities;
+        displayMessage("You trained a 2.0x bigger AI model! (Limited to 2x increments by Responsible Scaling Policy)");
+    } else{
+        fraction = GPUhours / AIcapabilities;
+        AIcapabilities = GPUhours;
+        GPUhours = 0;
+        displayMessage("You trained a " +fraction.toFixed(1)+ "x bigger AI model!");
+    }
+
+    BaseCapability = Math.log10(AIcapabilities)*10;
+    Skill_Visu = BaseCapability*2.0 + Skill_Visu_mod;
+    Skill_Lang = BaseCapability*1.5 + Skill_Lang_mod;
+    Skill_Code = BaseCapability*2.5 + Skill_Code_mod;
+    Skill_Biol = BaseCapability*2.0 + Skill_Biol_mod;
+    Skill_Robo = BaseCapability*2.5 + Skill_Robo_mod;
+
+
+    
+    document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+    
+    // old capability bar chart
+    // yValues = [Skill_Visu, Skill_Lang, Skill_Code, Skill_Biol, Skill_Robo]
+    // new Chart("CapabilitiesChart", {
+    //     type: "bar",
+    //     data: {
+    //         labels: xValues,
+    //         datasets: [{
+    //         backgroundColor: barColors,
+    //         data: yValues
+    //         }]
+    //     },
+    //     options: {
+    //         legend: {display: false},
+    //         title: {
+    //         display: true,
+    //         text: "Current Model Capabilities, % of human perf:"
+    //         }
+    //     },
+    //      scales: {
+    //          y: {
+    //              display: true,
+    //              type: 'logarithmic',
+    //              min: 1,
+    //              max: 1000
+    //          }
+    //      }
+    // });
+
+    if (AISFlag >3){
+        alignment = -10/(0.005*(negInsights+Evalhours)+.1)+100;//desmos calculator for more
+
+    }else{
+        alignment = -10/(0.005*negInsights+.1)+100;//desmos calculator for more
+    }
+
+    UpdatePolitics()
+    negInsights = 0;
+    Evalhours = 0;
+
+    //UpdateCoolGraph()
+
+    } else {
+    displayMessage("Can't train a bigger AI model; not enough training compute!");
+    }
+    //remember to add much more about how exactly the capabilities go into various individual tasks, affected by various multipliers, etc!
+    //}
+    
+    
+}
 
 function updateStats(){
     if (Nationalized == true){
@@ -3039,7 +3122,7 @@ function updateStats(){
         Death_Note = "";
         document.getElementById("Death_Note").innerHTML = Death_Note;
         //Economy section part 2
-        document.getElementById("PercentAutomated").innerHTML = PercentAutomated.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("PercentAutomated").innerHTML = PercentAutomated.toLocaleString(undefined, {minimumFractionDigits: 3, maximumFractionDigits: 3});
         document.getElementById("HumanGDP").innerHTML = HumanGDP.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
         document.getElementById("AIGDP").innerHTML = AIGDP.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
 
@@ -3050,6 +3133,7 @@ function updateStats(){
         document.getElementById("NatGPUs").innerHTML = GPUs.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         //Research Section
         document.getElementById("NatResearchers").innerHTML = Researchers.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("NatInsights").innerHTML = Insights.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         
     }
     //GPU stuff
@@ -3062,8 +3146,6 @@ function updateStats(){
     document.getElementById("ResearchPercent").innerHTML = ResearchPercent.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Researchers").innerHTML = Researchers.toLocaleString();
     document.getElementById("Insights").innerHTML = Insights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById("Evalhours").innerHTML = Evalhours.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
     document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     
 
@@ -3115,63 +3197,47 @@ function DateCruncher(d){//d = days
     return mDisplay + date + ", " + year;
 }
 
-function numberCruncher(number, decimals){
+function numberCruncher(number, decimals){ //multiplied by a factor of 1 quintillion due to exaflop unit
+    //maybe change this to reflect orders of magnitude???
     var suffix = "";
     if (decimals == undefined){decimals = 2;}
     var precision = decimals;
-    if (number>999999999999999999999999999999999999999999999999999){
-        number = number/1000000000000000000000000000000000000000000000000000;
-        suffix = "sexdecillion";
-    } else if (number>999999999999999999999999999999999999999999999999){
-        number = number/1000000000000000000000000000000000000000000000000;
-        suffix = "quindecillion";
-    } else if (number>999999999999999999999999999999999999999999999){
-        number = number/1000000000000000000000000000000000000000000000;
-        suffix = "quattuordecillion";
-    } else if (number>999999999999999999999999999999999999999999){
-        number = number/1000000000000000000000000000000000000000000;
-        suffix = "tredecillion";
-    } else if (number>999999999999999999999999999999999999999){
-        number = number/1000000000000000000000000000000000000000;
-        suffix = "duodecillion";
-    } else if (number>999999999999999999999999999999999999){
-        number = number/1000000000000000000000000000000000000;
-        suffix = "undecillion";
-    } else if (number>999999999999999999999999999999999){
+    if (number>999999999999999999999999999999999){
         number = number/1000000000000000000000000000000000;
-        suffix = "decillion";
+        suffix = "sexdecillion";
     } else if (number>999999999999999999999999999999){
         number = number/1000000000000000000000000000000;
-        suffix = "nonillion";
+        suffix = "quindecillion";
     } else if (number>999999999999999999999999999){
         number = number/1000000000000000000000000000;
-        suffix = "octillion";
+        suffix = "quattuordecillion";
     } else if (number>999999999999999999999999){
         number = number/1000000000000000000000000;
-        suffix = "septillion";
+        suffix = "tredecillion";
     } else if (number>999999999999999999999){
         number = number/1000000000000000000000;
-        suffix = "sextillion";
+        suffix = "duodecillion";
     } else if (number>999999999999999999){
         number = number/1000000000000000000;
-        suffix = "quintillion";
+        suffix = "undecillion";
     } else if (number>999999999999999){
         number = number/1000000000000000;
-        suffix = "quadrillion";
+        suffix = "decillion";
     } else if (number>999999999999){
         number = number/1000000000000;
-        suffix = "trillion";
+        suffix = "nonillion";
     } else if (number>999999999){
         number = number/1000000000;
-        suffix = "billion";
+        suffix = "octillion";
     } else if (number>999999){
         number = number/1000000;
-        suffix = "million";
+        suffix = "septillion";
     } else if (number>999){
         number = number/1000;
-        suffix = "thousand";
+        suffix = "sextillion";
     }  else if (number<1000){
         precision = 0;
+        suffix = "quintillion";
     }
     return number.toFixed(precision) + " " + suffix;
 }
@@ -3274,8 +3340,8 @@ function PreviewEffects(){
         document.getElementById('Skill_Biol_PR_2b').innerHTML = Skill_Biol_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Biol_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
         document.getElementById('Skill_Robo_PR_2b').innerHTML = Skill_Robo_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+" (" + Skill_Robo_PR_2b_Display.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}) + ")";
         document.getElementById('hype').innerHTML = hype.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + hype_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
-        //document.getElementById('sentiment').innerHTML = sentiment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + Sentiment_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
-        document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + (attitudeBalance_Display*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
+        document.getElementById('sentiment').innerHTML = sentiment.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+" (" + Sentiment_Display.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + ")";
+        document.getElementById('attitudeBalanceDisplay').innerHTML = (attitudeBalance).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})+"% (" + (attitudeBalance_Display*100).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%)";
     }
 }
 
@@ -3283,17 +3349,11 @@ function PreviewEffects(){
 // MAIN LOOP -- every 1/100th of a second
 window.setInterval(function(){
     ticks = ticks + 1;
-    if(isNaN(GPUs)){throw new Error("nan...");}
     milestoneCheck();
-    if(isNaN(GPUs)){throw new Error("nan...");}
     buttonUpdate();
-    if(isNaN(GPUs)){throw new Error("nan...");}
     updateStats(); 
-    if(isNaN(GPUs)){throw new Error("nan...");}
     manageProjects();
-    if(isNaN(GPUs)){throw new Error("nan...");}
     milestoneCheck();
-    if(isNaN(GPUs)){throw new Error("nan...");}
     
 // GPU stuff
     if (GPUs>39){
@@ -3365,24 +3425,14 @@ var secTimer = 0;
 var secTimer2 = 0;
 
 window.setInterval(function(){
-    // 
-    //to 10x every 4.5-mins, must double every 90 seconds or so, thus need $500 per GPU per 90 seconds, so $0.55 per tenth of a second FROM THE MODEL trained by 1 gpu going for 90 secs
-    //GPUhours per GPU over 90 secs = 24/10*900 = 6480
 
-    //Training Hours
-    GPUhours = GPUhours + GPUs/ticks_per_day; //Exaflops
-
-    //Revenue
-    GPUsRevenue();
     
-    //Preview effects from Evals & Scaling Laws
-    PreviewEffects();
-
     //Nationalization calcs
     if(Nationalized==true){
         //this stuff doesn't belong in a project, rather in the actual div:
         LaborForce = LaborForce + (Births - Deaths)/ticks_per_day;
         HumanGDP = BaseGDP*LaborForce/180000000;//how much has labor force grown or shrunk relative to the 180M where we started?
+        PercentAutomated = -10/(AIcapabilities/50000000000+0.1)+100;
         AIGDP = HumanGDP * PercentAutomated/(100-PercentAutomated);
         TotalGDP = HumanGDP + AIGDP;
         DailyReinvestedGDP = fudge_factor*TotalGDP/360;//some constant percentage that goes towards buying GPUs, divided by 360 days per year, and then by some_factor_of_how_often_this_happens_per_day
@@ -3398,13 +3448,34 @@ window.setInterval(function(){
         //PercentAutomated should be influenced by base model skills, plus assorted boosts from individual techs.  have the base model skills go into RLHF 1/x math up to like 60% at most, and then have boosts do the other 40%, or something.
         //the speed that PercentAutomated increases will be the main lever by which I affect the speed of model size growth, and thus the pace of the endgame
         if(Continuous_Flag == 1){
-            AIcapabilities = AIcapabilities + GPUhours;
+            AIcapabilities = AIcapabilities + GPUs/ticks_per_day;
             //figure out how to continously update skills
             //figure out how to apply RLHF again to suppress bad capabilites
         }
+        
+        BaseCapability = Math.log10(AIcapabilities)*10;
+        Skill_Visu_Scale = BaseCapability*2.0 + Skill_Visu_mod;
+        Skill_Code_Scale = BaseCapability*2.5 + Skill_Code_mod;
+        Skill_Biol_Scale = BaseCapability*2.0 + Skill_Biol_mod;
+        Skill_Robo_Scale = BaseCapability*2.5 + Skill_Robo_mod;
+        document.getElementById("Nat_Visu_Scale").innerHTML = Skill_Visu_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        document.getElementById("Nat_Code_Scale").innerHTML = Skill_Code_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        document.getElementById("Nat_Biol_Scale").innerHTML = Skill_Biol_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        document.getElementById("Nat_Robo_Scale").innerHTML = Skill_Robo_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
 
     } else {
-        //some of the above stuff should go here; we don't need to keep calculating funds etc
+        //to 10x every 4.5-mins, must double every 90 seconds or so, thus need $500 per GPU per 90 seconds, so $0.55 per tenth of a second FROM THE MODEL trained by 1 gpu going for 90 secs
+        //GPUhours per GPU over 90 secs = 24/10*900 = 6480
+         
+        //Training Hours
+        GPUhours = GPUhours + GPUs/ticks_per_day; //Exaflops
+
+        //Revenue
+        GPUsRevenue();
+
+        //Preview effects from Evals & Scaling Laws
+        PreviewEffects();
+
 
         //todo: probably rejig the various stats "for display", as these are now our continously training AGI's real stats!
     }
@@ -3420,8 +3491,10 @@ window.setInterval(function(){
         Insights = Insights + 0.001*Researchers*(ResearchPercent);
         if (AISFlag>2){
             negInsights = negInsights  + 0.001*Researchers*(100-ResearchPercent)
+            document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
             if (AISFlag > 3){
                 Evalhours = Evalhours + 0.002*Researchers*(100- ResearchPercent);
+                document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+", Eval power: "+Evalhours.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
             }
         }
     }

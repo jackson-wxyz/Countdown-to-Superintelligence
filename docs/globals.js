@@ -27,6 +27,11 @@ var TrainedModelFlag = 0;
 var PoliticsFlag = 0;
 var ScalingFlag = 0;
 
+var Tax_Flag = 0; //not yet implemented
+var RSP_Flag = 0; //not yet implemented
+var BioBan_Flag = 0; //not yet implemented
+var GPUBan_Flag = 0; //not yet implemented
+
 var Visu_Flag = 0;
 var Lang_Flag = 0;
 var Code_Flag = 0;
@@ -42,7 +47,7 @@ var Skill_Robo = 0;
 var Skill_Visu_mod = -15;
 var Skill_Lang_mod = -20;
 var Skill_Code_mod = -55;
-var Skill_Biol_mod = -40;//reduce by 20?
+var Skill_Biol_mod = -40;
 var Skill_Robo_mod = -95;//reduce by something?
 
 var Skill_Visu_bad_mod = 0;
@@ -129,6 +134,7 @@ var rawData = [
 var Nationalized   = false;
 var unfinishedGame = false;
 var Continuous_Flag  = 0;
+var Reinvestment_Flag = 0;
 var Nat_Research_Flag  = 0;
 var Nat_Minefield_Flag = 0;
 var Nat_Defense_Flag = 0;
@@ -145,9 +151,9 @@ var AIGDP = 0;
 var TotalGDP = 0;
 var DailyReinvestedGDP = 0;
 var GPUsPerDay = 0;
-var fudge_factor = 1e12 * 1e-4 * 0.1 * 0.1 *0.1;
+var fudge_factor = 1e12 * 1e-4 * 0.1 * 0.1;
 //1e12 is trillion, 1e-4 is the tom davidson number, maybe divide by 10 again for continous training overlap, 
-//10 again for non-GPU overhead?  and then, still seems too fast... throw in another factor of 10
+//10 again for non-GPU overhead?
 var ticks_per_day = 5; //tenth-second slow-loop ticks vs half-day timing of the game
 
 //Researchers & insights
