@@ -343,6 +343,8 @@ projects.push(projectV4);
 
 //OOM 4
 
+//watermarking, visual 60 or 65...
+
 //chatbot
 var projectL3 = {
     id: "projectButtonL3",
@@ -438,7 +440,7 @@ var projectL4 = {
     flag: 0,
     effect: function(){
         displayMessage("Digitize libraries: Not as much data as the internet.  But books' higher average quality will help you fine-tune your LLMs.");
-        jFunds = jFunds -6000;
+        jFunds = jFunds -4000;
         Skill_Lang_mod = Skill_Lang_mod + 2.6;
         Skill_Lang = Skill_Lang + 2.6; //log(1.5^(3/2))*10
         Profit_Lang_1 = Profit_Lang_1 * 1.5;
@@ -558,12 +560,12 @@ var projectI4 = {
     description: "Rent offices and hire employees to help develop insights",
     trigger: function(){return (GPUs > 59)},
     uses: 1,
-    cost: function(){return jFunds > 50000},
+    cost: function(){return jFunds > 20000},
     flag: 0,
     effect: function(){
         displayMessage("Found a business: Your employees will help you explore new ideas, develop products, and more.  But first, let's all sign this NDA...");
         if(AISFlag <2){AISFlag = 2;}
-        jFunds = jFunds - 50000;
+        jFunds = jFunds - 20000;
 
         projectI4.flag = 1;
         var element = document.getElementById("projectButtonI4");
@@ -578,7 +580,7 @@ projects.push(projectI4);
 var projectM3 = {
     id: "projectButtonM3",
     title: "GPU Upgrade",
-    priceTag: " ($30000)",
+    priceTag: " ($30,000)",
     description: "Buy cutting-edge H100 chips, 60x costlier but 100x faster than gaming GPUs.",
     trigger: function(){return (GPUs > 59)},
     uses: 1,
