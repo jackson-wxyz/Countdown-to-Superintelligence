@@ -66,7 +66,10 @@ var projectV1 = {
     flag: 0,
     effect: function(){
         displayMessage("Image Classifier App: Your GPUs are now running inference on your latest AI model, classifying images to earn cash from customers.");
+        PushGraphData();
         Visu_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectV1.flag = 1;
         var element = document.getElementById("projectButtonV1");
@@ -116,13 +119,16 @@ var projectV3 = {
     cost: function(){return Skill_Visu>19.5},
     flag: 0,
     effect: function(){
-        displayMessage("Adversarial images show that AIs must process visual information in a very strange, alien way.");
+        displayMessage("Adversarial Robustness: Adversarially image attacks show that AIs must process visual information in a very strange, alien way.");
+        PushGraphData();
         Skill_Visu_mod = Skill_Visu_mod + 2.6;
         Skill_Visu = Skill_Visu + 2.6;//log(1.5^(3/2))*10
         Profit_Visu_1 = Profit_Visu_1 * 1.5;
         Profit_Visu_2 = Profit_Visu_2 * 1.5;
         Profit_Visu_3 = Profit_Visu_3 * 1.5;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectV3.flag = 1;
         var element = document.getElementById("projectButtonV3");
@@ -145,9 +151,12 @@ var projectL1 = {
     cost: function(){return Insights>0.95},
     flag: 0,
     effect: function(){
+        PushGraphData();
         displayMessage("Machine translation: Is this statistical language model just a 'stochastic parrot', or is actual world-modeling going on in there?");
         Insights = Insights -1;
         Lang_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectL1.flag = 1;
         var element = document.getElementById("projectButtonL1");
@@ -195,8 +204,8 @@ var projectI2 = {
     effect: function(){
         displayMessage("Scaling laws: These extrapolations are helpful, but can't answer the most important question -- how close are transformative real-world impacts?");
         ScalingFlag = 1;
-        //TODO: ALSO unlock cool graph of capabilities!  probably sneak this under "misuse" since there's plenty of space there.
-
+        UpdateCoolGraph();
+        
         projectI2.flag = 1;
         var element = document.getElementById("projectButtonI2");
         element.parentNode.removeChild(element);
@@ -213,7 +222,7 @@ projects.push(projectI2);
 //web crawl, $200
 var projectL2 = {
     id: "projectButtonL2",
-    title: "Web crawl",
+    title: "Web Crawl",
     priceTag: " ($200)",
     description: "Scrape websites for text to use as training data. (+100% boost to Language profits)",
     trigger: function(){return (projectL1.flag == 1)},
@@ -221,7 +230,8 @@ var projectL2 = {
     cost: function(){return  jFunds>200},
     flag: 0,
     effect: function(){
-        displayMessage("The internet seems boundless, but pretty soon you're going to need even more tokens...");
+        displayMessage("Web Crawl: The internet seems boundless, but pretty soon you're going to need even more tokens...");
+        PushGraphData();
         jFunds = jFunds -200;
         Skill_Lang_mod = Skill_Lang_mod + 4.5;
         Skill_Lang = Skill_Lang + 4.5;//log(2^(3/2))*10
@@ -229,6 +239,8 @@ var projectL2 = {
         Profit_Lang_2 = Profit_Lang_2 * 2;
         Profit_Lang_3 = Profit_Lang_3 * 2;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectL2.flag = 1;
         var element = document.getElementById("projectButtonL2");
@@ -278,9 +290,12 @@ var projectB1 = {
     cost: function(){return (Insights>0.95) && (Skill_Visu>44.5)},//lower than this and it will be negative on arrival
     flag: 0,
     effect: function(){
-        displayMessage("Protein Folding App: translating RNA sequences into 3D protein structures was an unsolved problem in medical research for decades.");
+        displayMessage("Protein Folding: Translating RNA sequences into 3D protein structures was an unsolved problem in medical research for decades.");
+        PushGraphData();
         Biol_Flag = 1;
         Insights = Insights -1;
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectB1.flag = 1;
         var element = document.getElementById("projectButtonB1");
@@ -303,7 +318,10 @@ var projectC1 = {
     flag: 0,
     effect: function(){
         displayMessage("Code Checker App: 'It looks like you're trying to take over the world. Would you like help with that?' - Clippy");
+        PushGraphData();
         Code_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectC1.flag = 1;
         var element = document.getElementById("projectButtonC1");
@@ -382,6 +400,7 @@ var projectC2 = {
     flag: 0,
     effect: function(){
         displayMessage("Self-supervision: Where objective training signals are possible, such as in chess or mathematics, the specter of far-superhuman performance begins to take shape.");
+        PushGraphData();
         Insights = Insights -1;
         Skill_Code_mod = Skill_Code_mod + 4.5;
         Skill_Code = Skill_Code + 4.5;//log(2^(3/2))*10
@@ -389,6 +408,8 @@ var projectC2 = {
         Profit_Code_2 = Profit_Code_2 * 2;
         Profit_Code_3 = Profit_Code_3 * 2;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectC2.flag = 1;
         var element = document.getElementById("projectButtonC2");
@@ -412,12 +433,15 @@ var projectB2 = {
     flag: 0,
     effect: function(){
         displayMessage("Molecular Dynamics Package: Giving AI a deep understanding of biology will help us find new cures for lots of diseases.");
-       jFunds = jFunds -2500;
+        PushGraphData();
+        jFunds = jFunds -2500;
         Skill_Biol_mod = Skill_Biol_mod + 4.5;
         Skill_Biol = Skill_Biol + 4.5;//log(2^(3/2))*10
         Profit_Biol_1 = Profit_Biol_1 * 2;
         Profit_Biol_2 = Profit_Biol_2 * 2;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectB2.flag = 1;
         var element = document.getElementById("projectButtonB2");
@@ -440,6 +464,7 @@ var projectL4 = {
     flag: 0,
     effect: function(){
         displayMessage("Digitize libraries: Not as much data as the internet.  But books' higher average quality will help you fine-tune your LLMs.");
+        PushGraphData();
         jFunds = jFunds -4000;
         Skill_Lang_mod = Skill_Lang_mod + 2.6;
         Skill_Lang = Skill_Lang + 2.6; //log(1.5^(3/2))*10
@@ -447,6 +472,8 @@ var projectL4 = {
         Profit_Lang_2 = Profit_Lang_2 * 1.5;
         Profit_Lang_3 = Profit_Lang_3 * 1.5;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectL4.flag = 1;
         var element = document.getElementById("projectButtonL4");
@@ -469,13 +496,16 @@ var projectL5 = {
     flag: 0,
     effect: function(){
         displayMessage("Tree-of-Thought Prompting: 'Imagine if, when asked to solve a hard math problem, you had to instantly answer with the very first thing that came to mind.' - Leopold Aschenbrenner");
+        PushGraphData();
         Insights = Insights -1;
-        Skill_Lang_mod = Skill_Lang_mod + 33.6;
+        Skill_Lang_mod = Skill_Lang_mod + 3.6;
         Skill_Lang = Skill_Lang + 3.6;//log(1.75^(3/2))*10
         Profit_Lang_1 = Profit_Lang_1 * 1.75;
         Profit_Lang_2 = Profit_Lang_2 * 1.75;
         Profit_Lang_3 = Profit_Lang_3 * 1.75;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectL5.flag = 1;
         var element = document.getElementById("projectButtonL5");
@@ -617,7 +647,10 @@ var projectR1 = {
     flag: 0,
     effect: function(){
         displayMessage("Aerial Drone Control: Pushing the envelope.");
+        PushGraphData();
         Robo_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectR1.flag = 1;
         var element = document.getElementById("projectButtonR1");
@@ -768,6 +801,7 @@ var projectM4 = {
     flag: 0,
     effect: function(){
         displayMessage("Multimodality: 'Bodhisattva, practicing deep meditation, clearly saw that all five skandhas are empty: no eyes, no ears, no nose, no tongue, no body, no mind.' - Heart Sutra");
+        PushGraphData();
         Insights = Insights -3;
         Skill_Visu_mod = Skill_Visu_mod + 4.5;
         Skill_Lang_mod = Skill_Lang_mod + 4.5;
@@ -780,6 +814,8 @@ var projectM4 = {
         Profit_Lang_2 = Profit_Lang_2 * 2;
         Profit_Lang_3 = Profit_Lang_3 * 2;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectM4.flag = 1;
         var element = document.getElementById("projectButtonM4");
@@ -802,6 +838,7 @@ var projectC4 = {
     flag: 0,
     effect: function(){
         displayMessage("Action Transformers: no relation to Hasbro corporation or the planet Cybertron.");
+        PushGraphData();
         Insights = Insights -4;
         Skill_Code_mod = Skill_Code_mod + 2.6;
         Skill_Code = Skill_Code + 2.6;//log(1.5^(3/2))*10
@@ -809,6 +846,8 @@ var projectC4 = {
         Profit_Code_2 = Profit_Code_2 * 1.5;
         Profit_Code_3 = Profit_Code_3 * 1.5;
         UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
 
         projectC4.flag = 1;
         var element = document.getElementById("projectButtonC4");
@@ -1121,13 +1160,13 @@ var projectNE = {
     id: "projectButtonNE",
     title: "Reinvestment",
     priceTag: " ",
-    description: "Multiple frontier models are under development in labs around the country.",
-    trigger: function(){return projectNE.flag == 1},
+    description: "Reinvest a portion of GDP into chips.",
+    trigger: function(){return projectNE0.flag == 1},
     uses: 1,
     cost: function(){return true}, //would be nice to put a timer on this, give it a delay or something...
     flag: 0,
     effect: function(){
-        displayMessage("Continuous Training: Compute resources now flow directly into current model size.");
+        displayMessage("Reinvestment: todo");
         Reinvestment_Flag = 1;//todo: doesn't currently work
 
         projectNE.flag = 1;
@@ -1279,7 +1318,13 @@ var projectNQ1b = {
 }
 projects.push(projectNQ1b);
 
+//cancer cure
 
+//dna synthesis blacklist screening -- raises biorisks thresh
+
+//metagenomics scanning project
+
+//uvc deployment in transport hubs
 
 //bio skill 4, longevity medicine
 var projectB4 = {
@@ -1315,24 +1360,23 @@ var projectNQ2a = {
     cost: function(){return true},
     flag: 0,
     effect: function(){
-        //Diplo = Diplo - 10;
-        displayMessage("The Best of The Best.: todo");
-        //Alignment = Alignment + 15;
+        displayMessage("Share medical technology?: todo");
+        //Biorisk = Biorisk -10;
         //Cooperation = Cooperation + 5;
 
         projectNQ2a.flag = 1;
-        var element = document.getElementById("projectButtonNQ1a");
+        var element = document.getElementById("projectButtonNQ2a");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectNQ1a);
+        var index = activeProjects.indexOf(projectNQ2a);
         activeProjects.splice(index, 1);
         //destroy other option too
-        element = document.getElementById("projectButtonNQ1b");
+        element = document.getElementById("projectButtonNQ2b");
         element.parentNode.removeChild(element);
-        index = activeProjects.indexOf(projectNQ1b);
+        index = activeProjects.indexOf(projectNQ2b);
         activeProjects.splice(index, 1);
     }
 }
-projects.push(projectNQ1a);
+projects.push(projectNQ2a);
 var projectNQ2b = {
     id: "projectButtonNQ2b",
     title: "Hoard medical technology?",
@@ -1343,10 +1387,9 @@ var projectNQ2b = {
     cost: function(){return true},
     flag: 0,
     effect: function(){
-        //Diplo = Diplo - 10;
-        displayMessage("The Best of The Best.: todo");
-        //Alignment = Alignment + 5;
-        //Cooperation = Cooperation + 15;
+        displayMessage("Hoard medical technology?: todo");
+        //Biorisk = Biorisk;
+        //Cooperation = Cooperation - 10;
 
         projectNQ2b.flag = 1;
         var element = document.getElementById("projectButtonNQ2b");
@@ -1361,6 +1404,44 @@ var projectNQ2b = {
     }
 }
 projects.push(projectNQ2b);
+
+//IQ-enhancing gene therapy, boosts researchers
+
+//bio = ai capabilities vs threshholds where bad things happen
+// - terror attack, thresh also on low coop
+// - superplague, thresh also on alignment
+
+//cyber
+// - enemy steals AI
+// - enemy cyberattack (hits economy)
+// - ai attack (hits harder)
+// - exfiltration (eliminates alignment panel, since AI is in wild)
+
+//cyber based events to boost economy, alignment (via control), etc
+
+//competitor stuff:
+
+//competition starts at 50%, alignment at 10%
+//google how to make javascript loading bar
+
+//also competitor ai strength graph, don't fall behind else lose
+
+//at high coop:
+//ai arms race limitation talks: slow ai & competitor AI, 
+//giving more time for research
+
+//joint alignment program
+
+//enable global ban
+
+//stuff like metagenomic reqs coop
+
+//at low % coop, competitor exits agreements like metagenomics, 
+//launches proxy war, turbocharges their AI program,
+//and then launches nuclear war
+
+//war severity depends on ratio of competitor economic/ai strength to yours
+
 
 
 //peace treaty event
@@ -1377,7 +1458,6 @@ projects.push(projectNQ2b);
 
 
 
-
 //bioweapons stuff
 
 //military slaughterbot stuff
@@ -1390,7 +1470,7 @@ projects.push(projectNQ2b);
 
 //humanoid robots (increases labor force, also creates military bots)
 
-//breakthrough medicines (increases labor force via less aging, also creates biorisk)
+//other breakthrough medicines
 
 //IQ-boosting gene therapy for ai researchers
 

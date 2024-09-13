@@ -126,6 +126,40 @@ var rawData = [
 ];;
 
 
+var trace1 = {
+    x: [],
+    y: [],
+    mode: 'lines',
+    name: 'Visual'
+  };
+  
+  var trace2 = {
+    x: [],
+    y: [],
+    mode: 'lines',
+    name: 'Lang.'
+  };
+  
+  var trace3 = {
+    x: [],
+    y: [],
+    mode: 'lines',
+    name: 'Code'
+  };
+
+  var trace4 = {
+    x: [],
+    y: [],
+    mode: 'lines',
+    name: 'Bio.'
+  };
+
+  var trace5 = {
+    x: [],
+    y: [],
+    mode: 'lines',
+    name: 'Robo.'
+  };
 
 
 

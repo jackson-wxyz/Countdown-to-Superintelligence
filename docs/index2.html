@@ -60,9 +60,10 @@
             <div id="Reinvestment_Div">
             Reinvesting 1% of GDP into datacenters,<br />
             power generation, etc, for AI training.<br />
-            <div class="slidecontainer">
+            <!-- todo: make this slider and have this show up with 100 values, affecting 1.00% to 0.00% GDP-->
+            <!-- <div class="slidecontainer">
                 <input type="range" min="0" max="1" value="0" class="slider" id="GDPSlider">
-            </div>
+            </div>-->
             Daily GPUs bought: +<span id="GPUsPerDay">20</span><br />
             </div>
             Total GPUs: <span id="NatGPUs">0</span><br />
@@ -137,9 +138,6 @@
             </div>
         </div> 
 
-        <div id="CoolGraphDiv">
-
-        </div>
         <!--
         Game pacing & planning:
         Each game should be about 1.25 hours long, 75 minutes, and cover 25 years, 2016 - 2041... 
@@ -304,6 +302,9 @@
         <!--Pre-nationalization GPU stuff /////////////////////////////////////////////////////////////////////////// -->
 
         <!--GPU stuff-->
+        <div id="CoolGraphDiv">
+        </div>
+
         <div id="PoliticsDiv">    
             <b>Misuse & Misalignment Harms</b><br /> <!--change to "threats" when nationalized -->
             <hr>

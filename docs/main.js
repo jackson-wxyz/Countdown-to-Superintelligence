@@ -2275,6 +2275,12 @@ if (Nationalized == true){
         document.getElementById("beg_for_more_wire_Div").style.display="none";
     }
 
+    if (Reinvestment_Flag ==1){
+        document.getElementById("Reinvestment_Div").style.display="";
+    } else {
+        document.getElementById("Reinvestment_Div").style.display="none";
+    }
+
     if (Nat_Research_Flag ==1){
         document.getElementById("Nat_Research_Div").style.display="";
     } else {
@@ -2398,13 +2404,6 @@ if (Nationalized == true){
             document.getElementById("PoliticsDiv2").style.display="none";
             break;
         }
-
-    // if (ScalingFlag==1) {
-    //         document.getElementById("cool_capabilities_graph").style.display="";
-    //         //TODO: unlock cool graph of capabilities!
-    //     } else {
-    //         document.getElementById("cool_capabilities_graph").style.display="none"; 
-    //     }
 
 
     switch(Visu_Flag) {
@@ -2977,64 +2976,36 @@ function UpdatePolitics(){
     document.getElementById('Skill_Robo_PR_2b').innerHTML = Skill_Robo_PR_2b.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1}); 
 }
 
-// function UpdateCoolGraph(){
-//     var trace1 = {
-//         x: [1, 2, 3, 4],
-//         y: [10, 15, 13, 17],
-//         mode: 'markers',
-//         name: 'Lang.'
-//       };
-      
-//       var trace2 = {
-//         x: [2, 3, 4, 5],
-//         y: [16, 5, 11, 9],
-//         mode: 'lines',
-//         name: 'Visual'
-//       };
-      
-//       var trace3 = {
-//         x: [1, 2, 3, 4],
-//         y: [12, 9, 15, 12],
-//         mode: 'lines+markers',
-//         name: 'Bio.'
-//       };
-      
-//         rawData.push({uninterested: (100-hype), pessimist: pessimism, optimist: optimism});
-      
-//       var data = [ trace1, trace2, trace3 ];
-      
-//       [{
-//         type: 'scatterternary',
-//         mode: 'lines',
-//         a: rawData.map(function(d) { return d.uninterested; }),
-//         b: rawData.map(function(d) { return d.pessimist; }),
-//         c: rawData.map(function(d) { return d.optimist; }),
-//         line: {color: rgbastring, width: 8,},
-//         }]
-      
+function PushGraphData(){
+    var yr_frac = Days/360+2016;
+    //could be faster by only calling extendTraces once...
+    if (Visu_Flag>0){trace1.x.push(yr_frac); trace1.y.push(Skill_Visu);}
+    if (Lang_Flag>0){trace2.x.push(yr_frac); trace2.y.push(Skill_Lang);}
+    if (Code_Flag>0){trace3.x.push(yr_frac); trace3.y.push(Skill_Code);}
+    if (Biol_Flag>0){trace4.x.push(yr_frac); trace4.y.push(Skill_Biol);}
+    if (Robo_Flag>0){trace5.x.push(yr_frac); trace5.y.push(Skill_Robo);}
 
+}
 
-
-
-//       var layout = {
-//         showlegend: false
-//       };
-
-//       {
-//         autosize: false,
-//         width: 300,
-//         height: 300,
-//         margin: {
-//             l: 45,
-//             r: 45,
-//             b: 5,
-//             t: 0,
-//             pad: 1
-//           },
-//     }
-      
-//       Plotly.react('CoolGraphDiv', data, layout);
-// }
+function UpdateCoolGraph(){
+    //var data = [];
+    // if (Visu_Flag>0){data = [trace1, trace2, trace3, trace4, trace5]}
+    // if (Lang_Flag>0){data = [trace1, trace2, trace3, trace4, trace5]}
+    // if (Code_Flag>0){data = [trace1, trace2, trace3, trace4, trace5]}
+    // if (Biol_Flag>0){data = [trace1, trace2, trace3, trace4, trace5]}
+    // if (Robo_Flag>0){data = [trace1, trace2, trace3, trace4, trace5]}
+    if(ScalingFlag>0){
+        Plotly.newPlot('CoolGraphDiv', [trace1, trace2, trace3, trace4, trace5], 
+        {   showlegend: false,
+            autosize: false,
+            width: 300,
+            height: 275,
+            margin: { l: 45, r: 45, b: 5, t: 0, pad: 1 },
+            yaxis: { zeroline: true}
+        }
+        );
+    }
+}
 
 function TrainAI(){
     if(GPUhours > AIcapabilities){     //some kind of check to make sure you can't train a weaker AI than your last one...
@@ -3045,11 +3016,21 @@ function TrainAI(){
         GPUhours = GPUhours - AIcapabilities;
         displayMessage("You trained a 2.0x bigger AI model! (Limited to 2x increments by Responsible Scaling Policy)");
     } else{
-        fraction = GPUhours / AIcapabilities;
-        AIcapabilities = GPUhours;
-        GPUhours = 0;
-        displayMessage("You trained a " +fraction.toFixed(1)+ "x bigger AI model!");
+        if (AIcapabilities == 0){
+            fraction = GPUhours / AIcapabilities;
+            AIcapabilities = GPUhours;
+            GPUhours = 0;
+            displayMessage("You trained your first AI model!");
+        } else {
+            fraction = GPUhours / AIcapabilities;
+            AIcapabilities = GPUhours;
+            GPUhours = 0;
+            displayMessage("You trained a " +fraction.toFixed(1)+ "x bigger AI model!");
+        }
     }
+
+    
+    PushGraphData();
 
     BaseCapability = Math.log10(AIcapabilities)*10;
     Skill_Visu = BaseCapability*2.0 + Skill_Visu_mod;
@@ -3058,37 +3039,8 @@ function TrainAI(){
     Skill_Biol = BaseCapability*2.0 + Skill_Biol_mod;
     Skill_Robo = BaseCapability*2.5 + Skill_Robo_mod;
 
-
     
     document.getElementById("AIcapabilities").innerHTML = AIcapabilities.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    
-    // old capability bar chart
-    // yValues = [Skill_Visu, Skill_Lang, Skill_Code, Skill_Biol, Skill_Robo]
-    // new Chart("CapabilitiesChart", {
-    //     type: "bar",
-    //     data: {
-    //         labels: xValues,
-    //         datasets: [{
-    //         backgroundColor: barColors,
-    //         data: yValues
-    //         }]
-    //     },
-    //     options: {
-    //         legend: {display: false},
-    //         title: {
-    //         display: true,
-    //         text: "Current Model Capabilities, % of human perf:"
-    //         }
-    //     },
-    //      scales: {
-    //          y: {
-    //              display: true,
-    //              type: 'logarithmic',
-    //              min: 1,
-    //              max: 1000
-    //          }
-    //      }
-    // });
 
     if (AISFlag >3){
         alignment = -10/(0.005*(negInsights+Evalhours)+.1)+100;//desmos calculator for more
@@ -3097,11 +3049,13 @@ function TrainAI(){
         alignment = -10/(0.005*negInsights+.1)+100;//desmos calculator for more
     }
 
-    UpdatePolitics()
+    UpdatePolitics();
     negInsights = 0;
     Evalhours = 0;
 
-    //UpdateCoolGraph()
+    PushGraphData();
+    Evalhours = 0;//redundant
+    UpdateCoolGraph();
 
     } else {
     displayMessage("Can't train a bigger AI model; not enough training compute!");
@@ -3198,7 +3152,7 @@ function DateCruncher(d){//d = days
 }
 
 function numberCruncher(number, decimals){ //multiplied by a factor of 1 quintillion due to exaflop unit
-    //maybe change this to reflect orders of magnitude???
+    //todo: maybe change this to reflect orders of magnitude???
     var suffix = "";
     if (decimals == undefined){decimals = 2;}
     var precision = decimals;
@@ -3370,6 +3324,20 @@ window.setInterval(function(){
     ResearchPercent = 100-AISPercent;
     if(isNaN(GPUs)){throw new Error("nan...");}
 
+    if(Nationalized==true){
+        if(Continuous_Flag == 1){
+            AIcapabilities = AIcapabilities + GPUs/ticks_per_day/10;//extra factor of 10 because i moved it to the fast loop
+            //figure out how to continously update skills
+            //figure out how to apply RLHF again to suppress bad capabilites
+        }
+    } else {
+        //to 10x every 4.5-mins, must double every 90 seconds or so, thus need $500 per GPU per 90 seconds, so $0.55 per tenth of a second FROM THE MODEL trained by 1 gpu going for 90 secs
+        //GPUhours per GPU over 90 secs = 24/10*900 = 6480
+         
+        //Training Hours
+        GPUhours = GPUhours + GPUs/ticks_per_day/10; //Exaflops//extra factor of 10 because i moved it to the fast loop
+
+    }
     // Stock Report
     // stockReportCounter++;
     // if (investmentEngineFlag==1 && stockReportCounter>=10000){
@@ -3435,10 +3403,12 @@ window.setInterval(function(){
         PercentAutomated = -10/(AIcapabilities/50000000000+0.1)+100;
         AIGDP = HumanGDP * PercentAutomated/(100-PercentAutomated);
         TotalGDP = HumanGDP + AIGDP;
-        DailyReinvestedGDP = fudge_factor*TotalGDP/360;//some constant percentage that goes towards buying GPUs, divided by 360 days per year, and then by some_factor_of_how_often_this_happens_per_day
-        GPUsPerDay = DailyReinvestedGDP/500; //for display
-        jFunds = jFunds + DailyReinvestedGDP/ticks_per_day;
-        buyGPU(jFunds);
+        if (Reinvestment_Flag == 1){
+            DailyReinvestedGDP = fudge_factor*TotalGDP/360;//some constant percentage that goes towards buying GPUs, divided by 360 days per year, and then by some_factor_of_how_often_this_happens_per_day
+            GPUsPerDay = DailyReinvestedGDP/500; //for display
+            jFunds = jFunds + DailyReinvestedGDP/ticks_per_day;
+            buyGPU(jFunds);
+        }
         //GPUs generate exaflops as normal, but generate no profit
         //instead, feedback cycle comes purely from continuous improvement
         //20%: 30 + [7.5, 30/8*2] = 37.5
@@ -3447,11 +3417,7 @@ window.setInterval(function(){
         //maybe do a cool pie chart, which I could even size proportionately to show absolute scale
         //PercentAutomated should be influenced by base model skills, plus assorted boosts from individual techs.  have the base model skills go into RLHF 1/x math up to like 60% at most, and then have boosts do the other 40%, or something.
         //the speed that PercentAutomated increases will be the main lever by which I affect the speed of model size growth, and thus the pace of the endgame
-        if(Continuous_Flag == 1){
-            AIcapabilities = AIcapabilities + GPUs/ticks_per_day;
-            //figure out how to continously update skills
-            //figure out how to apply RLHF again to suppress bad capabilites
-        }
+        
         
         BaseCapability = Math.log10(AIcapabilities)*10;
         Skill_Visu_Scale = BaseCapability*2.0 + Skill_Visu_mod;
@@ -3464,11 +3430,6 @@ window.setInterval(function(){
         document.getElementById("Nat_Robo_Scale").innerHTML = Skill_Robo_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
 
     } else {
-        //to 10x every 4.5-mins, must double every 90 seconds or so, thus need $500 per GPU per 90 seconds, so $0.55 per tenth of a second FROM THE MODEL trained by 1 gpu going for 90 secs
-        //GPUhours per GPU over 90 secs = 24/10*900 = 6480
-         
-        //Training Hours
-        GPUhours = GPUhours + GPUs/ticks_per_day; //Exaflops
 
         //Revenue
         GPUsRevenue();
@@ -3478,6 +3439,8 @@ window.setInterval(function(){
 
 
         //todo: probably rejig the various stats "for display", as these are now our continously training AGI's real stats!
+        //todo: make graph nicer maybe, better colors & labels?
+        //todo: remove combat.js to save on a lot of calculation time...
     }
 
 
