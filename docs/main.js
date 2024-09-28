@@ -311,6 +311,13 @@ if (Nationalized == true){
     if (Nat_Minefield_Flag ==1){
         document.getElementById("Nat_Competition_Div").style.display="";
         document.getElementById("Nat_Misalignment_Div").style.display="";
+        if(CEV > 99){
+            document.getElementById("AlignmentWin").style.display="";
+            document.getElementById("AlignmentFail").style.display="none";
+        } else {
+            document.getElementById("AlignmentWin").style.display="none";
+            document.getElementById("AlignmentFail").style.display="";
+        }
     } else {
         document.getElementById("Nat_Competition_Div").style.display="none";
         document.getElementById("Nat_Misalignment_Div").style.display="none";
@@ -319,9 +326,16 @@ if (Nationalized == true){
     if (Nat_Defense_Flag ==1){
         document.getElementById("Nat_Profession_Div").style.display="";
         document.getElementById("Nat_Robo_Div").style.display="";
-        document.getElementById("Nat_Code_Div").style.display="";
         document.getElementById("Nat_Biol_Div").style.display="";
+        document.getElementById("Nat_Code_Div").style.display="";
         document.getElementById("Nat_Lang_Div").style.display="";
+        if (Censorship_Flag ==1){
+            document.getElementById("Censors_Div").style.display="";
+            document.getElementById("Censors_Div2").style.display="";
+        } else{
+            document.getElementById("Censors_Div").style.display="none";
+            document.getElementById("Censors_Div2").style.display="none";
+        }
     }
 
 } else {
@@ -835,30 +849,33 @@ function DiplomatClick(number, profession){
     }
 
     switch (profession){
-        case "Diplomat":
-            if((-1*number)>Diplomats){number = -1*Diplomats;}
-            Diplomats = Diplomats + number;
-            document.getElementById('Diplomats').innerHTML = Diplomats;
+        case "Inspectors":
+            if((-1*number)>Inspectors){number = -1*Inspectors;}
+            Inspectors = Inspectors + number;
+            document.getElementById('Inspectors').innerHTML = Inspectors;
+            document.getElementById('Inspectors2').innerHTML = Inspectors;
             break;
-        case "Engineer":
-            if((-1*number)>Engineers){number = -1*Engineers;}
-            Engineers = Engineers + number;
-            document.getElementById('Engineers').innerHTML = Engineers;
+        case "Cybersecs":
+            if((-1*number)>Cybersecs){number = -1*Cybersecs;}
+            Cybersecs = Cybersecs + number;
+            document.getElementById('Cybersecs').innerHTML = Cybersecs;
+            document.getElementById('Cybersecs2').innerHTML = Cybersecs;
             break;
-        // case "BioExpert":
-        //     if((-1*number)>Diplomats){number = -1*Diplomats;}
-        //     Diplomats = Diplomats + number;
-        //     document.getElementById('Diplomats').innerHTML = Diplomats;
-        //     break;
-        // case "BioExpert":
-        //     if((-1*number)>Diplomats){number = -1*Diplomats;}
-        //     Diplomats = Diplomats + number;
-        //     document.getElementById('Diplomats').innerHTML = Diplomats;
-        //     break;
+        case "Biosecs":
+            if((-1*number)>Biosecs){number = -1*Biosecs;}
+            Biosecs = Biosecs + number;
+            document.getElementById('Biosecs').innerHTML = Biosecs;
+            document.getElementById('Biosecs2').innerHTML = Biosecs;
+            break;
+        case "Censors":
+            if((-1*number)>Censors){number = -1*Censors;}
+            Censors = Censors + number;
+            document.getElementById('Censors').innerHTML = Censors;
+            document.getElementById('Censors2').innerHTML = Censors;
+            break;
     }
     Researchers = Researchers - number;
     document.getElementById('NatResearchers').innerHTML = Researchers;
-    
 }
 
 
@@ -891,36 +908,36 @@ function UpdateSentiment(){
 
     //Evaluate policies{
     if(attitudeBalance<5){
-        activePolicies = "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x \n<10%, all AI Robo. & Bio. tech banned \n<5%, Ban on new GPU sales to AI labs";
+        activePolicies = "<40%: Visual & Lang. tech taxed 25%<br><20%, RSPs limit model scaling to 2x<br><10%, all AI Robo. & Bio. tech banned<br><5%, Ban on new GPU sales to AI labs<br />";
         potentialPolicies = "";
         Tax_Flag = 1; //not yet implemented
         RSP_Flag = 1;
         BioBan_Flag = 1; //not yet implemented
         GPUBan_Flag = 1;
     }else if(attitudeBalance<10){
-        activePolicies =    "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x \n<10%, all AI Robo. & Bio. tech banned";
-        potentialPolicies = "<5%, Ban on new GPU sales to AI labs";
+        activePolicies =    "<40%, Visual & Lang. tech taxed 25%<br><20%, RSPs limit model scaling to 2x<br><10%, all AI Robo. & Bio. tech banned<br />";
+        potentialPolicies = "<5%, Ban on new GPU sales to AI labs<br />";
         Tax_Flag = 1; //not yet implemented
         RSP_Flag = 1;
         BioBan_Flag = 1; //not yet implemented
         GPUBan_Flag = 0;
     }else if(attitudeBalance<20){
-        activePolicies =    "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x";
-        potentialPolicies = "<10%, AI Robo. & Bio. tech taxed 75% \n<5%, Ban on new GPU sales to AI labs";
+        activePolicies =    "<40%, Visual & Lang. tech taxed 25%<br><20%, RSPs limit model scaling to 2x<br />";
+        potentialPolicies = "<10%, AI Robo. & Bio. tech taxed 75%<br><5%, Ban on new GPU sales to AI labs<br />";
         Tax_Flag = 1; //not yet implemented
         RSP_Flag = 1;
         BioBan_Flag = 0; //not yet implemented
         GPUBan_Flag = 0;
     }else if(attitudeBalance<40){
-        activePolicies =    "<40%, Visual & Lang. tech taxed 25%";
-        potentialPolicies = "<20%, RSPs limit model scaling to 2x \n<10%, all AI Robo. & Bio. tech banned";
+        activePolicies =    "<40%, Visual & Lang. tech taxed 25%<br />";
+        potentialPolicies = "<20%, RSPs limit model scaling to 2x<br><10%, all AI Robo. & Bio. tech banned<br />";
         Tax_Flag = 1; //not yet implemented
         RSP_Flag = 0;
         BioBan_Flag = 0; //not yet implemented
         GPUBan_Flag = 0;
     }else{
         activePolicies = "";
-        potentialPolicies = "<40%, Visual & Lang. tech taxed 25% \n<20%, RSPs limit model scaling to 2x";
+        potentialPolicies = "<40%, Visual & Lang. tech taxed 25%<br><20%, RSPs limit model scaling to 2x<br />";
         Tax_Flag = 0; //not yet implemented
         RSP_Flag = 0;
         BioBan_Flag = 0; //not yet implemented
@@ -1109,6 +1126,16 @@ function updateStats(){
         document.getElementById("NatResearchers").innerHTML = Researchers.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         document.getElementById("NatInsights").innerHTML = Insights.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
         
+        //endgame stats
+        document.getElementById("COOP").innerHTML = COOP.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("CEV").innerHTML = CEV.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Cybersec2").innerHTML = Cybersec2.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Cybersec3").innerHTML = Cybersec3.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Biosec2").innerHTML = Biosec2.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Biosec3").innerHTML = Biosec3.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Censorship2").innerHTML = Censorship2.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        document.getElementById("Censorship3").innerHTML = Censorship3.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        
     }
     //GPU stuff
     document.getElementById("GPUs").innerHTML = GPUs.toLocaleString();
@@ -1120,8 +1147,6 @@ function updateStats(){
     document.getElementById("ResearchPercent").innerHTML = ResearchPercent.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("Researchers").innerHTML = Researchers.toLocaleString();
     document.getElementById("Insights").innerHTML = Insights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-    document.getElementById("DailyWage").innerHTML = DailyWage.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    
 
 
     document.getElementById("Profit_Visu_1_Display").innerHTML = Profit_Visu_1_Display.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -1176,42 +1201,75 @@ function numberCruncher(number, decimals){ //multiplied by a factor of 1 quintil
     var suffix = "";
     if (decimals == undefined){decimals = 2;}
     var precision = decimals;
-    if (number>999999999999999999999999999999999){
-        number = number/1000000000000000000000000000000000;
-        suffix = "sexdecillion";
-    } else if (number>999999999999999999999999999999){
-        number = number/1000000000000000000000000000000;
-        suffix = "quindecillion";
-    } else if (number>999999999999999999999999999){
-        number = number/1000000000000000000000000000;
-        suffix = "quattuordecillion";
-    } else if (number>999999999999999999999999){
-        number = number/1000000000000000000000000;
-        suffix = "tredecillion";
+    if (number>9999999999999999999999){
+        number = number/10000000000000000000000;
+        suffix = "&#183; 10<sup>40</sup>";
     } else if (number>999999999999999999999){
         number = number/1000000000000000000000;
-        suffix = "duodecillion";
+        suffix = "&#183; 10<sup>39</sup>";
+    } else if (number>99999999999999999999){
+        number = number/100000000000000000000;
+        suffix = "&#183; 10<sup>38</sup>";
+    } else if (number>9999999999999999999){
+        number = number/10000000000000000000;
+        suffix = "&#183; 10<sup>37</sup>";
     } else if (number>999999999999999999){
         number = number/1000000000000000000;
-        suffix = "undecillion";
+        suffix = "&#183; 10<sup>36</sup>";
+    } else if (number>99999999999999999){
+        number = number/100000000000000000;
+        suffix = "&#183; 10<sup>35</sup>";
+    } else if (number>9999999999999999){
+        number = number/10000000000000000;
+        suffix = "&#183; 10<sup>34</sup>";
     } else if (number>999999999999999){
         number = number/1000000000000000;
-        suffix = "decillion";
+        suffix = "&#183; 10<sup>33</sup>";
+    } else if (number>99999999999999){
+        number = number/100000000000000;
+        suffix = "&#183; 10<sup>32</sup>";
+    } else if (number>9999999999999){
+        number = number/10000000000000;
+        suffix = "&#183; 10<sup>31</sup>";
     } else if (number>999999999999){
         number = number/1000000000000;
-        suffix = "nonillion";
+        suffix = "&#183; 10<sup>30</sup>";
+    } else if (number>99999999999){
+        number = number/100000000000;
+        suffix = "&#183; 10<sup>29</sup>";
+    } else if (number>9999999999){
+        number = number/10000000000;
+        suffix = "&#183; 10<sup>28</sup>";
     } else if (number>999999999){
         number = number/1000000000;
-        suffix = "octillion";
+        suffix = "&#183; 10<sup>27</sup>";
+    } else if (number>99999999){
+        number = number/100000000;
+        suffix = "&#183; 10<sup>26</sup>";
+    } else if (number>9999999){
+        number = number/10000000;
+        suffix = "&#183; 10<sup>25</sup>";
     } else if (number>999999){
         number = number/1000000;
-        suffix = "septillion";
+        suffix = "&#183; 10<sup>24</sup>";
+    } else if (number>99999){
+        number = number/100000;
+        suffix = "&#183; 10<sup>23</sup>";
+    } else if (number>9999){
+        number = number/10000;
+        suffix = "&#183; 10<sup>22</sup>";
     } else if (number>999){
         number = number/1000;
-        suffix = "sextillion";
-    }  else if (number<1000){
+        suffix = "&#183; 10<sup>21</sup>";
+    } else if (number>99){
+        number = number/100;
+        suffix = "&#183; 10<sup>20</sup>";
+    } else if (number>9){
+        number = number/10;
+        suffix = "&#183; 10<sup>19</sup>";
+    }  else if (number<10){
         precision = 0;
-        suffix = "quintillion";
+        suffix = "&#183; 10<sup>18</sup>";
     }
     return number.toFixed(precision) + " " + suffix;
 }
@@ -1234,23 +1292,38 @@ function GPUsRevenue(){
     Profit_Robo_2_Display = Profit_Robo_2*BaseRev;
 
 
-    GPU_Rev = 0;
-    if(Visu_Flag > 0){GPU_Rev = GPU_Rev + Profit_Visu_1_Display/5;}
-    if(Visu_Flag > 1){GPU_Rev = GPU_Rev + Profit_Visu_2_Display/5;}
-    if(Visu_Flag > 2){GPU_Rev = GPU_Rev + Profit_Visu_3_Display/5;}
-    if(Lang_Flag > 0){GPU_Rev = GPU_Rev + Profit_Lang_1_Display/5;}
-    if(Lang_Flag > 1){GPU_Rev = GPU_Rev + Profit_Lang_2_Display/5;}
-    if(Lang_Flag > 2){GPU_Rev = GPU_Rev + Profit_Lang_3_Display/5;}
-    if(Code_Flag > 0){GPU_Rev = GPU_Rev + Profit_Code_1_Display/5;}
-    if(Code_Flag > 1){GPU_Rev = GPU_Rev + Profit_Code_2_Display/5;}
-    if(Code_Flag > 2){GPU_Rev = GPU_Rev + Profit_Code_3_Display/5;}
-    if(Biol_Flag > 0){GPU_Rev = GPU_Rev + Profit_Biol_1_Display/5;}
-    if(Biol_Flag > 1){GPU_Rev = GPU_Rev + Profit_Biol_2_Display/5;}
-    if(Robo_Flag > 0){GPU_Rev = GPU_Rev + Profit_Robo_1_Display/5;}
-    if(Robo_Flag > 1){GPU_Rev = GPU_Rev + Profit_Robo_2_Display/5;}
+    var GPU_Code_Rev = 0;
+    var GPU_LangVisu_Rev = 0;
+    var GPU_RoboBiol_Rev = 0;
+    if(Visu_Flag > 0){GPU_LangVisu_Rev = GPU_LangVisu_Rev + Profit_Visu_1_Display/5;}
+    if(Visu_Flag > 1){GPU_LangVisu_Rev = GPU_LangVisu_Rev + Profit_Visu_2_Display/5;}
+    if(Visu_Flag > 2){GPU_LangVisu_Rev = GPU_LangVisu_Rev + Profit_Visu_3_Display/5;}
+    if(Lang_Flag > 0){GPU_LangVisu_Rev = GPU_LangVisu_Rev + Profit_Lang_1_Display/5;}
+    if(Lang_Flag > 1){GPU_LangVisu_Rev = GPU_LangVisu_Rev + Profit_Lang_2_Display/5;}
+    if(Lang_Flag > 2){GPU_LangVisu_Rev = GPU_LangVisu_Rev + Profit_Lang_3_Display/5;}
+    if(Code_Flag > 0){GPU_Code_Rev     = GPU_Code_Rev     + Profit_Code_1_Display/5;}
+    if(Code_Flag > 1){GPU_Code_Rev     = GPU_Code_Rev     + Profit_Code_2_Display/5;}
+    if(Code_Flag > 2){GPU_Code_Rev     = GPU_Code_Rev     + Profit_Code_3_Display/5;}
+    if(Biol_Flag > 0){GPU_RoboBiol_Rev = GPU_RoboBiol_Rev + Profit_Biol_1_Display/5;}
+    if(Biol_Flag > 1){GPU_RoboBiol_Rev = GPU_RoboBiol_Rev + Profit_Biol_2_Display/5;}
+    if(Robo_Flag > 0){GPU_RoboBiol_Rev = GPU_RoboBiol_Rev + Profit_Robo_1_Display/5;}
+    if(Robo_Flag > 1){GPU_RoboBiol_Rev = GPU_RoboBiol_Rev + Profit_Robo_2_Display/5;}
+    GPU_Rev = GPU_Code_Rev + GPU_LangVisu_Rev + GPU_RoboBiol_Rev;
 
-    DailyWage = GPU_Rev*ticks_per_day; //for display
-    jFunds = jFunds + GPU_Rev;
+    DailyWage = (GPU_Rev*ticks_per_day).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}); //for display
+
+    //taxes
+    GPU_Tax = 0;
+    if(attitudeBalance<40){
+        GPU_Tax = GPU_Tax + GPU_LangVisu_Rev*0.25; //for display
+        if(attitudeBalance<10){
+            GPU_Tax = GPU_Tax + GPU_RoboBiol_Rev*0.75; //for display
+        }
+        DailyWage = (GPU_Rev*ticks_per_day).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + ", minus $"+ (GPU_Tax*ticks_per_day).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + " taxes";
+    }
+    document.getElementById("DailyWage").innerHTML = DailyWage;
+    
+    jFunds = jFunds + GPU_Rev - GPU_Tax;
 }
 
 function PreviewEffects(){
@@ -1350,6 +1423,8 @@ window.setInterval(function(){
             //figure out how to continously update skills
             //figure out how to apply RLHF again to suppress bad capabilites
         }
+        document.getElementById("rivalAIcapabilities").innerHTML = numberCruncher(AIcapabilities*.75,3);
+        
     } else {
         //to 10x every 4.5-mins, must double every 90 seconds or so, thus need $500 per GPU per 90 seconds, so $0.55 per tenth of a second FROM THE MODEL trained by 1 gpu going for 90 secs
         //GPUhours per GPU over 90 secs = 24/10*900 = 6480
@@ -1392,8 +1467,53 @@ window.setInterval(function(){
         //PercentAutomated should be influenced by base model skills, plus assorted boosts from individual techs.  have the base model skills go into RLHF 1/x math up to like 60% at most, and then have boosts do the other 40%, or something.
         //the speed that PercentAutomated increases will be the main lever by which I affect the speed of model size growth, and thus the pace of the endgame
         
-        
         BaseCapability = Math.log10(AIcapabilities)*10;
+        //alignment hurdles
+        switch(BaseCapability){
+            case (BaseCapability >8):
+                Hurdle_mod = -40;
+                AlignmentHurdlesNow =
+                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />"
+                + "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />"
+                + "10<sup>29</sup> FLOPs: -10% from difficulty of checking the safety of superhuman AI outputs<br />"
+                + "10<sup>30</sup> FLOPs: -10% due to the 'fragility of value' vs extreme optimization pressure<br />";
+                AlignmentHurdlesSoon = "";
+                break;
+            case (BaseCapability >7):
+                Hurdle_mod = -30;
+                AlignmentHurdlesNow =
+                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />"
+                + "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />"
+                + "10<sup>29</sup> FLOPs: -10% from difficulty of checking the safety of superhuman AI outputs<br />";
+                AlignmentHurdlesSoon = 
+                "10<sup>30</sup> FLOPs: -10% due to the 'fragility of value' vs extreme optimization pressure<br />";
+                break;
+            case (BaseCapability >6):
+                Hurdle_mod = -20;
+                AlignmentHurdlesNow =
+                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />"
+                + "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />";
+                AlignmentHurdlesSoon = 
+                "10<sup>29</sup> FLOPs: -10% from difficulty of checking the safety of superhuman AI outputs<br />";
+                break;
+            case (BaseCapability >5):
+                Hurdle_mod = -10;
+                AlignmentHurdlesNow =
+                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />";
+                AlignmentHurdlesSoon =
+                 "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />";
+                break;
+            default:
+                Hurdle_mod = 0;
+                AlignmentHurdlesNow = "";
+                AlignmentHurdlesSoon = 
+                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />";
+                break;
+        }
+        document.getElementById("AlignmentHurdlesNow").innerHTML = AlignmentHurdlesNow;
+        document.getElementById("AlignmentHurdlesSoon").innerHTML = AlignmentHurdlesSoon;
+
+        
         Skill_Visu_Scale = BaseCapability*2.0 + Skill_Visu_mod;
         Skill_Code_Scale = BaseCapability*2.5 + Skill_Code_mod;
         Skill_Biol_Scale = BaseCapability*2.0 + Skill_Biol_mod;
@@ -1402,6 +1522,22 @@ window.setInterval(function(){
         document.getElementById("Nat_Code_Scale").innerHTML = Skill_Code_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
         document.getElementById("Nat_Biol_Scale").innerHTML = Skill_Biol_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
         document.getElementById("Nat_Robo_Scale").innerHTML = Skill_Robo_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
+        
+        Insights = Insights + 0.0002*Researchers;
+
+
+        //calculate risk stuff
+        Biosec2 = Biosecs * expert_mod;
+        Biosec4 = Skill_Biol_Scale - Biosec2 - Biosec3;
+        document.getElementById("Biosec4").innerHTML = Biosec4.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+
+        Cybersec2 = Cybersecs * expert_mod;
+        Cybersec4 = Skill_Code_Scale - Cybersec2 - Cybersec3;
+        document.getElementById("Cybersec4").innerHTML = Cybersec4.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        
+        Censorship2 = Censors * expert_mod;
+        Censorship4 = Skill_Visu_Scale - Censorship2 - Censorship3;
+        document.getElementById("Censorship4").innerHTML = Censorship4.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
 
     } else {
 
@@ -1411,37 +1547,31 @@ window.setInterval(function(){
         //Preview effects from Evals & Scaling Laws
         PreviewEffects();
 
-
-        //todo: probably rejig the various stats "for display", as these are now our continously training AGI's real stats!
-        //todo: make graph nicer maybe, better colors & labels?
-        //todo: remove combat.js to save on a lot of calculation time...
-        //todo: eventually move more stuff into the fast loop, like funds.
-        //todo: make researchers produce insight after nationalization lol
-        //todo: policies aren't consistently typed out, have bad word wrap, and don't actually happen...
-    }
-
-
-
-    // Fire Twice a Second
-    secTimer++;
-    if (secTimer >= 5){//we want 1 day every 2 seconds, to cover 20 yearss in an hour
-        Days++;
-        secTimer = 0;
+        
         //1 researcher-insight every 100 days = ~1 min of game time
-        Insights = Insights + 0.001*Researchers*(ResearchPercent);
+        Insights = Insights + 0.0002*Researchers*(ResearchPercent);
         if (AISFlag>2){
-            negInsights = negInsights  + 0.001*Researchers*(100-ResearchPercent)
+            negInsights = negInsights  + 0.0002*Researchers*(100-ResearchPercent)
             document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
             if (AISFlag > 3){
-                Evalhours = Evalhours + 0.002*Researchers*(100- ResearchPercent);
+                Evalhours = Evalhours + 0.0004*Researchers*(100- ResearchPercent);
                 document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+", Eval power: "+Evalhours.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
             }
         }
+        //todo: probably rejig the various stats "for display", as these are now our continously training AGI's real stats!
+        //todo: make graph nicer maybe, better colors & labels?
+        //todo: eventually move more stuff into the fast loop, like funds.
+        //todo: make researchers produce insight after nationalization lol
+        //todo: policies aren't consistently typed out, have bad word wrap, and don't actually happen...
+        //todo: make insights accrue more slowly
+        //todo: somehow reintroduce graph after nationalization, to show smooth takeoff
+        //
     }
 
-    // Fire Every Five Seconds
-    secTimer2++;
-    if (secTimer2 >= 50){
-        secTimer2 = 0;
+    // Fire Twice a Second
+    secTimer++;
+    if (secTimer >= 5){//we want 1 day every 2 seconds, to cover 20 years in an hour
+        Days++;
+        secTimer = 0;
     }
 }, 100);

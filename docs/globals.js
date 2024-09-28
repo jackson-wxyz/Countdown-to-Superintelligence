@@ -15,7 +15,7 @@ var jFunds = 1000;
 var GPUhours = 0;
 var AIcapabilities = 0; // find some way of turning "gpuhours" into an actual metric like FLOPs, to enable greater realism
 var GPU_Rev = 0;
-var DailyWage = 0;
+var DailyWage = "0";
 
 
 var GPU_Flag = 0;
@@ -166,12 +166,13 @@ var trace1 = {
 
 //Nationalization flags
 var Nationalized   = false;
-var unfinishedGame = false;
+var unfinishedGame = true;
 var Continuous_Flag  = 0;
 var Reinvestment_Flag = 0;
 var Nat_Research_Flag  = 0;
 var Nat_Minefield_Flag = 0;
 var Nat_Defense_Flag = 0;
+var Censorship_Flag = 0;
 
 //Economy stuff -- have all the numbers here, then only start calculating based on the flag
 var Births = 10000//per day
@@ -192,15 +193,28 @@ var ticks_per_day = 5; //tenth-second slow-loop ticks vs half-day timing of the 
 
 //Researchers & insights
 //in addition to researchers we now have:
-var Diplomats = 0; //on competition panel
-var AlignmentEngineers = 0; //on alignment panel, not researchers, but specifically people who are doing RLHF / Evals stuff
-var ManufacturingInspectors = 0; //?? overseers / inspectors in the sense that they are monitoring the systems that are running the economy & military, looking for signs of trouble
-var CybersecurityExperts = 0;
-var BiosecurityExperts = 0;
+//var Diplomats = 0; //on competition panel
+//var Engineers = 0; //on alignment panel, not researchers, but specifically people who are doing RLHF / Evals stuff
+//skipping the other four because these represent AI capabilities, which aren't something we can suppress with effort
+//var Inspectors = 0; //?? overseers / inspectors in the sense that they are monitoring the systems that are running the economy & military, looking for signs of trouble
+var Cybersecs = 0;
+var Biosecs = 0;
 var Censors = 0; //??
+var expert_mod = 1;
 
+var CEV = 10; //todo: remember to use this in combination with Hurdle_mod!
+var COOP = 50;
+var rivalAIcapabilities = 0;
+var AlignmentHurdlesNow;
+var AlignmentHurdlesSoon;
 
+var Cybersec2 = 0;
+var Cybersec3 = 0;
+var Cybersec4 = 0;
 
+var Biosec3 = 0;
+var Biosec2 = 0;
+var Biosec4 = 0;
 
 
 

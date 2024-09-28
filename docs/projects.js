@@ -2,34 +2,7 @@
 var projects = [];
 var activeProjects = [];
 
-//OOM 1
-
-//read the sequences -- would be a funny way to start things off, free insight that unlocks train AI button
-//unlock train AI button
-//displaymessage= quote from power of intelligence or something
-var projectA = {
-    id: "projectButtonA",
-    title: "Read the Sequences",
-    priceTag: " ",
-    description: "Superintelligent AI would remake the planet.  But to what end?",
-    trigger: function(){return projectsFlag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage(" ");
-        displayMessage("Read the Sequences: 'If one does not quite understand that power which put footprints on the Moon, nonetheless, the footprints are still there.' - The Power of Intelligence, 2007");
-        GPU_Flag = 1;
-
-        projectA.flag = 1;
-        var element = document.getElementById("projectButtonA");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectA);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectA);
-
+//cheat
 // var projectA0 = {
 //     id: "projectButtonA0",
 //     title: "Cheat",
@@ -52,6 +25,35 @@ projects.push(projectA);
 //     }
 // }
 // projects.push(projectA0);
+
+//#region Pre-Nationalization ------------------------------------------------------------------------
+
+//OOM 1
+
+//read the sequences -- would be a funny way to start things off, free insight that unlocks train AI button
+//unlock train AI button
+var projectA = {
+    id: "projectButtonA",
+    title: "Read the Sequences",
+    priceTag: " ",
+    description: "Superintelligent AI would remake the planet.  But to what end?",
+    trigger: function(){return projectsFlag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage(" ");
+        displayMessage("Read the Sequences: 'If one does not quite understand that power which put footprints on the Moon, nonetheless, the footprints are still there.' - The Power of Intelligence, 2007");
+        GPU_Flag = 1;
+
+        projectA.flag = 1;
+        var element = document.getElementById("projectButtonA");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectA);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectA);
 
 
 //Visu_1, Image classifier app
@@ -962,7 +964,7 @@ var projectL6 = {
 }
 projects.push(projectL6);
 
-
+//#endregion
 
 //Pre-nationalization project ideas================================================================================
 
@@ -979,7 +981,7 @@ projects.push(projectL6);
 
 //OOM 8
 
-//NATIONALIZE THE LABS ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region Nationalization Intro
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var projectN = {
@@ -994,7 +996,7 @@ var projectN = {
     effect: function(){
         hypnoDroneEvent();
         Nationalized = true;
-        unfinishedGame = true; //beg FLI for more wire
+        //unfinishedGame = true; //beg FLI for more wire
         H100_Flag=0;//buy GPUs individually; it's more fun
         GPUBuyerStatus=0;
         document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
@@ -1002,6 +1004,7 @@ var projectN = {
         //set all researchers to insight for now
         AISPercent = 0;
         ResearchPercent = 100;
+        Researchers = 0;
 
         //set jFunds and all Skills income to zero, killing all profit. 
         jFunds = 0;
@@ -1107,19 +1110,18 @@ var projectN = {
         //each distinct category of threat gets its own line graph, or something...
 
 
-        //endings:
-        //everyone dies to nuclear or biological war (AI takeover) -- colonel panic or "there she is" from portal 2
-        //everyone dies to nuclear or biological war (enemy nation)
-        //hypnodrones take over -- riversong by exploding head band
-        //successful ban -- 
-        //successful alignment -- singularity by the lisps
-
-
         //STATS upon hitting nationalization:
         //GPUs: 28k
         //Profit per day: 78K
         //model size: 3.3M exaflops
         //researchers: 2
+
+
+        //diplo feelings:
+        // - your AI started a pandemic!
+        // + NATO / UN treaty
+        // +/- your AI [other good/bad effects]
+        // +/- you gave/witheld [medicine, etc]
 
 
         projectN.flag = 1;
@@ -1224,6 +1226,7 @@ var projectNI2 = {
 }
 projects.push(projectNI2);
 
+//maybe some example projects to affect cooperation vs alignment
 
 var projectNI3 = {
     id: "projectButtonNI3",
@@ -1247,17 +1250,205 @@ var projectNI3 = {
 }
 projects.push(projectNI3);
 
+//todo: disable this!
+var projectBEG = {
+    id: "projectButtonBEG",
+    title: "Sorry that the game is unfinished!",
+    priceTag: " ",
+    description: "I'll complete the ending by October 5.",
+    trigger: function(){return projectNI3.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Unfinished game: making even a simple web game is a lot more work than I thought!  Hope you enjoyed what's there so far.");
+
+        projectBEG.flag = 1;
+        var element = document.getElementById("projectButtonBEG");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectBEG);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectBEG);
 
 
+//#region Biorisk ----------------------------------------------------------------------------------
+
+//cancer cure
+
+//other breakthrough medicines, perhaps in mental health
+
+//dna synthesis blacklist screening -- raises biorisks thresh
+
+//metagenomics scanning project
+
+//stuff like metagenomic reqs coop
+
+//uvc deployment in transport hubs
+
+//bio skill 4, longevity medicine
+var projectB4 = {
+    id: "projectButtonB4",
+    title: "Longevity Medicine",
+    priceTag: " (Bio. 120%)",
+    description: "Slows aging, cutting death rate by 2/3.",
+    trigger: function(){return (projectNI3.flag) == 1},
+    uses: 1,
+    cost: function(){return (Skill_Biol_Scale>119.5)},
+    flag: 0,
+    effect: function(){
+        displayMessage("Longevity Medicine: todo");
+        Deaths = Deaths - 6000
+
+        projectB4.flag = 1;
+        var element = document.getElementById("projectButtonB4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectB4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectB4);
+
+//Share versus hoard medical tech
+var projectNQ2a = {
+    id: "projectButtonNQ2a",
+    title: "Share medical technology?",
+    priceTag: " ",
+    description: "Save lives and win global praise, but increase biorisk. (Coop. +5, Bio +5)",
+    trigger: function(){return projectB4.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Share medical technology?: todo");
+        //Biorisk = Biorisk -10;
+        //Cooperation = Cooperation + 5;
+
+        projectNQ2a.flag = 1;
+        var element = document.getElementById("projectButtonNQ2a");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ2a);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ2b");
+        element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ2b);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ2a);
+var projectNQ2b = {
+    id: "projectButtonNQ2b",
+    title: "Hoard medical technology?",
+    priceTag: "  ",
+    description: "Reduce biorisk at the cost of international resentment. (Coop. -10)",
+    trigger: function(){return projectB4.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Hoard medical technology?: todo");
+        //Biorisk = Biorisk;
+        //Cooperation = Cooperation - 10;
+
+        projectNQ2b.flag = 1;
+        var element = document.getElementById("projectButtonNQ2b");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ2b);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ2a");
+        element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ2a);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ2b);
 
 
+//IQ-enhancing gene therapy, boosts researchers
 
 
+//bio = ai capabilities vs threshholds where bad things happen
+// - terror attack, thresh also on low coop
+// - superplague, thresh also on alignment
+
+//#endregion
 
 
+//#region Cybersecurity ----------------------------------------------------------------------------------
+
+//economic projects based on coding skill:
+//drop-in remote worker (increases labor force)
+//automated ai alignment researcher -- just make the AIs do our AI alignment homework
+
+//cyber
+// - enemy steals AI
+// - enemy cyberattack (hits economy)
+// - ai attack (hits harder)
+// - exfiltration (eliminates alignment panel, since AI is in wild)
+
+//cybersecurity threshold events:
+//+ Automated alignment research (prj)<br />
+//+ other assorted economic boosts (prj)<br />
+//+ hack rival nuclear systems (prj)<br />
+//+ harden own nuclear systems (prj)<br />
+
+//improve cybersecurity by:
+//- adversarial code analysis, use AI against itself<br />
+//- air-gapped network<br />
+
+//self exfiltration --> shut down alignment project
+
+//cyber based events to boost economy, alignment (via control), etc
 
 
+//#endregion
 
+
+//#region Censorship story ----------------------------------------------------------------------------------
+
+//implement watermarks on images & text
+
+//enable Censor divs
+
+//propaganda campaign for +COOP, or hold back for moral reasons?
+
+//addictive AI companions or something
+
+//censor online platforms
+
+//limit communications to approved human-licensed news
+
+//tradeoffs where you consider AI censorship of biorisk, making the bio situation better, 
+//but that alienates other nations that don't like totalitarianism, making politics worse
+
+//hypnodrone development
+
+//#endregion
+
+
+//#region Military Tech ---------------------
+
+//economic projects based on robo skill:
+
+//bioweapons stuff (based on bio skill)
+
+//develop slaughterbots or no
+
+//humanoid robots (increases labor force, also creates military bots)
+//automated factories manufacturing
+
+//BCIs for ai researchers, but they also make everyone hackable (also bio threshold)
+
+//#endregion
+
+
+//#region alignment & geopolitics -----------------------------------------------------
+//q-star learning -- costs insight, favors coding
+
+//synthetic data -- costs insight, favors coding & language (or save this for superhuman temps)
 
 
 //NATO versus UN
@@ -1318,163 +1509,55 @@ var projectNQ1b = {
 }
 projects.push(projectNQ1b);
 
-//cancer cure
+//compute governance via international treaty (reqs COOP, +CEV) vs sanctions (-COOP, +CEV) vs none (-CEV)
 
-//dna synthesis blacklist screening -- raises biorisks thresh
 
-//metagenomics scanning project
+//ban vs encourage open-source AI
+//ban = hit to fraction of economy automated, also hit to competitor AI
+//encourage = boost economy, boost competitor AI
 
-//uvc deployment in transport hubs
 
-//bio skill 4, longevity medicine
-var projectB4 = {
-    id: "projectButtonB4",
-    title: "Longevity Medicine",
-    priceTag: " (Bio. 120%)",
-    description: "Slows aging, cutting death rate by 2/3.",
-    trigger: function(){return (projectNI3.flag) == 1},
-    uses: 1,
-    cost: function(){return (Skill_Biol_Scale>119.5)},
-    flag: 0,
-    effect: function(){
-        displayMessage("Longevity Medicine: todo");
-        Deaths = Deaths - 6000
+//ai arms race limitation talks: slow ai & competitor AI, giving more time for research
 
-        projectB4.flag = 1;
-        var element = document.getElementById("projectButtonB4");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectB4);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectB4);
+//#endregion
 
-//Share versus hoard medical tech
-var projectNQ2a = {
-    id: "projectButtonNQ2a",
-    title: "Share medical technology?",
-    priceTag: " ",
-    description: "Save lives and win global praise, but increase biorisk. (Coop. +5, Bio +5)",
-    trigger: function(){return projectB4.flag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage("Share medical technology?: todo");
-        //Biorisk = Biorisk -10;
-        //Cooperation = Cooperation + 5;
 
-        projectNQ2a.flag = 1;
-        var element = document.getElementById("projectButtonNQ2a");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectNQ2a);
-        activeProjects.splice(index, 1);
-        //destroy other option too
-        element = document.getElementById("projectButtonNQ2b");
-        element.parentNode.removeChild(element);
-        index = activeProjects.indexOf(projectNQ2b);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectNQ2a);
-var projectNQ2b = {
-    id: "projectButtonNQ2b",
-    title: "Hoard medical technology?",
-    priceTag: "  ",
-    description: "Reduce biorisk at the cost of international resentment. (Align. +5, Coop. -10)",
-    trigger: function(){return projectB4.flag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage("Hoard medical technology?: todo");
-        //Biorisk = Biorisk;
-        //Cooperation = Cooperation - 10;
+//#region WAR STORY ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        projectNQ2b.flag = 1;
-        var element = document.getElementById("projectButtonNQ2b");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectNQ2b);
-        activeProjects.splice(index, 1);
-        //destroy other option too
-        element = document.getElementById("projectButtonNQ2a");
-        element.parentNode.removeChild(element);
-        index = activeProjects.indexOf(projectNQ2a);
-        activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectNQ2b);
+//war severity depends on ratio of competitor economic/ai strength to yours
+//basically when you declare war, you start attriting war stuff linearly, one of your points against one of their points
+//so if you start off 60/40, then after a while you are 50/30, then eventually 20/0.
 
-//IQ-enhancing gene therapy, boosts researchers
+//AI declares war if it has more than 50% share of whole pie (ie, bigger than US + China + China AI)
 
-//bio = ai capabilities vs threshholds where bad things happen
-// - terror attack, thresh also on low coop
-// - superplague, thresh also on alignment
+//"they have declared war" notification project
 
-//cyber
-// - enemy steals AI
-// - enemy cyberattack (hits economy)
-// - ai attack (hits harder)
-// - exfiltration (eliminates alignment panel, since AI is in wild)
+//rush slaughterbots & other military tech previously denied, for big alignment penalty.
+//put integrated AI systems in charge of military decisions, same.
 
-//cyber based events to boost economy, alignment (via control), etc
+// accept enemy peace treaty (they are losing; gain enough COOP points to return to peace)
+// reject enemy peace treaty (they are losing; lose enough COOP points to maybe escalate to nuclear)
 
-//competitor stuff:
+// surrender yourself (they are winning)
+// launch nuclear weapons (they are winning)
 
-//competition starts at 50%, alignment at 10%
-//google how to make javascript loading bar
+// retaliate vs don't retaliate with nuclear weapons
 
-//also competitor ai strength graph, don't fall behind else lose
+//#endregion
 
-//at high coop:
-//ai arms race limitation talks: slow ai & competitor AI, 
-//giving more time for research
+
+//#region WIN CONDITIONS ///////////////////////////////////////////////////////////////////////////////////////////////
+
 
 //joint alignment program
 
 //enable global ban
 
-//stuff like metagenomic reqs coop
 
-//at low % coop, competitor exits agreements like metagenomics, 
-//launches proxy war, turbocharges their AI program,
-//and then launches nuclear war
+//LAUNCH PIVOTAL ACT
+//<!-- this should shut down the various dangers, 
+//then offer "sieze the future" action, taking you 
+//to an ending page that wonders if you'll create a 
+//utopia or misuse your power to eliminate rivals etc -->
 
-//war severity depends on ratio of competitor economic/ai strength to yours
-
-
-
-//peace treaty event
-//- unlocked by war
-//- requires 
-
-
-
-//SUPERINTELLIGENCE EVENTS
-//==================================================================================================
-//q-star learning -- costs insight, favors coding
-
-//synthetic data -- costs insight, favors coding & language (or save this for superhuman temps)
-
-
-
-//bioweapons stuff
-
-//military slaughterbot stuff
-
-
-//
-//drop-in remote worker (increases labor force)
-
-//automated ai alignment researcher -- just make the AIs do our AI alignment homework
-
-//humanoid robots (increases labor force, also creates military bots)
-
-//other breakthrough medicines
-
-//IQ-boosting gene therapy for ai researchers
-
-//automated factories manufacturing
-
-//BCIs for ai researchers, but they also make everyone hackable
-
+//#endregion
