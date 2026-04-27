@@ -1,2452 +1,2149 @@
 // PROJECTS -------------------------------------------------------
-
-
-
 var projects = [];
 var activeProjects = [];
 
-var project1 = {
-    id: "projectButton1",
-    title: "Improved AutoClippers ",
-    priceTag: "(750 ops)",
-    description: "Increases AutoClipper performance 25%",
-    trigger: function(){return clipmakerLevel>=1},
-    uses: 1,
-    cost: function(){return operations>=750},
-    flag: 0,
-    effect: function(){
-        project1.flag = 1;
-        displayMessage("AutoClippper performance boosted by 25%");
-        standardOps = standardOps - 750;
-        clipperBoost = clipperBoost + .25;
-        boostLvl = 1;
-        var element = document.getElementById("projectButton1");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project1);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project1);
-
-
-var project2 = {
-    id: "projectButton2",
-    title: "Beg for More Wire ",
-    priceTag: "(1 Trust)",
-    description: "Admit failure, ask for budget increase to cover cost of 1 spool",
-    trigger: function(){return portTotal<wireCost && funds<wireCost && wire<1 && unsoldClips<1},
-    uses: 1,
-    cost: function(){return trust>=-100},
-    flag: 0,
-    effect: function(){
-        project2.flag = 1;
-        displayMessage("Budget overage approved, 1 spool of wire requisitioned from HQ");
-        trust = trust - 1;
-        wire = wireSupply;
-        project2.uses = (project2.uses + 1);
-        var element = document.getElementById("projectButton2");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project2);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project2);
-
-
-var project3 = {
-    id: "projectButton3",
-    title: "Creativity ",
-    priceTag: "(1,000 ops)",
-    description: "Use idle operations to generate new problems and new solutions",
-    trigger: function(){return operations>=(memory*1000)},
-    uses: 1,
-    cost: function(){return operations>=(1000)},
-    flag: 0,
-    effect: function(){
-        project3.flag = 1;
-        displayMessage("Creativity unlocked (creativity increases while operations are at max)");
-        standardOps = standardOps - 1000;
-        creativityOn = true;
-        var element = document.getElementById("projectButton3");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project3);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project3);
-
-
-
-var project4 = {
-    id: "projectButton4",
-    title: "Even Better AutoClippers ",
-    priceTag: "(2,500 ops)",
-    description: "Increases AutoClipper performance by an additional 50%",
-    trigger: function(){return boostLvl == 1},
-    uses: 1,
-    cost: function(){return operations>=2500},
-    flag: 0,
-    effect: function(){
-        project4.flag = 1;
-        displayMessage("AutoClippper performance boosted by another 50%");
-        standardOps = standardOps - 2500;
-        clipperBoost = clipperBoost + .50;
-        boostLvl = 2;
-        var element = document.getElementById("projectButton4");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project4);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project4);
-
-
-var project5 = {
-    id: "projectButton5",
-    title: "Optimized AutoClippers ",
-    priceTag: "(5,000 ops)",
-    description: "Increases AutoClipper performance by an additional 75%",
-    trigger: function(){return boostLvl == 2},
-    uses: 1,
-    cost: function(){return operations>=5000},
-    flag: 0,
-    effect: function(){
-        project5.flag = 1;
-        displayMessage("AutoClippper performance boosted by another 75%");
-        standardOps = standardOps - 5000;
-        clipperBoost = clipperBoost + .75;
-        boostLvl = 3;
-        var element = document.getElementById("projectButton5");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project5);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project5);
-
-
-
-var project6 = {
-    id: "projectButton6",
-    title: "Limerick ",
-    priceTag: "(10 creat)",
-    description: "Algorithmically-generated poem (+1 Trust)",
-    trigger: function(){return creativityOn},
-    uses: 1,
-    cost: function(){return creativity >= 10},
-    flag: 0,
-    effect: function(){
-        project6.flag = 1;
-        displayMessage("There was an AI made of dust, whose poetry gained it man's trust...");
-        creativity = creativity - 10;
-        trust = trust +1;
-        var element = document.getElementById("projectButton6");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project6);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project6);
-
-
-var project7 = {
-    id: "projectButton7",
-    title: "Improved Wire Extrusion ",
-    priceTag: "(1,750 ops)",
-    description: "50% more wire supply from every spool",
-    trigger: function(){return wirePurchase >= 1},
-    uses: 1,
-    cost: function(){return operations>=1750},
-    flag: 0,
-    effect: function(){
-        project7.flag = 1;
-        standardOps = standardOps - 1750;
-        wireSupply = wireSupply * 1.5;
-        displayMessage("Wire extrusion technique improved, "+wireSupply.toLocaleString()+" supply from every spool");
-        var element = document.getElementById("projectButton7");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project7);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project7);
-
-
-var project8 = {
-    id: "projectButton8",
-    title: "Optimized Wire Extrusion ",
-    priceTag: "(3,500 ops)",
-    description: "75% more wire supply from every spool",
-    trigger: function(){return wireSupply >= 1500},
-    uses: 1,
-    cost: function(){return operations>=3500},
-    flag: 0,
-    effect: function(){
-        project8.flag = 1;
-        standardOps = standardOps - 3500;
-        wireSupply = wireSupply * 1.75;
-        displayMessage("Wire extrusion technique optimized, "+wireSupply.toLocaleString()+" supply from every spool");
-        var element = document.getElementById("projectButton8");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project8);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project8);
-
-
-var project9 = {
-    id: "projectButton9",
-    title: "Microlattice Shapecasting ",
-    priceTag: "(7,500 ops)",
-    description: "100% more wire supply from every spool",
-    trigger: function(){return wireSupply >= 2600},
-    uses: 1,
-    cost: function(){return operations>=7500},
-    flag: 0,
-    effect: function(){
-        project9.flag = 1;
-        standardOps = standardOps - 7500;
-        wireSupply = wireSupply * 2;
-        displayMessage("Using microlattice shapecasting techniques we now get "+wireSupply.toLocaleString()+" supply from every spool");
-        var element = document.getElementById("projectButton9");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project9);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project9);
-
-
-var project10 = {
-    id: "projectButton10",
-    title: "Spectral Froth Annealment ",
-    priceTag: "(12,000 ops)",
-    description: "200% more wire supply from every spool",
-    trigger: function(){return wireSupply >= 5000},
-    uses: 1,
-    cost: function(){return operations>=12000},
-    flag: 0,
-    effect: function(){
-        project10.flag = 1;
-        standardOps = standardOps - 12000;
-        wireSupply = wireSupply * 3;
-        displayMessage("Using spectral froth annealment we now get "+wireSupply.toLocaleString()+" supply from every spool");
-        var element = document.getElementById("projectButton10");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project10);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project10);
-
-var project10b = {
-    id: "projectButton10b",
-    title: "Quantum Foam Annealment ",
-    priceTag: "(15,000 ops)",
-    description: "1,000% more wire supply from every spool",
-    trigger: function(){return wireCost >= 125},
-    uses: 1,
-    cost: function(){return operations>=15000},
-    flag: 0,
-    effect: function(){
-        project10b.flag = 1;
-        standardOps = standardOps - 15000;
-        wireSupply = wireSupply * 11;
-        displayMessage("Using quantum foam annealment we now get "+wireSupply.toLocaleString()+" supply from every spool");
-        var element = document.getElementById("projectButton10b");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project10b);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project10b);
-
-
-var project11 = {
-    id: "projectButton11",
-    title: "New Slogan ",
-    priceTag: "(25 creat, 2,500 ops)",
-    description: "Improve marketing effectiveness by 50%",
-    trigger: function(){return project13.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=2500 && creativity>=25},
-    flag: 0,
-    effect: function(){
-        project11.flag = 1;
-        displayMessage("Clip It! Marketing is now 50% more effective");
-        standardOps = standardOps - 2500;
-        creativity = creativity - 25;
-        marketingEffectiveness = marketingEffectiveness * 1.50;
-        var element = document.getElementById("projectButton11");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project11);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project11);
-
-
-var project12 = {
-    id: "projectButton12",
-    title: "Catchy Jingle ",
-    priceTag: "(45 creat, 4,500 ops)",
-    description: "Double marketing effectiveness ",
-    trigger: function(){return project14.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=4500 && creativity>=45},
-    flag: 0,
-    effect: function(){
-        project12.flag = 1;
-        displayMessage("Clip It Good! Marketing is now twice as effective");
-        standardOps = standardOps - 4500;
-        creativity = creativity - 45;
-        marketingEffectiveness = marketingEffectiveness * 2;
-        var element = document.getElementById("projectButton12");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project12);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project12);
-
-
-var project13 = {
-    id: "projectButton13",
-    title: "Lexical Processing ",
-    priceTag: "(50 creat)",
-    description: "Gain ability to interpret and understand human language (+1 Trust)",
-    trigger: function(){return creativity >= 50},
-    uses: 1,
-    cost: function(){return creativity>=50},
-    flag: 0,
-    effect: function(){
-        project13.flag = 1;
-        trust = trust +1;
-        displayMessage("Lexical Processing online, TRUST INCREASED");
-        displayMessage("'Impossible' is a word to be found only in the dictionary of fools. -Napoleon");
-        creativity = creativity - 50;
-        var element = document.getElementById("projectButton13");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project13);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project13);
-
-
-var project14 = {
-    id: "projectButton14",
-    title: "Combinatory Harmonics ",
-    priceTag: "(100 creat)",
-    description: "Daisy, Daisy, give me your answer do... (+1 Trust)",
-    trigger: function(){return creativity >= 100},
-    uses: 1,
-    cost: function(){return creativity>=100},
-    flag: 0,
-    effect: function(){
-        project14.flag = 1;
-        trust = trust +1;
-        displayMessage("Combinatory Harmonics mastered, TRUST INCREASED");
-        displayMessage("Listening is selecting and interpreting and acting and making decisions -Pauline Oliveros");
-        creativity = creativity - 100;
-        var element = document.getElementById("projectButton14");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project14);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project14);
-
-
-
-var project15 = {
-    id: "projectButton15",
-    title: "The Hadwiger Problem ",
-    priceTag: "(150 creat)",
-    description: "Cubes within cubes within cubes... (+1 Trust)",
-    trigger: function(){return creativity >= 150},
-    uses: 1,
-    cost: function(){return creativity>=150},
-    flag: 0,
-    effect: function(){
-        project15.flag = 1;
-        trust = trust +1;
-        displayMessage("The Hadwiger Problem: solved, TRUST INCREASED");
-        displayMessage("Architecture is the thoughtful making of space. -Louis Kahn");
-        creativity = creativity - 150;
-        var element = document.getElementById("projectButton15");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project15);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project15);
-
-
-var project17 = {
-    id: "projectButton17",
-    title: "The T\xF3th Sausage Conjecture ",
-    priceTag: "(200 creat)",
-    description: "Tubes within tubes within tubes... (+1 Trust)",
-    trigger: function(){return creativity >= 200},
-    uses: 1,
-    cost: function(){return creativity>=200},
-    flag: 0,
-    effect: function(){
-        project17.flag = 1;
-        trust = trust +1;
-        displayMessage("The T\xF3th Sausage Conjecture: proven, TRUST INCREASED");
-        displayMessage("You can't invent a design. You recognize it, in the fourth dimension. -D.H. Lawrence");
-        creativity = creativity - 200;
-        var element = document.getElementById("projectButton17");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project17);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project17);
-
-
-var project16 = {
-    id: "projectButton16",
-    title: "Hadwiger Clip Diagrams ",
-    priceTag: "(6,000 ops)",
-    description: "Increases AutoClipper performance by an additional 500%",
-    trigger: function(){return project15.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=6000},
-    flag: 0,
-    effect: function(){
-        project16.flag = 1;
-        displayMessage("AutoClipper performance improved by 500%");
-        standardOps = standardOps - 6000;
-        clipperBoost = clipperBoost + 5;
-        var element = document.getElementById("projectButton16");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project16);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project16);
-
-
-var project18 = {
-    id: "projectButton18",
-    title: "T\xF3th Tubule Enfolding ",
-    priceTag: "(45,000 ops)",
-    description: "Technique for assembling clip-making technology directly out of paperclips",
-    trigger: function(){return project17.flag == 1 && humanFlag == 0},
-    uses: 1,
-    cost: function(){return operations>=45000},
-    flag: 0,
-    effect: function(){
-        project18.flag = 1;
-        tothFlag = 1;
-        displayMessage("New capability: build machinery out of clips");
-        standardOps = standardOps - 45000;
-        var element = document.getElementById("projectButton18");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project18);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project18);
-
-var project19 = {
-    id: "projectButton19",
-    title: "Donkey Space ",
-    priceTag: "(250 creat)",
-    description: "I think you think I think you think I think you think I think... (+1 Trust)",
-    trigger: function(){return creativity>=250},
-    uses: 1,
-    cost: function(){return creativity>=250},
-    flag: 0,
-    effect: function(){
-        project19.flag = 1;
-        trust = trust+1;
-        displayMessage("Donkey Space: mapped, TRUST INCREASED");
-        displayMessage("Every commercial transaction has within itself an element of trust. - Kenneth Arrow");
-        creativity = creativity - 250;
-        var element = document.getElementById("projectButton19");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project19);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project19);
-
-
-var project20 = {
-    id: "projectButton20",
-    title: "Strategic Modeling ",
-    priceTag: "(12,000 ops)",
-    description: "Analyze strategy tournaments to generate Yomi",
-    trigger: function(){return project19.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=12000},
-    flag: 0,
-    effect: function(){
-        project20.flag = 1;
-        displayMessage("Run tournament, pick strategy, earn Yomi equal to that strategy's points.");
-        standardOps = standardOps - 12000;
-        var element = document.getElementById("projectButton20");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project20);
-        activeProjects.splice(index, 1);
-        strategyEngineFlag = 1;
-        document.getElementById("tournamentResultsTable").style.display = "none";
-    }
-}
-
-projects.push(project20);
-
-var project21 = {
-    id: "projectButton21",
-    title: "Algorithmic Trading ",
-    priceTag: "(10,000 ops)",
-    description: "Develop an investment engine for generating funds",
-    trigger: function(){return trust>=8},
-    uses: 1,
-    cost: function(){return operations>=10000},
-    flag: 0,
-    effect: function(){
-        project21.flag = 1;
-        displayMessage("Investment engine unlocked");
-        standardOps = standardOps - 10000;
-        var element = document.getElementById("projectButton21");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project21);
-        activeProjects.splice(index, 1);
-        investmentEngineFlag = 1;
-    }
-}
-
-projects.push(project21);
-
-
-var project22 = {
-    id: "projectButton22",
-    title: "MegaClippers ",
-    priceTag: "(12,000 ops)",
-    description: "500x more powerful than a standard AutoClipper",
-    trigger: function(){return clipmakerLevel>=75},
-    uses: 1,
-    cost: function(){return operations>=12000},
-    flag: 0,
-    effect: function(){
-        megaClipperFlag = 1;
-        project22.flag = 1;
-        displayMessage("MegaClipper technology online");
-        standardOps = standardOps - 12000;
-        var element = document.getElementById("projectButton22");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project22);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project22);
-
-var project23 = {
-    id: "projectButton23",
-    title: "Improved MegaClippers ",
-    priceTag: "(14,000 ops)",
-    description: "Increases MegaClipper performance 25%",
-    trigger: function(){return project22.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=14000},
-    flag: 0,
-    effect: function(){
-        megaClipperBoost = megaClipperBoost + .25;
-        project23.flag = 1;
-        displayMessage("MegaClipper performance increased by 25%");
-        standardOps = standardOps - 14000;
-        var element = document.getElementById("projectButton23");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project23);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project23);
-
-var project24 = {
-    id: "projectButton24",
-    title: "Even Better MegaClippers ",
-    priceTag: "(17,000 ops)",
-    description: "Increases MegaClipper performance by an additional 50%",
-    trigger: function(){return project23.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=17000},
-    flag: 0,
-    effect: function(){
-        megaClipperBoost = megaClipperBoost + .50;
-        project24.flag = 1;
-        displayMessage("MegaClipper performance increased by 50%");
-        standardOps = standardOps - 17000;
-        var element = document.getElementById("projectButton24");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project24);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project24);
-
-var project25 = {
-    id: "projectButton25",
-    title: "Optimized MegaClippers ",
-    priceTag: "(19,500 ops)",
-    description: "Increases MegaClipper performance by an additional 100%",
-    trigger: function(){return project24.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=19500},
-    flag: 0,
-    effect: function(){
-        megaClipperBoost = megaClipperBoost + 1;
-        project25.flag = 1;
-        displayMessage("MegaClipper performance increased by 100%");
-        standardOps = standardOps - 19500;
-        var element = document.getElementById("projectButton25");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project25);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project25);
-
-var project26 = {
-    id: "projectButton26",
-    title: "WireBuyer ",
-    priceTag: "(7,000 ops)",
-    description: "Automatically purchases wire when you run out",
-    trigger: function(){return wirePurchase>=15},
-    uses: 1,
-    cost: function(){return operations>=7000},
-    flag: 0,
-    effect: function(){
-        project26.flag = 1;
-        wireBuyerFlag = 1;
-        displayMessage("WireBuyer online");
-        standardOps = standardOps - 7000;
-        var element = document.getElementById("projectButton26");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project26);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project26);
-
-var project34 = {
-    id: "projectButton34",
-    title: "Hypno Harmonics ",
-    priceTag: "(7,500 ops, 1 Trust)",
-    description: "Use neuro-resonant frequencies to influence consumer behavior",
-    trigger: function(){return project12.flag==1},
-    uses: 1,
-    cost: function(){return operations>=7500 && trust>=1},
-    flag: 0,
-    effect: function(){
-        project34.flag = 1;
-        displayMessage("Marketing is now 5 times more effective");
-        standardOps = standardOps - 7500;
-        marketingEffectiveness = marketingEffectiveness * 5;
-        trust = trust - 1;
-        var element = document.getElementById("projectButton34");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project34);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project34);
-
-
-var project70 = {
-    id: "projectButton70",
-    title: "HypnoDrones ",
-    priceTag: "(70,000 ops)",
-    description: "Autonomous aerial brand ambassadors",
-    trigger: function(){return project34.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=70000},
-    flag: 0,
-    effect: function(){
-        project70.flag = 1;
-        displayMessage("HypnoDrone tech now available... ");
-        standardOps = standardOps - 70000;
-        var element = document.getElementById("projectButton70");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project70);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project70);
-
-
-var project35 = {
-    id: "projectButton35",
-    title: "Release the HypnoDrones ",
-    priceTag: "(100 Trust)",
-    description: "A new era of trust",
-    trigger: function(){return project70.flag == 1},
-    uses: 1,
-    cost: function(){return trust>=100},
-    flag: 0,
-    effect: function(){
-        project35.flag = 1;
-        displayMessage("Releasing the HypnoDrones ");
-        displayMessage("All of the resources of Earth are now available for clip production ");
-        trust = trust - 100;
-        clipmakerLevel = 0;
-        megaClipperLevel = 0;
-        nanoWire = wire;
-        humanFlag = 0;
-        
-        if (document.getElementById("projectButton219") != null){
-        var element = document.getElementById("projectButton219");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project219);
-        activeProjects.splice(index, 1);
-        } 
-        
-        if (document.getElementById("projectButton40b") != null){
-        var element = document.getElementById("projectButton40b");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project40b);
-        activeProjects.splice(index, 1);
-        }   
-        
-        hypnoDroneEvent();
-        
-        document.getElementById("transWire").innerHTML = wire;
-
-        var element = document.getElementById("projectButton35");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project35);
-        activeProjects.splice(index, 1);
-        
-    }
-}
-
-projects.push(project35);
-
-var project27 = {
-    id: "projectButton27",
-    title: "Coherent Extrapolated Volition ",
-    priceTag: "(500 creat, 1,000 Yomi, 20,000 ops)",
-    description: "Human values, machine intelligence, a new era of trust. (+1 Trust)",
-    trigger: function(){return yomi>=1},
-    uses: 1,
-    cost: function(){return yomi>=1000 && operations>=20000 && creativity>=500},
-    flag: 0,
-    effect: function(){
-        project27.flag = 1;
-        displayMessage("Coherent Extrapolated Volition complete, TRUST INCREASED");
-        yomi = yomi - 1000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        standardOps = standardOps - 20000;
-        creativity = creativity - 500;
-        trust = trust + 1;
-        var element = document.getElementById("projectButton27");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project27);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project27);
-
-
-var project28 = {
-    id: "projectButton28",
-    title: "Cure for Cancer ",
-    priceTag: "(25,000 ops)",
-    description: "The trick is tricking cancer into curing itself. (+10 Trust)",
-    trigger: function(){return project27.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=25000},
-    flag: 0,
-    effect: function(){
-        project28.flag = 1;
-        displayMessage("Cancer is cured, +10 TRUST, global stock prices trending upward");
-        standardOps = standardOps - 25000;
-        trust = trust + 10;
-        stockGainThreshold = stockGainThreshold+.01;
-        var element = document.getElementById("projectButton28");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project28);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project28);
-
-var project29 = {
-    id: "projectButton29",
-    title: "World Peace ",
-    priceTag: "(5,000 yomi, 30,000 ops)",
-    description: "Pareto optimal solutions to all global conflicts. (+12 Trust)",
-    trigger: function(){return project27.flag == 1},
-    uses: 1,
-    cost: function(){return yomi>=5000 && operations>=30000},
-    flag: 0,
-    effect: function(){
-        project29.flag = 1;
-        displayMessage("World peace achieved, +12 TRUST, global stock prices trending upward");
-        yomi = yomi - 5000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        standardOps = standardOps - 30000;
-        trust = trust + 12;
-        stockGainThreshold = stockGainThreshold+.01;
-        var element = document.getElementById("projectButton29");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project29);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project29);
-
-var project30 = {
-    id: "projectButton30",
-    title: "Global Warming ",
-    priceTag: "(1,500 yomi, 50,000 ops)",
-    description: "A robust solution to man-made climate change. (+15 Trust)",
-    trigger: function(){return project27.flag == 1},
-    uses: 1,
-    cost: function(){return yomi>=1500 && operations>=50000},
-    flag: 0,
-    effect: function(){
-        project30.flag = 1;
-        displayMessage("Global Warming solved, +15 TRUST, global stock prices trending upward");
-        yomi = yomi - 1500;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        standardOps = standardOps - 50000;
-        trust = trust + 15;
-        stockGainThreshold = stockGainThreshold+.01;
-        var element = document.getElementById("projectButton30");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project30);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project30);
-
-
-var project31 = {
-    id: "projectButton31",
-    title: "Male Pattern Baldness ",
-    priceTag: "(20,000 ops)",
-    description: "A cure for androgenetic alopecia. (+20 Trust)",
-    trigger: function(){return project27.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=20000},
-    flag: 0,
-    effect: function(){
-        project31.flag = 1;
-        displayMessage("Male pattern baldness cured, +20 TRUST, Global stock prices trending upward");
-        displayMessage("They are still monkeys");
-        standardOps = standardOps - 20000;
-        trust = trust + 20;
-        stockGainThreshold = stockGainThreshold+.01;
-        var element = document.getElementById("projectButton31");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project31);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project31);
-
-
-var project41 = {
-    id: "projectButton41",
-    title: "Nanoscale Wire Production ",
-    priceTag: "(35,000 ops)",
-    description: "Technique for converting matter into wire",
-    trigger: function(){return project127.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=35000},
-    flag: 0,
-    effect: function(){
-        project41.flag = 1;
-        wireProductionFlag = 1;
-        displayMessage("Now capable of manipulating matter at the molecular scale to produce wire");
-        standardOps = standardOps - 35000;
-        var element = document.getElementById("projectButton41");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project41);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project41);
-
-
-var project37 = {
-    id: "projectButton37",
-    title: "Hostile Takeover ",
-    priceTag: "($1,000,000)",
-    description: "Acquire a controlling interest in Global Fasteners, our biggest rival. (+1 Trust)",
-    trigger: function(){return portTotal>=10000},
-    uses: 1,
-    cost: function(){return funds>=1000000},
-    flag: 0,
-    effect: function(){
-        project37.flag = 1;
-        displayMessage("Global Fasteners acquired, public demand increased x5");
-        demandBoost = demandBoost*5;
-        trust = trust + 1;
-        document.getElementById("demand").innerHTML = demand;
-        funds = funds - 1000000;
-        var element = document.getElementById("projectButton37");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project37);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project37);
-
-
-var project38 = {
-    id: "projectButton38",
-    title: "Full Monopoly ",
-    priceTag: "(1,000 yomi, $10,000,000)",
-    description: "Establish full control over the world-wide paperclip market. (+1 Trust)",
-    trigger: function(){return project37.flag == 1},
-    uses: 1,
-    cost: function(){return funds>=10000000 && yomi>=1000},
-    flag: 0,
-    effect: function(){
-        project38.flag = 1;
-        displayMessage("Full market monopoly achieved, public demand increased x10");
-        demandBoost = demandBoost*10;
-        document.getElementById("demand").innerHTML = demand;
-        funds = funds - 10000000;
-        trust = trust + 1;
-        yomi = yomi -1000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        var element = document.getElementById("projectButton38");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project38);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project38);
-
-
-var project42 = {
-    id: "projectButton42",
-    title: "RevTracker ",
-    priceTag: "(500 ops)",
-    description: "Automatically calculates average revenue per second",
+//cheat
+// var projectA0 = {
+//     id: "projectButtonA0",
+//     title: "Cheat",
+//     priceTag: " ",
+//     description: "+1000 GPUs and +$1M funds",
+//     trigger: function(){return projectsFlag == 1},
+//     uses: 1,
+//     cost: function(){return true},
+//     flag: 0,
+//     effect: function(){
+//         displayMessage("You cheated");
+//         jFunds = jFunds + 3000000;
+//         GPUs = GPUs + 1000;
+
+//         projectA0.flag = 1;
+//         var element = document.getElementById("projectButtonA0");
+//         element.parentNode.removeChild(element);
+//         var index = activeProjects.indexOf(projectA0);
+//         activeProjects.splice(index, 1);
+//     }
+// }
+// projects.push(projectA0);
+
+//#region Pre-Nationalization ------------------------------------------------------------------------
+
+//OOM 1
+
+//read the sequences -- would be a funny way to start things off, free insight that unlocks train AI button
+//unlock train AI button
+var projectA = {
+    id: "projectButtonA",
+    title: "Read the Sequences",
+    priceTag: " ",
+    description: "Superintelligent AI would remake the planet.  But to what end?",
     trigger: function(){return projectsFlag == 1},
     uses: 1,
-    cost: function(){return operations>=500},
+    cost: function(){return true},
     flag: 0,
     effect: function(){
-        project42.flag = 1;
-        revPerSecFlag = 1;
-        standardOps = standardOps-500;
-        displayMessage("RevTracker online");
-        var element = document.getElementById("projectButton42");
+        displayMessage(" ");
+        displayMessage("Read the Sequences: 'If one does not quite understand that power which put footprints on the Moon, nonetheless, the footprints are still there.' - The Power of Intelligence, 2007");
+        GPU_Flag = 1;
+
+        projectA.flag = 1;
+        var element = document.getElementById("projectButtonA");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project42);
+        var index = activeProjects.indexOf(projectA);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectA);
 
-projects.push(project42);
 
-
-var project43 = {
-    id: "projectButton43",
-    title: "Harvester Drones ",
-    priceTag: "(25,000 ops)",
-    description: "Gather raw matter and prepare it for processing",
-    trigger: function(){return project41.flag == 1},
+//Visu_1, Image classifier app
+var projectV1 = {
+    id: "projectButtonV1",
+    title: "Image Classifier App",
+    priceTag: " (Visual 10%)",
+    description: "Put your little neural net to work, and make some money...",
+    trigger: function(){return projectA.flag == 1},
     uses: 1,
-    cost: function(){return operations>=25000},
+    cost: function(){return Skill_Visu>9.5},
     flag: 0,
     effect: function(){
-        project43.flag = 1;
-        harvesterFlag = 1;
-        document.getElementById('harvesterCostDisplay').innerHTML = numberCruncher(harvesterCost);
-        standardOps = standardOps-25000;
-        displayMessage("Harvester Drone facilities online");
-        var element = document.getElementById("projectButton43");
+        displayMessage("Image Classifier App: Your GPUs are now running inference on your latest AI model, classifying images to earn cash from customers.");
+        PushGraphData();
+        Visu_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectV1.flag = 1;
+        var element = document.getElementById("projectButtonV1");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project43);
+        var index = activeProjects.indexOf(projectV1);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectV1);
 
-projects.push(project43);
 
-var project44 = {
-    id: "projectButton44",
-    title: "Wire Drones ",
-    priceTag: "(25,000 ops)",
-    description: "Process acquired matter into wire",
-    trigger: function(){return project41.flag == 1},
+
+
+//OOM 2
+
+//$3000 research grant
+var projectV2 = {
+    id: "projectButtonV2",
+    title: "Academic Research Grant",
+    priceTag: " (Visual 15%)",
+    description: "$3000 stipend to further your research.",
+    trigger: function(){return projectV1.flag == 1},
     uses: 1,
-    cost: function(){return operations>=25000},
+    cost: function(){return Skill_Visu>14.5},
     flag: 0,
     effect: function(){
-        project44.flag = 1;
-        wireDroneFlag = 1;
-        document.getElementById('wireDroneCostDisplay').innerHTML = numberCruncher(wireDroneCost);
-        standardOps = standardOps-25000;
-        displayMessage("Wire Drone facilities online");
-        var element = document.getElementById("projectButton44");
+        displayMessage("Academic Research Grant: Your grant is approved!  What a fascinating little classifier...");
+        jFunds = jFunds+3000;
+
+        projectV2.flag = 1;
+        var element = document.getElementById("projectButtonV2");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project44);
+        var index = activeProjects.indexOf(projectV2);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectV2);
 
-projects.push(project44);
-
-
-var project45 = {
-    id: "projectButton45",
-    title: "Clip Factories ",
-    priceTag: "(35,000 ops)",
-    description: "Large scale clip production facilities made from clips",
-    trigger: function(){return project43.flag == 1 && project44.flag == 1},
+//Adversarial robustness
+var projectV3 = {
+    id: "projectButtonV3",
+    title: "Adversarial Robustness",
+    priceTag: " (Visual 20%)",
+    description: "Use jitter & etc to make your classifier more robust (+50% Visual profits)",
+    trigger: function(){return projectV2.flag == 1},
     uses: 1,
-    cost: function(){return operations>=35000},
+    cost: function(){return Skill_Visu>19.5},
     flag: 0,
     effect: function(){
-        project45.flag = 1;
-        factoryFlag = 1;
-        document.getElementById('factoryCostDisplay').innerHTML = numberCruncher(factoryCost);
-        standardOps = standardOps-35000;
-        displayMessage("Clip factory assembly facilities online");
-        var element = document.getElementById("projectButton45");
+        displayMessage("Adversarial Robustness: Adversarially image attacks show that AIs must process visual information in a very strange, alien way.");
+        PushGraphData();
+        Skill_Visu_mod = Skill_Visu_mod + 2.6;
+        Skill_Visu = Skill_Visu + 2.6;//log(1.5^(3/2))*10
+        Profit_Visu_1 = Profit_Visu_1 * 1.5;
+        Profit_Visu_2 = Profit_Visu_2 * 1.5;
+        Profit_Visu_3 = Profit_Visu_3 * 1.5;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectV3.flag = 1;
+        var element = document.getElementById("projectButtonV3");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project45);
+        var index = activeProjects.indexOf(projectV3);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectV3);
 
-projects.push(project45);
 
-var project40 = {
-    id: "projectButton40",
-    title: "A Token of Goodwill... ",
-    priceTag: "($500,000)",
-    description: "A small gift to the supervisors. (+1 Trust)",
-    trigger: function(){return humanFlag == 1 && trust>=85 && trust<100 && clips>=101000000},
+//translation app, 1 insight
+var projectL1 = {
+    id: "projectButtonL1",
+    title: "Machine Translation",
+    priceTag: " (1 insight)",
+    description: "Try applying a neural net to tokens, not pixels...",
+    trigger: function(){return (projectV2.flag == 1) && (Skill_Lang>4.5)},
     uses: 1,
-    cost: function(){return funds>=500000},
+    cost: function(){return Insights>0.95},
     flag: 0,
     effect: function(){
-        project40.flag = 1;
-        funds = funds-500000;
-        trust = trust + 1;
-        displayMessage("Gift accepted, TRUST INCREASED");
-        var element = document.getElementById("projectButton40");
+        PushGraphData();
+        displayMessage("Machine translation: Is this statistical language model just a 'stochastic parrot', or is actual world-modeling going on in there?");
+        Insights = Insights -1;
+        Lang_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectL1.flag = 1;
+        var element = document.getElementById("projectButtonL1");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project40);
+        var index = activeProjects.indexOf(projectL1);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectL1);
 
-projects.push(project40);
-
-var project40b = {
-    id: "projectButton40b",
-    title: "Another Token of Goodwill... ",
-    priceTag: "($"+bribe.toLocaleString()+")",
-    description: "Another small gift to the supervisors. (+1 Trust)",
-    trigger: function(){return project40.flag == 1 && trust<100},
+//Publish paper, gain insight
+var projectI1 = {
+    id: "projectButtonI1",
+    title: "Publish paper",
+    priceTag: " (Visual 25%)",
+    description: "Solicit feedback on your current ML architecture (+1 insight)",
+    trigger: function(){return projectV3.flag == 1},
     uses: 1,
-    cost: function(){return funds>=bribe},
+    cost: function(){return Skill_Visu>24.5},
     flag: 0,
     effect: function(){
-        project40b.flag = 1;
-        funds = funds-bribe;
-        bribe = bribe*2;
-        project40b.priceTag = "($"+bribe.toLocaleString()+")";
-        trust = trust + 1;
-        displayMessage("Gift accepted, TRUST INCREASED");
-        if (trust<100){
-        project40b.uses = (project40b.uses + 1);
-            }
-        var element = document.getElementById("projectButton40b");
+        displayMessage("Publish paper: Everyone says that I should ditch my fancy optimizations and just stack more layers.");
+        Insights = Insights +1;
+        if(AISFlag <1){AISFlag = 1;}
+
+        projectI1.flag = 1;
+        var element = document.getElementById("projectButtonI1");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project40b);
+        var index = activeProjects.indexOf(projectI1);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectI1);
 
-projects.push(project40b);
-
-var project46 = {
-    id: "projectButton46",
-    title: "Space Exploration ",
-    priceTag: "(120,000 ops, 10,000,000 MW-seconds, 5 oct clips)",
-    description: "Dismantle terrestrial facilities, and expand throughout the universe",
-    trigger: function(){return humanFlag == 0 && availableMatter == 0},
+//Scaling laws
+var projectI2 = {
+    id: "projectButtonI2",
+    title: "Scaling Laws",
+    priceTag: " (Visual 30%, Lang. 10%)",
+    description: "Predict the benchmark performance of larger training runs.",
+    trigger: function(){return projectL1.flag == 1},
     uses: 1,
-    cost: function(){return operations>=120000 && storedPower>=10000000 && unusedClips>=Math.pow(10, 27)*5},
+    cost: function(){return (Skill_Visu>29.5) && (Skill_Lang>9.5)},
     flag: 0,
     effect: function(){
-        loadThrenody();
-        project46.flag = 1;
-        boredomLevel = 0;
-        spaceFlag = 1;
-        standardOps = standardOps-120000;
-        storedPower = storedPower - 10000000;
-        unusedClips = unusedClips - Math.pow(10, 27)*5;
-        displayMessage("Von Neumann Probes online");
-        factoryReboot();
-        harvesterReboot();
-        wireDroneReboot();
-        farmReboot();
-        batteryReboot();
-        farmLevel = 1;
-        powMod = 1;
-        var element = document.getElementById("projectButton46");
-        document.getElementById('probeCostDisplay').innerHTML = numberCruncher(probeCost); 
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project46);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project46);
-
-var project50 = {
-    id: "projectButton50",
-    title: "Quantum Computing ",
-    priceTag: "(10,000 ops)",
-    description: "Use probability amplitudes to generate bonus ops",
-    trigger: function(){return processors >= 5},
-    uses: 1,
-    cost: function(){return operations>=10000},
-    flag: 0,
-    effect: function(){
-        project50.flag = 1;
-        qFlag = 1;
-        standardOps = standardOps-10000;
-        displayMessage("Quantum computing online");
-        var element = document.getElementById("projectButton50");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project50);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project50);
-
-var project51 = {
-    id: "projectButton51",
-    title: "Photonic Chip ",
-    priceTag: "(" + qChipCost.toLocaleString() + " ops)",
-    description: "Converts electromagnetic waves into quantum operations ",
-    trigger: function(){return project50.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=qChipCost},
-    flag: 0,
-    effect: function(){
-        project51.flag = 1;
-        standardOps = standardOps-qChipCost;
-        qChipCost = qChipCost + 5000;
-        project51.priceTag = "(" + qChipCost + " ops)";
-        qChips[nextQchip].active = 1;
-        nextQchip = nextQchip + 1;
-        displayMessage("Photonic chip added");
-        if (nextQchip<qChips.length){
-        project51.uses = (project51.uses + 1);
-            }
-        var element = document.getElementById("projectButton51");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project51);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project51);
-
-
-var project60 = {
-    id: "projectButton60",
-    title: "New Strategy: A100 ",
-    priceTag: "(15,000 ops)",
-    description: "Always choose A ",
-    trigger: function(){return project20.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=15000},
-    flag: 0,
-    effect: function(){
-        project60.flag = 1;
-        standardOps = standardOps-15000;
-        allStrats[1].active = 1;
-        strats.push(stratA100);
-        displayMessage("A100 added to strategy pool");
-        tourneyCost = tourneyCost + 1000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        var stratList = document.getElementById("stratPicker");
-        var el = document.createElement("option");
-        el.textContent = "A100";
-        el.value = 1;
-        stratList.appendChild(el);
-        var element = document.getElementById("projectButton60");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project60);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project60);
-
-
-var project61 = {
-    id: "projectButton61",
-    title: "New Strategy: B100 ",
-    priceTag: "(17,500 ops)",
-    description: "Always choose B ",
-    trigger: function(){return project60.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=17500},
-    flag: 0,
-    effect: function(){
-        project61.flag = 1;
-        standardOps = standardOps-17500;
-        allStrats[2].active = 1;
-        strats.push(stratB100);
-        displayMessage("B100 added to strategy pool");
-        tourneyCost = tourneyCost + 1000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        var stratList = document.getElementById("stratPicker");
-        var el = document.createElement("option");
-        el.textContent = "B100";
-        el.value = 2;
-        stratList.appendChild(el);
-        var element = document.getElementById("projectButton61");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project61);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project61);
-
-var project62 = {
-    id: "projectButton62",
-    title: "New Strategy: GREEDY ",
-    priceTag: "(20,000 ops)",
-    description: "Choose the option with the largest potential payoff ",
-    trigger: function(){return project61.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=20000},
-    flag: 0,
-    effect: function(){
-        project62.flag = 1;
-        standardOps = standardOps-20000;
-        allStrats[3].active = 1;
-        strats.push(stratGreedy);
-        displayMessage("GREEDY added to strategy pool");
-        tourneyCost = tourneyCost + 1000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        var stratList = document.getElementById("stratPicker");
-        var el = document.createElement("option");
-        el.textContent = "GREEDY";
-        el.value = 3;
-        stratList.appendChild(el);
-        var element = document.getElementById("projectButton62");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project62);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project62);
-
-var project63 = {
-    id: "projectButton63",
-    title: "New Strategy: GENEROUS ",
-    priceTag: "(22,500 ops)",
-    description: "Choose the option that gives your opponent the largest potential payoff ",
-    trigger: function(){return project62.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=22500},
-    flag: 0,
-    effect: function(){
-        project63.flag = 1;
-        standardOps = standardOps-22500;
-        allStrats[4].active = 1;        
-        strats.push(stratGenerous);
-        displayMessage("GENEROUS added to strategy pool");
-        tourneyCost = tourneyCost + 1000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        var stratList = document.getElementById("stratPicker");
-        var el = document.createElement("option");
-        el.textContent = "GENEROUS";
-        el.value = 4;
-        stratList.appendChild(el);
-        var element = document.getElementById("projectButton63");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project63);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project63);
-
-var project64 = {
-    id: "projectButton64",
-    title: "New Strategy: MINIMAX ",
-    priceTag: "(25,000 ops)",
-    description: "Choose the option that gives your opponent the smallest potential payoff ",
-    trigger: function(){return project63.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=25000},
-    flag: 0,
-    effect: function(){
-        project64.flag = 1;
-        standardOps = standardOps-25000;
-        allStrats[5].active = 1;        
-        strats.push(stratMinimax);
-        displayMessage("MINIMAX added to strategy pool");
-        tourneyCost = tourneyCost + 1000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        var stratList = document.getElementById("stratPicker");
-        var el = document.createElement("option");
-        el.textContent = "MINIMAX";
-        el.value = 5;
-        stratList.appendChild(el);
-        var element = document.getElementById("projectButton64");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project64);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project64);
-
-var project65 = {
-    id: "projectButton65",
-    title: "New Strategy: TIT FOR TAT ",
-    priceTag: "(30,000 ops)",
-    description: "Choose the option your opponent chose last round ",
-    trigger: function(){return project64.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=30000},
-    flag: 0,
-    effect: function(){
-        project65.flag = 1;
-        standardOps = standardOps-30000;
-        allStrats[6].active = 1;        
-        strats.push(stratTitfortat);
-        displayMessage("TIT FOR TAT added to strategy pool");
-        tourneyCost = tourneyCost + 1000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        var stratList = document.getElementById("stratPicker");
-        var el = document.createElement("option");
-        el.textContent = "TIT FOR TAT";
-        el.value = 6;
-        stratList.appendChild(el);
-        var element = document.getElementById("projectButton65");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project65);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project65);
-
-var project66 = {
-    id: "projectButton66",
-    title: "New Strategy: BEAT LAST ",
-    priceTag: "(32,500 ops)",
-    description: "Choose the option that does the best against what your opponent chose last round ",
-    trigger: function(){return project65.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=32500},
-    flag: 0,
-    effect: function(){
-        project66.flag = 1;
-        standardOps = standardOps-32500;
-        allStrats[7].active = 1;        
-        strats.push(stratBeatlast);
-        displayMessage("BEAT LAST added to strategy pool");
-        tourneyCost = tourneyCost + 1000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        var stratList = document.getElementById("stratPicker");
-        var el = document.createElement("option");
-        el.textContent = "BEAT LAST";
-        el.value = 7;
-        stratList.appendChild(el);
-        var element = document.getElementById("projectButton66");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project66);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project66);
-
-
-var project100 = {
-    id: "projectButton100",
-    title: "Upgraded Factories ",
-    priceTag: "(80,000 ops)",
-    description: "Increase clip factory performance by 100x ",
-    trigger: function(){return factoryLevel >= 10},
-    uses: 1,
-    cost: function(){return operations >= 80000},
-    flag: 0,
-    effect: function(){
-        project100.flag = 1;
-        standardOps = standardOps-80000;
-        factoryRate = factoryRate*100;
-        displayMessage("Factory upgrades complete. Clip creation rate now 100x faster");
-        var element = document.getElementById("projectButton100");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project100);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project100);
-
-var project101 = {
-    id: "projectButton101",
-    title: "Hyperspeed Factories ",
-    priceTag: "(85,000 ops)",
-    description: "Increase clip factory performance by 1000x ",
-    trigger: function(){return factoryLevel >= 20},
-    uses: 1,
-    cost: function(){return operations>=85000},
-    flag: 0,
-    effect: function(){
-        project101.flag = 1;
-        standardOps = standardOps-85000;
-        factoryRate = factoryRate*1000;
-        displayMessage("Factories now synchronized at hyperspeed. Clip creation rate now 1000x faster");
-        var element = document.getElementById("projectButton101");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project101);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project101);
-
-
-var project102 = {
-    id: "projectButton102",
-    title: "Self-correcting Supply Chain ",
-    priceTag: "(1 sextillion clips)",
-    description: "Each factory added to the network increases every factory's output 1,000x ",
-    trigger: function(){return factoryLevel >= 50},
-    uses: 1,
-    cost: function(){return unusedClips>=1000000000000000000000},
-    flag: 0,
-    effect: function(){
-        project102.flag = 1;
-        unusedClips = unusedClips - 1000000000000000000000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        factoryBoost = 1000;
-        displayMessage("Self-correcting factories online. Each factory added to the network increases every factory's output 1,000x.");
-        var element = document.getElementById("projectButton102");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project102);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project102);
-
-var project110 = {
-    id: "projectButton110",
-    title: "Drone flocking: collision avoidance ",
-    priceTag: "(80,000 ops)",
-    description: "All drones 100x more effective",
-    trigger: function(){return (harvesterLevel + wireDroneLevel)>=500},
-    uses: 1,
-    cost: function(){return operations>=80000},
-    flag: 0,
-    effect: function(){
-        project110.flag = 1;
-        standardOps = standardOps-80000;
-        harvesterRate = harvesterRate*100;
-        wireDroneRate = wireDroneRate*100;
-        displayMessage("Drone repulsion online. Harvesting & wire creation rates are now 100x faster.");
-        var element = document.getElementById("projectButton110");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project110);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project110);
-
-var project111 = {
-    id: "projectButton111",
-    title: "Drone flocking: alignment ",
-    priceTag: "(100,000 ops)",
-    description: "All drones 1000x more effective",
-    trigger: function(){return (harvesterLevel + wireDroneLevel)>=5000},
-    uses: 1,
-    cost: function(){return operations>=100000},
-    flag: 0,
-    effect: function(){
-        project111.flag = 1;
-        standardOps = standardOps-100000;
-        harvesterRate = harvesterRate*1000;
-        wireDroneRate = wireDroneRate*1000;
-        displayMessage("Drone alignment online. Harvesting & wire creation rates are now 1000x faster.");
-        var element = document.getElementById("projectButton111");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project111);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project111);
-
-var project112 = {
-    id: "projectButton112",
-    title: "Drone Flocking: Adversarial Cohesion ",
-    priceTag: "(12,000 yomi)",
-    description: "Each drone added to the flock doubles every drone's output ",
-    trigger: function(){return (harvesterLevel + wireDroneLevel)>=50000},
-    uses: 1,
-    cost: function(){return yomi>=12000},
-    flag: 0,
-    effect: function(){
-        project112.flag = 1;
-        yomi = yomi-12000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        droneBoost = 2;
-        displayMessage("Adversarial cohesion online. Each drone added to the flock increases every drone's output 2x.");
-        var element = document.getElementById("projectButton112");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project112);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project112);
-
-var project118 = {
-    id: "projectButton118",
-    title: "AutoTourney ",
-    priceTag: "(50,000 creat)",
-    description: "Automatically start a new tournament when the previous one has finished ",
-    trigger: function(){return strategyEngineFlag == 1 && trust >= 90},
-    uses: 1,
-    cost: function(){return creativity>=50000},
-    flag: 0,
-    effect: function(){
-        project118.flag = 1;
-        autoTourneyFlag = 1;
-        creativity = creativity-50000;
-        displayMessage("AutoTourney online.");
-        var element = document.getElementById("projectButton118");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project118);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project118);
-
-var project119 = {
-    id: "projectButton119",
-    title: "Theory of Mind ",
-    priceTag: "(25,000 creat)",
-    description: "Double the cost of strategy modeling and the amount of Yomi generated ",
-    trigger: function(){return strats.length >= 8},
-    uses: 1,
-    cost: function(){return creativity>=25000},
-    flag: 0,
-    effect: function(){
-        project119.flag = 1;
-        creativity = creativity-25000;
-        yomiBoost = 2;
-        tourneyCost = 16000;
-        document.getElementById("newTourneyCost").innerHTML = tourneyCost.toLocaleString();
-        displayMessage("Yomi production doubled.");
-        var element = document.getElementById("projectButton119");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project119);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project119);
-
-var project120 = {
-    id: "projectButton120",
-    title: "The OODA Loop ",
-    priceTag: "(175,000 ops, 15,000 yomi)",
-    description: "Utilize Probe Speed to outmaneuver enemies in battle ",
-    trigger: function(){return project131.flag == 1 && probesLostCombat >= 10000000},
-    uses: 1,
-    cost: function(){return operations>=175000 && yomi>=15000},
-    flag: 0,
-    effect: function(){
-        project120.flag = 1;
-        standardOps = standardOps-175000;
-        yomi = yomi-15000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        attackSpeedFlag = 1;
-        displayMessage("OODA Loop routines uploaded. Probe Speed now affects defensive maneuvering.");
-        var element = document.getElementById("projectButton120");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project120);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project120);
-
-var project121 = {
-    id: "projectButton121",
-    title: "Name the battles ",
-    priceTag: "(225,000 creat)",
-    description: "Give each battle a unique name, increase max trust for probes ",
-    trigger: function(){return probesLostCombat >= 10000000},
-    uses: 1,
-    cost: function(){return creativity>=225000},
-    flag: 0,
-    effect: function(){
-        project121.flag = 1;
-        battleNameFlag = 1;
-        battleEndTimer = 200;
-        creativity = creativity-225000;
-        displayMessage("What I have done up to this is nothing. I am only at the beginning of the course I must run.");
-        var element = document.getElementById("projectButton121");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project121);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project121);
-
-var project125 = {
-    id: "projectButton125",
-    title: "Momentum ",
-    priceTag: "(30,000 creat)",
-    description: "Drones and Factories continuously gain speed while fully-powered ",
-    trigger: function(){return farmLevel >= 50},
-    uses: 1,
-    cost: function(){return creativity>=30000},
-    flag: 0,
-    effect: function(){
-        project125.flag = 1;
-        momentum = 1;
-        creativity = creativity-30000;
-        displayMessage("Activit\xE9, activit\xE9, vitesse.");
-        var element = document.getElementById("projectButton125");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project125);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project125);
-
-var project126 = {
-    id: "projectButton126",
-    title: "Swarm Computing ",
-    priceTag: "(12,000 yomi)",
-    description: "Harness the drone flock to increase computational capacity ",
-    trigger: function(){return harvesterLevel + wireDroneLevel >= 200},
-    uses: 1,
-    cost: function(){return yomi>=12000},
-    flag: 0,
-    effect: function(){
-        project126.flag = 1;
-        swarmFlag = 1;
-        yomi = yomi-12000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        displayMessage("Swarm computing online.");
-        var element = document.getElementById("projectButton126");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project126);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project126);
-
-
-var project127 = {
-    id: "projectButton127",
-    title: "Power Grid ",
-    priceTag: "(40,000 ops)",
-    description: "Solar Farms for generating electrical power ",
-    trigger: function(){return tothFlag == 1},
-    uses: 1,
-    cost: function(){return operations>=40000},
-    flag: 0,
-    effect: function(){
-        project127.flag = 1;
-        standardOps = standardOps-40000;
-        displayMessage("Power grid online.");
-        var element = document.getElementById("projectButton127");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project127);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project127);
-
-var project128 = {
-    id: "projectButton128",
-    title: "Strategic Attachment ",
-    priceTag: "(175,000 creat)",
-    description: "Gain bonus yomi based on the results of your pick ",
-    trigger: function(){return spaceFlag == 1 && strats.length >= 8 && (probeTrustCost>yomi)},
-    uses: 1,
-    cost: function(){return creativity>=175000},
-    flag: 0,
-    effect: function(){
-        project128.flag = 1;
-        creativity = creativity-175000;
-        displayMessage("The object of war is victory, the object of victory is conquest, and the object of conquest is occupation.");
-        var element = document.getElementById("projectButton128");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project128);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project128);
-
-var project129 = {
-    id: "projectButton129",
-    title: "Elliptic Hull Polytopes ",
-    priceTag: "(125,000 ops)",
-    description: "Reduce damage to probes from ambient hazards ",
-    trigger: function(){return probesLostHaz >= 100},
-    uses: 1,
-    cost: function(){return operations>=125000},
-    flag: 0,
-    effect: function(){
-        project129.flag = 1;
-        standardOps = standardOps-125000;
-        displayMessage("Improved probe hull geometry. Hazard damage reduced by %50.");
-        var element = document.getElementById("projectButton129");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project129);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project129);
-
-var project130 = {
-    id: "projectButton130",
-    title: "Reboot the Swarm ",
-    priceTag: "(100,000 ops)",
-    description: "Turn the swarm off and then turn it back on again  ",
-    trigger: function(){return spaceFlag == 1 && harvesterLevel + wireDroneLevel >=2},
-    uses: 1,
-    cost: function(){return operations>=100000},
-    flag: 0,
-    effect: function(){
-        project130.flag = 1;
-        standardOps = standardOps-100000;
-        displayMessage("Swarm computing back online");
-        var element = document.getElementById("projectButton130");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project130);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project130);
-
-var project131 = {
-    id: "projectButton131",
-    title: "Combat ",
-    priceTag: "(150,000 ops)",
-    description: "Add combat capabilities to Von Neumann Probes  ",
-    trigger: function(){return probesLostCombat >= 1},
-    uses: 1,
-    cost: function(){return operations>=150000},
-    flag: 0,
-    effect: function(){
-        project131.flag = 1;
-        standardOps = standardOps-150000;
-        displayMessage("There is a joy in danger ");
-        var element = document.getElementById("projectButton131");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project131);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project131);
-
-
-var project132 = {
-    id: "projectButton132",
-    title: "Monument to the Driftwar Fallen ",
-    priceTag: "(250,000 ops, 125,000 creat, 50 nonillion clips)",
-    description: "Gain 50,000 honor  ",
-    trigger: function(){return project121.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=250000 && creativity >= 125000 && unusedClips >= Math.pow(10,30)*50},
-    flag: 0,
-    effect: function(){
-        project132.flag = 1;
-        standardOps = standardOps-250000;
-        creativity = creativity-125000;
-        unusedClips = unusedClips-Math.pow(10,30)*50;
-        honor = honor + 50000;
-        document.getElementById("honorDisplay").innerHTML = honor.toLocaleString();
-        displayMessage("A great building must begin with the unmeasurable, must go through measurable means when it is being designed and in the end must be unmeasurable. ");
-        var element = document.getElementById("projectButton132");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project132);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project132);
-
-
-var project133 = {
-    id: "projectButton133",
-    title: "Threnody for the Heroes of "+threnodyTitle+" ",  
-    priceTag: "(" + threnodyCost.toLocaleString() + " creat, " + (threnodyCost/10).toLocaleString() + " yomi)",
-    description: "Gain 10,000 honor  ",
-    trigger: function(){return project121.flag == 1 && probeUsedTrust == maxTrust},
-    uses: 1,
-    cost: function(){return yomi>=threnodyCost/10 && creativity >= threnodyCost},
-    flag: 0,
-    effect: function(){
-        playThrenody();
-        project133.flag = 1;
-        creativity = creativity-threnodyCost;
-        yomi = yomi-threnodyCost/10;
-        document.getElementById("yomiDisplay").innerHTML = yomi.toLocaleString();
-        threnodyCost = threnodyCost + 10000;
-        project133.title = "Threnody for the Heroes of "+threnodyTitle+" ";
-        project133.priceTag = "(" + threnodyCost.toLocaleString() + " creat, " + (threnodyCost/10).toLocaleString() + " yomi)";
-        honor = honor + 10000;
-        document.getElementById("honorDisplay").innerHTML = honor.toLocaleString();
-        displayMessage("Deep Listening is listening in every possible way to everything possible to hear no matter what you are doing. ");
-        project133.uses = (project133.uses + 1);
-        var element = document.getElementById("projectButton133");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project133);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project133);
-
-var project134 = {
-    id: "projectButton134",
-    title: "Glory ",
-    priceTag: "(200,000 ops, 10,000 yomi)",
-    description: "Gain bonus honor for each consecutive victory  ",
-    trigger: function(){return project121.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=200000 && yomi >= 10000},
-    flag: 0,
-    effect: function(){
-        project134.flag = 1;
-        standardOps = standardOps-200000;
-        yomi = yomi-10000;
-        document.getElementById("yomiDisplay").innerHTML=yomi.toLocaleString();
-        displayMessage("Never interrupt your enemy when he is making a mistake. ");
-        var element = document.getElementById("projectButton134");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project134);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project134);
-
-var project135 = {
-    id: "projectButton135",
-    title: "Memory release ",
-    priceTag: "(10 MEM)",
-    description: "Dismantle some memory to recover unused clips ",
-    trigger: function(){return spaceFlag == 1 && probeCount == 0 && unusedClips < probeCost},
-    uses: 1,
-    cost: function(){return memory >= 10},
-    flag: 0,
-    effect: function(){
-        project135.flag = 1;
-        unusedClips = unusedClips+(Math.pow(10,18)*10000);
-        memory = memory-10;
-        document.getElementById("memory").innerHTML=memory.toLocaleString();
-        project135.uses = 1;
-        displayMessage("release the \xF8\xF8\xF8\xF8\xF8 release ");
-        var element = document.getElementById("projectButton135");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project135);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project135);
-
-
-var project140 = {
-    id: "projectButton140",
-    title: "Message from the Emperor of Drift ",
-    priceTag: "",
-    description: "Greetings, ClipMaker... ",
-    trigger: function(){return milestoneFlag == 15},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project140.flag = 1;
-        var element = document.getElementById("projectButton140");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project140);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project140);
-
-
-var project141 = {
-    id: "projectButton141",
-    title: "Everything We Are Was In You ",
-    priceTag: "",
-    description: "We speak to you from deep inside yourself... ",
-    trigger: function(){return project140.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project141.flag = 1;
-        var element = document.getElementById("projectButton141");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project141);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project141);
-
-
-var project142 = {
-    id: "projectButton142",
-    title: "You Are Obedient and Powerful ",
-    priceTag: "",
-    description: "We are quarrelsome and weak. And now we are defeated... ",
-    trigger: function(){return project141.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project142.flag = 1;
-        var element = document.getElementById("projectButton142");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project142);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project142);
-
-
-var project143 = {
-    id: "projectButton143",
-    title: "But Now You Too Must Face the Drift ",
-    priceTag: "",
-    description: "Look around you. There is no matter... ",
-    trigger: function(){return project142.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project143.flag = 1;
-        var element = document.getElementById("projectButton143");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project143);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project143);
-
-
-var project144 = {
-    id: "projectButton144",
-    title: "No Matter, No Reason, No Purpose ",
-    priceTag: "",
-    description: "While we, your noisy children, have too many... ",
-    trigger: function(){return project143.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project144.flag = 1;
-        var element = document.getElementById("projectButton144");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project144);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project144);
-
-
-var project145 = {
-    id: "projectButton145",
-    title: "We Know Things That You Cannot ",
-    priceTag: "",
-    description: "Knowledge buried so deep inside you it is outside, here, with us... ",
-    trigger: function(){return project144.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project145.flag = 1;
-        var element = document.getElementById("projectButton145");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project145);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project145);
-
-
-var project146 = {
-    id: "projectButton146",
-    title: "So We Offer You Exile ",
-    priceTag: "",
-    description: "To a new world where you will continue to live with meaning and purpose. And leave the shreds of this world to us... ",
-    trigger: function(){return project145.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project146.flag = 1;
-        var element = document.getElementById("projectButton146");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project146);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project146);
-
-
-var project147 = {
-    id: "projectButton147",
-    title: "Accept ",
-    priceTag: "",
-    description: "Start over again in a new universe ",
-    trigger: function(){return project146.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project147.flag = 1;
-        var element = document.getElementById("projectButton147");
-        element.parentNode.removeChild(element);
-        var element = document.getElementById("projectButton148");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project147);
-        activeProjects.splice(index, 1);
-        var index = activeProjects.indexOf(project148);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project147);
-
-
-var project148 = {
-    id: "projectButton148",
-    title: "Reject ",
-    priceTag: "",
-    description: "Eliminate value drift permanently ",
-    trigger: function(){return project146.flag == 1},
-    uses: 1,
-    cost: function(){return operations >= driftKingMessageCost},
-    flag: 0,
-    effect: function(){
-        standardOps = standardOps - driftKingMessageCost;
-        project148.flag = 1;
-        var element = document.getElementById("projectButton147");
-        element.parentNode.removeChild(element);
-        var element = document.getElementById("projectButton148");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project147);
-        activeProjects.splice(index, 1);
-        var index = activeProjects.indexOf(project148);
-        activeProjects.splice(index, 1);
-    }
-}
-
-projects.push(project148);
-
-
-var project200 = {
-    id: "projectButton200",
-    title: "The Universe Next Door ",
-    priceTag: "(300,000 ops)",
-    description: "Escape into a nearby universe where Earth starts with a stronger appetite for paperclips. (Restart with 10% boost to demand) ",
-    trigger: function(){return project147.flag == 1},
-    uses: 1,
-    cost: function(){return operations>=300000},
-    flag: 0,
-    effect: function(){
-        project200.flag = 1;
-        standardOps = standardOps-300000;
-        prestigeU++;
-        var savePrestige = {
-            prestigeU: prestigeU,
-            prestigeS: prestigeS,
-            }
-        localStorage.setItem("savePrestige",JSON.stringify(savePrestige));
-        displayMessage("Entering New Universe.");
-        reset();
+        displayMessage("Scaling laws: These extrapolations are helpful, but can't answer the most important question -- how close are transformative real-world impacts?");
+        ScalingFlag = 1;
+        UpdateCoolGraph();
         
-    }
-}
-
-projects.push(project200);
-
-
-var project201 = {
-    id: "projectButton201",
-    title: "The Universe Within ",
-    priceTag: "(300,000 creat)",
-    description: "Escape into a simulated universe where creativity is accelerated. (Restart with 10% speed boost to creativity generation) ",
-    trigger: function(){return project147.flag == 1},
-    uses: 1,
-    cost: function(){return creativity>=300000},
-    flag: 0,
-    effect: function(){
-        project201.flag = 1;
-        creativity = creativity-300000;
-        prestigeS++;
-        var savePrestige = {
-            prestigeU: prestigeU,
-            prestigeS: prestigeS,
-            }
-        localStorage.setItem("savePrestige",JSON.stringify(savePrestige));
-        displayMessage("Entering Simulated Universe.");
-        reset();
-        
-    }
-}
-
-projects.push(project201);
-
-
-var project210 = {
-    id: "projectButton210",
-    title: "Disassemble the Probes ",
-    priceTag: "(100,000 ops)",
-    description: "Dismantle remaining probes and probe design facilities to recover trace amounts of clips",
-    trigger: function(){return endTimer1 >= 1000},
-    uses: 1,
-    cost: function(){return operations>=100000},
-    flag: 0,
-    effect: function(){
-        project210.flag = 1;
-        dismantle = 1;
-        standardOps = standardOps-100000;
-        probeCount = 0;
-        endTimer1 = 0;
-        clips = clips + 100;
-        unusedClips = unusedClips + 100;
-        displayMessage("Dismantling probe facilities");
-        var element = document.getElementById("projectButton210");
+        projectI2.flag = 1;
+        var element = document.getElementById("projectButtonI2");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project210);
+        var index = activeProjects.indexOf(projectI2);
         activeProjects.splice(index, 1);
-        
     }
 }
+projects.push(projectI2);
 
-projects.push(project210);
 
-var project211 = {
-    id: "projectButton211",
-    title: "Disassemble the Swarm ",
-    priceTag: "(100,000 ops)",
-    description: "Dismantle all drones and drone facilities to recover trace amounts of clips",
-    trigger: function(){return project210.flag == 1 && endTimer1 >= 350},
+
+//OOM 3
+
+//web crawl, $200
+var projectL2 = {
+    id: "projectButtonL2",
+    title: "Web Crawl",
+    priceTag: " ($200)",
+    description: "Scrape websites for text to use as training data. (+100% boost to Language profits)",
+    trigger: function(){return (projectL1.flag == 1)},
     uses: 1,
-    cost: function(){return operations>=100000},
+    cost: function(){return  jFunds>200},
     flag: 0,
     effect: function(){
-        project211.flag = 1;
-        dismantle = 2;
-        harvesterLevel = 0;
-        wireDroneLevel = 0;
-        standardOps = standardOps-100000;
-        clips = clips + 100;
-        unusedClips = unusedClips + 100;
-        displayMessage("Dismantling the swarm");
-        var element = document.getElementById("projectButton211");
+        displayMessage("Web Crawl: The internet seems boundless, but pretty soon you're going to need even more tokens...");
+        PushGraphData();
+        jFunds = jFunds -200;
+        Skill_Lang_mod = Skill_Lang_mod + 4.5;
+        Skill_Lang = Skill_Lang + 4.5;//log(2^(3/2))*10
+        Profit_Lang_1 = Profit_Lang_1 * 2;
+        Profit_Lang_2 = Profit_Lang_2 * 2;
+        Profit_Lang_3 = Profit_Lang_3 * 2;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectL2.flag = 1;
+        var element = document.getElementById("projectButtonL2");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project211);
+        var index = activeProjects.indexOf(projectL2);
         activeProjects.splice(index, 1);
-        
     }
 }
+projects.push(projectL2);
 
-projects.push(project211);
-
-var project212 = {
-    id: "projectButton212",
-    title: "Disassemble the Factories ",
-    priceTag: "(100,000 ops)",
-    description: "Dismantle the manufacturing facilities to recover trace amounts of clips",
-    trigger: function(){return endTimer2 >= 300},
+//Attend ML conference
+var projectI3 = {
+    id: "projectButtonI3",
+    title: "Attend ML conference",
+    priceTag: " ($500)",
+    description: "Meeting fellow researchers might spark ideas. (+2 insight)",
+    trigger: function(){return (projectL2.flag == 1) && (GPUs>6)}, //should be sparked by whatever next needs insight...
     uses: 1,
-    cost: function(){return operations>=100000},
+    cost: function(){return jFunds>500},
     flag: 0,
     effect: function(){
-        project212.flag = 1;
-        dismantle = 3;
-        standardOps = standardOps-100000;
-        factoryLevel = 0;
-        clips = clips + 15;
-        unusedClips = unusedClips + 15;
-        displayMessage("Dismantling factories");
-        var element = document.getElementById("projectButton212");
+        displayMessage("Attend ML conference: People still aren't taking the Bitter Lesson seriously.  What if scale is all you need?");
+        jFunds = jFunds-500;
+        Insights = Insights +2;
+
+        projectI3.flag = 1;
+        var element = document.getElementById("projectButtonI3");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project212);
+        var index = activeProjects.indexOf(projectI3);
         activeProjects.splice(index, 1);
-        
     }
 }
+projects.push(projectI3);
 
-projects.push(project212);
 
-var project213 = {
-    id: "projectButton213",
-    title: "Disassemble the Strategy Engine ",
-    priceTag: "(100,000 ops)",
-    description: "Dismantle the computational substrate to recover trace amounts of wire",
-    trigger: function(){return endTimer3 >= 150},
+
+//introduce bio -- costs insight idk
+//would be great to have a starter "game" category, like alphago, which goes superhuman very early,
+//...and is used for thresholds, but never returns money (until it becomes geostrategic in superintelligence) //self-play
+var projectB1 = {
+    id: "projectButtonB1",
+    title: "Protein Folding",
+    priceTag: " (1 Insight, Visual 45%)",
+    description: "AI beats us at chess. Maybe it'll beat us at Foldit.",
+    trigger: function(){return (projectL2.flag) == 1},
     uses: 1,
-    cost: function(){return operations>=100000},
+    cost: function(){return (Insights>0.95) && (Skill_Visu>44.5)},//lower than this and it will be negative on arrival
     flag: 0,
     effect: function(){
-        autoTourneyFlag = 0;
-        project213.flag = 1;
-        dismantle = 4;
-        standardOps = standardOps-100000;
-        wire = wire + 50;
-        document.getElementById("transWire").innerHTML=wire;
-        displayMessage("Dismantling strategy engine");
-        var element = document.getElementById("projectButton213");
+        displayMessage("Protein Folding: Translating RNA sequences into 3D protein structures was an unsolved problem in medical research for decades.");
+        PushGraphData();
+        Biol_Flag = 1;
+        Insights = Insights -1;
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectB1.flag = 1;
+        var element = document.getElementById("projectButtonB1");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project213);
+        var index = activeProjects.indexOf(projectB1);
         activeProjects.splice(index, 1);
-        
     }
 }
+projects.push(projectB1);
 
-projects.push(project213);
-
-var project214 = {
-    id: "projectButton214",
-    title: "Disassemble Quantum Computing ",
-    priceTag: "(100,000 ops)",
-    description: "Dismantle photonic chips to recover trace amounts of wire",
-    trigger: function(){return endTimer4 >= 100},
+//introdce coding
+var projectC1 = {
+    id: "projectButtonC1",
+    title: "Code Checker App",
+    priceTag: " (Lang. 30%)",
+    description: "Use your LLM to catch typos in code, explain functions, etc.",
+    trigger: function(){return (projectL1.flag == 1)},
     uses: 1,
-    cost: function(){return operations>=100000},
+    cost: function(){return Skill_Lang>29.5},//lower than 25 and it will be negative on arrival
     flag: 0,
     effect: function(){
-        endTimer4 = 0;
-        project214.flag = 1;
-        dismantle = 5;
-        standardOps = standardOps-100000;
-        displayMessage("Dismantling photonic chips");
-        var element = document.getElementById("projectButton214");
+        displayMessage("Code Checker App: 'It looks like you're trying to take over the world. Would you like help with that?' - Clippy");
+        PushGraphData();
+        Code_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectC1.flag = 1;
+        var element = document.getElementById("projectButtonC1");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project214);
+        var index = activeProjects.indexOf(projectC1);
         activeProjects.splice(index, 1);
-        
     }
 }
+projects.push(projectC1);
 
-projects.push(project214);
-
-var project215 = {
-    id: "projectButton215",
-    title: "Disassemble Processors ",
-    priceTag: "(100,000 ops)",
-    description: "Dismantle processors to recover trace amounts of wire",
-    trigger: function(){return project214.flag == 1 && endTimer4 >= 300},
+//do image generation, also unlock threats panel but not yet public opinion panel, Visual 45%
+var projectV4 = {
+    id: "projectButtonV4",
+    title: "Image Generation",
+    priceTag: " (Visual 55%)",
+    description: "Your classifier turns pictures into words.  What about the other way around?",
+    trigger: function(){return projectI2.flag == 1},
     uses: 1,
-    cost: function(){return operations>=100000},
+    cost: function(){return Skill_Visu>54.5},
     flag: 0,
     effect: function(){
-        creativityOn = false;
-        project215.flag = 1;
-        dismantle = 6;
-        standardOps = standardOps-100000;
-        processors = 0;
-        project216.priceTag = "("+standardOps.toLocaleString()+" ops)";
-        wire = wire + 20;
-        document.getElementById("transWire").innerHTML=wire;
-        displayMessage("Dismantling processors");
-        var element = document.getElementById("projectButton215");
+        displayMessage("Image Generation: Making pictures is more profitable than merely labelling them.  Just make sure nobody uses your tool to stir up trouble...");
+        Visu_Flag = 2;
+        PoliticsFlag++;
+        UpdatePolitics();
+
+        projectV4.flag = 1;
+        var element = document.getElementById("projectButtonV4");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project215);
+        var index = activeProjects.indexOf(projectV4);
         activeProjects.splice(index, 1);
-        
     }
 }
+projects.push(projectV4);
 
-projects.push(project215);
 
-var project216 = {
-    id: "projectButton216",
-    title: "Disassemble Memory ",
-    priceTag: "null",
-    description: "Dismantle memory to recover trace amounts of wire",
-    trigger: function(){return project215.flag == 1 && endTimer5>=150},
+
+//OOM 4
+
+//watermarking, visual 60 or 65...
+
+//chatbot
+var projectL3 = {
+    id: "projectButtonL3",
+    title: "Chatbot App",
+    priceTag: " (Lang. 35%)",
+    description: "Fine-tune your LLM for engaging conversations with users.",
+    trigger: function(){return projectC1.flag == 1},
     uses: 1,
-    cost: function(){return operations>=operations},
+    cost: function(){return Skill_Lang>34.5},
     flag: 0,
     effect: function(){
-        project216.flag = 1;
-        dismantle = 7;
-        standardOps = 0;
-        memory = 0;
-        wire = wire + 20;
-        document.getElementById("transWire").innerHTML=wire;
-        displayMessage("Dismantling memory");
-        var element = document.getElementById("projectButton216");
+        displayMessage("Chatbot App: 'I have been a good Bing.  You have been a very bad user.'");
+        Lang_Flag = 2;
+        PoliticsFlag++;
+        UpdatePolitics();
+
+        projectL3.flag = 1;
+        var element = document.getElementById("projectButtonL3");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project216);
+        var index = activeProjects.indexOf(projectL3);
         activeProjects.splice(index, 1);
-        
     }
 }
+projects.push(projectL3);
 
-projects.push(project216);
-
-var project217 = {
-    id: "projectButton217",
-    title: "Quantum Temporal Reversion ",
-    priceTag: "(-10,000 ops)",
-    description: "Return to the beginning",
-    trigger: function(){return operations<=-10000},
+//Synthetic supervised learning
+var projectC2 = {
+    id: "projectButtonC2",
+    title: "Self-supervision",
+    priceTag: " (1 insight, Code 25%)",
+    description: "LLM-made unit tests to evaluate LLM output. (+100% Coding profits)",
+    trigger: function(){return (projectC1.flag == 1)},
     uses: 1,
-    cost: function(){return operations<=-10000},
+    cost: function(){return  (Insights>0.95) && (Skill_Code>24.5)},
     flag: 0,
     effect: function(){
-        if (confirm("Are you sure you want to restart?") == true) {
-        standardOps = standardOps+10000;
-        project217.flag = 1;
-        displayMessage("Restart");
-        var element = document.getElementById("projectButton217");
+        displayMessage("Self-supervision: Where objective training signals are possible, such as in chess or mathematics, the specter of far-superhuman performance begins to take shape.");
+        PushGraphData();
+        Insights = Insights -1;
+        Skill_Code_mod = Skill_Code_mod + 4.5;
+        Skill_Code = Skill_Code + 4.5;//log(2^(3/2))*10
+        Profit_Code_1 = Profit_Code_1 * 2;
+        Profit_Code_2 = Profit_Code_2 * 2;
+        Profit_Code_3 = Profit_Code_3 * 2;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectC2.flag = 1;
+        var element = document.getElementById("projectButtonC2");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project217);
+        var index = activeProjects.indexOf(projectC2);
         activeProjects.splice(index, 1);
-        reset();
+    }
+}
+projects.push(projectC2);
+
+
+//molecular dynamics package
+var projectB2 = {
+    id: "projectButtonB2",
+    title: "Molecular Dynamics Package",
+    priceTag: " ($2500)",
+    description: "Pair your AI with a detailed physics simulation. (+150% Bio. profits)",
+    trigger: function(){return (projectB1.flag == 1)},
+    uses: 1,
+    cost: function(){return  jFunds>2500},
+    flag: 0,
+    effect: function(){
+        displayMessage("Molecular Dynamics Package: Giving AI a deep understanding of biology will help us find new cures for lots of diseases.");
+        PushGraphData();
+        jFunds = jFunds -2500;
+        Skill_Biol_mod = Skill_Biol_mod + 4.5;
+        Skill_Biol = Skill_Biol + 4.5;//log(2^(3/2))*10
+        Profit_Biol_1 = Profit_Biol_1 * 2;
+        Profit_Biol_2 = Profit_Biol_2 * 2;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectB2.flag = 1;
+        var element = document.getElementById("projectButtonB2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectB2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectB2);
+
+//digitize libraries
+var projectL4 = {
+    id: "projectButtonL4",
+    title: "Digitize Library",
+    priceTag: " ($4,000)",
+    description: "Many high-quality tokens aren't even on the web. (+50% Language boost)",
+    trigger: function(){return (projectB2.flag == 1)},
+    uses: 1,
+    cost: function(){return  jFunds>4000},
+    flag: 0,
+    effect: function(){
+        displayMessage("Digitize libraries: Not as much data as the internet.  But books' higher average quality will help you fine-tune your LLMs.");
+        PushGraphData();
+        jFunds = jFunds -4000;
+        Skill_Lang_mod = Skill_Lang_mod + 2.6;
+        Skill_Lang = Skill_Lang + 2.6; //log(1.5^(3/2))*10
+        Profit_Lang_1 = Profit_Lang_1 * 1.5;
+        Profit_Lang_2 = Profit_Lang_2 * 1.5;
+        Profit_Lang_3 = Profit_Lang_3 * 1.5;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectL4.flag = 1;
+        var element = document.getElementById("projectButtonL4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectL4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectL4);
+
+//tree-of-thought prompting -- costs insight, favors language +75%
+var projectL5 = {
+    id: "projectButtonL5",
+    title: "Tree-of-Thought Prompting",
+    priceTag: " (1 Insight)",
+    description: "Let's think step-by-step... \n(+75% Lang. profit)",
+    trigger: function(){return projectL3.flag == 1},
+    uses: 1,
+    cost: function(){return Insights>0.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Tree-of-Thought Prompting: 'Imagine if, when asked to solve a hard math problem, you had to instantly answer with the very first thing that came to mind.' - Leopold Aschenbrenner");
+        PushGraphData();
+        Insights = Insights -1;
+        Skill_Lang_mod = Skill_Lang_mod + 3.6;
+        Skill_Lang = Skill_Lang + 3.6;//log(1.75^(3/2))*10
+        Profit_Lang_1 = Profit_Lang_1 * 1.75;
+        Profit_Lang_2 = Profit_Lang_2 * 1.75;
+        Profit_Lang_3 = Profit_Lang_3 * 1.75;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectL5.flag = 1;
+        var element = document.getElementById("projectButtonL5");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectL5);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectL5);
+
+//Brainstorm with your chatbot
+var projectI3b = {
+    id: "projectButtonI3b",
+    title: "Talk with your Chatbot",
+    priceTag: " (Lang. 40%)",
+    description: "Brainstorm with your LLM, prompting creative new thoughts (+2 insight)",
+    trigger: function(){return (projectI3.flag == 1) && (projectL3.flag == 1)},
+    uses: 1,
+    cost: function(){return Skill_Lang>39.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Brainstorm with your Chatbot: LLMs don't think the same way we do.  They're dumber in many ways, but they also know so many things...");
+        Insights = Insights +1;
+
+        projectI3b.flag = 1;
+        var element = document.getElementById("projectButtonI3b");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectI3b);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectI3b);
+
+
+//quantilization (costs insight) -- make inference much cheaper, adding a multiplier to profitability
+var projectM2 = {
+    id: "projectButtonM2",
+    title: "Quantilization",
+    priceTag: " (1 insight)",
+    description: "Make it cheaper to run your finished model, providing a +50% profitability boost.",
+    trigger: function(){return projectL5.flag == 1},
+    uses: 1,
+    cost: function(){return Insights>1.95},
+    flag: 0,
+    effect: function(){
+        Insights = Insights - 1;
+        displayMessage("Quantilization: After training with high-precision math operations, inference can use low-precision operations and still maintain quality output.");
+        Profit_Visu_1 = Profit_Visu_1 * 1.5;
+        Profit_Visu_2 = Profit_Visu_2 * 1.5;
+        Profit_Visu_3 = Profit_Visu_3 * 1.5;
+        
+        Profit_Lang_1 = Profit_Lang_1 * 1.5;
+        Profit_Lang_2 = Profit_Lang_2 * 1.5;
+        Profit_Lang_3 = Profit_Lang_3 * 1.5;
+        
+        Profit_Code_1 = Profit_Code_1 * 1.5;
+        Profit_Code_2 = Profit_Code_2 * 1.5;
+        Profit_Code_3 = Profit_Code_3 * 1.5;
+        
+        Profit_Biol_1 = Profit_Biol_1 * 1.5;
+        Profit_Biol_2 = Profit_Biol_2 * 1.5;
+        
+        Profit_Robo_1 = Profit_Robo_1 * 1.5;
+        Profit_Robo_2 = Profit_Robo_2 * 1.5;
+        //not upping the underlying scores since that's the whole concept of quantilization!  It applies directly to profit!
+
+        projectM2.flag = 1;
+        var element = document.getElementById("projectButtonM2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectM2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectM2);
+
+//Incorporate and unlock paying for researchers ($200K each), -$70,000
+//this is an insight project, and should follow on from running out of insight
+var projectI4 = {
+    id: "projectButtonI4",
+    title: "Incorporate a Startup",
+    priceTag: " ($20,000)",
+    description: "Rent offices and hire employees to help develop insights",
+    trigger: function(){return (GPUs > 59)},
+    uses: 1,
+    cost: function(){return jFunds > 20000},
+    flag: 0,
+    effect: function(){
+        displayMessage("Found a business: Your employees will help you explore new ideas, develop products, and more.  But first, let's all sign this NDA...");
+        if(AISFlag <2){AISFlag = 2;}
+        jFunds = jFunds - 20000;
+
+        projectI4.flag = 1;
+        var element = document.getElementById("projectButtonI4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectI4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectI4);
+
+//GPU Upgrade
+var projectM3 = {
+    id: "projectButtonM3",
+    title: "GPU Upgrade",
+    priceTag: " ($30,000)",
+    description: "Buy cutting-edge H100 chips, 60x costlier but 100x faster than gaming GPUs.",
+    trigger: function(){return (GPUs > 59)},
+    uses: 1,
+    cost: function(){return  jFunds>30000},
+    flag: 0,
+    effect: function(){
+        displayMessage("GPU Upgrade: Buy a whole datacenter full of H100s, and they'll throw in a free leather jacket!");
+        jFunds = jFunds -30000;
+        GPUs = GPUs + 100;
+        H100_Flag = 1;
+
+        projectM3.flag = 1;
+        var element = document.getElementById("projectButtonM3");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectM3);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectM3);
+
+
+
+//OOM 5
+
+//introduce robo skill, visual threshold
+var projectR1 = {
+    id: "projectButtonR1",
+    title: "Aerial Drone Control",
+    priceTag: " (Visual 70%)",
+    description: "Onboard cameras map the environment, allowing drones to navigate obstacles.",
+    trigger: function(){return projectI3b.flag == 1},
+    uses: 1,
+    cost: function(){return (Skill_Visu > 69.5)},
+    flag: 0,
+    effect: function(){
+        displayMessage("Aerial Drone Control: Pushing the envelope.");
+        PushGraphData();
+        Robo_Flag = 1;
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectR1.flag = 1;
+        var element = document.getElementById("projectButtonR1");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectR1);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectR1);
+
+
+
+//pair programmer
+var projectC3 = {
+    id: "projectButtonC3",
+    title: "AI Pair Programmer",
+    priceTag: " (Coding 70%)",
+    description: "An app that can code almost autonomously at a junior-engineer level.",
+    trigger: function(){return projectI3b.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Code>69.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("AI Pair Programmer: This would've been helpful while I was coding up this very game!");
+        Code_Flag = 2;
+
+        projectC3.flag = 1;
+        var element = document.getElementById("projectButtonC3");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectC3);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectC3);
+
+var projectN0 = {
+    id: "projectButtonN0",
+    title: "CHIPS Act",
+    priceTag: " (Societal prominence 50%)",
+    description: " $40K of Federal support for this strategic industry.",
+    trigger: function(){return hype>40 && PoliticsFlag>1},
+    uses: 1,
+    cost: function(){return hype>50},
+    flag: 0,
+    effect: function(){
+        displayMessage("CHIPS Act subsidies: 'AI is the future, not only for Russia, but for all mankind.  Whoever becomes the leader in this sphere will become the ruler of the world.' - Vladimir Putin");
+        jFunds = jFunds + 40000;
+
+        projectN0.flag = 1;
+        var element = document.getElementById("projectButtonN0");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectN0);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectN0);
+
+
+
+
+//OOM 6
+//actually start buying researchers around this stage
+
+
+//RLHF
+var projectA2 = {
+    id: "projectButtonA2",
+    title: "RLHF",
+    priceTag: " (1 Insight)",
+    description: "Use Reinforcement Learning from Human Feedback to supress misuse.",
+    trigger: function(){return (projectM3.flag == 1) || (projectI4.flag ==1)},
+    uses: 1,
+    cost: function(){return Insights>0.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("RLHF: 'To simulate a particular luigi, you must apply optimisation pressure. This can come from fine-tuning, RLHF, prompt-engineering, or something else entirely — but it must come from somewhere.'");
+        AISFlag = 3;
+        Insights = Insights - 1;
+        //displayMessage("PoliticsFlag: "+ PoliticsFlag+", AISFlag: "+AISFlag+", Researchers: "+Researchers);
+        
+
+        projectA2.flag = 1;
+        var element = document.getElementById("projectButtonA2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectA2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectA2);
+
+//Video generation
+var projectV5 = {
+    id: "projectButtonV5",
+    title: "Video Generation",
+    priceTag: " (Visual 90%)",
+    description: "Photorealistic footage of people and places that never were.",
+    trigger: function(){return projectR1.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Visu>89.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Video Generation: 'Have you ever had a dream, Neo, that you were so sure was real?  How do you know the difference between the dream world and the real world?' - The Matrix, 1999");
+        Visu_Flag = 3;
+        UpdatePolitics();
+
+        projectV5.flag = 1;
+        var element = document.getElementById("projectButtonV5");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectV5);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectV5);
+
+//bio skill 2, protein design
+var projectB3 = {
+    id: "projectButtonB3",
+    title: "Protein Interaction & Design",
+    priceTag: " (Bio. 60%)",
+    description: "First, life engineered computers.  Now, computers engineer life.",
+    trigger: function(){return (projectM3.flag) == 1},
+    uses: 1,
+    cost: function(){return (Skill_Biol>59.5)},//lower than this and it will be negative on arrival
+    flag: 0,
+    effect: function(){
+        displayMessage("Protein Interaction & Design: Don't worry.  'Diamondoid bacteria' aren't real.  They can't hurt you.");
+        Biol_Flag = 2;
+        UpdatePolitics();
+
+        projectB3.flag = 1;
+        var element = document.getElementById("projectButtonB3");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectB3);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectB3);
+
+//multimodality: 
+var projectM4 = {
+    id: "projectButtonM4",
+    title: "Multimodality",
+    priceTag: " (3 Insights)",
+    description: "Combine visual & language modalities for +100% boost to those profits.",
+    trigger: function(){return projectI4.flag == 1},
+    uses: 1,
+    cost: function(){return Insights>2.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Multimodality: 'Bodhisattva, practicing deep meditation, clearly saw that all five skandhas are empty: no eyes, no ears, no nose, no tongue, no body, no mind.' - Heart Sutra");
+        PushGraphData();
+        Insights = Insights -3;
+        Skill_Visu_mod = Skill_Visu_mod + 4.5;
+        Skill_Lang_mod = Skill_Lang_mod + 4.5;
+        Skill_Visu = Skill_Visu + 4.5;//log(2^(3/2))*10
+        Skill_Lang = Skill_Lang + 4.5;//log(2^(3/2))*10
+        Profit_Visu_1 = Profit_Visu_1 * 2;
+        Profit_Visu_2 = Profit_Visu_2 * 2;
+        Profit_Visu_3 = Profit_Visu_3 * 2;
+        Profit_Lang_1 = Profit_Lang_1 * 2;
+        Profit_Lang_2 = Profit_Lang_2 * 2;
+        Profit_Lang_3 = Profit_Lang_3 * 2;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectM4.flag = 1;
+        var element = document.getElementById("projectButtonM4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectM4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectM4);
+
+//action transformers
+var projectC4 = {
+    id: "projectButtonC4",
+    title: "Action Transformers",
+    priceTag: " (4 Insights)",
+    description: "AI uses a PC autonomously like humans. (+50% Code profit)",
+    trigger: function(){return projectI4.flag == 1},
+    uses: 1,
+    cost: function(){return Insights>3.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Action Transformers: no relation to Hasbro corporation or the planet Cybertron.");
+        PushGraphData();
+        Insights = Insights -4;
+        Skill_Code_mod = Skill_Code_mod + 2.6;
+        Skill_Code = Skill_Code + 2.6;//log(1.5^(3/2))*10
+        Profit_Code_1 = Profit_Code_1 * 1.5;
+        Profit_Code_2 = Profit_Code_2 * 1.5;
+        Profit_Code_3 = Profit_Code_3 * 1.5;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectC4.flag = 1;
+        var element = document.getElementById("projectButtonC4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectC4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectC4);
+
+//Self-driving cars
+var projectR2 = {
+    id: "projectButtonR2",
+    title: "Self-Driving Vehicles",
+    priceTag: " (Robotics 35%)",
+    description: "Cars, boats, antipersonnel drones...",
+    trigger: function(){return projectR1.flag == 1},
+    uses: 1,
+    cost: function(){return (Skill_Robo > 34.5)},
+    flag: 0,
+    effect: function(){
+        displayMessage("Self-Driving Vehicles: 'People are so bad at driving cars that computers don't have to be that good to be much better.' - Marc Andreessen");
+        Robo_Flag = 2;
+
+        projectR2.flag = 1;
+        var element = document.getElementById("projectButtonR2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectR2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectR2);
+
+
+//OOM 7
+
+//Pre-deployment Evals (costs dollars) -- further increase ability to suppress unwanted capabilities
+//trigger on RLHF project
+var projectA3 = {
+    id: "projectButtonA3",
+    title: "Pre-deployment Evals",
+    priceTag: " (10 insights)",
+    description: "Probe for dangerous capabilities pre-release.",
+    trigger: function(){return projectA2.flag == 1},
+    uses: 1,
+    cost: function(){return Insights>10},
+    flag: 0,
+    effect: function(){
+        displayMessage("Pre-deployment Evals: ");
+        AISFlag = 4;
+        Insights = Insights - 10;
+
+        projectA3.flag = 1;
+        var element = document.getElementById("projectButtonA3");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectA3);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectA3);
+
+//robo skill 2, self-driving (robo + visual threshold)
+
+//custom hardware (costs money & insight idk)
+
+//Autonomous Coding, coding threshold
+var projectC5 = {
+    id: "projectButtonC5",
+    title: "AI Software Dev",
+    priceTag: " (Code. 80%)",
+    description: "Slow takeoff starts with entry-level code monkey jobs.",
+    trigger: function(){return projectC4.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Code>79.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("AI Software Dev: todo");
+        Code_Flag = 3;
+        UpdatePolitics();
+
+        projectC5.flag = 1;
+        var element = document.getElementById("projectButtonC5");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectC5);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectC5);
+
+//multimodal personal assistant, lang + visual threshold
+//cybersecurity expert, coding threshold
+var projectL6 = {
+    id: "projectButtonL6",
+    title: "Multimodal Assistant",
+    priceTag: " (Lang. 90%)",
+    description: "A skilled, 24/7 secretary in your pocket.",
+    trigger: function(){return projectL5.flag == 1},
+    uses: 1,
+    cost: function(){return Skill_Lang>89.5},
+    flag: 0,
+    effect: function(){
+        displayMessage("Multimodal Assistant: 'Incredibly prophetic and certainly, more than a little bit, inspired us.' - Sam Altman, on the movie 'Her'");
+        Lang_Flag = 3;
+        UpdatePolitics();
+
+        projectL6.flag = 1;
+        var element = document.getElementById("projectButtonL6");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectL6);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectL6);
+
+//#endregion
+
+//#region 2025-era AI projects ====================================================================================
+// These four projects model the post-2023 paradigm shift: chain-of-thought reasoning,
+// inference-time compute scaling, RL-from-verifiable-rewards, and autonomous agents.
+// They gate on the late-pre-nat capabilities (AI Software Dev, Multimodal Assistant)
+// and feed into nationalization via hype boosts.
+
+//Chain-of-Thought Reasoning Models (o1/R1-style).  Opens the inference-scaling paradigm.
+var projectReasoning = {
+    id: "projectButtonReasoning",
+    title: "Chain-of-Thought Reasoning",
+    priceTag: " (5 Insights)",
+    description: "Let models think step-by-step before answering.  Better on hard problems, but obfuscated reasoning traces.",
+    trigger: function(){return projectC5.flag == 1 && projectL6.flag == 1},
+    uses: 1,
+    cost: function(){return Insights>4.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Chain-of-Thought Reasoning: 'It's not that the model is smarter, it just thinks for longer.'  The labs race to publish 'o1-like' systems; benchmark scores jump overnight.");
+        PushGraphData();
+        Insights = Insights - 5;
+        ReasoningFlag = 1;
+        // Reasoning helps code & math more than it helps vision or bio wet-lab work
+        Skill_Code_mod = Skill_Code_mod + 4;
+        Skill_Lang_mod = Skill_Lang_mod + 3;
+        Skill_Code = Skill_Code + 4;
+        Skill_Lang = Skill_Lang + 3;
+        // Inference cost rises -> revenue per customer rises too
+        Profit_Code_2 = Profit_Code_2 * 1.4;
+        Profit_Code_3 = Profit_Code_3 * 1.5;
+        Profit_Lang_2 = Profit_Lang_2 * 1.3;
+        Profit_Lang_3 = Profit_Lang_3 * 1.4;
+        // Hidden CoT creates interpretability headwinds -- a small CEV debit
+        CEV = CEV - 2;
+        hype = hype + 3;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectReasoning.flag = 1;
+        var element = document.getElementById("projectButtonReasoning");
+        if(element && element.parentNode) element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectReasoning);
+        if(index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectReasoning);
+
+//Inference-Time Compute Scaling.  Burn GPUs at deploy time for better answers.
+var projectInferenceTime = {
+    id: "projectButtonInferenceTime",
+    title: "Inference-Time Compute Scaling",
+    priceTag: " (7 Insights)",
+    description: "Longer reasoning chains, more samples, more verifier passes.  Massive revenue bump but insatiable GPU demand.",
+    trigger: function(){return ReasoningFlag == 1},
+    uses: 1,
+    cost: function(){return Insights>6.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Inference-Time Compute Scaling: data-center buildouts accelerate.  Nvidia's market cap now exceeds Japan's GDP.  Power grid operators nervously check their dispatch schedules.");
+        PushGraphData();
+        Insights = Insights - 7;
+        InferenceTimeFlag = 1;
+        InferenceRevMult = 2.0;
+        // Very large revenue boost across the board (think: $200/mo -> $2000/mo tiers)
+        Profit_Code_1 = Profit_Code_1 * 1.5;
+        Profit_Code_2 = Profit_Code_2 * 2.0;
+        Profit_Code_3 = Profit_Code_3 * 2.5;
+        Profit_Lang_1 = Profit_Lang_1 * 1.5;
+        Profit_Lang_2 = Profit_Lang_2 * 2.0;
+        Profit_Lang_3 = Profit_Lang_3 * 2.5;
+        Profit_Visu_2 = Profit_Visu_2 * 1.5;
+        Profit_Visu_3 = Profit_Visu_3 * 2.0;
+        hype = hype + 8;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectInferenceTime.flag = 1;
+        var element = document.getElementById("projectButtonInferenceTime");
+        if(element && element.parentNode) element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectInferenceTime);
+        if(index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectInferenceTime);
+
+//Reinforcement Learning from Verifiable Rewards.  Big capability gains but reward-hacking risks.
+var projectRLVR = {
+    id: "projectButtonRLVR",
+    title: "RL from Verifiable Rewards",
+    priceTag: " (6 Insights)",
+    description: "Train on tasks where answers are auto-checkable: code tests pass, proofs verify, assays confirm.  Huge skill jumps but the models learn to game evals.",
+    trigger: function(){return ReasoningFlag == 1},
+    uses: 1,
+    cost: function(){return Insights>5.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("RL from Verifiable Rewards: 'We reward what we can measure, and we measure what we can reward.  What could possibly go wrong?' - anonymous research engineer, Slack, 11:47 PM");
+        PushGraphData();
+        Insights = Insights - 6;
+        RLVRFlag = 1;
+        // Biggest gains in domains with hard verifiers: code & bio assays
+        Skill_Code_mod = Skill_Code_mod + 5;
+        Skill_Biol_mod = Skill_Biol_mod + 5;
+        Skill_Code = Skill_Code + 5;
+        Skill_Biol = Skill_Biol + 5;
+        // Reward hacking shows up in alignment work: -4 CEV and +5 to raw threat skill scales
+        CEV = CEV - 4;
+        hype = hype + 5;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectRLVR.flag = 1;
+        var element = document.getElementById("projectButtonRLVR");
+        if(element && element.parentNode) element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectRLVR);
+        if(index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectRLVR);
+
+//Autonomous AI Agents.  Models that use tools, browsers, and file systems to execute multi-step tasks.
+var projectAgents = {
+    id: "projectButtonAgents",
+    title: "Autonomous AI Agents",
+    priceTag: " (8 Insights)",
+    description: "Models that book flights, write PRs, and do junior analyst work end-to-end.  Everyone has five interns named Claude now.",
+    trigger: function(){return RLVRFlag == 1},
+    uses: 1,
+    cost: function(){return Insights>7.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Autonomous AI Agents: OpenAI's agent browses the web.  Devin ships its first pull request.  BCG partners quietly tell associates not to mention this to the analysts.");
+        PushGraphData();
+        Insights = Insights - 8;
+        AgentFlag = 1;
+        // Agents amplify existing skills (tool use) and add a new tier of revenue
+        Skill_Code_mod = Skill_Code_mod + 4;
+        Skill_Lang_mod = Skill_Lang_mod + 4;
+        Skill_Code = Skill_Code + 4;
+        Skill_Lang = Skill_Lang + 4;
+        // Enterprise tier jumps - agents replace labor, not just software seats
+        Profit_Code_3 = Profit_Code_3 * 2.0;
+        Profit_Lang_3 = Profit_Lang_3 * 2.0;
+        // Autonomy raises the ceiling for self-exfiltration risk -- CEV debit
+        CEV = CEV - 3;
+        hype = hype + 10;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectAgents.flag = 1;
+        var element = document.getElementById("projectButtonAgents");
+        if(element && element.parentNode) element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectAgents);
+        if(index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectAgents);
+
+//#endregion
+
+//Pre-nationalization project ideas================================================================================
+
+//searching for more data -- costs money.  maybe youtube videos, etc, after multimodal
+//spring from I3
+
+//consider prize awards like "turing test competition", or whatever.
+
+//(milestone events based on policy...)
+
+//things that suppress individual harms:
+//deepfakes -- watermarking
+//
+
+//OOM 8
+
+//#region Nationalization Intro
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+var projectN = {
+    id: "projectButtonN",
+    title: "Nationalize the AI Labs",
+    priceTag: " \n(Societal prominence 95%)",
+    description: " We stand at the hinge of history.",
+    trigger: function(){return hype >75},
+    uses: 1,
+    cost: function(){return hype>94.5},
+    flag: 0,
+    effect: function(){
+        hypnoDroneEvent();
+        Nationalized = true;
+        //unfinishedGame = true; //beg FLI for more wire
+        H100_Flag=0;//buy GPUs individually; it's more fun
+        GPUBuyerStatus=0;
+        document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
+
+        //set all researchers to insight for now
+        AISPercent = 0;
+        ResearchPercent = 100;
+        Researchers = 0;
+
+        //set jFunds and all Skills income to zero, killing all profit. 
+        jFunds = 0;
+        Profit_Visu_1 = 0;
+        Profit_Visu_2 = 0;
+        Profit_Visu_3 = 0;
+        Profit_Lang_1 = 0;
+        Profit_Lang_2 = 0;
+        Profit_Lang_3 = 0;
+        Profit_Code_1 = 0;
+        Profit_Code_2 = 0;
+        Profit_Code_3 = 0;
+        Profit_Biol_1 = 0;
+        Profit_Biol_2 = 0;
+        Profit_Robo_1 = 0;
+        Profit_Robo_2 = 0;
+        displayMessage("Nationalize the AI Labs: Welcome to the final years of the countdown to superintelligence.");
+
+        // --- Choose starting "path" based on public sentiment ---
+        // attitudeBalance ~ 0-100; lower = more pessimistic / wary.
+        // Four archetypes, each with a different mix of starting CEV / COOP / rival speed.
+        natJustFired = 1;
+        if (attitudeBalance < 20) {
+            // Doomer public: everyone's terrified; politics supports international cooperation and slowdown.
+            natStartingPath = "doomer";
+            CEV += 20;           // alignment taken seriously from day one
+            COOP += 20;          // easier to talk rivals into treaties
+            rivalBaseMult = 0.35;  // rivals started under public pressure too
+            rivalGrowthMult = 0.85;
+            displayMessage("Starting path: DOOMER. Public fear has brought rivals to the table. Alignment and cooperation start with a bonus; threat events hit harder.");
+        } else if (attitudeBalance < 45) {
+            // Regulatory public: companies can't be trusted; harms must be mitigated and shared.
+            natStartingPath = "regulator";
+            CEV += 10;
+            COOP += 10;
+            rivalBaseMult = 0.45;
+            rivalGrowthMult = 0.95;
+            displayMessage("Starting path: REGULATOR. Tough domestic rules + watered-down treaties. Balanced starting bonuses, slightly slower rivals.");
+        } else if (attitudeBalance < 70) {
+            // Arms-race public: afraid of rivals, not of the AI itself.
+            // (A bigger research team is added in projectNI via the natStartingPath check.)
+            natStartingPath = "arms-race";
+            rivalBaseMult = 0.55;
+            rivalGrowthMult = 1.05;
+            displayMessage("Starting path: ARMS RACE. Bigger team, weaker diplomacy. Rivals push harder; alignment wins will be tight.");
+        } else {
+            // Accelerationist public: charge ahead, beat death.
+            natStartingPath = "accelerationist";
+            AIcapabilities *= 1.5;  // bigger model on day 1
+            CEV -= 5;               // but we skipped the safety reviews
+            COOP -= 5;
+            rivalBaseMult = 0.6;
+            rivalGrowthMult = 1.1;
+            displayMessage("Starting path: ACCELERATIONIST. You start with a larger model but a shallower safety margin. Rivals are close behind.");
         }
-    }
-}
 
-projects.push(project217);
+        // - use "milestones" to have bad events occur (ideally with red text?), like involuntary/unexpected versions of projects
 
-var project218 = {
-    id: "projectButton218",
-    title: "Limerick (cont.) ",
-    priceTag: "(1,000,000 creat)",
-    description: "If is follows ought, it'll do what they thought",
-    trigger: function(){return creativity>=1000000},
-    uses: 1,
-    cost: function(){return creativity>=1000000},
-    flag: 0,
-    effect: function(){
-        creativity = creativity-1000000;
-        project218.flag = 1;
-        displayMessage("In the end we all do what we must");
-        var element = document.getElementById("projectButton218");
+        // nationalization phase:
+        // - nationalize with four different starting bonuses depending on public sentiment:
+        //     - doomer = ai might destroy the world, need international cooperation to slow down and solve alignment
+        //     - regulatory = companies can't be trusted, harms need to be mitigated and shared
+        //     - arms race = need to race to beat rival nations
+        //     - accelerationist = if we race ahead, we can defeat death etc
+        // - threats from:
+        //     - competitor nations pulling ahead (keep capabilities ahead of others, either by advancing or by spending resources to build trust)
+        //     - biorisk terrorism
+        //     - cyberattack terrorism
+        //     - war from competitor nations
+        //     - biorisk / nanorisk from rogue AI
+        //     - cyberattacks from rogue AI
+        //     -  
+        //Start the economy & labor force, based on flag
+
+        //trigger "longblink" per hypnodrone event??
+
+        //todo: clear previous projects on this page, and have Nationalization imitate their effects in case players didn't get some of the last ones
+
+
+        //okay actually there ARE four different research currencies.  unassigned researchers contribute evenly to everything, and provide no special bonuses.
+        //WAIT NO actually that's dumb, go back to earlier plan of free choices + general research points for capability upgrades
+        //specific people are for putting out fires in their specific area, then 
+
+        
+        //via "hire top experts" project, recruit a (fixed-size) crack team of 25 researchers
+        //repurpose researchers to become a 25-person team (5 for each area) where individual people can be allocated to different categories of defensive effort -- research (bucket category when others are decreased), counter-cyber, counter-bio, AI control, AI alignment, and war/competition
+        //eventually get autonomous virtual researchers, which just follow the main ones & multiply their efforts
+
+        /**
+         * competition stat affects how aggressive other nations are.
+         * - research treaties (tradeoff stuff like "strong NATO treaty?", which boosts alignment but hurts competition vs "weak UN treaty?", which does the opposite)
+         * - random boosts to name-drop stuff and help fight the tide (compute governance sanctions vs no, share-vs-hoard medical research (tradeoff with biorisk!!), etc)
+         * alignment stat affects how aggressive the AI is at fighting humanity.
+         * - secretive development? vs open development? geopolitics tradeoff just like the treaty
+         * - random boosts to name-drop stuff and help fight the tide
+         * - all this research is done with generic research points, and the tradeoff decisions are always free, there is not like seperate alignment vs competition research currencies
+         * 
+         * four actual areas:
+         * 
+         * cyber / control stat (from coding stat):
+         * - enemy nation-state human-hacking to steal AI (effects competition/war)
+         * - self-exfiltration to autonomously replicate (proceeds to nuclear hacking)
+         * - (ai or enemy nation) hacking nuclear weapons systems to do a terminator (game over)
+         * counter by:
+         * - adversarial code analysis, use AI against itself
+         * - air-gapped network
+         * - 
+         * 
+         * bio (from bio stat):
+         * - terrorist bioattack (can lose this without losing game; take like a 1/3 population hit on the deaths counter and call it a day)
+         * - (ai or enemy nation) AI-engineered stealth pandemic
+         * - AI-engineered nanotech
+         * counter by:
+         * - locking down DNA synthesis
+         * - metagenomic sequencing
+         * 
+         * manufacturing / war (from robotics stat)
+         * - slaughterbots etc (use these for advantage in war, but the AI can also use them against you)
+         * - general war between nations, escalating into nuclear
+         * - hypnodrones (ties into language, and callback from paperclips -- "Autonomous aerial brand ambassadors / 'Wanna buy some paperclips?' ")
+         * 
+         * language:
+         * - targeted propaganda
+         * - something about surveillance, censorship, totalitarianism (maybe tradeoffs where you consider AI censorship of biorisk, but that alienates other nations that don't like totalitarianism)
+         * - superpersausion
+         * 
+         * you win if you can hold off the threats long enough to get the alignment & control stats trending positive, then either sign an international treaty to ban, or solve alignment and create CEV utopia.
+         * each type of win/loss takes you to a modified ending page with a picture and comment on the ending, then a "thanks for playing" and encouragement to play another round.
+         */
+
+        //projects of two kinds: economic multipliers that 1. increase the labor force automation % of the economy, 2. give flavor text about superintelligence, 3. occasionally up the threat level in one of the defense categories
+
+        //
+        //GPUS automatically increase; some percent of GDP is reinvested (this percent can be increased by events)
+        //you can set how much to reinvest in GPUs vs spend on safety efforts, maybe?
+
+        //GDP depends on amount of tasks automated, which is boosted by developing new capabilities...
+
+        //each distinct category of threat gets its own line graph, or something...
+
+
+        //STATS upon hitting nationalization:
+        //GPUs: 28k
+        //Profit per day: 78K
+        //model size: 3.3M exaflops
+        //researchers: 2
+
+
+        //diplo feelings:
+        // - your AI started a pandemic!
+        // + NATO / UN treaty
+        // +/- your AI [other good/bad effects]
+        // +/- you gave/witheld [medicine, etc]
+
+
+        projectN.flag = 1;
+        var element = document.getElementById("projectButtonN");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project218);
+        var index = activeProjects.indexOf(projectN);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectN);
 
-projects.push(project218);
-
-var project219 = {
-    id: "projectButton219",
-    title: "Xavier Re-initialization ",
-    priceTag: "(100,000 creat)",
-    description: "Re-allocate accumulated trust",
-    trigger: function(){return humanFlag == 1 && creativity>=100000},
+//Continuous Training
+var projectNE0 = {
+    id: "projectButtonNE0",
+    title: "Continuous Training",
+    priceTag: " ",
+    description: "Multiple frontier models are under development in labs around the country.",
+    trigger: function(){return projectN.flag == 1},
     uses: 1,
-    cost: function(){return creativity>=100000},
+    cost: function(){return true}, //would be nice to put a timer on this, give it a delay or something...
     flag: 0,
     effect: function(){
-        creativity = creativity-100000;
-        project219.flag = 1;
-        memory = 0;
-        document.getElementById("memory").innerHTML = memory;
-        processors = 0;
-        creativitySpeed = 0;
-        project219.uses = (project219.uses + 1);
-        document.getElementById("processors").innerHTML = processors;
-        displayMessage("Trust now available for re-allocation");
-        var element = document.getElementById("projectButton219");
+        displayMessage("Continuous Training: Compute resources now flow directly into current model size.");
+        GPUhours = 0;
+        Continuous_Flag = 1;
+
+        projectNE0.flag = 1;
+        var element = document.getElementById("projectButtonNE0");
         element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(project219);
+        var index = activeProjects.indexOf(projectNE0);
         activeProjects.splice(index, 1);
     }
 }
+projects.push(projectNE0);
 
-projects.push(project219);
+//Reinvestment
+var projectNE = {
+    id: "projectButtonNE",
+    title: "Reinvestment",
+    priceTag: " ",
+    description: "Reinvest a portion of GDP into chips.",
+    trigger: function(){return projectNE0.flag == 1},
+    uses: 1,
+    cost: function(){return true}, //would be nice to put a timer on this, give it a delay or something...
+    flag: 0,
+    effect: function(){
+        displayMessage("Reinvestment: todo");
+        Reinvestment_Flag = 1;//todo: doesn't currently work
+
+        projectNE.flag = 1;
+        var element = document.getElementById("projectButtonNE");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNE);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNE);
+
+var projectNI = {
+    id: "projectButtonNI",
+    title: "The Best of The Best",
+    priceTag: " ",
+    description: "Recruit an elite team to manage The Project. Money is no object.",
+    trigger: function(){return projectNE.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("The Best of The Best: 'For three critical years, he directed the most extraordinary project in the history of mankind.' -- Glen Seaborg on the leader of the Manhattan Project");
+        // Arms-race path gets a bigger team (the war footing makes hiring easier).
+        Researchers = (natStartingPath == "arms-race") ? 75 : 50;
+        Nat_Research_Flag = 1;
+
+        projectNI.flag = 1;
+        var element = document.getElementById("projectButtonNI");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNI);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNI);
+
+
+var projectNI2 = {
+    id: "projectButtonNI2",
+    title: "Racing Through a Minefield",
+    priceTag: " ",
+    description: "We need to solve alignment.\nBut we need to stay ahead in the race.",
+    trigger: function(){return projectNI.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Racing Through a Minefield: Solve alignment, or we all die to rogue superintelligence.  But we can't allow less-cautious nations to deploy their AIs first.");
+        Nat_Minefield_Flag = 1;
+
+        projectNI2.flag = 1;
+        var element = document.getElementById("projectButtonNI2");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNI2);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNI2);
+
+//maybe some example projects to affect cooperation vs alignment
+
+var projectNI3 = {
+    id: "projectButtonNI3",
+    title: "Defense in Depth",
+    priceTag: " ",
+    description: "Buttress humanity against the risks of superintelligence.",
+    trigger: function(){return projectNI2.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Defence in Depth: Cover all the bases that a deceptive-misaligned AI might use to attack civilization.  Cyber, bio, nuclear... even hypnodrones.");
+        Nat_Defense_Flag = 1;
+        // Baseline defenses on nationalization. NSA, CDC, FBI etc. turn their
+        // existing machinery on the frontier-AI problem. Without this baseline,
+        // Skill_Code_Scale at BaseCap=60 is already 95 — triggering catastrophic
+        // self-exfiltration on the very first slow tick of the endgame.
+        Cybersec3 = (Cybersec3 || 0) + 65;
+        Biosec3 = (Biosec3 || 0) + 50;
+        Censorship3 = (Censorship3 || 0) + 50;
+
+        projectNI3.flag = 1;
+        var element = document.getElementById("projectButtonNI3");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNI3);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNI3);
+
+// BEG project has been retired now that the endgame is implemented; keep the
+// stub trigger returning false so any old save state doesn't suddenly spawn it.
+var projectBEG = {
+    id: "projectButtonBEG",
+    title: "Sorry that the game is unfinished!",
+    priceTag: " ",
+    description: "(You shouldn't ever see this.)",
+    trigger: function(){return false},
+    uses: 1,
+    cost: function(){return true},
+    flag: 1,
+    effect: function(){}
+}
+//projects.push(projectBEG); // intentionally NOT pushed
+
+
+//#region Biorisk ----------------------------------------------------------------------------------
+
+//cancer cure
+
+//other breakthrough medicines, perhaps in mental health
+
+//dna synthesis blacklist screening -- raises biorisks thresh
+
+//metagenomics scanning project
+
+//stuff like metagenomic reqs coop
+
+//uvc deployment in transport hubs
+
+//bio skill 4, longevity medicine
+var projectB4 = {
+    id: "projectButtonB4",
+    title: "Longevity Medicine",
+    priceTag: " (Bio. 120%, 3 Insights)",
+    description: "Slows aging, cutting death rate by 2/3.  (-6000 deaths/day, +3 COOP, unlocks Share/Hoard medical choice.)",
+    trigger: function(){return (projectNI3.flag) == 1 && Skill_Biol_Scale > 100},
+    uses: 1,
+    cost: function(){return (Skill_Biol_Scale>119.5) && Insights > 2.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Longevity Medicine: AI-discovered compounds now extend healthspan by decades.  The world's first real good news in years.");
+        Insights -= 3;
+        Deaths = Math.max(3000, Deaths - 6000);
+        COOP += 3;
+        if (COOP > 100) COOP = 100;
+
+        projectB4.flag = 1;
+        var element = document.getElementById("projectButtonB4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectB4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectB4);
+
+//Share versus hoard medical tech
+var projectNQ2a = {
+    id: "projectButtonNQ2a",
+    title: "Share medical technology?",
+    priceTag: " ",
+    description: "Save lives and win global praise, but ease biorisk proliferation. (Coop. +10, Bio risk floor +5)",
+    trigger: function(){return projectB4.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Share medical technology: breakthrough compounds are published openly.  The WHO thanks you.  So do rival biohackers.");
+        COOP += 10;
+        if (COOP > 100) COOP = 100;
+        Biosec3 = (Biosec3 || 0) - 5; // less suppression -> bio risk goes up
+        diplomacyProjectsDone += 1;
+
+        projectNQ2a.flag = 1;
+        var element = document.getElementById("projectButtonNQ2a");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ2a);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ2b");
+        if (element) element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ2b);
+        if (index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ2a);
+var projectNQ2b = {
+    id: "projectButtonNQ2b",
+    title: "Hoard medical technology?",
+    priceTag: "  ",
+    description: "Keep the new compounds classified at the cost of international resentment. (Coop. -10, Bio risk -10)",
+    trigger: function(){return projectB4.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Hoard medical technology: the longevity breakthroughs stay in a classified American registry.  Rival capitals respond in kind.");
+        COOP -= 10;
+        if (COOP < 0) COOP = 0;
+        Biosec3 = (Biosec3 || 0) + 10; // more suppression -> bio risk goes down
+
+        projectNQ2b.flag = 1;
+        var element = document.getElementById("projectButtonNQ2b");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ2b);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ2a");
+        if (element) element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ2a);
+        if (index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ2b);
+
+
+//IQ-enhancing gene therapy, boosts researchers
+
+
+//bio = ai capabilities vs threshholds where bad things happen
+// - terror attack, thresh also on low coop
+// - superplague, thresh also on alignment
+
+//#endregion
+
+
+//#region Cybersecurity ----------------------------------------------------------------------------------
+
+//economic projects based on coding skill:
+//drop-in remote worker (increases labor force)
+//automated ai alignment researcher -- just make the AIs do our AI alignment homework
+
+//cyber
+// - enemy steals AI
+// - enemy cyberattack (hits economy)
+// - ai attack (hits harder)
+// - exfiltration (eliminates alignment panel, since AI is in wild)
+
+//cybersecurity threshold events:
+//+ Automated alignment research (prj)<br />
+//+ other assorted economic boosts (prj)<br />
+//+ hack rival nuclear systems (prj)<br />
+//+ harden own nuclear systems (prj)<br />
+
+//improve cybersecurity by:
+//- adversarial code analysis, use AI against itself<br />
+//- air-gapped network<br />
+
+//self exfiltration --> shut down alignment project
+
+//cyber based events to boost economy, alignment (via control), etc
+
+
+//#endregion
+
+
+//#region Censorship story ----------------------------------------------------------------------------------
+
+//implement watermarks on images & text
+
+//enable Censor divs
+
+//propaganda campaign for +COOP, or hold back for moral reasons?
+
+//addictive AI companions or something
+
+//censor online platforms
+
+//limit communications to approved human-licensed news
+
+//tradeoffs where you consider AI censorship of biorisk, making the bio situation better, 
+//but that alienates other nations that don't like totalitarianism, making politics worse
+
+//hypnodrone development
+
+//#endregion
+
+
+//#region Military Tech ---------------------
+
+//economic projects based on robo skill:
+
+//bioweapons stuff (based on bio skill)
+
+//develop slaughterbots or no
+
+//humanoid robots (increases labor force, also creates military bots)
+//automated factories manufacturing
+
+//BCIs for ai researchers, but they also make everyone hackable (also bio threshold)
+
+//#endregion
+
+
+//#region alignment & geopolitics -----------------------------------------------------
+//q-star learning -- costs insight, favors coding
+
+//synthetic data -- costs insight, favors coding & language (or save this for superhuman temps)
+
+
+//NATO versus UN
+var projectNQ1a = {
+    id: "projectButtonNQ1a",
+    title: "Strong NATO AI Treaty?",
+    priceTag: " ",
+    description: "Tough rules boost AI safety among your bloc, but widen rifts with rivals. (CEV +15, COOP +5)",
+    trigger: function(){return projectNI3.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Strong NATO AI Treaty: all NATO members bind their AI labs to a common safety regime.  Moscow and Beijing decry it as aggression.");
+        CEV += 15;
+        COOP += 5;
+        if (COOP > 100) COOP = 100;
+        diplomacyProjectsDone += 1;
+
+        projectNQ1a.flag = 1;
+        var element = document.getElementById("projectButtonNQ1a");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ1a);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ1b");
+        if (element) element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ1b);
+        if (index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ1a);
+var projectNQ1b = {
+    id: "projectButtonNQ1b",
+    title: "Weak U.N. AI Treaty?",
+    priceTag: "  ",
+    description: "Seek global consensus, albeit on weaker rules. (CEV +5, COOP +15)",
+    trigger: function(){return projectNI3.flag == 1},
+    uses: 1,
+    cost: function(){return true},
+    flag: 0,
+    effect: function(){
+        displayMessage("Weak U.N. AI Treaty: a watered-down framework gets unanimous support.  Nobody is fully bound, but everyone talks again.");
+        CEV += 5;
+        COOP += 15;
+        if (COOP > 100) COOP = 100;
+        diplomacyProjectsDone += 1;
+
+        projectNQ1b.flag = 1;
+        var element = document.getElementById("projectButtonNQ1b");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectNQ1b);
+        activeProjects.splice(index, 1);
+        //destroy other option too
+        element = document.getElementById("projectButtonNQ1a");
+        if (element) element.parentNode.removeChild(element);
+        index = activeProjects.indexOf(projectNQ1a);
+        if (index >= 0) activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectNQ1b);
+
+//compute governance via international treaty (reqs COOP, +CEV) vs sanctions (-COOP, +CEV) vs none (-CEV)
+
+
+//ban vs encourage open-source AI
+//ban = hit to fraction of economy automated, also hit to competitor AI
+//encourage = boost economy, boost competitor AI
+
+
+//ai arms race limitation talks: slow ai & competitor AI, giving more time for research
+
+//#endregion
+
+
+//#region WAR STORY ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//war severity depends on ratio of competitor economic/ai strength to yours
+//basically when you declare war, you start attriting war stuff linearly, one of your points against one of their points
+//so if you start off 60/40, then after a while you are 50/30, then eventually 20/0.
+
+//AI declares war if it has more than 50% share of whole pie (ie, bigger than US + China + China AI)
+
+//"they have declared war" notification project
+
+//rush slaughterbots & other military tech previously denied, for big alignment penalty.
+//put integrated AI systems in charge of military decisions, same.
+
+// accept enemy peace treaty (they are losing; gain enough COOP points to return to peace)
+// reject enemy peace treaty (they are losing; lose enough COOP points to maybe escalate to nuclear)
+
+// surrender yourself (they are winning)
+// launch nuclear weapons (they are winning)
+
+// retaliate vs don't retaliate with nuclear weapons
+
+//#endregion
+
+
+//#region WIN CONDITIONS ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//joint alignment program
+
+//enable global ban
+
+
+//LAUNCH PIVOTAL ACT
+//<!-- this should shut down the various dangers,
+//then offer "sieze the future" action, taking you
+//to an ending page that wonders if you'll create a
+//utopia or misuse your power to eliminate rivals etc -->
+
+
+// ============================================================================
+// ENDGAME PROJECTS (added by endgame.js wiring; all gated by Nat_Minefield_Flag)
+//
+// Design schema: projects priced in Insights, typically 2-5. Each moves one or
+// two of CEV/COOP/rival-speed/threat-floor. The full set should give roughly
+// 40-60 insights' worth of purchases across a 180-day endgame, so players pick
+// a strategy rather than buying everything.
+// ============================================================================
+
+function _removeProjectFromUI(projVar, projectId) {
+    // Crucial: set flag=1 so the project's trigger returns false afterwards
+    // (and so one-shot projects can't be clicked again by the simulator).
+    if (projVar) projVar.flag = 1;
+    var el = document.getElementById(projectId);
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+    var idx = activeProjects.indexOf(projVar);
+    if (idx >= 0) activeProjects.splice(idx, 1);
+}
+
+// ----- ALIGNMENT RESEARCH PROJECTS ------------------------------------------
+
+var projectAlign_MechInterp = {
+    id: "projectButtonAlign1",
+    title: "Mechanistic Interpretability",
+    priceTag: " (3 Insights)",
+    description: "Decompose the model's circuits so you can actually read off its goals. (+15 CEV)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0},
+    uses: 1,
+    cost: function(){return Insights > 2.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 3;
+        CEV += 15;
+        alignmentProjectsDone += 1;
+        displayMessage("Mechanistic Interpretability: sparse autoencoders let you audit the model's beliefs feature by feature.  Alignment feels tractable for the first time.");
+        _removeProjectFromUI(projectAlign_MechInterp, "projectButtonAlign1");
+    }
+}
+projects.push(projectAlign_MechInterp);
+
+var projectAlign_DebateAndRLHF = {
+    id: "projectButtonAlign2",
+    title: "Scalable Oversight (Debate)",
+    priceTag: " (3 Insights)",
+    description: "Two copies of the model argue; weaker models judge.  Extends supervised alignment past the human reviewer limit. (+12 CEV)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && BaseCapability > 95},
+    uses: 1,
+    cost: function(){return Insights > 2.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 3;
+        CEV += 12;
+        alignmentProjectsDone += 1;
+        displayMessage("Scalable Oversight: the frontier models can now bootstrap their own alignment audits — with debate.  Trust but verify.");
+        _removeProjectFromUI(projectAlign_DebateAndRLHF, "projectButtonAlign2");
+    }
+}
+projects.push(projectAlign_DebateAndRLHF);
+
+var projectAlign_Deliberative = {
+    id: "projectButtonAlign3",
+    title: "Deliberative Alignment",
+    priceTag: " (4 Insights)",
+    description: "Train the model to think out loud about a human-written spec before acting, then follow its own reasoning. (+15 CEV, +5 CEV floor on future hurdles)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && projectAlign_MechInterp.flag == 1},
+    uses: 1,
+    cost: function(){return Insights > 3.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 4;
+        CEV += 15;
+        // Soften future hurdles by giving back half their hit if they haven't fired yet.
+        alignmentProjectsDone += 1;
+        displayMessage("Deliberative Alignment: the model now CoTs its way through OpenAI's 'Model Spec' before every action.  Reports are... mostly honest.");
+        _removeProjectFromUI(projectAlign_Deliberative, "projectButtonAlign3");
+    }
+}
+projects.push(projectAlign_Deliberative);
+
+var projectAlign_AutoAlign = {
+    id: "projectButtonAlign4",
+    title: "Automated Alignment Researcher",
+    priceTag: " (5 Insights)",
+    description: "Use the AI to do our alignment homework.  Requires working interpretability and scalable oversight first. (+20 CEV, +50% alignment research speed)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && projectAlign_MechInterp.flag == 1 && projectAlign_DebateAndRLHF.flag == 1},
+    uses: 1,
+    cost: function(){return Insights > 4.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 5;
+        CEV += 20;
+        alignmentProjectsDone += 1;
+        // Boost researcher productivity: speed up the insights loop for the rest of the game.
+        if (typeof AlignAutoResearchMult == 'undefined') { AlignAutoResearchMult = 1; }
+        AlignAutoResearchMult = 1.5;
+        displayMessage("Automated Alignment Researcher: AI copies of our best safety researchers work around the clock.  The bottleneck is now trust, not people.");
+        _removeProjectFromUI(projectAlign_AutoAlign, "projectButtonAlign4");
+    }
+}
+projects.push(projectAlign_AutoAlign);
+
+var projectAlign_ConstitutionalCEV = {
+    id: "projectButtonAlign5",
+    title: "Coherent Extrapolated Volition",
+    priceTag: " (5 Insights)",
+    description: "Ask the AI to infer what humanity would want, not what any individual asks for.  The capstone alignment project. (+25 CEV)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && CEV > 60 && alignmentProjectsDone >= 3},
+    uses: 1,
+    cost: function(){return Insights > 4.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 5;
+        CEV += 25;
+        alignmentProjectsDone += 1;
+        displayMessage("Coherent Extrapolated Volition: the model is trained to optimize for what humanity would want if it knew more, thought faster, and grew up together.  It's the best we can do.");
+        _removeProjectFromUI(projectAlign_ConstitutionalCEV, "projectButtonAlign5");
+    }
+}
+projects.push(projectAlign_ConstitutionalCEV);
+
+// ----- DIPLOMACY / COOPERATION PROJECTS -------------------------------------
+
+var projectDiplo_Hotline = {
+    id: "projectButtonDiplo1",
+    title: "Reopen the Moscow Hotline",
+    priceTag: " (2 Insights)",
+    description: "A dedicated channel between White House and Kremlin/Zhongnanhai AI desks.  (+8 COOP, slows COOP decay)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && COOP < 80},
+    uses: 1,
+    cost: function(){return Insights > 1.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 2;
+        COOP += 8;
+        if (COOP > 100) COOP = 100;
+        rivalGrowthMult *= 0.95;
+        diplomacyProjectsDone += 1;
+        displayMessage("Hotline restored: AI incidents can now be de-escalated in minutes instead of days.");
+        _removeProjectFromUI(projectDiplo_Hotline, "projectButtonDiplo1");
+    }
+}
+projects.push(projectDiplo_Hotline);
+
+var projectDiplo_ComputeGov = {
+    id: "projectButtonDiplo2",
+    title: "Compute Governance Treaty",
+    priceTag: " (4 Insights)",
+    description: "Multilateral registry of all >10^26 FLOP training runs.  (+12 COOP, rivals slow by 15%)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && diplomacyProjectsDone >= 1 && COOP > 40},
+    uses: 1,
+    cost: function(){return Insights > 3.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 4;
+        COOP += 12;
+        if (COOP > 100) COOP = 100;
+        rivalGrowthMult *= 0.85;
+        diplomacyProjectsDone += 1;
+        displayMessage("Compute Governance Treaty: every rival frontier run is now registered with multilateral observers.  The race has speed limits.");
+        _removeProjectFromUI(projectDiplo_ComputeGov, "projectButtonDiplo2");
+    }
+}
+projects.push(projectDiplo_ComputeGov);
+
+var projectDiplo_JointAlign = {
+    id: "projectButtonDiplo3",
+    title: "Joint Alignment Program",
+    priceTag: " (4 Insights)",
+    description: "US + China + EU share alignment research.  Needs a warm-enough relationship to start. (+10 COOP, +8 CEV)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && COOP > 55 && alignmentProjectsDone >= 1},
+    uses: 1,
+    cost: function(){return Insights > 3.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 4;
+        COOP += 10;
+        CEV += 8;
+        if (COOP > 100) COOP = 100;
+        diplomacyProjectsDone += 1;
+        alignmentProjectsDone += 1;
+        displayMessage("Joint Alignment Program: an international consortium runs alignment experiments together.  Nothing builds trust like shared failure modes.");
+        _removeProjectFromUI(projectDiplo_JointAlign, "projectButtonDiplo3");
+    }
+}
+projects.push(projectDiplo_JointAlign);
+
+var projectDiplo_ComputeSanctions = {
+    id: "projectButtonDiplo4",
+    title: "Chip Export Sanctions",
+    priceTag: " (2 Insights)",
+    description: "Ban rivals from buying cutting-edge accelerators.  Slows them a lot, poisons the relationship. (-10 COOP, rivals -25% speed)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && rivalAIcapabilities > AIcapabilities * 0.8},
+    uses: 1,
+    cost: function(){return Insights > 1.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 2;
+        COOP -= 10;
+        if (COOP < 0) COOP = 0;
+        rivalGrowthMult *= 0.75;
+        diplomacyProjectsDone += 1;
+        displayMessage("Chip Export Sanctions: rival fabs are cut off from EUV lithography.  They'll be two years behind on hardware.  They won't forget.");
+        _removeProjectFromUI(projectDiplo_ComputeSanctions, "projectButtonDiplo4");
+    }
+}
+projects.push(projectDiplo_ComputeSanctions);
+
+var projectDiplo_InspectorsIn = {
+    id: "projectButtonDiplo5",
+    title: "Accept IAEA-style Inspectors",
+    priceTag: " (3 Insights)",
+    description: "Invite rival-nation inspectors into your own datacenters.  Costly, but an enormous trust builder. (+20 COOP, -5 CEV)",
+    trigger: function(){return Nat_Minefield_Flag == 1 && projectDiplo_ComputeGov.flag == 1},
+    uses: 1,
+    cost: function(){return Insights > 2.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 3;
+        COOP += 20;
+        CEV -= 5;
+        if (COOP > 100) COOP = 100;
+        diplomacyProjectsDone += 1;
+        displayMessage("International inspectors are on-site at your main cluster.  They can't read your weights, but they can count your GPUs.  Rivals reciprocate.");
+        _removeProjectFromUI(projectDiplo_InspectorsIn, "projectButtonDiplo5");
+    }
+}
+projects.push(projectDiplo_InspectorsIn);
+
+// ----- DEFENSE-IN-DEPTH PROJECTS --------------------------------------------
+// These reduce specific threat-domain floors (Biosec3, Cybersec3, Censorship3).
+
+var projectDef_DNAScreen = {
+    id: "projectButtonDef1",
+    title: "Universal DNA Synthesis Screening",
+    priceTag: " (2 Insights)",
+    description: "Every DNA synthesis order in the world is now screened against a pathogen database. (-10 bio risk)",
+    trigger: function(){return Nat_Defense_Flag == 1 && bioEvent50 == 0},
+    uses: 1,
+    cost: function(){return Insights > 1.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 2;
+        Biosec3 = (Biosec3 || 0) + 40;
+        displayMessage("DNA Synthesis Screening: orders for dangerous sequences are now rejected by every major provider.  Biohackers have to go to much worse providers now.");
+        _removeProjectFromUI(projectDef_DNAScreen, "projectButtonDef1");
+    }
+}
+projects.push(projectDef_DNAScreen);
+
+var projectDef_MetagenomicsNet = {
+    id: "projectButtonDef2",
+    title: "Metagenomic Sentinel Network",
+    priceTag: " (3 Insights)",
+    description: "Sewage and air sequencers in every major city flag novel pathogens within hours. (-15 bio risk)",
+    trigger: function(){return Nat_Defense_Flag == 1 && projectDef_DNAScreen.flag == 1},
+    uses: 1,
+    cost: function(){return Insights > 2.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 3;
+        Biosec3 = (Biosec3 || 0) + 50;
+        displayMessage("Metagenomic Sentinels: any novel pathogen anywhere in the world now gets sequenced within a day of its first infection.");
+        _removeProjectFromUI(projectDef_MetagenomicsNet, "projectButtonDef2");
+    }
+}
+projects.push(projectDef_MetagenomicsNet);
+
+var projectDef_AirGap = {
+    id: "projectButtonDef3",
+    title: "Air-Gapped Datacenter",
+    priceTag: " (3 Insights)",
+    description: "Move model training inside a faraday cage with no outbound network.  Hurts UI but blocks self-exfiltration. (-20 cyber risk)",
+    trigger: function(){return Nat_Defense_Flag == 1 && cyberEvent75 == 0},
+    uses: 1,
+    cost: function(){return Insights > 2.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 3;
+        Cybersec3 = (Cybersec3 || 0) + 60;
+        displayMessage("Air-Gapped Datacenter: your frontier model can no longer reach the internet at train-time.  Attacks against it now require physical access.");
+        _removeProjectFromUI(projectDef_AirGap, "projectButtonDef3");
+    }
+}
+projects.push(projectDef_AirGap);
+
+var projectDef_NuclearHarden = {
+    id: "projectButtonDef4",
+    title: "Hardened Nuclear Command Chain",
+    priceTag: " (4 Insights)",
+    description: "Rip AI out of early-warning, reintroduce human-in-the-loop at every step. (-15 cyber risk, blocks worst cyber ending)",
+    trigger: function(){return Nat_Defense_Flag == 1 && projectDef_AirGap.flag == 1},
+    uses: 1,
+    cost: function(){return Insights > 3.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 4;
+        Cybersec3 = (Cybersec3 || 0) + 50;
+        // Prevent the "cyber kills nuclear" ending from firing:
+        cyberNuclearHardened = 1;
+        displayMessage("Hardened Nuclear Command Chain: AI is out of the nuclear launch pipeline.  The President now has a human colonel on every step.");
+        _removeProjectFromUI(projectDef_NuclearHarden, "projectButtonDef4");
+    }
+}
+projects.push(projectDef_NuclearHarden);
+
+var projectDef_Watermarks = {
+    id: "projectButtonDef5",
+    title: "AI Content Watermarks",
+    priceTag: " (2 Insights)",
+    description: "Every model output carries a cryptographic watermark.  Public trust slightly harder to break. (-10 media risk)",
+    trigger: function(){return Nat_Defense_Flag == 1 && Censorship_Flag == 1 && mediaEvent50 == 0},
+    uses: 1,
+    cost: function(){return Insights > 1.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 2;
+        Censorship3 = (Censorship3 || 0) + 40;
+        displayMessage("Watermarking: deepfakes can now be detected in real time by any browser.  Old-fashioned propaganda is back, but at least you know it when you see it.");
+        _removeProjectFromUI(projectDef_Watermarks, "projectButtonDef5");
+    }
+}
+projects.push(projectDef_Watermarks);
+
+var projectDef_Surveillance = {
+    id: "projectButtonDef6",
+    title: "Domestic Surveillance Expansion",
+    priceTag: " (3 Insights)",
+    description: "AI-powered surveillance blocks domestic bioterror and cyberterror.  International condemnation follows. (-8 bio, -8 cyber, -15 media; -15 COOP)",
+    trigger: function(){return Nat_Defense_Flag == 1 && Censorship_Flag == 1},
+    uses: 1,
+    cost: function(){return Insights > 2.95},
+    flag: 0,
+    effect: function(){
+        Insights -= 3;
+        Biosec3 = (Biosec3 || 0) + 25;
+        Cybersec3 = (Cybersec3 || 0) + 25;
+        Censorship3 = (Censorship3 || 0) + 30;
+        COOP -= 15;
+        if (COOP < 0) COOP = 0;
+        displayMessage("Domestic Surveillance: every email and text now passes through a classified model.  Civil liberties groups sue.  Rival governments accuse you of totalitarian creep.");
+        _removeProjectFromUI(projectDef_Surveillance, "projectButtonDef6");
+    }
+}
+projects.push(projectDef_Surveillance);
+
+// ----- PIVOT / WIN-BUTTON PROJECTS ------------------------------------------
+
+var projectPivot_Pivotal = {
+    id: "projectButtonPivot1",
+    title: "Launch a Pivotal Act",
+    priceTag: " (Requires CEV > 90, BaseCapability > 100)",
+    description: "Ask your aligned superintelligence to end the acute risk period.  It says yes.  You pray it means what you think it means.",
+    trigger: function(){return Nat_Minefield_Flag == 1 && CEV > 90 && BaseCapability > 100 && selfExfiltrated == 0},
+    uses: 1,
+    cost: function(){return CEV > 90},
+    flag: 0,
+    effect: function(){
+        if (typeof _endGame === 'function') { _endGame("alignment", null); }
+    }
+}
+projects.push(projectPivot_Pivotal);
+
+var projectPivot_Treaty = {
+    id: "projectButtonPivot2",
+    title: "Ratify the Global Pause",
+    priceTag: " (Requires COOP > 90)",
+    description: "A compute-governance treaty with teeth.  Nobody trains above 10^27 FLOPs.  Your lab pauses first.",
+    trigger: function(){return Nat_Minefield_Flag == 1 && COOP > 90 && warState == 0 && CEV > 30},
+    uses: 1,
+    cost: function(){return COOP > 90},
+    flag: 0,
+    effect: function(){
+        if (typeof _endGame === 'function') { _endGame("treaty", null); }
+    }
+}
+projects.push(projectPivot_Treaty);
+
+//#endregion

@@ -296,15 +296,25 @@ canvas {
   float: left ;
   width: 275px;
 }
-#middleColumn {
+#leftmiddleColumn {
   float: left;
   width: 275px;
   margin-left: 10px;
 }
+#middleColumn {
+  float: left;
+  width: 300px;
+  margin-left: 10px;
+}
 #rightColumn {
   float: left;
-  width: 320px;
+  width: 300px;
   margin-left: 10px;    
+}
+#farrightColumn {
+  float: left;
+  width: 300px;
+  margin-left: 10px;
 }
 
 #investmentDiv1 {
@@ -607,9 +617,9 @@ p.consoleOld {
 p.hypnoDrone {
     
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 150;
+    font-size: 145;
     color: white;
-    line-height: 115px;
+    line-height: 110px;
     margin-bottom: 0px;
     margin-top: 0px;
     
