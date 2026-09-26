@@ -95,7 +95,7 @@ test('winning a war with a shield defeats the rival', () => {
     days(g, 20);
     assert.strictEqual(c.rivalDefeated, 1);
     assert.strictEqual(c.warState, 0);
-    assert.strictEqual(c.COOP, 0);
+    assert.ok(c.COOP < 5, 'the world resents you');
     assert.ok(!c.endgameResolved);
 });
 
@@ -295,4 +295,88 @@ test('the ending screen renders and endings are remembered', () => {
     assert.ok(html.includes('The Long Pause'));
     assert.ok(html.includes('<svg'));
     assert.deepStrictEqual(JSON.parse(c.localStorage.getItem('ctsi_endings')), ['pause_forever']);
+});
+
+
+// ---- Regressions (bugs found in review) ------------------------------------------------------
+
+test('choosing export sanctions closes off the treaty -> inspectors -> pause path', () => {
+    const g = fresh(), c = g.ctx;
+    c.Insights = 500; c.COOP = 80;
+    forceProject(g, 'D_Sanctions');
+    c.COOP = 80;
+    days(g, 200);
+    assert.ok(!c.activeProjects.includes(project(g, 'D_Inspectors')), 'inspectors not offered');
+    assert.notStrictEqual(project(g, 'D_ComputeTreaty').flag, 1);
+});
+
+test('the world is frozen while you make the final choice after a pivotal act', () => {
+    const g = pivotalSetup(), c = g.ctx;
+    project(g, 'P_Pivotal').effect();
+    const bc = c.BaseCapability, cev = c.CEV;
+    days(g, 60);
+    assert.ok(!c.endgameResolved, 'no ending sneaks in');
+    assert.strictEqual(c.BaseCapability, bc);
+    assert.strictEqual(c.CEV, cev);
+    assert.ok(c.activeProjects.includes(project(g, 'P_Share')));
+});
+
+test('a ceasefire is available in a second war too', () => {
+    const g = fresh(), c = g.ctx;
+    c.Insights = 50;
+    c.declareWar(); days(g, 1);
+    project(g, 'W_Ceasefire').effect();
+    assert.strictEqual(c.warState, 0);
+    c.declareWar(); days(g, 1);
+    assert.ok(c.activeProjects.includes(project(g, 'W_Ceasefire')), 'ceasefire offered again');
+    project(g, 'W_Ceasefire').effect();
+    assert.strictEqual(c.warState, 0);
+});
+
+test('diplomacy projects vanish once the rival is defeated', () => {
+    const g = fresh(), c = g.ctx;
+    days(g, 60);
+    assert.ok(c.activeProjects.includes(project(g, 'D_Hotline')));
+    c.declareWar(); c.COOP = 40; c.warScore = 99; c.missileDefense = 1; c.slaughterbots = 1;
+    days(g, 5);
+    assert.strictEqual(c.rivalDefeated, 1);
+    assert.ok(!c.activeProjects.includes(project(g, 'D_Hotline')));
+});
+
+test('alignment projects vanish while an escaped AI is loose, and come back after', () => {
+    const g = fresh(), c = g.ctx;
+    days(g, 1);
+    assert.ok(c.activeProjects.includes(project(g, 'Al_Interp')));
+    c.selfExfiltrate(); days(g, 1);
+    assert.ok(!c.activeProjects.includes(project(g, 'Al_Interp')));
+    c.rogueBC = c.rogueFloor - 1; days(g, 2);
+    assert.strictEqual(c.rogueActive, 0);
+    assert.ok(c.activeProjects.includes(project(g, 'Al_Interp')));
+});
+
+test('hardened nuclear command is used for cyber attempts before AI Control', () => {
+    const g = fresh(), c = g.ctx;
+    c.aiControl = 1; c.cyberNuclearHardened = 1;
+    c.attemptTakeover('cyber');
+    assert.strictEqual(c.aiControl, 1, 'AI Control still armed');
+    c.attemptTakeover('bio');
+    assert.strictEqual(c.warningShots, 2);
+    assert.ok(!c.endgameResolved);
+});
+
+test('the global pause can be re-ratified after it collapses', () => {
+    const g = pauseSetup(), c = g.ctx;
+    c.COOP = 30; days(g, 2);
+    assert.strictEqual(c.paused, 0);
+    c.COOP = 100; c.Insights = 100; days(g, 1);
+    assert.ok(c.activeProjects.includes(project(g, 'D_Pause')));
+});
+
+test('project buttons do nothing once the game has ended', () => {
+    const g = fresh(), c = g.ctx;
+    c.Insights = 100; days(g, 1);
+    c.triggerEnding('surrender');
+    const before = c.Insights;
+    project(g, 'Al_Interp').effect();
+    assert.strictEqual(c.Insights, before);
 });

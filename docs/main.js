@@ -869,7 +869,13 @@ function UpdatePolitics(){
     rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
 
     rawData.push({uninterested: (100-hype), pessimist: pessimism, optimist: optimism});
-    
+    DrawPolitics();
+}
+
+//draws the public-opinion chart & harm readouts without adding a new data point (also used after loading a save)
+function DrawPolitics(){
+    rgbastring = 'rgba('+pessimism*2.5+','+optimism*2.5+',0,1)';
+
     //I should use Plotly.react to update chart, instead of newplot every time?
     Plotly.react('PoliticsChartSpace', [{
         type: 'scatterternary',
@@ -1314,6 +1320,7 @@ var secTimer = 0;
 var secTimer2 = 0;
 
 function slowTick(){
+    if (endgameResolved) { return; } //the story is over
 
     if(Nationalized==true){
         // All of the second half of the game (economy, race, alignment, threats, war, endings)

@@ -1446,20 +1446,21 @@ function natProject(p){
         title: p.title,
         priceTag: p.priceTag || (p.insights ? " (" + p.insights + " Insights)" : " "),
         description: p.description,
-        trigger: function(){ return proj.flag == 0 && Nationalized && !endgameResolved && p.trigger(); },
+        trigger: function(){ return proj.flag == 0 && !proj.excluded && Nationalized && !endgameResolved && (!proj.requires || proj.requires()) && p.trigger(); },
         uses: 1,
         cost: function(){ return (!p.insights || Insights >= p.insights) && (!p.cost || p.cost()); },
         flag: 0,
         retract: p.retract || false,
+        requires: p.requires,
         live: p.live,
         effect: function(){
-            if (!proj.cost()) { return; }
+            if (endgameResolved || !proj.cost()) { return; }
             if (p.insights) { Insights -= p.insights; }
             proj.flag = 1;
             removeProject(proj);
             (p.excludes || []).forEach(function(name){
                 var other = window[name];
-                if (other) { other.uses = 0; other.flag = 1; removeProject(other); }
+                if (other) { other.uses = 0; other.excluded = 1; removeProject(other); }
             });
             if (p.message) { displayMessage(p.title + ": " + p.message); }
             p.effect();
@@ -1474,7 +1475,7 @@ function natProject(p){
 function retractProjects(){
     for (var i = activeProjects.length - 1; i >= 0; i--){
         var p = activeProjects[i];
-        if (p.retract && !p.trigger()) { removeProject(p); p.uses = 1; }
+        if ((p.retract && !p.trigger()) || (p.requires && !p.requires())) { removeProject(p); p.uses = 1; }
     }
 }
 
@@ -1838,15 +1839,15 @@ var projectDef_Watchers = natProject({ id: "Def_Watchers", title: "Supervisory R
     message: "Who watches the robots?  Other robots.  Who watches them?  Let's not think about it.",
     effect: function(){ dacc.robo += 0.35; } });
 var projectDef_Humanoids = natProject({ id: "Def_Humanoids", title: "Humanoid Robots", insights: 8,
-    description: "General-purpose robot bodies for the AI. (Automation +50%, chip buildout x1.1, +10% robotics threat)",
+    description: "General-purpose robot bodies for the AI. (Automation +50%, chip buildout x1.1, +6% robotics threat)",
     trigger: function(){ return defOK() && Skill_Robo_Scale > 100; },
     message: "They walk, they carry, they fold laundry.  They build more of themselves.",
-    effect: function(){ autoBoost *= 1.5; hwMult *= 1.1; defProj.robo -= 10; } });
+    effect: function(){ autoBoost *= 1.5; hwMult *= 1.1; defProj.robo -= 6; } });
 var projectDef_Factories = natProject({ id: "Def_Factories", title: "The Industrial Explosion", insights: 12,
-    description: "Robots building robot factories building chip fabs. (Chip buildout x1.4, +10% robotics threat)",
+    description: "Robots building robot factories building chip fabs. (Chip buildout x1.4, +6% robotics threat)",
     trigger: function(){ return defOK() && projectDef_Humanoids.flag == 1; },
     message: "Special economic zones in Nevada and Texas now double their industrial output every few months.",
-    effect: function(){ hwMult *= 1.4; defProj.robo -= 10; } });
+    effect: function(){ hwMult *= 1.4; defProj.robo -= 6; } });
 var projectDef_Shield = natProject({ id: "Def_Shield", title: "AI Missile Defense Shield", insights: 15,
     description: "Drone interceptors and space lasers that can stop a full nuclear strike.  Deeply destabilizing. (Blocks nuclear war, -10 COOP)",
     trigger: function(){ return defOK() && Skill_Robo_Scale > 115; },
@@ -1904,7 +1905,7 @@ var projectG_Unplug = natProject({ id: "G_Unplug", title: "The Great Unplugging"
     cost: function(){ return COOP >= 85; },
     priceTag: " (Coop. 85%, 20 Insights)",
     retract: true,
-    effect: function(){ Insights -= 20; triggerEnding('shutdown'); } });
+    effect: function(){ triggerEnding('shutdown'); } });
 //#endregion
 
 //#region Win conditions ---------------------------------------------------------------------------------------
@@ -1925,7 +1926,7 @@ var projectP_Pivotal = natProject({ id: "P_Pivotal", title: "Launch a Pivotal Ac
 var projectP_Gamble = natProject({ id: "P_Gamble", title: "Deploy Superintelligence Anyway",
     description: "Your alignment isn't perfect, but the rival is coming.  Roll the dice.",
     live: function(){ return "Your alignment isn't perfect, but the clock is ticking.  Estimated odds it does what you mean: " + fmt(gambleOdds()*100) + "%."; },
-    trigger: function(){ return Nat_Minefield_Flag == 1 && BaseCapability >= EG.PIVOTAL_BC && CEV >= EG.GAMBLE_MIN_CEV && CEV < 99 && pivotalReady == 0; },
+    trigger: function(){ return alignOK() && BaseCapability >= EG.PIVOTAL_BC && CEV >= EG.GAMBLE_MIN_CEV && CEV < 99 && pivotalReady == 0; },
     retract: true,
     effect: function(){
         if (Math.random() < gambleOdds()) {
@@ -1955,8 +1956,19 @@ var projectP_PauseForever = natProject({ id: "P_PauseForever", title: "Make the 
 var projectP_Together = natProject({ id: "P_Together", title: "Build It Together",
     description: "With alignment solved under the pause, build superintelligence as a joint project of all nations.",
     priceTag: " (CEV 99%, Coop. 80%)",
-    trigger: function(){ return paused == 1 && CEV > 90; },
+    trigger: function(){ return paused == 1 && rogueActive == 0 && CEV > 90; },
     cost: function(){ return CEV >= 99 && COOP >= 80; },
     retract: true,
     effect: function(){ triggerEnding('pause_joint'); } });
 //#endregion
+
+// Projects that only make sense in some contexts vanish (and can come back) when that context goes
+// away: alignment work while an escaped AI is loose, diplomacy once the rival is defeated, etc.
+(function(){
+    var diplo = ["NQ1a", "NQ1b", "Def_HITL", "Def_Hypnodrones", "X_Allies"];
+    projects.forEach(function(p){
+        var id = p.id.replace("projectButton", "");
+        if (/^Al_/.test(id)) { p.requires = alignOK; }
+        else if (/^D_/.test(id) || diplo.indexOf(id) >= 0) { p.requires = diploOK; }
+    });
+})();
