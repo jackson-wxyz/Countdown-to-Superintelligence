@@ -76,44 +76,7 @@ var Skill_Biol_Scale = 0;
 var Skill_Robo_Scale = 0;
 var Skill_Media_Scale = 0; //max of Lang & Visu -- used for Censorship/Persuasion threat domain
 
-// Endgame state (initialized by Nationalize; mutated by endgame.js)
-var Hurdle_mod = 0;       //CEV penalty from model-scale alignment hurdles
-var AIGDP_growth = 0;     //for display
-var warState = 0;         //0 = peace, 1 = limited conventional war, 2 = nuclear brink
-var warDaysOrange = 0;    //days at COOP<30 (conventional war threshold)
-var warDaysRed = 0;       //days at COOP<5 (nuclear brink)
-var rivalLeadDays = 0;    //days rival has been >1.5x player capabilities
-var selfExfiltrated = 0;  //once set, alignment panel locked
-var nuclearExchange = 0;  //once set, nuclear war in progress
-var slaughterbotsDeployed = 0;
-var chosenEndingPath = ""; //"alignment", "treaty", "takeover", "misuse", "rival", "nuclear", "surrender"
-var endgameResolved = 0;   //1 once an ending screen has been shown
-
-// Threat event tracking -- so each threshold event fires exactly once per domain
-var bioEvent50 = 0;
-var bioEvent75 = 0;
-var bioEvent110 = 0;
-var cyberEvent50 = 0;
-var cyberEvent75 = 0;
-var cyberEvent110 = 0;
-var mediaEvent50 = 0;
-var mediaEvent75 = 0;
-var mediaEvent110 = 0;
-var hurdle27Crossed = 0;
-var hurdle28Crossed = 0;
-var hurdle29Crossed = 0;
-var hurdle30Crossed = 0;
-var natJustFired = 0;      //slow-loop safety: give CEV one tick to settle before endgame runs
-var natStartingPath = "";  //"doomer" / "regulatory" / "arms-race" / "accel" -- selected in projectN
-
-// Aggregate tracking for diegetic death count (used in ending recap)
-var cumulativeExtraDeaths = 0;
-var alignmentProjectsDone = 0;
-var diplomacyProjectsDone = 0;
-
-// Rival AI growth rate modifiers
-var rivalBaseMult = 0.5;    //rival starts at half player capabilities
-var rivalGrowthMult = 1.0;  //modified by export controls, treaties, stolen weights
+// (All post-nationalization state lives at the top of endgame.js.)
 
 // Inference-time compute & agents (first-half modernization)
 var ReasoningFlag = 0;
@@ -122,6 +85,7 @@ var InferenceBudget = 0;    //player-allocated inference compute (extra revenue 
 var AgentFlag = 0;
 var RLVRFlag = 0;
 var InferenceRevMult = 1.0; //multiplier on BaseRev from inference-time compute
+var RLHFMult = 1; //Constitutional AI makes safety effort go further
 
 
 
@@ -239,39 +203,13 @@ var fudge_factor = 1e12 * 1e-4 * 0.1 * 0.1;
 //10 again for non-GPU overhead?
 var ticks_per_day = 5; //tenth-second slow-loop ticks vs half-day timing of the game
 
-//Researchers & insights
-//in addition to researchers we now have:
-//var Diplomats = 0; //on competition panel
-//var Engineers = 0; //on alignment panel, not researchers, but specifically people who are doing RLHF / Evals stuff
-//skipping the other four because these represent AI capabilities, which aren't something we can suppress with effort
-//var Inspectors = 0; //?? overseers / inspectors in the sense that they are monitoring the systems that are running the economy & military, looking for signs of trouble
-var Cybersecs = 0;
-var Biosecs = 0;
-var Censors = 0; //??
-var expert_mod = 1;
+var ticks_per_day_endgame = 10; //after nationalization the calendar slows to 1 day per second
 
-var CEV = 10; //todo: remember to use this in combination with Hurdle_mod!
-var COOP = 50;
+var CEV = 10;  //AI alignment to human values, %.  Modified by a few first-half projects, then the core endgame stat.
+var COOP = 50; //international cooperation, %
 var rivalAIcapabilities = 0;
 var AlignmentHurdlesNow;
 var AlignmentHurdlesSoon;
-
-var Cybersec2 = 0;
-var Cybersec3 = 0;
-var Cybersec4 = 0;
-
-var Biosec3 = 0;
-var Biosec2 = 0;
-var Biosec4 = 0;
-
-var Censorship2 = 0;
-var Censorship3 = 0;
-var Censorship4 = 0;
-
-// Endgame defense state
-var cyberNuclearHardened = 0;
-var AlignAutoResearchMult = 1;
-
 
 
 

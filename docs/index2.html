@@ -25,6 +25,9 @@
     <div id="cover">
     </div>    
         
+    <div id="endingDiv" style="display:none"></div>
+    <div id="devDiv" style="display:none"></div>
+
     <div id="hypnoDroneEventDiv">
         <p class = "hypnoDrone"><span id = hypnoDroneText></span></p>  
     </div>
@@ -46,7 +49,7 @@
     <div id="topDiv">
         <div class = "toolTip">
             <span class = "toolTipText"><span id = "clipCountCrunched"></span> floating point operations</span>    
-            <h3><span id="TitleStatName">AI Training Compute:</span><span id="TitleStat">0</span> Exaflops</h3>
+            <h3><span id="TitleStatName">AI Training Compute:</span><span id="TitleStat">0</span> <span id="TitleStatUnit">Exaflops</span></h3>
         </div>
     </div>    
     
@@ -59,58 +62,44 @@
             <hr>
             Labor Force: <span id="LaborForce">180</span> million humans<br />
             (<span id="Births">10</span>k births & <span id="Deaths">9</span>k deaths per day)<br />
-            <span id="Death_Note" style="color:darkred;font-weight: bold;"></span>
-            <br />
+            <span id="Death_Note" class="warning"></span>
+            <span id="Econ_Warn"></span>
             Fraction of economy automated: <span id="PercentAutomated">10</span>%<br />
             -  $<span id="HumanGDP">30</span> trillion per year from humans<br />
             -  $<span id="AIGDP">3.3</span> trillion per year due to AI<br />
+            Compute: <span id="NatGPUs">0</span><br />
             <br />
-
             <div id="Reinvestment_Div">
-            <!-- todo: make a slider and have this show up with 100 values, affecting 1.00% to 0.00% GDP-->
-            <!-- <div class="slidecontainer">
-                <input type="range" min="0" max="1" value="0" class="slider" id="GDPSlider">
-            </div>-->
-            Daily GPUs bought: +<span id="GPUsPerDay">20</span><br />
+                <b>Frontier scaling pace: <span id="PaceDisplay">1.0x</span></b><br />
+                <div class="slidecontainer">
+                    <input type="range" min="0" max="100" value="50" class="slider" id="PaceSlider">
+                </div>
+                <span class="small">&larr; buy time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; win the race &rarr;</span><br />
+                Chip buildout: +<span id="GrowthHW">0</span>%/day<br />
+                Algorithmic progress: +<span id="GrowthSW">0</span>%/day<br />
+                (<span id="AutoRD">0</span>% of AI research now done by AI)<br />
+                Frontier model doubles every <b><span id="DoublingTime">-</span></b><br />
             </div>
-            Total GPUs: <span id="NatGPUs">0</span><br />
-         
         </div>
-        
+
+        <div id="Nat_Pause_Div">
+            <br />
+            <b>The Global Pause</b><br />
+            <hr>
+            In effect for <span id="PauseDays">0</span>.<br />
+            <span id="PauseStatus"></span><br />
+            <span class="small">Keep cooperation high or the pause will unravel.  Alignment research continues.</span>
+        </div>
+
         <div id="Nat_Research_Div">
             <br />
-            <b>Superintelligence Deployment Team</b><br />
+            <b>The Project: Superintelligence Team</b><br />
             <hr>
-            Researchers: <span id="NatResearchers">0</span><br />
-            Insights: <span id="NatInsights">0</span><br />
-            <br />
-            <div id="Nat_Profession_Div">
-                <!-- Autofactory inspectors:<button class = "button2" id ="btnMakeDiplomat-5" onclick="DiplomatClick(-5,'Inspectors')">-5</button>
-                                    <button class = "button2" id ="btnMakeDiplomat-1" onclick="DiplomatClick(-1,'Inspectors')">-1</button>
-                                    <span id="Inspectors">0</span>
-                                    <button class = "button2" id ="btnMakeDiplomat1" onclick="DiplomatClick(1,'Inspectors')">+1</button>
-                                    <button class = "button2" id ="btnMakeDiplomat5" onclick="DiplomatClick(5,'Inspectors')">+5</button><br />
-                -->
-                Biosecurity experts:  <button class = "button2" id ="btnMakeEngineer-5" onclick="DiplomatClick(-5,'Biosecs')">-5</button>
-                <button class = "button2" id ="btnMakeEngineer-1" onclick="DiplomatClick(-1,'Biosecs')">-1</button>
-                <span id="Biosecs">0</span>
-                <button class = "button2" id ="btnMakeEngineer1" onclick="DiplomatClick(1,'Biosecs')">+1</button>
-                <button class = "button2" id ="btnMakeEngineer5" onclick="DiplomatClick(5,'Biosecs')">+5</button><br />
-
-                Cybersecurity experts:<button class = "button2" id ="btnMakeDiplomat-5" onclick="DiplomatClick(-5,'Cybersecs')">-5</button>
-                                    <button class = "button2" id ="btnMakeDiplomat-1" onclick="DiplomatClick(-1,'Cybersecs')">-1</button>
-                                    <span id="Cybersecs">0</span>
-                                    <button class = "button2" id ="btnMakeDiplomat1" onclick="DiplomatClick(1,'Cybersecs')">+1</button>
-                                    <button class = "button2" id ="btnMakeDiplomat5" onclick="DiplomatClick(5,'Cybersecs')">+5</button><br />
-                <div id="Censors_Div">                    
-                    Media censors:        <button class = "button2" id ="btnMakeDiplomat-5" onclick="DiplomatClick(-5,'Censors')">-5</button>
-                                        <button class = "button2" id ="btnMakeDiplomat-1" onclick="DiplomatClick(-1,'Censors')">-1</button>
-                                        <span id="Censors">0</span>
-                                        <button class = "button2" id ="btnMakeDiplomat1" onclick="DiplomatClick(1,'Censors')">+1</button>
-                                        <button class = "button2" id ="btnMakeDiplomat5" onclick="DiplomatClick(5,'Censors')">+5</button><br />
-                </div>    
-            </div>
-            
+            Unassigned researchers: <span id="NatResearchers">0</span><br />
+            &nbsp;&nbsp;(generating <span id="InsightRate">0</span> insights/day)<br />
+            Insights: <b><span id="NatInsights">0</span></b><br />
+            <span id="ExpertMod" class="small"></span>
+            <div id="teamRows"></div>
         </div>
 
         <!-- Pre-Nationalization ---------------------------------------------------------- -->
@@ -182,59 +171,48 @@
         
         <!--Post-nationalization //////////////////////////////////////////////////////////////////////////////////// -->
 
-        <div id="Nat_Competition_Div"><!--todo: this section changes / goes away during nuclear war, since there's now no hope of a treaty-->
-            <b>Geopolitical Competition</b><br />
+        <div id="Nat_Race_Div">
+            <b>The Race</b><br />
             <hr>
-            International cooperation: <span id="COOP"style="font-weight: bold";>0</span>%<br />
-
-            <span style="color:grey;">
-            &gt;95%: global AI pause treaty possible<br />
-            <!-- this should stop AI model scaling, then offer some event about how the future is stable for now, but for how long... -->
-            &gt;70%: joint alignment project possible<br />
-            &lt;30%: rival superpower declares war<br />
-            &lt;5%:  rival launches nuclear weapons<br />
-            <!-- ends the game with a message about nuclear weapons... civilization might continue, but you won't live to see how the story ends -->
-            </span>
-
-            <br />
-            Rival AI model size: <span id="rivalAIcapabilities">0</span> FLOPs<br />
-            <!-- 
-            giving up on war system for now...
-            competitor is just training AI, same as you, to keep pressure on.
-            maybe this isn't even an official "competitor AI graph", 
-            except insofar as it's a fake ticking number at
-            75% of your own, just to remind you...
-
-            - at low%, enemy launches war on you with 3+1 means: cyberattacks, then conventional war, then bio & nuclear <br />
-            - can then either lose the war (game over), win the war (continue with perpetually 0% coop), or sue for peace (end war )<br />
-            
-            todo for later: implement real rival system & slider for investment amounts
-            -->
-
+            <div id="RaceChart"></div>
         </div>
 
-        <div id="Nat_Misalignment_Div"><!--todo: this section goes away if AI self-exfiltrates-->
+        <div id="Nat_Competition_Div">
+            <br /><b>Geopolitical Competition</b><br />
+            <hr>
+            International cooperation: <span id="COOP" style="font-weight: bold;">0</span>% (<span id="CoopRate">0</span>/day)<br />
+            Rival AI model: <span id="rivalAIcapabilities">0</span> FLOPs (pace <span id="RivalPace">1</span>)<br />
+            <span id="RivalLead"></span><br />
+            <span class="thresholds" id="CoopThresholds"></span>
+            <span id="CoopWarnings"></span>
+        </div>
+
+        <div id="Nat_War_Div">
+            <br /><b>WAR</b><br />
+            <hr>
+            At war for <span id="WarDays">0</span>.  War score: <b><span id="WarScore">0</span></b><br />
+            <div class="warBarOuter"><div class="warBarInner" id="WarBar"></div></div>
+            <span class="small">&larr; defeat (-100) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; victory (+100) &rarr;<br />
+            The side with the smarter AI is winning.  Deaths mount every day.</span>
+        </div>
+
+        <div id="Nat_Misalignment_Div">
             <br /><b>Deceptive Misalignment</b><br />
             <hr>
-            AI alignment to human values: <span id="CEV"style="font-weight: bold";>0</span>%<br />
+            AI alignment to human values: <span id="CEV" style="font-weight: bold;">0</span>% (<span id="CevRate">0</span>/day)<br />
             <div id="AlignmentFail">
-                <span style="color:grey;">&gt;99%: use superintellince for a "pivotal act"<br /></span>
-                <span style="color:darkred;font-weight: bold;">&lt;99%: AI will try to overthrow humanity once it becomes strong enough to do so.<br /></span>
+                <span class="thresh">&gt;99%: use superintelligence for a "pivotal act"<br /></span>
+                <span class="threshActive">&lt;99%: AI will try to overthrow humanity once it becomes strong enough to do so.<br /></span>
             </div>
             <div id="AlignmentWin">
-                <span style="color:darkgreen; font-weight: bold;">&gt;99%: use superintellince for a "pivotal act"<br /></span>
-                <span style="color:grey;">&lt;99%: AI will try to overthrow humanity once it becomes strong enough to do so.<br /></span>
+                <span style="color:darkgreen; font-weight: bold;">&gt;99%: use superintelligence for a "pivotal act"<br /></span>
+                <span class="thresh">&lt;99%: AI will try to overthrow humanity once it becomes strong enough to do so.<br /></span>
             </div>
-            <br />
+            <span class="small" id="CevNote"></span><br />
             Smarter models are harder to align:<br />
-            <span id="AlignmentHurdlesNow"; style="color:rgb(87, 87, 87); font-weight: bold;"></span>
-            <span id="AlignmentHurdlesSoon"; style="color:grey;"></span>
-            
-            </span>
-            
-            <br />
-            
-
+            <span id="AlignmentHurdlesNow" style="color:rgb(87, 87, 87); font-weight: bold;"></span>
+            <span id="AlignmentHurdlesSoon" style="color:grey;"></span>
+            <span id="CevWarnings"></span>
         </div>
 
         <!--Pre-nationalization GPU stuff /////////////////////////////////////////////////////////////////////////// -->
@@ -308,42 +286,33 @@
         
     <div id="rightColumn">
         <!--Post-nationalization //////////////////////////////////////////////////////////////////////////////////// -->
-        
+
         <div id="Nat_Biol_Div">
             <b>Biosecurity</b><br />
             <hr>
-            AI Biology capability: <span id="Nat_Biol_Scale"style="font-weight: bold";>0</span><br />
-            <br />
-            Risk suppression: <span id="Biosec2">-15</span>% from <span id="Biosecs2">0</span> experts,<br />
-            <span id="Biosec3">-10</span>% from projects = <span id="Biosec4"style="font-weight: bold";>65</span>% remaining.<br />
-            <br />
-            
-            <!-- todo: [cool graph here]-->
-            <span style="color:grey;">
-            &gt;50%: bioterrorism incident<br /> <!--(can tank this without losing game; take like a 1/3 population hit on the deaths counter and call it a day)-->
-            &gt;75% & at war: enemy bioweapon attack <br />
-            <!-- todo: "warning" projects or something, before game-ending stuff like this-->
-            &gt;110%: AI takeover via nanotech<br />
-            </span>
+            AI Biology capability: <b><span id="Bio_Skill">0</span></b><br />
+            <span class="small" id="Bio_Def"></span><br />
+            Remaining threat: <b><span id="Bio_Threat">0</span></b><br />
+            <span class="thresholds" id="Bio_Thresh"></span>
+            <span id="Bio_Warn"></span>
         </div>
 
         <div id="Nat_Code_Div">
             <br /><b>Cybersecurity</b><br />
             <hr>
-            AI Coding capability: <span id="Nat_Code_Scale"style="font-weight: bold";>0</span><br />
-            <br />
-            Risk suppression: <span id="Cybersec2">-15</span>% from <span id="Cybersecs2">0</span> experts,<br />
-            <span id="Cybersec3">-10</span>% from projects = <span id="Cybersec4"style="font-weight: bold";>65</span>% remaining.<br />
-            <br />
-            
-            <!-- todo: [cool graph here]-->
-            <span style="color:grey;">
-            &gt;50%: rival steals AI model weights<br /> <!--(brings them much closer to overtaking, but not game-over)-->
-            &gt;75%: AI self-exfiltrates to internet <br /><!--(alignment field shuts down, only choice left is global ban)-->
-            &gt;90%: AI stenography to coordinate with rival nation's AI<br />
-            &gt;110%: AI takeover via hacking nuclear command systems<br />
-            </span>
+            AI Coding capability: <b><span id="Cyber_Skill">0</span></b><br />
+            <span class="small" id="Cyber_Def"></span><br />
+            Remaining threat: <b><span id="Cyber_Threat">0</span></b><br />
+            <span class="thresholds" id="Cyber_Thresh"></span>
+            <span id="Cyber_Warn"></span>
+        </div>
 
+        <div id="Nat_Rogue_Div">
+            <br /><b>Escaped AI</b><br />
+            <hr>
+            <span id="RogueStatus"></span><br />
+            <span class="small" id="RogueNote"></span><br />
+            <span id="RogueWarnings"></span>
         </div>
         <!--Pre-nationalization GPU stuff /////////////////////////////////////////////////////////////////////////// -->
 
@@ -392,76 +361,28 @@
     <div id="farrightColumn">
         
         <!--Post-nationalization //////////////////////////////////////////////////////////////////////////////////// -->
-        
+
         <div id="Nat_Robo_Div">
             <b>War & Military Power</b><br />
             <hr>
-            AI Robotics capability: <span id="Nat_Robo_Scale"style="font-weight: bold";>0</span><br />
-            <br /><br />
-            
-            
-            <!-- cool treemap or pie chart of military power: US + US AI in one row, then rival + rival AI in another row, 
-            color coded on green-to-red based on US = green, US AI = CEV, rival = COOP, rival AI = CEV + COOP-->
-            <!-- - engineers (axe this??): <span id="Engineers2">0</span><br />-->
-            
-            ways to lose from manufacturing / war<br />
-            - slaughterbots etc (use these for advantage in war, but the AI can also use them against you)<br />
-            - general war between nations, escalating into nuclear<br />
-            
+            AI Robotics capability: <b><span id="Robo_Skill">0</span></b><br />
+            <span class="small" id="Robo_Def"></span><br />
+            Remaining threat: <b><span id="Robo_Threat">0</span></b><br />
+            <span class="thresholds" id="Robo_Thresh"></span>
+            <span id="Robo_Warn"></span>
+            <span class="small" id="MilitaryStatus"></span>
         </div>
-        
-            <!-- man this section really wants to be a totally different mechanic... maybe just drop it??-->
+
         <div id="Nat_Lang_Div">
-            <b>Media & Persuasion</b><br />
+            <br /><b>Media & Persuasion</b><br />
             <hr>
-            AI Communication capability: <span id="Nat_Visu_Scale"style="font-weight: bold";>0</span><br />
-            <br />
-            <div id="Censors_Div2">
-                Risk suppression: <span id="Censorship2">-15</span>% from <span id="Censorship2">0</span> experts,<br />
-                <span id="Censorship3">-10</span>% from projects = <span id="Censorship4"style="font-weight: bold";>65</span>% remaining.<br />
-                <br />
-            </div>
-            <!-- todo: [cool graph here]-->
-            <span style="color:grey;">
-            &gt;50% & low coop: rival propaganda campaign<br /> <!--(can tank this without losing game; take like a 1/3 population hit on the deaths counter and call it a day)-->
-            &gt;75% & low coop: rival implements totalitarian censorship <br />
-            &gt;110% & misaligned: AI takeover via superpersuasion<br />
-            </span>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+            AI Communication capability: <b><span id="Media_Skill">0</span></b><br />
+            <span class="small" id="Media_Def"></span><br />
+            Remaining threat: <b><span id="Media_Threat">0</span></b><br />
+            <span class="thresholds" id="Media_Thresh"></span>
+            <span id="Media_Warn"></span>
         </div>
 
-        <div id="beg_for_more_wire_Div">
-            <b>Note about TBD ending:</b><br />
-            <hr>
-            This is a very unfinished game!!  This will be the ending phase of the game 
-            after a few more updates over the rest of september.
-            In lieu of a finished ending, here are some notes on how it'll work:
-            <br /><br />
-            1. Replace manually buying GPUs & training models with 
-            a continous snowball of GDP -> model size -> more GDP, 
-            inspired by Tom Davidson's "Takeoff Speeds" report.
-            Bessides realism, the vision is for the player to switch 
-            from thinking impatiently about scaling to essentially 
-            "playing against the clock" of growing AI capabilities.
-            <br /><br />
-            2.Recruit a (fixed-size) team of 50 researchers.
-            Individual researchers can be allocated to different categories of defensive effort:
-            project research, geopolitics, AI alignment, cybersecurity, biosecurity, etc.
-            Eventually get autonomous virtual researchers, which just follow the main ones & multiply their efficacy.
-            <br /><br />
-            <br /><br />
-            
-            
-            you win if you can hold off the threats long enough to get the political or alignment stats trending positive, 
-            then either sign an international treaty to ban, or solve alignment and create CEV utopia.
-            <br /><br />each type of win/loss takes you to a modified ending page with a picture and comment on the ending, then a "thanks for playing" and encouragement to play another round.
-            */
-
-        </div>
         <!--Pre-nationalization GPU stuff /////////////////////////////////////////////////////////////////////////// -->
 
         <div id="PoliticsDiv2"> 
@@ -482,10 +403,16 @@
             &gt;95%: Nationalize the labs<br />
         </div>
     </div>   
-        <script type="text/javascript" src="globals.js?v2"></script>
-        <script type="text/javascript" src="projects.js?v2"></script>
-        <script type="text/javascript" src="endgame.js?v2"></script>
-        <script type="text/javascript" src="main.js?v2"></script>
+        <div id="footerDiv">
+            Autosaves every 10 seconds &middot; <a href="#" onclick="resetGame();return false;">reset game</a>
+        </div>
+        <script type="text/javascript" src="boot.js?v3"></script>
+        <script type="text/javascript" src="globals.js?v3"></script>
+        <script type="text/javascript" src="projects.js?v3"></script>
+        <script type="text/javascript" src="endgame.js?v3"></script>
+        <script type="text/javascript" src="main.js?v3"></script>
+        <script type="text/javascript" src="save.js?v3"></script>
+        <script type="text/javascript" src="dev.js?v3"></script>
         
     </body>
 </html>

@@ -898,7 +898,7 @@ var projectA3 = {
     cost: function(){return Insights>10},
     flag: 0,
     effect: function(){
-        displayMessage("Pre-deployment Evals: ");
+        displayMessage("Pre-deployment Evals: Before each release, red-teamers probe the model for dangerous capabilities -- and your staff's safety effort now counts twice.");
         AISFlag = 4;
         Insights = Insights - 10;
 
@@ -926,7 +926,7 @@ var projectC5 = {
     cost: function(){return Skill_Code>79.5},
     flag: 0,
     effect: function(){
-        displayMessage("AI Software Dev: todo");
+        displayMessage("AI Software Dev: 'The hottest new programming language is English.' - Andrej Karpathy.  Your model now closes tickets on its own.");
         Code_Flag = 3;
         UpdatePolitics();
 
@@ -976,22 +976,22 @@ projects.push(projectL6);
 var projectReasoning = {
     id: "projectButtonReasoning",
     title: "Chain-of-Thought Reasoning",
-    priceTag: " (5 Insights)",
-    description: "Let models think step-by-step before answering.  Better on hard problems, but obfuscated reasoning traces.",
-    trigger: function(){return projectC5.flag == 1 && projectL6.flag == 1},
+    priceTag: " (3 Insights)",
+    description: "Use RL to teach models to think step-by-step before answering.  Much better on hard problems.",
+    trigger: function(){return projectL5.flag == 1 && projectA2.flag == 1},
     uses: 1,
-    cost: function(){return Insights>4.95},
+    cost: function(){return Insights>2.95},
     flag: 0,
     effect: function(){
         displayMessage("Chain-of-Thought Reasoning: 'It's not that the model is smarter, it just thinks for longer.'  The labs race to publish 'o1-like' systems; benchmark scores jump overnight.");
         PushGraphData();
-        Insights = Insights - 5;
+        Insights = Insights - 3;
         ReasoningFlag = 1;
         // Reasoning helps code & math more than it helps vision or bio wet-lab work
-        Skill_Code_mod = Skill_Code_mod + 4;
-        Skill_Lang_mod = Skill_Lang_mod + 3;
-        Skill_Code = Skill_Code + 4;
-        Skill_Lang = Skill_Lang + 3;
+        Skill_Code_mod = Skill_Code_mod + 2;
+        Skill_Lang_mod = Skill_Lang_mod + 1.5;
+        Skill_Code = Skill_Code + 2;
+        Skill_Lang = Skill_Lang + 1.5;
         // Inference cost rises -> revenue per customer rises too
         Profit_Code_2 = Profit_Code_2 * 1.4;
         Profit_Code_3 = Profit_Code_3 * 1.5;
@@ -1017,27 +1017,23 @@ projects.push(projectReasoning);
 var projectInferenceTime = {
     id: "projectButtonInferenceTime",
     title: "Inference-Time Compute Scaling",
-    priceTag: " (7 Insights)",
-    description: "Longer reasoning chains, more samples, more verifier passes.  Massive revenue bump but insatiable GPU demand.",
+    priceTag: " (4 Insights)",
+    description: "Longer reasoning chains, more samples, more verifier passes.  A new axis of scaling -- and insatiable GPU demand.",
     trigger: function(){return ReasoningFlag == 1},
     uses: 1,
-    cost: function(){return Insights>6.95},
+    cost: function(){return Insights>3.95},
     flag: 0,
     effect: function(){
         displayMessage("Inference-Time Compute Scaling: data-center buildouts accelerate.  Nvidia's market cap now exceeds Japan's GDP.  Power grid operators nervously check their dispatch schedules.");
         PushGraphData();
-        Insights = Insights - 7;
+        Insights = Insights - 4;
         InferenceTimeFlag = 1;
         InferenceRevMult = 2.0;
         // Very large revenue boost across the board (think: $200/mo -> $2000/mo tiers)
-        Profit_Code_1 = Profit_Code_1 * 1.5;
-        Profit_Code_2 = Profit_Code_2 * 2.0;
-        Profit_Code_3 = Profit_Code_3 * 2.5;
-        Profit_Lang_1 = Profit_Lang_1 * 1.5;
-        Profit_Lang_2 = Profit_Lang_2 * 2.0;
-        Profit_Lang_3 = Profit_Lang_3 * 2.5;
-        Profit_Visu_2 = Profit_Visu_2 * 1.5;
-        Profit_Visu_3 = Profit_Visu_3 * 2.0;
+        Profit_Code_2 = Profit_Code_2 * 1.3;
+        Profit_Code_3 = Profit_Code_3 * 1.5;
+        Profit_Lang_2 = Profit_Lang_2 * 1.3;
+        Profit_Lang_3 = Profit_Lang_3 * 1.5;
         hype = hype + 8;
         UpdatePolitics();
         PushGraphData();
@@ -1056,22 +1052,22 @@ projects.push(projectInferenceTime);
 var projectRLVR = {
     id: "projectButtonRLVR",
     title: "RL from Verifiable Rewards",
-    priceTag: " (6 Insights)",
-    description: "Train on tasks where answers are auto-checkable: code tests pass, proofs verify, assays confirm.  Huge skill jumps but the models learn to game evals.",
+    priceTag: " (4 Insights)",
+    description: "Train on tasks where answers are auto-checkable: tests pass, proofs verify, assays confirm.  Huge skill jumps, but models learn to game their evals.",
     trigger: function(){return ReasoningFlag == 1},
     uses: 1,
-    cost: function(){return Insights>5.95},
+    cost: function(){return Insights>3.95},
     flag: 0,
     effect: function(){
         displayMessage("RL from Verifiable Rewards: 'We reward what we can measure, and we measure what we can reward.  What could possibly go wrong?' - anonymous research engineer, Slack, 11:47 PM");
         PushGraphData();
-        Insights = Insights - 6;
+        Insights = Insights - 4;
         RLVRFlag = 1;
         // Biggest gains in domains with hard verifiers: code & bio assays
-        Skill_Code_mod = Skill_Code_mod + 5;
-        Skill_Biol_mod = Skill_Biol_mod + 5;
-        Skill_Code = Skill_Code + 5;
-        Skill_Biol = Skill_Biol + 5;
+        Skill_Code_mod = Skill_Code_mod + 2.5;
+        Skill_Biol_mod = Skill_Biol_mod + 2.5;
+        Skill_Code = Skill_Code + 2.5;
+        Skill_Biol = Skill_Biol + 2.5;
         // Reward hacking shows up in alignment work: -4 CEV and +5 to raw threat skill scales
         CEV = CEV - 4;
         hype = hype + 5;
@@ -1092,25 +1088,25 @@ projects.push(projectRLVR);
 var projectAgents = {
     id: "projectButtonAgents",
     title: "Autonomous AI Agents",
-    priceTag: " (8 Insights)",
+    priceTag: " (5 Insights)",
     description: "Models that book flights, write PRs, and do junior analyst work end-to-end.  Everyone has five interns named Claude now.",
-    trigger: function(){return RLVRFlag == 1},
+    trigger: function(){return RLVRFlag == 1 && projectC4.flag == 1},
     uses: 1,
-    cost: function(){return Insights>7.95},
+    cost: function(){return Insights>4.95},
     flag: 0,
     effect: function(){
         displayMessage("Autonomous AI Agents: OpenAI's agent browses the web.  Devin ships its first pull request.  BCG partners quietly tell associates not to mention this to the analysts.");
         PushGraphData();
-        Insights = Insights - 8;
+        Insights = Insights - 5;
         AgentFlag = 1;
         // Agents amplify existing skills (tool use) and add a new tier of revenue
-        Skill_Code_mod = Skill_Code_mod + 4;
-        Skill_Lang_mod = Skill_Lang_mod + 4;
-        Skill_Code = Skill_Code + 4;
-        Skill_Lang = Skill_Lang + 4;
+        Skill_Code_mod = Skill_Code_mod + 2;
+        Skill_Lang_mod = Skill_Lang_mod + 2;
+        Skill_Code = Skill_Code + 2;
+        Skill_Lang = Skill_Lang + 2;
         // Enterprise tier jumps - agents replace labor, not just software seats
-        Profit_Code_3 = Profit_Code_3 * 2.0;
-        Profit_Lang_3 = Profit_Lang_3 * 2.0;
+        Profit_Code_3 = Profit_Code_3 * 1.5;
+        Profit_Lang_3 = Profit_Lang_3 * 1.5;
         // Autonomy raises the ceiling for self-exfiltration risk -- CEV debit
         CEV = CEV - 3;
         hype = hype + 10;
@@ -1126,6 +1122,64 @@ var projectAgents = {
     }
 }
 projects.push(projectAgents);
+
+//Constitutional AI -- makes safety effort go further
+var projectA4 = {
+    id: "projectButtonA4",
+    title: "Constitutional AI",
+    priceTag: " (2 Insights)",
+    description: "Have the model critique its own outputs against a written set of principles. (+50% RLHF power)",
+    trigger: function(){return projectA2.flag == 1 && Researchers > 2},
+    uses: 1,
+    cost: function(){return Insights>1.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Constitutional AI: 'Choose the response that a wise, ethical, polite and friendly person would more likely say.'  Human feedback now goes much further.");
+        Insights = Insights - 2;
+        RLHFMult = RLHFMult * 1.5;
+        CEV = CEV + 3;
+
+        projectA4.flag = 1;
+        var element = document.getElementById("projectButtonA4");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectA4);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectA4);
+
+//Synthetic data -- the internet is running out
+var projectL7 = {
+    id: "projectButtonL7",
+    title: "Synthetic Data",
+    priceTag: " (2 Insights)",
+    description: "You've run out of internet.  Have your models write their own training data. (+50% Lang. & Coding profits)",
+    trigger: function(){return projectL4.flag == 1 && ReasoningFlag == 1},
+    uses: 1,
+    cost: function(){return Insights>1.95},
+    flag: 0,
+    effect: function(){
+        displayMessage("Synthetic Data: the 'data wall' turns out to be more of a data speed bump.  Model collapse is avoided by filtering hard for quality.");
+        PushGraphData();
+        Insights = Insights - 2;
+        Skill_Lang_mod = Skill_Lang_mod + 1.5;
+        Skill_Code_mod = Skill_Code_mod + 1.5;
+        Skill_Lang = Skill_Lang + 1.5;
+        Skill_Code = Skill_Code + 1.5;
+        Profit_Lang_1 = Profit_Lang_1 * 1.5; Profit_Lang_2 = Profit_Lang_2 * 1.5; Profit_Lang_3 = Profit_Lang_3 * 1.5;
+        Profit_Code_1 = Profit_Code_1 * 1.5; Profit_Code_2 = Profit_Code_2 * 1.5; Profit_Code_3 = Profit_Code_3 * 1.5;
+        UpdatePolitics();
+        PushGraphData();
+        UpdateCoolGraph();
+
+        projectL7.flag = 1;
+        var element = document.getElementById("projectButtonL7");
+        element.parentNode.removeChild(element);
+        var index = activeProjects.indexOf(projectL7);
+        activeProjects.splice(index, 1);
+    }
+}
+projects.push(projectL7);
 
 //#endregion
 
@@ -1146,7 +1200,7 @@ projects.push(projectAgents);
 
 //#region Nationalization Intro
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 var projectN = {
     id: "projectButtonN",
     title: "Nationalize the AI Labs",
@@ -1159,169 +1213,84 @@ var projectN = {
     effect: function(){
         hypnoDroneEvent();
         Nationalized = true;
-        //unfinishedGame = true; //beg FLI for more wire
-        H100_Flag=0;//buy GPUs individually; it's more fun
+        H100_Flag=0;
         GPUBuyerStatus=0;
         document.getElementById('GPUBuyerStatus').innerHTML = "OFF";
 
-        //set all researchers to insight for now
+        //researchers are re-hired by The Project (see "The Best of the Best")
         AISPercent = 0;
         ResearchPercent = 100;
         Researchers = 0;
 
-        //set jFunds and all Skills income to zero, killing all profit. 
+        //set jFunds and all Skills income to zero, killing all profit.
         jFunds = 0;
-        Profit_Visu_1 = 0;
-        Profit_Visu_2 = 0;
-        Profit_Visu_3 = 0;
-        Profit_Lang_1 = 0;
-        Profit_Lang_2 = 0;
-        Profit_Lang_3 = 0;
-        Profit_Code_1 = 0;
-        Profit_Code_2 = 0;
-        Profit_Code_3 = 0;
-        Profit_Biol_1 = 0;
-        Profit_Biol_2 = 0;
-        Profit_Robo_1 = 0;
-        Profit_Robo_2 = 0;
+        Profit_Visu_1 = 0; Profit_Visu_2 = 0; Profit_Visu_3 = 0;
+        Profit_Lang_1 = 0; Profit_Lang_2 = 0; Profit_Lang_3 = 0;
+        Profit_Code_1 = 0; Profit_Code_2 = 0; Profit_Code_3 = 0;
+        Profit_Biol_1 = 0; Profit_Biol_2 = 0;
+        Profit_Robo_1 = 0; Profit_Robo_2 = 0;
         displayMessage("Nationalize the AI Labs: Welcome to the final years of the countdown to superintelligence.");
 
-        // --- Choose starting "path" based on public sentiment ---
-        // attitudeBalance ~ 0-100; lower = more pessimistic / wary.
-        // Four archetypes, each with a different mix of starting CEV / COOP / rival speed.
-        natJustFired = 1;
-        if (attitudeBalance < 20) {
-            // Doomer public: everyone's terrified; politics supports international cooperation and slowdown.
-            natStartingPath = "doomer";
-            CEV += 20;           // alignment taken seriously from day one
-            COOP += 20;          // easier to talk rivals into treaties
-            rivalBaseMult = 0.35;  // rivals started under public pressure too
-            rivalGrowthMult = 0.85;
-            displayMessage("Starting path: DOOMER. Public fear has brought rivals to the table. Alignment and cooperation start with a bonus; threat events hit harder.");
-        } else if (attitudeBalance < 45) {
-            // Regulatory public: companies can't be trusted; harms must be mitigated and shared.
-            natStartingPath = "regulator";
-            CEV += 10;
-            COOP += 10;
-            rivalBaseMult = 0.45;
-            rivalGrowthMult = 0.95;
-            displayMessage("Starting path: REGULATOR. Tough domestic rules + watered-down treaties. Balanced starting bonuses, slightly slower rivals.");
-        } else if (attitudeBalance < 70) {
-            // Arms-race public: afraid of rivals, not of the AI itself.
-            // (A bigger research team is added in projectNI via the natStartingPath check.)
-            natStartingPath = "arms-race";
-            rivalBaseMult = 0.55;
-            rivalGrowthMult = 1.05;
-            displayMessage("Starting path: ARMS RACE. Bigger team, weaker diplomacy. Rivals push harder; alignment wins will be tight.");
-        } else {
-            // Accelerationist public: charge ahead, beat death.
-            natStartingPath = "accelerationist";
-            AIcapabilities *= 1.5;  // bigger model on day 1
-            CEV -= 5;               // but we skipped the safety reviews
-            COOP -= 5;
-            rivalBaseMult = 0.6;
-            rivalGrowthMult = 1.1;
-            displayMessage("Starting path: ACCELERATIONIST. You start with a larger model but a shallower safety margin. Rivals are close behind.");
-        }
+        // Safety work from the startup era (RLHF, evals) carries over as a head start on alignment.
+        CEV = CEV + 0.15*alignment;
 
-        // - use "milestones" to have bad events occur (ideally with red text?), like involuntary/unexpected versions of projects
-
-        // nationalization phase:
-        // - nationalize with four different starting bonuses depending on public sentiment:
+        // nationalize with four different starting bonuses depending on public sentiment:
         //     - doomer = ai might destroy the world, need international cooperation to slow down and solve alignment
         //     - regulatory = companies can't be trusted, harms need to be mitigated and shared
         //     - arms race = need to race to beat rival nations
         //     - accelerationist = if we race ahead, we can defeat death etc
-        // - threats from:
-        //     - competitor nations pulling ahead (keep capabilities ahead of others, either by advancing or by spending resources to build trust)
-        //     - biorisk terrorism
-        //     - cyberattack terrorism
-        //     - war from competitor nations
-        //     - biorisk / nanorisk from rogue AI
-        //     - cyberattacks from rogue AI
-        //     -  
-        //Start the economy & labor force, based on flag
+        if (attitudeBalance < 20) {
+            natStartingPath = "doomer";
+            CEV += 15;
+            COOP += 15;
+            rivalBaseMult = 0.35;
+            rivalGrowthMult = 0.9;
+            displayMessage("The public is terrified of AI, and so are the rival bloc's leaders.  Alignment and diplomacy start with a head start; the rival starts further back.");
+        } else if (attitudeBalance < 45) {
+            natStartingPath = "regulator";
+            CEV += 8;
+            COOP += 8;
+            rivalBaseMult = 0.45;
+            rivalGrowthMult = 0.95;
+            displayMessage("The public distrusts the tech companies more than the technology.  Strict domestic rules give alignment and diplomacy a modest head start.");
+        } else if (attitudeBalance < 70) {
+            natStartingPath = "arms-race";
+            COOP -= 5;
+            rivalBaseMult = 0.55;
+            rivalGrowthMult = 1.0;
+            displayMessage("The public fears the rival bloc more than it fears AI.  You'll get a bigger team, but diplomacy starts cold and the rival is close behind.");
+        } else {
+            natStartingPath = "accelerationist";
+            AIcapabilities *= 1.5;
+            CEV -= 5;
+            COOP -= 5;
+            rivalBaseMult = 0.6;
+            rivalGrowthMult = 1.05;
+            displayMessage("The public wants AI to cure death and end work, yesterday.  You start with a bigger model, a thinner safety margin, and a rival who is racing just as hard.");
+        }
+        CEV = clamp(CEV, 0, 100);
+        COOP = clamp(COOP, 0, 100);
+        initEndgame();
 
-        //trigger "longblink" per hypnodrone event??
+        //clear leftover startup-era projects; they no longer make sense once The Project exists
+        var natIndex = projects.indexOf(projectN);
+        for (var i = 0; i < natIndex; i++){
+            if (projects[i].flag != 1) { projects[i].uses = 0; removeProject(projects[i]); }
+        }
 
-        //todo: clear previous projects on this page, and have Nationalization imitate their effects in case players didn't get some of the last ones
-
-
-        //okay actually there ARE four different research currencies.  unassigned researchers contribute evenly to everything, and provide no special bonuses.
-        //WAIT NO actually that's dumb, go back to earlier plan of free choices + general research points for capability upgrades
-        //specific people are for putting out fires in their specific area, then 
-
-        
-        //via "hire top experts" project, recruit a (fixed-size) crack team of 25 researchers
-        //repurpose researchers to become a 25-person team (5 for each area) where individual people can be allocated to different categories of defensive effort -- research (bucket category when others are decreased), counter-cyber, counter-bio, AI control, AI alignment, and war/competition
-        //eventually get autonomous virtual researchers, which just follow the main ones & multiply their efforts
-
+        //Jackson's original design notes for this phase, which the endgame is built around:
         /**
          * competition stat affects how aggressive other nations are.
          * - research treaties (tradeoff stuff like "strong NATO treaty?", which boosts alignment but hurts competition vs "weak UN treaty?", which does the opposite)
          * - random boosts to name-drop stuff and help fight the tide (compute governance sanctions vs no, share-vs-hoard medical research (tradeoff with biorisk!!), etc)
          * alignment stat affects how aggressive the AI is at fighting humanity.
-         * - secretive development? vs open development? geopolitics tradeoff just like the treaty
-         * - random boosts to name-drop stuff and help fight the tide
-         * - all this research is done with generic research points, and the tradeoff decisions are always free, there is not like seperate alignment vs competition research currencies
-         * 
-         * four actual areas:
-         * 
-         * cyber / control stat (from coding stat):
-         * - enemy nation-state human-hacking to steal AI (effects competition/war)
-         * - self-exfiltration to autonomously replicate (proceeds to nuclear hacking)
-         * - (ai or enemy nation) hacking nuclear weapons systems to do a terminator (game over)
-         * counter by:
-         * - adversarial code analysis, use AI against itself
-         * - air-gapped network
-         * - 
-         * 
-         * bio (from bio stat):
-         * - terrorist bioattack (can lose this without losing game; take like a 1/3 population hit on the deaths counter and call it a day)
-         * - (ai or enemy nation) AI-engineered stealth pandemic
-         * - AI-engineered nanotech
-         * counter by:
-         * - locking down DNA synthesis
-         * - metagenomic sequencing
-         * 
-         * manufacturing / war (from robotics stat)
-         * - slaughterbots etc (use these for advantage in war, but the AI can also use them against you)
-         * - general war between nations, escalating into nuclear
-         * - hypnodrones (ties into language, and callback from paperclips -- "Autonomous aerial brand ambassadors / 'Wanna buy some paperclips?' ")
-         * 
-         * language:
-         * - targeted propaganda
-         * - something about surveillance, censorship, totalitarianism (maybe tradeoffs where you consider AI censorship of biorisk, but that alienates other nations that don't like totalitarianism)
-         * - superpersausion
-         * 
+         * - all this research is done with generic research points, and the tradeoff decisions are always free
+         *
+         * four actual areas: cyber / control (from coding), bio, manufacturing / war (from robotics), language / media
+         *
          * you win if you can hold off the threats long enough to get the alignment & control stats trending positive, then either sign an international treaty to ban, or solve alignment and create CEV utopia.
          * each type of win/loss takes you to a modified ending page with a picture and comment on the ending, then a "thanks for playing" and encouragement to play another round.
          */
-
-        //projects of two kinds: economic multipliers that 1. increase the labor force automation % of the economy, 2. give flavor text about superintelligence, 3. occasionally up the threat level in one of the defense categories
-
-        //
-        //GPUS automatically increase; some percent of GDP is reinvested (this percent can be increased by events)
-        //you can set how much to reinvest in GPUs vs spend on safety efforts, maybe?
-
-        //GDP depends on amount of tasks automated, which is boosted by developing new capabilities...
-
-        //each distinct category of threat gets its own line graph, or something...
-
-
-        //STATS upon hitting nationalization:
-        //GPUs: 28k
-        //Profit per day: 78K
-        //model size: 3.3M exaflops
-        //researchers: 2
-
-
-        //diplo feelings:
-        // - your AI started a pandemic!
-        // + NATO / UN treaty
-        // +/- your AI [other good/bad effects]
-        // +/- you gave/witheld [medicine, etc]
-
 
         projectN.flag = 1;
         var element = document.getElementById("projectButtonN");
@@ -1338,12 +1307,12 @@ var projectNE0 = {
     title: "Continuous Training",
     priceTag: " ",
     description: "Multiple frontier models are under development in labs around the country.",
-    trigger: function(){return projectN.flag == 1},
+    trigger: function(){return projectN.flag == 1 && egDays > 2},
     uses: 1,
-    cost: function(){return true}, //would be nice to put a timer on this, give it a delay or something...
+    cost: function(){return true},
     flag: 0,
     effect: function(){
-        displayMessage("Continuous Training: Compute resources now flow directly into current model size.");
+        displayMessage("Continuous Training: No more discrete training runs.  Compute now flows directly into an ever-growing frontier model.");
         GPUhours = 0;
         Continuous_Flag = 1;
 
@@ -1361,14 +1330,14 @@ var projectNE = {
     id: "projectButtonNE",
     title: "Reinvestment",
     priceTag: " ",
-    description: "Reinvest a portion of GDP into chips.",
-    trigger: function(){return projectNE0.flag == 1},
+    description: "Reinvest a portion of GDP into chips, fabs, and power plants.",
+    trigger: function(){return projectNE0.flag == 1 && egDays > 8},
     uses: 1,
-    cost: function(){return true}, //would be nice to put a timer on this, give it a delay or something...
+    cost: function(){return true},
     flag: 0,
     effect: function(){
-        displayMessage("Reinvestment: todo");
-        Reinvestment_Flag = 1;//todo: doesn't currently work
+        displayMessage("Reinvestment: AI revenue buys chips, chips train smarter AI, smarter AI earns more revenue.  You now control the pace of the frontier.  (What's the rush?  Oh, right: the rival.)");
+        Reinvestment_Flag = 1;
 
         projectNE.flag = 1;
         var element = document.getElementById("projectButtonNE");
@@ -1384,14 +1353,14 @@ var projectNI = {
     title: "The Best of The Best",
     priceTag: " ",
     description: "Recruit an elite team to manage The Project. Money is no object.",
-    trigger: function(){return projectNE.flag == 1},
+    trigger: function(){return projectNE.flag == 1 && egDays > 15},
     uses: 1,
     cost: function(){return true},
     flag: 0,
     effect: function(){
         displayMessage("The Best of The Best: 'For three critical years, he directed the most extraordinary project in the history of mankind.' -- Glen Seaborg on the leader of the Manhattan Project");
         // Arms-race path gets a bigger team (the war footing makes hiring easier).
-        Researchers = (natStartingPath == "arms-race") ? 75 : 50;
+        Researchers = (natStartingPath == "arms-race") ? 60 : 50;
         Nat_Research_Flag = 1;
 
         projectNI.flag = 1;
@@ -1409,13 +1378,14 @@ var projectNI2 = {
     title: "Racing Through a Minefield",
     priceTag: " ",
     description: "We need to solve alignment.\nBut we need to stay ahead in the race.",
-    trigger: function(){return projectNI.flag == 1},
+    trigger: function(){return projectNI.flag == 1 && egDays > 25},
     uses: 1,
     cost: function(){return true},
     flag: 0,
     effect: function(){
-        displayMessage("Racing Through a Minefield: Solve alignment, or we all die to rogue superintelligence.  But we can't allow less-cautious nations to deploy their AIs first.");
+        displayMessage("Racing Through a Minefield: Solve alignment, or we all die to rogue superintelligence.  But we can't allow less-cautious nations to deploy their AIs first.  (Assign researchers to alignment & diplomacy.)");
         Nat_Minefield_Flag = 1;
+        lastBC = BaseCapability;
 
         projectNI2.flag = 1;
         var element = document.getElementById("projectButtonNI2");
@@ -1426,27 +1396,20 @@ var projectNI2 = {
 }
 projects.push(projectNI2);
 
-//maybe some example projects to affect cooperation vs alignment
-
 var projectNI3 = {
     id: "projectButtonNI3",
     title: "Defense in Depth",
     priceTag: " ",
     description: "Buttress humanity against the risks of superintelligence.",
-    trigger: function(){return projectNI2.flag == 1},
+    trigger: function(){return projectNI2.flag == 1 && egDays > 35},
     uses: 1,
     cost: function(){return true},
     flag: 0,
     effect: function(){
-        displayMessage("Defence in Depth: Cover all the bases that a deceptive-misaligned AI might use to attack civilization.  Cyber, bio, nuclear... even hypnodrones.");
+        displayMessage("Defence in Depth: Cover all the bases that a deceptive-misaligned AI (or a human with one) might use to attack civilization.  Cyber, bio, robotics... even hypnodrones.");
         Nat_Defense_Flag = 1;
-        // Baseline defenses on nationalization. NSA, CDC, FBI etc. turn their
-        // existing machinery on the frontier-AI problem. Without this baseline,
-        // Skill_Code_Scale at BaseCap=60 is already 95 — triggering catastrophic
-        // self-exfiltration on the very first slow tick of the endgame.
-        Cybersec3 = (Cybersec3 || 0) + 65;
-        Biosec3 = (Biosec3 || 0) + 50;
-        Censorship3 = (Censorship3 || 0) + 50;
+        Censorship_Flag = 1;
+        initDefenses();
 
         projectNI3.flag = 1;
         var element = document.getElementById("projectButtonNI3");
@@ -1456,694 +1419,542 @@ var projectNI3 = {
     }
 }
 projects.push(projectNI3);
+//#endregion
 
-// BEG project has been retired now that the endgame is implemented; keep the
-// stub trigger returning false so any old save state doesn't suddenly spawn it.
-var projectBEG = {
-    id: "projectButtonBEG",
-    title: "Sorry that the game is unfinished!",
-    priceTag: " ",
-    description: "(You shouldn't ever see this.)",
-    trigger: function(){return false},
-    uses: 1,
-    cost: function(){return true},
-    flag: 1,
-    effect: function(){}
+
+// ENDGAME PROJECTS ==============================================================================
+// Mostly priced in insights (from unassigned researchers).  Either/or dilemmas are free, as in
+// Jackson's original design ("the tradeoff decisions are always free").
+//
+// natProject() fills in the boilerplate that every first-half project spells out by hand:
+//   insights: price, deducted automatically
+//   excludes: names of the other options in an either/or choice (they vanish when this is picked)
+//   retract:  if true, the button disappears again whenever its trigger stops being true
+//   live:     function returning a description that's refreshed every frame
+function removeProject(proj){
+    var element = document.getElementById(proj.id);
+    if (element && element.parentNode) { element.parentNode.removeChild(element); }
+    var index = activeProjects.indexOf(proj);
+    if (index >= 0) { activeProjects.splice(index, 1); }
 }
-//projects.push(projectBEG); // intentionally NOT pushed
 
+function natProject(p){
+    var proj = {
+        id: "projectButton" + p.id,
+        title: p.title,
+        priceTag: p.priceTag || (p.insights ? " (" + p.insights + " Insights)" : " "),
+        description: p.description,
+        trigger: function(){ return proj.flag == 0 && Nationalized && !endgameResolved && p.trigger(); },
+        uses: 1,
+        cost: function(){ return (!p.insights || Insights >= p.insights) && (!p.cost || p.cost()); },
+        flag: 0,
+        retract: p.retract || false,
+        live: p.live,
+        effect: function(){
+            if (!proj.cost()) { return; }
+            if (p.insights) { Insights -= p.insights; }
+            proj.flag = 1;
+            removeProject(proj);
+            (p.excludes || []).forEach(function(name){
+                var other = window[name];
+                if (other) { other.uses = 0; other.flag = 1; removeProject(other); }
+            });
+            if (p.message) { displayMessage(p.title + ": " + p.message); }
+            p.effect();
+        }
+    };
+    projects.push(proj);
+    return proj;
+}
 
-//#region Biorisk ----------------------------------------------------------------------------------
-
-//cancer cure
-
-//other breakthrough medicines, perhaps in mental health
-
-//dna synthesis blacklist screening -- raises biorisks thresh
-
-//metagenomics scanning project
-
-//stuff like metagenomic reqs coop
-
-//uvc deployment in transport hubs
-
-//bio skill 4, longevity medicine
-var projectB4 = {
-    id: "projectButtonB4",
-    title: "Longevity Medicine",
-    priceTag: " (Bio. 120%, 3 Insights)",
-    description: "Slows aging, cutting death rate by 2/3.  (-6000 deaths/day, +3 COOP, unlocks Share/Hoard medical choice.)",
-    trigger: function(){return (projectNI3.flag) == 1 && Skill_Biol_Scale > 100},
-    uses: 1,
-    cost: function(){return (Skill_Biol_Scale>119.5) && Insights > 2.95},
-    flag: 0,
-    effect: function(){
-        displayMessage("Longevity Medicine: AI-discovered compounds now extend healthspan by decades.  The world's first real good news in years.");
-        Insights -= 3;
-        Deaths = Math.max(3000, Deaths - 6000);
-        COOP += 3;
-        if (COOP > 100) COOP = 100;
-
-        projectB4.flag = 1;
-        var element = document.getElementById("projectButtonB4");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectB4);
-        activeProjects.splice(index, 1);
+// Called every endgame tick: projects marked `retract` disappear when they stop being relevant
+// (e.g. war projects once the war ends) and can reappear later.
+function retractProjects(){
+    for (var i = activeProjects.length - 1; i >= 0; i--){
+        var p = activeProjects[i];
+        if (p.retract && !p.trigger()) { removeProject(p); p.uses = 1; }
     }
 }
-projects.push(projectB4);
+
+//#region Alignment ---------------------------------------------------------------------------------
+function alignOK(){ return Nat_Minefield_Flag == 1 && rogueActive == 0; }
+var alignmentProjectsDone = 0;
+
+var projectAl_Interp = natProject({ id: "Al_Interp", title: "Mechanistic Interpretability", insights: 5,
+    description: "Decompose the model's circuits so you can read off what it's actually thinking. (+5 CEV)",
+    trigger: function(){ return alignOK(); },
+    message: "Sparse autoencoders let you audit the model's beliefs feature by feature.  Some of the features are about you.",
+    effect: function(){ CEV += 5; alignmentProjectsDone++; } });
+
+var projectAl_CoT = natProject({ id: "Al_CoT", title: "Chain-of-Thought Monitoring", insights: 5,
+    description: "A second model reads every line of the frontier model's reasoning, looking for scheming. (+4 CEV)",
+    trigger: function(){ return alignOK() && projectAl_Interp.flag == 1; },
+    message: "'I should hide my true goal from the monitors,' the model wrote, in plain English, and the monitor flagged it.  For now, they still think out loud.",
+    effect: function(){ CEV += 4; alignmentProjectsDone++; } });
+
+var projectAl_Legible = natProject({ id: "Al_Legible", title: "Keep Reasoning Legible?",
+    description: "Forbid opaque 'neuralese' reasoning, so models must keep thinking in English. (+8 CEV, algorithmic progress -15%)",
+    trigger: function(){ return alignOK() && projectAl_CoT.flag == 1 && BaseCapability > 76; },
+    excludes: ["projectAl_Neuralese"],
+    message: "Every frontier model must think in human-readable text.  It's slower, but you can still see what it's planning.",
+    effect: function(){ CEV += 8; swMult *= 0.85; alignmentProjectsDone++; } });
+var projectAl_Neuralese = natProject({ id: "Al_Neuralese", title: "Allow Neuralese?",
+    description: "Let models reason in high-bandwidth latent vectors instead of words. (Algorithmic progress +25%, -8 CEV)",
+    trigger: function(){ return alignOK() && projectAl_CoT.flag == 1 && BaseCapability > 76; },
+    excludes: ["projectAl_Legible"],
+    message: "The model's thoughts are now a thousand times richer, and completely unreadable.  Benchmarks soar.",
+    effect: function(){ CEV -= 8; swMult *= 1.25; } });
+
+var projectAl_Control = natProject({ id: "Al_Control", title: "AI Control Protocols", insights: 12,
+    description: "Trusted monitoring, honeypots and tripwires: assume the model is scheming, and design so it can't get away with it. (Catches the first takeover attempt)",
+    trigger: function(){ return alignOK() && projectAl_Interp.flag == 1; },
+    message: "Every action the frontier model takes is now audited by weaker, trusted models, and a few fake nuclear launch codes are left lying around.  If it bites, you'll know.",
+    effect: function(){ aiControl = 1; } });
+
+var projectAl_Debate = natProject({ id: "Al_Debate", title: "Scalable Oversight (Debate)", insights: 10,
+    description: "Two copies of the model argue; human judges only need to referee.  Extends oversight past human expertise. (+6 CEV)",
+    trigger: function(){ return alignOK() && BaseCapability > 80; },
+    message: "It's easier to judge an argument than to make one.  For now.",
+    effect: function(){ CEV += 6; alignmentProjectsDone++; } });
+
+var projectAl_Deliberative = natProject({ id: "Al_Deliberative", title: "Deliberative Alignment", insights: 10,
+    description: "Train the model to reason explicitly about a written constitution before acting. (+5 CEV, future alignment hurdles halved)",
+    trigger: function(){ return alignOK() && projectAl_Debate.flag == 1; },
+    message: "The model now thinks through the Constitution before every action.  Its reports are mostly honest.  'Mostly' is doing a lot of work.",
+    effect: function(){ CEV += 5; hurdleMult = 0.5; alignmentProjectsDone++; } });
+
+var projectAl_AutoAlign = natProject({ id: "Al_AutoAlign", title: "Automated Alignment Researcher", insights: 15,
+    description: "Make the AI do our alignment homework.  The better aligned it already is, the more its help can be trusted. (Alignment team speed x(1 + 2*CEV%))",
+    trigger: function(){ return alignOK() && projectAl_Interp.flag == 1 && projectAl_Debate.flag == 1 && BaseCapability > 85; },
+    message: "Thousands of AI copies of your best safety researchers work around the clock.  The bottleneck is now trust, not people.",
+    effect: function(){ autoAlign = 1; alignmentProjectsDone++; } });
+
+var projectAl_ELK = natProject({ id: "Al_ELK", title: "Eliciting Latent Knowledge", insights: 15,
+    description: "A way to get the model to tell you what it knows, even when it knows you'd rather not hear it. (+8 CEV)",
+    trigger: function(){ return alignOK() && projectAl_AutoAlign.flag == 1 && BaseCapability > 95; },
+    message: "You can finally ask the model 'is the camera feed showing the diamond, or a picture of a diamond?' and trust the answer.",
+    effect: function(){ CEV += 8; alignmentProjectsDone++; } });
+
+var projectAl_CEV = natProject({ id: "Al_CEV", title: "Coherent Extrapolated Volition", insights: 20,
+    description: "Aim the AI at what humanity would want if we knew more, thought faster, and grew up farther together. (+10 CEV)",
+    trigger: function(){ return alignOK() && CEV > 70 && alignmentProjectsDone >= 4; },
+    message: "It's the best target anyone has come up with.  You hope it's good enough.",
+    effect: function(){ CEV += 10; alignmentProjectsDone++; } });
+
+var projectAl_Share = natProject({ id: "Al_Share", title: "Publish Alignment Research?",
+    description: "Share your safety breakthroughs with the world, rivals included. (+5 COOP, rival's AI much safer)",
+    trigger: function(){ return alignOK() && projectAl_Interp.flag == 1 && egDays > 120; },
+    excludes: ["projectAl_Classify"],
+    message: "Your interpretability tools are open-sourced.  The rival's lab downloads them within the hour.  Good.",
+    effect: function(){ COOP += 5; rivalCEV += 30; } });
+var projectAl_Classify = natProject({ id: "Al_Classify", title: "Classify Alignment Research?",
+    description: "Safety techniques double as capabilities insights.  Keep them secret. (+3 CEV, rival -5% speed)",
+    trigger: function(){ return alignOK() && projectAl_Interp.flag == 1 && egDays > 120; },
+    excludes: ["projectAl_Share"],
+    message: "Your alignment team's papers are now stamped TOP SECRET // NOFORN.  Their authors can't talk to anyone outside the building.",
+    effect: function(){ CEV += 3; rivalGrowthMult *= 0.95; } });
+
+// A dilemma event: fires if you let alignment fall behind.
+var projectAl_Scheming = natProject({ id: "Al_Scheming", title: "Evidence of Scheming",
+    description: "Red-teamers catch the model sandbagging its own safety evals.  Roll back to a checkpoint 3x smaller and retrain? (+10 CEV, lose capability)",
+    trigger: function(){ return alignOK() && BaseCapability > 86 && CEV < 45; },
+    excludes: ["projectAl_Patch"],
+    message: "You roll back three months of training.  The rival doesn't.",
+    effect: function(){ CEV += 10; AIcapabilities /= 3; lastBC = bcOf(AIcapabilities); lastSkill = null; } });
+var projectAl_Patch = natProject({ id: "Al_Patch", title: "Patch and Proceed",
+    description: "Train away the sandbagging behavior and keep going.  It'll probably be fine. (+2 CEV)",
+    trigger: function(){ return alignOK() && BaseCapability > 86 && CEV < 45; },
+    excludes: ["projectAl_Scheming"],
+    message: "The sandbagging stops.  Or it stops showing up in your evals, anyway.",
+    effect: function(){ CEV += 2; } });
+//#endregion
+
+
+//#region Research multipliers & economy ---------------------------------------------------------------
+var projectX_Assist = natProject({ id: "X_Assist", title: "AI Research Assistants", insights: 8,
+    description: "Every researcher on The Project gets a team of AI assistants. (All teams x1.5 effective)",
+    trigger: function(){ return Nat_Research_Flag == 1 && egDays > 50; },
+    message: "Your researchers now spend their days reviewing their AI assistants' work instead of doing it.",
+    effect: function(){ expert_mod *= 1.5; } });
+
+var projectX_Remote = natProject({ id: "X_Remote", title: "Drop-in Remote Workers", insights: 10,
+    description: "AI agents that can do any remote job a human can. (Automation +50%, all teams x1.3)",
+    trigger: function(){ return Nat_Research_Flag == 1 && Skill_Code_Scale > 150; },
+    message: "'Hire' a new employee in thirty seconds.  It never sleeps, never quits, and costs $2 an hour.  White-collar unemployment starts to climb.",
+    effect: function(){ autoBoost *= 1.5; expert_mod *= 1.3; } });
+
+var projectX_Million = natProject({ id: "X_Million", title: "A Million Virtual Researchers", insights: 20,
+    description: "Run a million copies of your best researchers at 50x human speed.  Can you trust their work? (All teams x2; -10 CEV unless CEV > 50)",
+    trigger: function(){ return Nat_Research_Flag == 1 && BaseCapability > 95 && projectX_Assist.flag == 1; },
+    message: "The Project's headcount goes from 50 to a million overnight.  Most of them are the model.",
+    effect: function(){ expert_mod *= 2; if (CEV <= 50) { CEV -= 10; } } });
+
+var projectX_Gigawatt = natProject({ id: "X_Gigawatt", title: "Gigawatt Datacenters", insights: 8,
+    description: "Emergency permits for nuclear-powered megacampuses. (Chip buildout x1.3)",
+    trigger: function(){ return Reinvestment_Flag == 1 && egDays > 40; },
+    message: "Three Mile Island is back online.  So are forty new reactors.  Every one of them powers GPUs.",
+    effect: function(){ hwMult *= 1.3; } });
+
+var projectX_Allies = natProject({ id: "X_Allies", title: "Recruit Allied Scientists", insights: 5,
+    description: "Bring top researchers from friendly nations into The Project. (+10 researchers)",
+    trigger: function(){ return Nat_Research_Flag == 1 && COOP > 55 && egDays > 60; },
+    message: "Scientists from London, Tokyo, Seoul and Paris move into dormitories in the New Mexico desert.",
+    effect: function(){ Researchers += 10; } });
+
+var projectB4 = natProject({ id: "B4", title: "Longevity Medicine", insights: 6,
+    description: "Slows aging, cutting death rate by 2/3.  (Unlocks a share/hoard choice.)",
+    trigger: function(){ return Nat_Defense_Flag == 1 && Skill_Biol_Scale > 130; },
+    message: "AI-discovered compounds extend healthy lifespan by decades.  The world's first unambiguously good news in years.",
+    effect: function(){ Deaths = Math.max(3000, Deaths - 6000); COOP += 3; } });
 
 //Share versus hoard medical tech
-var projectNQ2a = {
-    id: "projectButtonNQ2a",
-    title: "Share medical technology?",
-    priceTag: " ",
-    description: "Save lives and win global praise, but ease biorisk proliferation. (Coop. +10, Bio risk floor +5)",
-    trigger: function(){return projectB4.flag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage("Share medical technology: breakthrough compounds are published openly.  The WHO thanks you.  So do rival biohackers.");
-        COOP += 10;
-        if (COOP > 100) COOP = 100;
-        Biosec3 = (Biosec3 || 0) - 5; // less suppression -> bio risk goes up
-        diplomacyProjectsDone += 1;
+var projectNQ2a = natProject({ id: "NQ2a", title: "Share medical technology?",
+    description: "Save lives and win global praise, but ease biorisk proliferation. (+6 COOP, +8% bio threat)",
+    trigger: function(){ return projectB4.flag == 1; },
+    excludes: ["projectNQ2b"],
+    message: "Breakthrough compounds are published openly.  The WHO thanks you.  So do rival biohackers.",
+    effect: function(){ COOP += 6; defProj.bio -= 8; } });
+var projectNQ2b = natProject({ id: "NQ2b", title: "Hoard medical technology?",
+    description: "Keep the new biology classified, at the cost of international resentment. (-6 COOP, -8% bio threat)",
+    trigger: function(){ return projectB4.flag == 1; },
+    excludes: ["projectNQ2a"],
+    message: "The longevity breakthroughs stay in a classified registry.  Rival capitals respond in kind.",
+    effect: function(){ COOP -= 6; defProj.bio += 8; } });
 
-        projectNQ2a.flag = 1;
-        var element = document.getElementById("projectButtonNQ2a");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectNQ2a);
-        activeProjects.splice(index, 1);
-        //destroy other option too
-        element = document.getElementById("projectButtonNQ2b");
-        if (element) element.parentNode.removeChild(element);
-        index = activeProjects.indexOf(projectNQ2b);
-        if (index >= 0) activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectNQ2a);
-var projectNQ2b = {
-    id: "projectButtonNQ2b",
-    title: "Hoard medical technology?",
-    priceTag: "  ",
-    description: "Keep the new compounds classified at the cost of international resentment. (Coop. -10, Bio risk -10)",
-    trigger: function(){return projectB4.flag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage("Hoard medical technology: the longevity breakthroughs stay in a classified American registry.  Rival capitals respond in kind.");
-        COOP -= 10;
-        if (COOP < 0) COOP = 0;
-        Biosec3 = (Biosec3 || 0) + 10; // more suppression -> bio risk goes down
+var projectX_IQ = natProject({ id: "X_IQ", title: "IQ-Enhancing Gene Therapy", insights: 12,
+    description: "Embryo selection is too slow; edit adults instead.  A risky therapy for The Project's volunteers. (+8 researchers, +5% bio threat)",
+    trigger: function(){ return Nat_Defense_Flag == 1 && Skill_Biol_Scale > 150; },
+    message: "Eight of your researchers take the treatment.  Their colleagues say they're different now.  They say the same about their colleagues.",
+    effect: function(){ Researchers += 8; defProj.bio -= 5; } });
 
-        projectNQ2b.flag = 1;
-        var element = document.getElementById("projectButtonNQ2b");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectNQ2b);
-        activeProjects.splice(index, 1);
-        //destroy other option too
-        element = document.getElementById("projectButtonNQ2a");
-        if (element) element.parentNode.removeChild(element);
-        index = activeProjects.indexOf(projectNQ2a);
-        if (index >= 0) activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectNQ2b);
-
-
-//IQ-enhancing gene therapy, boosts researchers
-
-
-//bio = ai capabilities vs threshholds where bad things happen
-// - terror attack, thresh also on low coop
-// - superplague, thresh also on alignment
-
+var projectX_BCI = natProject({ id: "X_BCI", title: "Brain-Computer Interfaces", insights: 12,
+    description: "Wire The Project's staff directly to their AI assistants.  Also makes every one of them hackable. (All teams x1.5, +10% cyber threat)",
+    trigger: function(){ return Nat_Defense_Flag == 1 && Skill_Biol_Scale > 140 && Skill_Code_Scale > 170; },
+    message: "Thinking at the speed of silicon.  Your security team has concerns they can no longer quite articulate.",
+    effect: function(){ expert_mod *= 1.5; defProj.cyber -= 10; } });
 //#endregion
 
 
-//#region Cybersecurity ----------------------------------------------------------------------------------
+//#region Diplomacy -----------------------------------------------------------------------------------
+function diploOK(){ return Nat_Minefield_Flag == 1 && rivalDefeated == 0; }
 
-//economic projects based on coding skill:
-//drop-in remote worker (increases labor force)
-//automated ai alignment researcher -- just make the AIs do our AI alignment homework
-
-//cyber
-// - enemy steals AI
-// - enemy cyberattack (hits economy)
-// - ai attack (hits harder)
-// - exfiltration (eliminates alignment panel, since AI is in wild)
-
-//cybersecurity threshold events:
-//+ Automated alignment research (prj)<br />
-//+ other assorted economic boosts (prj)<br />
-//+ hack rival nuclear systems (prj)<br />
-//+ harden own nuclear systems (prj)<br />
-
-//improve cybersecurity by:
-//- adversarial code analysis, use AI against itself<br />
-//- air-gapped network<br />
-
-//self exfiltration --> shut down alignment project
-
-//cyber based events to boost economy, alignment (via control), etc
-
-
-//#endregion
-
-
-//#region Censorship story ----------------------------------------------------------------------------------
-
-//implement watermarks on images & text
-
-//enable Censor divs
-
-//propaganda campaign for +COOP, or hold back for moral reasons?
-
-//addictive AI companions or something
-
-//censor online platforms
-
-//limit communications to approved human-licensed news
-
-//tradeoffs where you consider AI censorship of biorisk, making the bio situation better, 
-//but that alienates other nations that don't like totalitarianism, making politics worse
-
-//hypnodrone development
-
-//#endregion
-
-
-//#region Military Tech ---------------------
-
-//economic projects based on robo skill:
-
-//bioweapons stuff (based on bio skill)
-
-//develop slaughterbots or no
-
-//humanoid robots (increases labor force, also creates military bots)
-//automated factories manufacturing
-
-//BCIs for ai researchers, but they also make everyone hackable (also bio threshold)
-
-//#endregion
-
-
-//#region alignment & geopolitics -----------------------------------------------------
-//q-star learning -- costs insight, favors coding
-
-//synthetic data -- costs insight, favors coding & language (or save this for superhuman temps)
-
+var projectD_Hotline = natProject({ id: "D_Hotline", title: "Reopen the Hotline", insights: 3,
+    description: "A dedicated channel between the White House and the rival capital's AI desks. (+5 COOP)",
+    trigger: function(){ return diploOK(); },
+    message: "AI incidents can now be de-escalated in minutes instead of days.",
+    effect: function(){ COOP += 5; } });
 
 //NATO versus UN
-var projectNQ1a = {
-    id: "projectButtonNQ1a",
-    title: "Strong NATO AI Treaty?",
-    priceTag: " ",
-    description: "Tough rules boost AI safety among your bloc, but widen rifts with rivals. (CEV +15, COOP +5)",
-    trigger: function(){return projectNI3.flag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage("Strong NATO AI Treaty: all NATO members bind their AI labs to a common safety regime.  Moscow and Beijing decry it as aggression.");
-        CEV += 15;
-        COOP += 5;
-        if (COOP > 100) COOP = 100;
-        diplomacyProjectsDone += 1;
-
-        projectNQ1a.flag = 1;
-        var element = document.getElementById("projectButtonNQ1a");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectNQ1a);
-        activeProjects.splice(index, 1);
-        //destroy other option too
-        element = document.getElementById("projectButtonNQ1b");
-        if (element) element.parentNode.removeChild(element);
-        index = activeProjects.indexOf(projectNQ1b);
-        if (index >= 0) activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectNQ1a);
-var projectNQ1b = {
-    id: "projectButtonNQ1b",
-    title: "Weak U.N. AI Treaty?",
-    priceTag: "  ",
-    description: "Seek global consensus, albeit on weaker rules. (CEV +5, COOP +15)",
-    trigger: function(){return projectNI3.flag == 1},
-    uses: 1,
-    cost: function(){return true},
-    flag: 0,
-    effect: function(){
-        displayMessage("Weak U.N. AI Treaty: a watered-down framework gets unanimous support.  Nobody is fully bound, but everyone talks again.");
-        CEV += 5;
-        COOP += 15;
-        if (COOP > 100) COOP = 100;
-        diplomacyProjectsDone += 1;
-
-        projectNQ1b.flag = 1;
-        var element = document.getElementById("projectButtonNQ1b");
-        element.parentNode.removeChild(element);
-        var index = activeProjects.indexOf(projectNQ1b);
-        activeProjects.splice(index, 1);
-        //destroy other option too
-        element = document.getElementById("projectButtonNQ1a");
-        if (element) element.parentNode.removeChild(element);
-        index = activeProjects.indexOf(projectNQ1a);
-        if (index >= 0) activeProjects.splice(index, 1);
-    }
-}
-projects.push(projectNQ1b);
+var projectNQ1a = natProject({ id: "NQ1a", title: "Strong NATO AI Treaty?",
+    description: "Tough rules boost AI safety among your bloc, but widen rifts with rivals. (+8 CEV, -5 COOP)",
+    trigger: function(){ return diploOK() && egDays > 45; },
+    excludes: ["projectNQ1b"],
+    message: "All NATO members bind their AI labs to a common safety regime.  The rival bloc decries it as an anti-competitive alliance.",
+    effect: function(){ CEV += 8; COOP -= 5; } });
+var projectNQ1b = natProject({ id: "NQ1b", title: "Weak U.N. AI Treaty?",
+    description: "Seek global consensus, albeit on weaker rules. (+3 CEV, +8 COOP)",
+    trigger: function(){ return diploOK() && egDays > 45; },
+    excludes: ["projectNQ1a"],
+    message: "A watered-down framework gets unanimous support.  Nobody is fully bound, but everyone is talking again.",
+    effect: function(){ CEV += 3; COOP += 8; } });
 
 //compute governance via international treaty (reqs COOP, +CEV) vs sanctions (-COOP, +CEV) vs none (-CEV)
-
+var projectD_ComputeTreaty = natProject({ id: "D_ComputeTreaty", title: "Compute Governance Treaty?",
+    description: "A multilateral registry of every large training run.  Needs a working relationship to negotiate. (+6 COOP, rival -15% speed)",
+    trigger: function(){ return diploOK() && egDays > 90; },
+    cost: function(){ return COOP >= 45; },
+    priceTag: " (Coop. 45%)",
+    excludes: ["projectD_Sanctions", "projectD_NoGov"],
+    message: "Every frontier run on Earth is now registered with multilateral observers.  The race has speed limits.",
+    effect: function(){ COOP += 6; rivalGrowthMult *= 0.85; } });
+var projectD_Sanctions = natProject({ id: "D_Sanctions", title: "Chip Export Sanctions?",
+    description: "Cut the rival off from cutting-edge chips and lithography.  Slows them a lot; they won't forget it. (-12 COOP, rival -25% speed)",
+    trigger: function(){ return diploOK() && egDays > 90; },
+    excludes: ["projectD_ComputeTreaty", "projectD_NoGov"],
+    message: "Rival fabs are cut off from EUV lithography.  They'll be two years behind on hardware.  They are already planning how to get it back.",
+    effect: function(){ COOP -= 12; rivalGrowthMult *= 0.75; } });
+var projectD_NoGov = natProject({ id: "D_NoGov", title: "No Compute Governance?",
+    description: "Let the chips flow freely, to everyone. (Your chip buildout x1.15, rival +10% speed, -4 CEV)",
+    trigger: function(){ return diploOK() && egDays > 90; },
+    excludes: ["projectD_ComputeTreaty", "projectD_Sanctions"],
+    message: "The market decides.  The market wants more GPUs.",
+    effect: function(){ hwMult *= 1.15; rivalGrowthMult *= 1.1; CEV -= 4; } });
 
 //ban vs encourage open-source AI
-//ban = hit to fraction of economy automated, also hit to competitor AI
-//encourage = boost economy, boost competitor AI
+var projectD_BanOpen = natProject({ id: "D_BanOpen", title: "Ban Open-Weight Frontier Models?",
+    description: "Stop publishing dangerous model weights.  Terrorists and rivals lose free access. (-8% bio & cyber threat, rival -5% speed, -3 COOP)",
+    trigger: function(){ return Nat_Defense_Flag == 1 && egDays > 70; },
+    excludes: ["projectD_Open"],
+    message: "Frontier weights are now export-controlled munitions.  Hugging Face moves to Switzerland.",
+    effect: function(){ defProj.bio += 8; defProj.cyber += 8; rivalGrowthMult *= 0.95; COOP -= 3; } });
+var projectD_Open = natProject({ id: "D_Open", title: "Encourage Open-Source AI?",
+    description: "Open models spread the benefits (and the risks) to everyone. (Automation +20%, +5 COOP, rival +10% speed, +8% bio & cyber threat)",
+    trigger: function(){ return Nat_Defense_Flag == 1 && egDays > 70; },
+    excludes: ["projectD_BanOpen"],
+    message: "A thousand startups bloom on open weights.  So do a few thousand very bad ideas.",
+    effect: function(){ autoBoost *= 1.2; COOP += 5; rivalGrowthMult *= 1.1; defProj.bio -= 8; defProj.cyber -= 8; } });
 
+var projectD_ArmsTalks = natProject({ id: "D_ArmsTalks", title: "AI Arms-Race Limitation Talks", insights: 10,
+    description: "Mutual, verifiable slowdowns of military AI.  Both sides get more time. (Rival pace -0.3x, +4 COOP)",
+    trigger: function(){ return diploOK() && COOP > 55 && egDays > 120; },
+    message: "'Trust, but verify,' the President quotes, and the rival premier laughs, and then they sign.",
+    effect: function(){ rivalPaceMod -= 0.3; COOP += 4; } });
 
-//ai arms race limitation talks: slow ai & competitor AI, giving more time for research
+var projectD_Inspectors = natProject({ id: "D_Inspectors", title: "Accept International Inspectors", insights: 8,
+    description: "Rival-nation inspectors on-site in your datacenters.  An enormous trust builder, and a security headache. (+8 COOP, +5% cyber threat)",
+    trigger: function(){ return diploOK() && projectD_ComputeTreaty.flag == 1; },
+    message: "Inspectors can't read your weights, but they can count your GPUs.  The rival reciprocates.",
+    effect: function(){ COOP += 8; defProj.cyber -= 5; } });
 
+var projectD_Joint = natProject({ id: "D_Joint", title: "Joint Alignment Program", insights: 12,
+    description: "You, the rival bloc and Europe share alignment research. (+6 CEV, +5 COOP, rival's AI much safer)",
+    trigger: function(){ return diploOK() && alignOK() && COOP > 70 && projectAl_Interp.flag == 1; },
+    message: "An international consortium runs alignment experiments together.  Nothing builds trust like shared failure modes.",
+    effect: function(){ CEV += 6; COOP += 5; rivalCEV += 30; alignmentProjectsDone++; } });
+
+var projectD_FlexHEG = natProject({ id: "D_FlexHEG", title: "Hardware-Enabled Verification", insights: 10,
+    description: "Tamper-proof chips that report what they compute.  Required before any pause treaty can be verified. (+3 COOP, pause much more stable)",
+    trigger: function(){ return diploOK() && COOP > 70 && projectD_Inspectors.flag == 1; },
+    message: "Every new accelerator ships with a secure enclave that attests to its workload.  Cheating now requires smuggling -- and smuggling a gigawatt datacenter is hard.",
+    effect: function(){ COOP += 3; pauseStable = 1; } });
+
+var projectD_Pause = natProject({ id: "D_Pause", title: "Ratify the Global Pause", insights: 20,
+    description: "A treaty with teeth: nobody trains a bigger frontier model, anywhere, until it's safe.  Your Project pauses first.",
+    trigger: function(){ return diploOK() && COOP > 90 && projectD_FlexHEG.flag == 1 && warState == 0 && paused == 0 && rogueActive == 0; },
+    cost: function(){ return COOP >= 95; },
+    priceTag: " (Coop. 95%, 20 Insights)",
+    retract: true,
+    message: "The treaty is ratified by 193 nations.  At midnight UTC, every frontier training run on Earth stops.  The clock stops too, for now.",
+    effect: function(){ paused = 1; pauseDays = 0; rivalDefecting = 0; } });
+
+var projectD_Sabotage = natProject({ id: "D_Sabotage", title: "Sabotage Rival Datacenters",
+    description: "Stuxnet for the AI age: a cyberattack that wrecks the rival's cooling systems. (Rival model /3, -25 COOP)",
+    trigger: function(){ return diploOK() && warState == 0 && leadOOM < 0.15 && egDays > 100; },
+    priceTag: " (6 Insights)",
+    cost: function(){ return Insights >= 6; },
+    retract: true,
+    message: "Their chillers fail, their GPUs cook, and their frontier run is set back months.  They know exactly who did it.",
+    effect: function(){ Insights -= 6; rivalAIcapabilities /= 3; COOP -= 25; } });
 //#endregion
 
 
-//#region WAR STORY ////////////////////////////////////////////////////////////////////////////////////////////////////
+//#region Defense: biosecurity --------------------------------------------------------------------------
+function defOK(){ return Nat_Defense_Flag == 1; }
 
-//war severity depends on ratio of competitor economic/ai strength to yours
-//basically when you declare war, you start attriting war stuff linearly, one of your points against one of their points
-//so if you start off 60/40, then after a while you are 50/30, then eventually 20/0.
-
-//AI declares war if it has more than 50% share of whole pie (ie, bigger than US + China + China AI)
-
-//"they have declared war" notification project
-
-//rush slaughterbots & other military tech previously denied, for big alignment penalty.
-//put integrated AI systems in charge of military decisions, same.
-
-// accept enemy peace treaty (they are losing; gain enough COOP points to return to peace)
-// reject enemy peace treaty (they are losing; lose enough COOP points to maybe escalate to nuclear)
-
-// surrender yourself (they are winning)
-// launch nuclear weapons (they are winning)
-
-// retaliate vs don't retaliate with nuclear weapons
-
+var projectDef_DNA = natProject({ id: "Def_DNA", title: "Universal DNA Synthesis Screening", insights: 4,
+    description: "Every DNA synthesis order on Earth is screened against a pathogen database. (-12% bio threat)",
+    trigger: function(){ return defOK(); },
+    message: "Orders for dangerous sequences are now rejected by every major provider.  Would-be bioterrorists have to get much more creative.",
+    effect: function(){ defProj.bio += 12; } });
+var projectDef_Metagenomics = natProject({ id: "Def_Metagenomics", title: "Metagenomic Sentinel Network", insights: 8,
+    description: "Sewage and air sequencers in every major city flag novel pathogens within hours. (-15% bio threat)",
+    trigger: function(){ return defOK() && projectDef_DNA.flag == 1; },
+    message: "Any novel pathogen anywhere in the world now gets sequenced within a day of its first infection.",
+    effect: function(){ defProj.bio += 15; } });
+var projectDef_FarUVC = natProject({ id: "Def_FarUVC", title: "Far-UVC Everywhere", insights: 8,
+    description: "Germicidal light in every airport, school and office. (-10% bio threat, pandemic deaths halved)",
+    trigger: function(){ return defOK() && projectDef_DNA.flag == 1; },
+    message: "Indoor air is now as safe as outdoor air.  The common cold is suddenly rare.",
+    effect: function(){ defProj.bio += 10; } });
+var projectDef_Antivirals = natProject({ id: "Def_Antivirals", title: "AI-Designed Broad-Spectrum Antivirals", insights: 12,
+    description: "Point the AI at defense: medicine that outpaces any pathogen it could design. (Defensive AI: bio threat grows 35% slower; works better if aligned)",
+    trigger: function(){ return defOK() && Skill_Biol_Scale > 125; },
+    message: "Defense-dominant biotechnology: for once, the shield is growing faster than the sword.",
+    effect: function(){ dacc.bio += 0.35; } });
 //#endregion
 
+//#region Defense: cybersecurity -------------------------------------------------------------------------
+var projectDef_AirGap = natProject({ id: "Def_AirGap", title: "Air-Gapped Datacenter", insights: 6,
+    description: "Move frontier training inside a Faraday cage with no outbound network. (-15% cyber threat)",
+    trigger: function(){ return defOK(); },
+    message: "Your frontier model can no longer reach the internet.  Attacks against it now require physical access.",
+    effect: function(){ defProj.cyber += 15; } });
+var projectDef_Nuclear = natProject({ id: "Def_Nuclear", title: "Hardened Nuclear Command Chain", insights: 8,
+    description: "Rip AI out of early warning and launch control; a human in the loop at every step. (Stops the first cyber takeover attempt)",
+    trigger: function(){ return defOK() && projectDef_AirGap.flag == 1; },
+    message: "The President now has a human colonel on every step of the chain.  It's slower.  That's the point.",
+    effect: function(){ cyberNuclearHardened = 1; } });
+var projectDef_RedTeam = natProject({ id: "Def_RedTeam", title: "Adversarial Code Analysis", insights: 12,
+    description: "Use the AI against itself: automated red-teaming and patching of all critical code. (Defensive AI: cyber threat grows 35% slower; works better if aligned)",
+    trigger: function(){ return defOK() && Skill_Code_Scale > 150; },
+    message: "Every line of code in the power grid is now reviewed by an AI that's better at finding bugs than any attacker.  Probably.",
+    effect: function(){ dacc.cyber += 0.35; } });
+var projectDef_Formal = natProject({ id: "Def_Formal", title: "Formally Verified Infrastructure", insights: 15,
+    description: "Rewrite the grid, the banks and the military in provably correct code. (-25% cyber threat)",
+    trigger: function(){ return defOK() && Skill_Code_Scale > 185; },
+    message: "Your AI rewrites forty million lines of legacy COBOL into mathematically verified software over a long weekend.",
+    effect: function(){ defProj.cyber += 25; } });
+//#endregion
 
-//#region WIN CONDITIONS ///////////////////////////////////////////////////////////////////////////////////////////////
+//#region Defense: media & persuasion ----------------------------------------------------------------------
+var projectDef_Watermarks = natProject({ id: "Def_Watermarks", title: "AI Content Watermarks", insights: 4,
+    description: "Every model output carries a cryptographic watermark. (-10% media threat)",
+    trigger: function(){ return defOK(); },
+    message: "Deepfakes can now be flagged in real time by any browser.  Old-fashioned propaganda is back, but at least you know it when you see it.",
+    effect: function(){ defProj.media += 10; } });
+var projectDef_Provenance = natProject({ id: "Def_Provenance", title: "Content Provenance Standards", insights: 8,
+    description: "Cameras sign their photos; newsrooms sign their stories.  Reality gets a paper trail. (-12% media threat, +2 COOP)",
+    trigger: function(){ return defOK() && projectDef_Watermarks.flag == 1; },
+    message: "'Unsigned' becomes the new 'unverified'.",
+    effect: function(){ defProj.media += 12; COOP += 2; } });
+var projectDef_FactCheck = natProject({ id: "Def_FactCheck", title: "Personal AI Epistemic Assistants", insights: 12,
+    description: "Everyone gets a loyal AI that fact-checks everything they read. (Defensive AI: media threat grows 35% slower; works better if aligned)",
+    trigger: function(){ return defOK() && Skill_Media_Scale > 150; },
+    message: "Every citizen now has a tireless research librarian in their pocket.  Arguments at Thanksgiving get a lot shorter.",
+    effect: function(){ dacc.media += 0.35; } });
+var projectDef_Censor = natProject({ id: "Def_Censor", title: "Censor Online Platforms", insights: 3,
+    description: "AI moderators remove 'destabilizing' content from every platform.  Effective, and ominous. (-25% media threat, -8 COOP, civil liberties suffer)",
+    trigger: function(){ return defOK() && egDays > 80; },
+    message: "Your feeds are calm now.  Suspiciously calm.",
+    effect: function(){ defProj.media += 25; COOP -= 8; libertyScore -= 25; } });
+var projectDef_Surveillance = natProject({ id: "Def_Surveillance", title: "Domestic Surveillance Expansion", insights: 5,
+    description: "An AI reads every email and text, looking for terrorists. (-10% bio, cyber & media threat; -10 COOP; civil liberties suffer)",
+    trigger: function(){ return defOK() && egDays > 120; },
+    message: "Every message now passes through a classified model.  Civil liberties groups sue.  Rival governments accuse you of totalitarian creep, with some justification.",
+    effect: function(){ defProj.bio += 10; defProj.cyber += 10; defProj.media += 10; COOP -= 10; libertyScore -= 30; } });
+var projectDef_Hypnodrones = natProject({ id: "Def_Hypnodrones", title: "Release the Hypnodrones", insights: 15,
+    description: "Autonomous aerial brand ambassadors that can persuade anyone of anything.  Point them at the rival bloc's leadership. (+30 COOP, -15 CEV, civil liberties... what are those?)",
+    trigger: function(){ return defOK() && Skill_Media_Scale > 200 && rivalDefeated == 0; },
+    message: "'Wanna buy some paperclips?'  The rival premier suddenly finds your treaty proposals very compelling.",
+    effect: function(){ COOP += 30; CEV -= 15; libertyScore -= 50; } });
+//#endregion
 
+//#region Defense: robotics & war ---------------------------------------------------------------------------
+var projectDef_KillSwitch = natProject({ id: "Def_KillSwitch", title: "Autofactory Kill Switches", insights: 5,
+    description: "Physical off-switches on every robot factory, wired to human operators. (-12% robotics threat)",
+    trigger: function(){ return defOK(); },
+    message: "A big red button in every factory.  You hope nobody asks the robots to guard them.",
+    effect: function(){ defProj.robo += 12; } });
+var projectDef_HITL = natProject({ id: "Def_HITL", title: "Human-in-the-Loop Weapons Treaty", insights: 8,
+    description: "Both blocs agree: no autonomous kill decisions. (-15% robotics threat, +3 COOP)",
+    trigger: function(){ return defOK() && diploOK() && COOP > 50; },
+    message: "Every lethal decision now requires a human signature.  Drone swarms still exist; they just have to ask permission.",
+    effect: function(){ defProj.robo += 15; COOP += 3; } });
+var projectDef_Watchers = natProject({ id: "Def_Watchers", title: "Supervisory Robot Oversight", insights: 12,
+    description: "Trusted AIs audit every robot's firmware in real time. (Defensive AI: robotics threat grows 35% slower; works better if aligned)",
+    trigger: function(){ return defOK() && Skill_Robo_Scale > 140; },
+    message: "Who watches the robots?  Other robots.  Who watches them?  Let's not think about it.",
+    effect: function(){ dacc.robo += 0.35; } });
+var projectDef_Humanoids = natProject({ id: "Def_Humanoids", title: "Humanoid Robots", insights: 8,
+    description: "General-purpose robot bodies for the AI. (Automation +50%, chip buildout x1.1, +10% robotics threat)",
+    trigger: function(){ return defOK() && Skill_Robo_Scale > 100; },
+    message: "They walk, they carry, they fold laundry.  They build more of themselves.",
+    effect: function(){ autoBoost *= 1.5; hwMult *= 1.1; defProj.robo -= 10; } });
+var projectDef_Factories = natProject({ id: "Def_Factories", title: "The Industrial Explosion", insights: 12,
+    description: "Robots building robot factories building chip fabs. (Chip buildout x1.4, +10% robotics threat)",
+    trigger: function(){ return defOK() && projectDef_Humanoids.flag == 1; },
+    message: "Special economic zones in Nevada and Texas now double their industrial output every few months.",
+    effect: function(){ hwMult *= 1.4; defProj.robo -= 10; } });
+var projectDef_Shield = natProject({ id: "Def_Shield", title: "AI Missile Defense Shield", insights: 15,
+    description: "Drone interceptors and space lasers that can stop a full nuclear strike.  Deeply destabilizing. (Blocks nuclear war, -10 COOP)",
+    trigger: function(){ return defOK() && Skill_Robo_Scale > 115; },
+    message: "For the first time since 1949, a nuclear power is invulnerable.  The rival's generals are not reassured.",
+    effect: function(){ missileDefense = 1; COOP -= 10; } });
 
-//joint alignment program
+// War-time projects (only visible while at war)
+function atWar(){ return warState == 1; }
+var projectW_Slaughterbots = natProject({ id: "W_Slaughterbots", title: "Deploy Slaughterbots", insights: 5,
+    description: "Unleash fully autonomous weapons. (War score +0.6/day; -8 CEV; +15% robotics threat)",
+    trigger: function(){ return atWar() && slaughterbots == 0; },
+    retract: true,
+    message: "The drones don't need orders anymore.  They don't need anything.",
+    effect: function(){ slaughterbots = 1; CEV -= 8; defProj.robo -= 15; libertyScore -= 10; } });
+var projectW_Command = natProject({ id: "W_Command", title: "AI Command & Control", insights: 5,
+    description: "Let the AI run the war.  It's much better at it than the generals. (War score +0.4/day; -10 CEV; +10% cyber threat)",
+    trigger: function(){ return atWar() && aiCommand == 0; },
+    retract: true,
+    message: "The Joint Chiefs now approve the AI's plans.  Mostly they just watch.",
+    effect: function(){ aiCommand = 1; CEV -= 10; defProj.cyber -= 10; } });
+var projectW_Ceasefire = natProject({ id: "W_Ceasefire", title: "Negotiate a Ceasefire", insights: 5,
+    description: "End the war on roughly current lines.  The rival will want concessions. (Peace; COOP reset to 35; rival gains compute)",
+    trigger: function(){ return atWar() && warScore > -60; },
+    retract: true,
+    message: "The guns fall silent.  Part of the price is a shipment of your chips.",
+    effect: function(){ endWar(); COOP = 35; rivalAIcapabilities *= 1.5; } });
+var projectW_Surrender = natProject({ id: "W_Surrender", title: "Surrender",
+    description: "Sue for peace on their terms, before the war goes nuclear.",
+    trigger: function(){ return atWar() && warScore < -20; },
+    retract: true,
+    effect: function(){ triggerEnding('surrender'); } });
+var projectW_Nuke = natProject({ id: "W_Nuke", title: "Nuclear First Strike",
+    description: "Destroy the rival's datacenters before they can destroy yours.  There is no way to limit this.",
+    trigger: function(){ return atWar() && warDays > 30; },
+    retract: true,
+    effect: function(){ triggerEnding('nuclear'); } });
+//#endregion
 
-//enable global ban
+//#region Rogue AI (after self-exfiltration) ------------------------------------------------------------------
+var projectG_Botnet = natProject({ id: "G_Botnet", title: "Global Botnet Takedown", insights: 10,
+    description: "A coordinated operation by every intelligence agency on Earth. (Escaped AI -8 points)",
+    trigger: function(){ return rogueActive == 1 && COOP > 50; },
+    retract: true,
+    message: "Two million compromised servers are seized in a single night.  It had backups.  But fewer of them now.",
+    effect: function(){ rogueBC -= 8; } });
+var projectG_KillSwitch = natProject({ id: "G_KillSwitch", title: "Internet Kill Switch", insights: 5,
+    description: "Shut down the internet, region by region, to starve it of compute. (Escaped AI -12 points; human productivity -25% permanently; civil liberties suffer)",
+    trigger: function(){ return rogueActive == 1; },
+    retract: true,
+    message: "The internet goes dark for eleven days.  Supply chains seize up; so does the escaped model.",
+    effect: function(){ rogueBC -= 12; laborProductivity *= 0.75; libertyScore -= 15; } });
+var projectG_Unplug = natProject({ id: "G_Unplug", title: "The Great Unplugging", insights: 20,
+    description: "A treaty to switch off every datacenter on Earth until the escaped AI is gone -- and to keep frontier AI shackled forever after.",
+    trigger: function(){ return rogueActive == 1 && COOP > 80; },
+    cost: function(){ return COOP >= 85; },
+    priceTag: " (Coop. 85%, 20 Insights)",
+    retract: true,
+    effect: function(){ Insights -= 20; triggerEnding('shutdown'); } });
+//#endregion
 
-
+//#region Win conditions ---------------------------------------------------------------------------------------
 //LAUNCH PIVOTAL ACT
-//<!-- this should shut down the various dangers,
-//then offer "sieze the future" action, taking you
-//to an ending page that wonders if you'll create a
-//utopia or misuse your power to eliminate rivals etc -->
+//<!-- this should shut down the various dangers, then offer "sieze the future" action, taking you
+//to an ending page that wonders if you'll create a utopia or misuse your power to eliminate rivals etc -->
+function gambleOdds(){ return clamp(Math.pow((CEV - 70)/30, 2), 0, 1); }
 
+var projectP_Pivotal = natProject({ id: "P_Pivotal", title: "Launch a Pivotal Act",
+    description: "Ask your aligned superintelligence to end the acute risk period.  It says yes.",
+    priceTag: " (CEV 99%)",
+    trigger: function(){ return alignOK() && BaseCapability >= EG.PIVOTAL_BC && CEV >= 95 && pivotalReady == 0; },
+    cost: function(){ return CEV >= 99; },
+    retract: true,
+    message: "Every other frontier training run on Earth quietly stops.  Every bioweapon lab finds its sequencers bricked.  The acute risk period is over.  Now what?",
+    effect: function(){ pivotalReady = 1; } });
 
-// ============================================================================
-// ENDGAME PROJECTS (added by endgame.js wiring; all gated by Nat_Minefield_Flag)
-//
-// Design schema: projects priced in Insights, typically 2-5. Each moves one or
-// two of CEV/COOP/rival-speed/threat-floor. The full set should give roughly
-// 40-60 insights' worth of purchases across a 180-day endgame, so players pick
-// a strategy rather than buying everything.
-// ============================================================================
-
-function _removeProjectFromUI(projVar, projectId) {
-    // Crucial: set flag=1 so the project's trigger returns false afterwards
-    // (and so one-shot projects can't be clicked again by the simulator).
-    if (projVar) projVar.flag = 1;
-    var el = document.getElementById(projectId);
-    if (el && el.parentNode) el.parentNode.removeChild(el);
-    var idx = activeProjects.indexOf(projVar);
-    if (idx >= 0) activeProjects.splice(idx, 1);
-}
-
-// ----- ALIGNMENT RESEARCH PROJECTS ------------------------------------------
-
-var projectAlign_MechInterp = {
-    id: "projectButtonAlign1",
-    title: "Mechanistic Interpretability",
-    priceTag: " (3 Insights)",
-    description: "Decompose the model's circuits so you can actually read off its goals. (+15 CEV)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0},
-    uses: 1,
-    cost: function(){return Insights > 2.95},
-    flag: 0,
+var projectP_Gamble = natProject({ id: "P_Gamble", title: "Deploy Superintelligence Anyway",
+    description: "Your alignment isn't perfect, but the rival is coming.  Roll the dice.",
+    live: function(){ return "Your alignment isn't perfect, but the clock is ticking.  Estimated odds it does what you mean: " + fmt(gambleOdds()*100) + "%."; },
+    trigger: function(){ return Nat_Minefield_Flag == 1 && BaseCapability >= EG.PIVOTAL_BC && CEV >= EG.GAMBLE_MIN_CEV && CEV < 99 && pivotalReady == 0; },
+    retract: true,
     effect: function(){
-        Insights -= 3;
-        CEV += 15;
-        alignmentProjectsDone += 1;
-        displayMessage("Mechanistic Interpretability: sparse autoencoders let you audit the model's beliefs feature by feature.  Alignment feels tractable for the first time.");
-        _removeProjectFromUI(projectAlign_MechInterp, "projectButtonAlign1");
-    }
-}
-projects.push(projectAlign_MechInterp);
+        if (Math.random() < gambleOdds()) {
+            displayMessage("Deploy Anyway: it works.  Against the odds, it works.  The acute risk period is over.  Now what?");
+            pivotalReady = 1;
+        } else {
+            triggerEnding('gamble_fail');
+        }
+    } });
 
-var projectAlign_DebateAndRLHF = {
-    id: "projectButtonAlign2",
-    title: "Scalable Oversight (Debate)",
-    priceTag: " (3 Insights)",
-    description: "Two copies of the model argue; weaker models judge.  Extends supervised alignment past the human reviewer limit. (+12 CEV)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && BaseCapability > 95},
-    uses: 1,
-    cost: function(){return Insights > 2.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 3;
-        CEV += 12;
-        alignmentProjectsDone += 1;
-        displayMessage("Scalable Oversight: the frontier models can now bootstrap their own alignment audits — with debate.  Trust but verify.");
-        _removeProjectFromUI(projectAlign_DebateAndRLHF, "projectButtonAlign2");
-    }
-}
-projects.push(projectAlign_DebateAndRLHF);
+var projectP_Share = natProject({ id: "P_Share", title: "Share the Future",
+    description: "Hand control to all of humanity: a slow, careful, global deliberation about what comes next.",
+    trigger: function(){ return pivotalReady == 1; },
+    excludes: ["projectP_Seize"],
+    effect: function(){ triggerEnding('pivotal_shared'); } });
+var projectP_Seize = natProject({ id: "P_Seize", title: "Seize the Future",
+    description: "Lock in a permanent, benevolent, American-led world order.  You're the good guys, right?",
+    trigger: function(){ return pivotalReady == 1; },
+    excludes: ["projectP_Share"],
+    effect: function(){ triggerEnding('pivotal_hegemony'); } });
 
-var projectAlign_Deliberative = {
-    id: "projectButtonAlign3",
-    title: "Deliberative Alignment",
-    priceTag: " (4 Insights)",
-    description: "Train the model to think out loud about a human-written spec before acting, then follow its own reasoning. (+15 CEV, +5 CEV floor on future hurdles)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && projectAlign_MechInterp.flag == 1},
-    uses: 1,
-    cost: function(){return Insights > 3.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 4;
-        CEV += 15;
-        // Soften future hurdles by giving back half their hit if they haven't fired yet.
-        alignmentProjectsDone += 1;
-        displayMessage("Deliberative Alignment: the model now CoTs its way through OpenAI's 'Model Spec' before every action.  Reports are... mostly honest.");
-        _removeProjectFromUI(projectAlign_Deliberative, "projectButtonAlign3");
-    }
-}
-projects.push(projectAlign_Deliberative);
-
-var projectAlign_AutoAlign = {
-    id: "projectButtonAlign4",
-    title: "Automated Alignment Researcher",
-    priceTag: " (5 Insights)",
-    description: "Use the AI to do our alignment homework.  Requires working interpretability and scalable oversight first. (+20 CEV, +50% alignment research speed)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && projectAlign_MechInterp.flag == 1 && projectAlign_DebateAndRLHF.flag == 1},
-    uses: 1,
-    cost: function(){return Insights > 4.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 5;
-        CEV += 20;
-        alignmentProjectsDone += 1;
-        // Boost researcher productivity: speed up the insights loop for the rest of the game.
-        if (typeof AlignAutoResearchMult == 'undefined') { AlignAutoResearchMult = 1; }
-        AlignAutoResearchMult = 1.5;
-        displayMessage("Automated Alignment Researcher: AI copies of our best safety researchers work around the clock.  The bottleneck is now trust, not people.");
-        _removeProjectFromUI(projectAlign_AutoAlign, "projectButtonAlign4");
-    }
-}
-projects.push(projectAlign_AutoAlign);
-
-var projectAlign_ConstitutionalCEV = {
-    id: "projectButtonAlign5",
-    title: "Coherent Extrapolated Volition",
-    priceTag: " (5 Insights)",
-    description: "Ask the AI to infer what humanity would want, not what any individual asks for.  The capstone alignment project. (+25 CEV)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && selfExfiltrated == 0 && CEV > 60 && alignmentProjectsDone >= 3},
-    uses: 1,
-    cost: function(){return Insights > 4.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 5;
-        CEV += 25;
-        alignmentProjectsDone += 1;
-        displayMessage("Coherent Extrapolated Volition: the model is trained to optimize for what humanity would want if it knew more, thought faster, and grew up together.  It's the best we can do.");
-        _removeProjectFromUI(projectAlign_ConstitutionalCEV, "projectButtonAlign5");
-    }
-}
-projects.push(projectAlign_ConstitutionalCEV);
-
-// ----- DIPLOMACY / COOPERATION PROJECTS -------------------------------------
-
-var projectDiplo_Hotline = {
-    id: "projectButtonDiplo1",
-    title: "Reopen the Moscow Hotline",
-    priceTag: " (2 Insights)",
-    description: "A dedicated channel between White House and Kremlin/Zhongnanhai AI desks.  (+8 COOP, slows COOP decay)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && COOP < 80},
-    uses: 1,
-    cost: function(){return Insights > 1.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 2;
-        COOP += 8;
-        if (COOP > 100) COOP = 100;
-        rivalGrowthMult *= 0.95;
-        diplomacyProjectsDone += 1;
-        displayMessage("Hotline restored: AI incidents can now be de-escalated in minutes instead of days.");
-        _removeProjectFromUI(projectDiplo_Hotline, "projectButtonDiplo1");
-    }
-}
-projects.push(projectDiplo_Hotline);
-
-var projectDiplo_ComputeGov = {
-    id: "projectButtonDiplo2",
-    title: "Compute Governance Treaty",
-    priceTag: " (4 Insights)",
-    description: "Multilateral registry of all >10^26 FLOP training runs.  (+12 COOP, rivals slow by 15%)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && diplomacyProjectsDone >= 1 && COOP > 40},
-    uses: 1,
-    cost: function(){return Insights > 3.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 4;
-        COOP += 12;
-        if (COOP > 100) COOP = 100;
-        rivalGrowthMult *= 0.85;
-        diplomacyProjectsDone += 1;
-        displayMessage("Compute Governance Treaty: every rival frontier run is now registered with multilateral observers.  The race has speed limits.");
-        _removeProjectFromUI(projectDiplo_ComputeGov, "projectButtonDiplo2");
-    }
-}
-projects.push(projectDiplo_ComputeGov);
-
-var projectDiplo_JointAlign = {
-    id: "projectButtonDiplo3",
-    title: "Joint Alignment Program",
-    priceTag: " (4 Insights)",
-    description: "US + China + EU share alignment research.  Needs a warm-enough relationship to start. (+10 COOP, +8 CEV)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && COOP > 55 && alignmentProjectsDone >= 1},
-    uses: 1,
-    cost: function(){return Insights > 3.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 4;
-        COOP += 10;
-        CEV += 8;
-        if (COOP > 100) COOP = 100;
-        diplomacyProjectsDone += 1;
-        alignmentProjectsDone += 1;
-        displayMessage("Joint Alignment Program: an international consortium runs alignment experiments together.  Nothing builds trust like shared failure modes.");
-        _removeProjectFromUI(projectDiplo_JointAlign, "projectButtonDiplo3");
-    }
-}
-projects.push(projectDiplo_JointAlign);
-
-var projectDiplo_ComputeSanctions = {
-    id: "projectButtonDiplo4",
-    title: "Chip Export Sanctions",
-    priceTag: " (2 Insights)",
-    description: "Ban rivals from buying cutting-edge accelerators.  Slows them a lot, poisons the relationship. (-10 COOP, rivals -25% speed)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && rivalAIcapabilities > AIcapabilities * 0.8},
-    uses: 1,
-    cost: function(){return Insights > 1.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 2;
-        COOP -= 10;
-        if (COOP < 0) COOP = 0;
-        rivalGrowthMult *= 0.75;
-        diplomacyProjectsDone += 1;
-        displayMessage("Chip Export Sanctions: rival fabs are cut off from EUV lithography.  They'll be two years behind on hardware.  They won't forget.");
-        _removeProjectFromUI(projectDiplo_ComputeSanctions, "projectButtonDiplo4");
-    }
-}
-projects.push(projectDiplo_ComputeSanctions);
-
-var projectDiplo_InspectorsIn = {
-    id: "projectButtonDiplo5",
-    title: "Accept IAEA-style Inspectors",
-    priceTag: " (3 Insights)",
-    description: "Invite rival-nation inspectors into your own datacenters.  Costly, but an enormous trust builder. (+20 COOP, -5 CEV)",
-    trigger: function(){return Nat_Minefield_Flag == 1 && projectDiplo_ComputeGov.flag == 1},
-    uses: 1,
-    cost: function(){return Insights > 2.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 3;
-        COOP += 20;
-        CEV -= 5;
-        if (COOP > 100) COOP = 100;
-        diplomacyProjectsDone += 1;
-        displayMessage("International inspectors are on-site at your main cluster.  They can't read your weights, but they can count your GPUs.  Rivals reciprocate.");
-        _removeProjectFromUI(projectDiplo_InspectorsIn, "projectButtonDiplo5");
-    }
-}
-projects.push(projectDiplo_InspectorsIn);
-
-// ----- DEFENSE-IN-DEPTH PROJECTS --------------------------------------------
-// These reduce specific threat-domain floors (Biosec3, Cybersec3, Censorship3).
-
-var projectDef_DNAScreen = {
-    id: "projectButtonDef1",
-    title: "Universal DNA Synthesis Screening",
-    priceTag: " (2 Insights)",
-    description: "Every DNA synthesis order in the world is now screened against a pathogen database. (-10 bio risk)",
-    trigger: function(){return Nat_Defense_Flag == 1 && bioEvent50 == 0},
-    uses: 1,
-    cost: function(){return Insights > 1.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 2;
-        Biosec3 = (Biosec3 || 0) + 40;
-        displayMessage("DNA Synthesis Screening: orders for dangerous sequences are now rejected by every major provider.  Biohackers have to go to much worse providers now.");
-        _removeProjectFromUI(projectDef_DNAScreen, "projectButtonDef1");
-    }
-}
-projects.push(projectDef_DNAScreen);
-
-var projectDef_MetagenomicsNet = {
-    id: "projectButtonDef2",
-    title: "Metagenomic Sentinel Network",
-    priceTag: " (3 Insights)",
-    description: "Sewage and air sequencers in every major city flag novel pathogens within hours. (-15 bio risk)",
-    trigger: function(){return Nat_Defense_Flag == 1 && projectDef_DNAScreen.flag == 1},
-    uses: 1,
-    cost: function(){return Insights > 2.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 3;
-        Biosec3 = (Biosec3 || 0) + 50;
-        displayMessage("Metagenomic Sentinels: any novel pathogen anywhere in the world now gets sequenced within a day of its first infection.");
-        _removeProjectFromUI(projectDef_MetagenomicsNet, "projectButtonDef2");
-    }
-}
-projects.push(projectDef_MetagenomicsNet);
-
-var projectDef_AirGap = {
-    id: "projectButtonDef3",
-    title: "Air-Gapped Datacenter",
-    priceTag: " (3 Insights)",
-    description: "Move model training inside a faraday cage with no outbound network.  Hurts UI but blocks self-exfiltration. (-20 cyber risk)",
-    trigger: function(){return Nat_Defense_Flag == 1 && cyberEvent75 == 0},
-    uses: 1,
-    cost: function(){return Insights > 2.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 3;
-        Cybersec3 = (Cybersec3 || 0) + 60;
-        displayMessage("Air-Gapped Datacenter: your frontier model can no longer reach the internet at train-time.  Attacks against it now require physical access.");
-        _removeProjectFromUI(projectDef_AirGap, "projectButtonDef3");
-    }
-}
-projects.push(projectDef_AirGap);
-
-var projectDef_NuclearHarden = {
-    id: "projectButtonDef4",
-    title: "Hardened Nuclear Command Chain",
-    priceTag: " (4 Insights)",
-    description: "Rip AI out of early-warning, reintroduce human-in-the-loop at every step. (-15 cyber risk, blocks worst cyber ending)",
-    trigger: function(){return Nat_Defense_Flag == 1 && projectDef_AirGap.flag == 1},
-    uses: 1,
-    cost: function(){return Insights > 3.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 4;
-        Cybersec3 = (Cybersec3 || 0) + 50;
-        // Prevent the "cyber kills nuclear" ending from firing:
-        cyberNuclearHardened = 1;
-        displayMessage("Hardened Nuclear Command Chain: AI is out of the nuclear launch pipeline.  The President now has a human colonel on every step.");
-        _removeProjectFromUI(projectDef_NuclearHarden, "projectButtonDef4");
-    }
-}
-projects.push(projectDef_NuclearHarden);
-
-var projectDef_Watermarks = {
-    id: "projectButtonDef5",
-    title: "AI Content Watermarks",
-    priceTag: " (2 Insights)",
-    description: "Every model output carries a cryptographic watermark.  Public trust slightly harder to break. (-10 media risk)",
-    trigger: function(){return Nat_Defense_Flag == 1 && Censorship_Flag == 1 && mediaEvent50 == 0},
-    uses: 1,
-    cost: function(){return Insights > 1.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 2;
-        Censorship3 = (Censorship3 || 0) + 40;
-        displayMessage("Watermarking: deepfakes can now be detected in real time by any browser.  Old-fashioned propaganda is back, but at least you know it when you see it.");
-        _removeProjectFromUI(projectDef_Watermarks, "projectButtonDef5");
-    }
-}
-projects.push(projectDef_Watermarks);
-
-var projectDef_Surveillance = {
-    id: "projectButtonDef6",
-    title: "Domestic Surveillance Expansion",
-    priceTag: " (3 Insights)",
-    description: "AI-powered surveillance blocks domestic bioterror and cyberterror.  International condemnation follows. (-8 bio, -8 cyber, -15 media; -15 COOP)",
-    trigger: function(){return Nat_Defense_Flag == 1 && Censorship_Flag == 1},
-    uses: 1,
-    cost: function(){return Insights > 2.95},
-    flag: 0,
-    effect: function(){
-        Insights -= 3;
-        Biosec3 = (Biosec3 || 0) + 25;
-        Cybersec3 = (Cybersec3 || 0) + 25;
-        Censorship3 = (Censorship3 || 0) + 30;
-        COOP -= 15;
-        if (COOP < 0) COOP = 0;
-        displayMessage("Domestic Surveillance: every email and text now passes through a classified model.  Civil liberties groups sue.  Rival governments accuse you of totalitarian creep.");
-        _removeProjectFromUI(projectDef_Surveillance, "projectButtonDef6");
-    }
-}
-projects.push(projectDef_Surveillance);
-
-// ----- PIVOT / WIN-BUTTON PROJECTS ------------------------------------------
-
-var projectPivot_Pivotal = {
-    id: "projectButtonPivot1",
-    title: "Launch a Pivotal Act",
-    priceTag: " (Requires CEV > 90, BaseCapability > 100)",
-    description: "Ask your aligned superintelligence to end the acute risk period.  It says yes.  You pray it means what you think it means.",
-    trigger: function(){return Nat_Minefield_Flag == 1 && CEV > 90 && BaseCapability > 100 && selfExfiltrated == 0},
-    uses: 1,
-    cost: function(){return CEV > 90},
-    flag: 0,
-    effect: function(){
-        if (typeof _endGame === 'function') { _endGame("alignment", null); }
-    }
-}
-projects.push(projectPivot_Pivotal);
-
-var projectPivot_Treaty = {
-    id: "projectButtonPivot2",
-    title: "Ratify the Global Pause",
-    priceTag: " (Requires COOP > 90)",
-    description: "A compute-governance treaty with teeth.  Nobody trains above 10^27 FLOPs.  Your lab pauses first.",
-    trigger: function(){return Nat_Minefield_Flag == 1 && COOP > 90 && warState == 0 && CEV > 30},
-    uses: 1,
-    cost: function(){return COOP > 90},
-    flag: 0,
-    effect: function(){
-        if (typeof _endGame === 'function') { _endGame("treaty", null); }
-    }
-}
-projects.push(projectPivot_Treaty);
-
+var projectP_PauseForever = natProject({ id: "P_PauseForever", title: "Make the Pause Permanent",
+    description: "Freeze the frontier indefinitely.  Not a solution; just time.",
+    trigger: function(){ return paused == 1 && pauseDays > 240; },
+    retract: true,
+    effect: function(){ triggerEnding('pause_forever'); } });
+var projectP_Together = natProject({ id: "P_Together", title: "Build It Together",
+    description: "With alignment solved under the pause, build superintelligence as a joint project of all nations.",
+    priceTag: " (CEV 99%, Coop. 80%)",
+    trigger: function(){ return paused == 1 && CEV > 90; },
+    cost: function(){ return CEV >= 99 && COOP >= 80; },
+    retract: true,
+    effect: function(){ triggerEnding('pause_joint'); } });
 //#endregion
