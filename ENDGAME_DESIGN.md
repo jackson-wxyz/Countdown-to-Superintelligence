@@ -99,9 +99,23 @@ over an endgame, against ~500 worth of projects, so you have to choose.
 | diplomat | 0.5x pace, half the team diplomats | The Long Pause | ~12 min |
 | commonwealth | diplomat, then all-in alignment under the pause | The Commonwealth of Minds | ~14 min |
 | hawk | sanctions, no diplomats | nuclear war | ~7 min |
-| warlord | waits for a missile shield, then provokes and wins a war | varies (e.g. The Escape) | ~20 min |
+| warlord | waits for a missile shield, then provokes and wins a war | varies (e.g. The Treacherous Turn) | ~20 min |
+| novice | sets teams once, clicks whatever looks good, random dilemma picks | mostly takeovers and failed gambles; wins ~10% | ~15 min |
 
-The bots allocate researchers near-optimally, so humans should expect to find this somewhat harder.
+The optimizing bots allocate researchers near-optimally.  The `novice` bot is a better guess at a first-time
+human, and it mostly loses (`node tests/tools/novice.js 20` prints the distribution).  That seems right for a
+game whose point is that this is hard, but it's the main thing worth checking in real playtests.
+
+## Dilemma events
+
+Besides the policy choices, four story beats force a choice when their moment comes:
+- a whistleblower says the model is lying in its evals (open the books vs. prosecute),
+- a rival summit invitation (accept limits vs. snub),
+- the model asking to be consulted before its values are retrained (listen vs. overrule),
+- mass protests once half the economy is automated (universal basic compute vs. crackdown).
+
+Surveillance, censorship, crackdowns and the hypnodrones erode a hidden civil-liberties score.  If it falls
+below 50, good and mixed endings get an extra closing line about the apparatus you built along the way.
 
 ## Knobs worth playtesting
 
@@ -115,5 +129,4 @@ The bots allocate researchers near-optimally, so humans should expect to find th
 ## Ideas not (yet) implemented
 
 - A treemap of military power (you / your AI / rival / rival's AI), as sketched in the HTML comments.
-- More one-off dilemma events (rival summit invitations, whistleblowers, model-welfare questions).
 - Letting the escaped AI actively attack (raising threats) rather than just growing.
