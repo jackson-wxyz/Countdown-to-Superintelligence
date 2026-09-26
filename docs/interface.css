@@ -868,3 +868,5 @@ p.hypnoDrone {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 #footerDiv a { color: #888; }
+
+.endingBox p.endingHint { font-size: 14px; color: #444; background: #f4f4f4; padding: 6px 10px; }

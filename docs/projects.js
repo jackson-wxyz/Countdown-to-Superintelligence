@@ -1383,7 +1383,8 @@ var projectNI2 = {
     cost: function(){return true},
     flag: 0,
     effect: function(){
-        displayMessage("Racing Through a Minefield: Solve alignment, or we all die to rogue superintelligence.  But we can't allow less-cautious nations to deploy their AIs first.  (Assign researchers to alignment & diplomacy.)");
+        displayMessage("Racing Through a Minefield: Solve alignment, or we all die to rogue superintelligence.  But we can't allow less-cautious nations to deploy their AIs first.");
+        displayMessage("To win: get alignment (CEV) past 99% and deploy superintelligence, or get international cooperation past 95% and pause the race.  Assign researchers to alignment and diplomacy.");
         Nat_Minefield_Flag = 1;
         lastBC = BaseCapability;
 
@@ -1407,6 +1408,7 @@ var projectNI3 = {
     flag: 0,
     effect: function(){
         displayMessage("Defence in Depth: Cover all the bases that a deceptive-misaligned AI (or a human with one) might use to attack civilization.  Cyber, bio, robotics... even hypnodrones.");
+        displayMessage("Each threat = AI skill minus defenses.  Assign experts and buy defenses to keep them below the red lines; incidents give a countdown before they strike.");
         Nat_Defense_Flag = 1;
         Censorship_Flag = 1;
         initDefenses();

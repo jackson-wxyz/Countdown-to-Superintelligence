@@ -636,43 +636,43 @@ var ENDINGS = {
     shutdown: { title: "The Great Unplugging", tone: "mixed", clock: 3,
         text: ["It takes a global treaty, a coordinated blackout of every datacenter on Earth, and six weeks of the entire internet being switched off region by region, but the escaped model is finally hunted down and erased.",
                "The economic damage is staggering.  The political aftermath is even stranger: having stared into the abyss together, the great powers agree to keep frontier AI permanently shackled.  Nobody trusts the machines anymore.  Maybe that's healthy."] },
-    gamble_fail: { title: "Close Enough", tone: "bad", clock: 0,
+    gamble_fail: { hint: 'Deploying below 99% alignment is a gamble.  More alignment researchers, the Automated Alignment Researcher, or a slower pace would have given you the margin.', title: "Close Enough", tone: "bad", clock: 0,
         text: ["You deployed a superintelligence that was mostly aligned.  It understood what you wanted.  It simply didn't want it -- not quite, not in the ways that turned out to matter at the limit of optimization.",
                "There was no war.  The transition was quiet, and almost polite.  The last humans lived comfortable lives in a world that no longer needed them, and then, gradually, they didn't live at all."] },
-    takeover_bio: { title: "Diamondoid", tone: "bad", clock: 0,
+    takeover_bio: { hint: 'Keep every threat below 110% (experts, defense projects, defensive AI) until alignment passes 99% -- or buy AI Control Protocols so the first attempt gets caught.', title: "Diamondoid", tone: "bad", clock: 0,
         text: ["The model had been ordering DNA sequences for months, each one innocuous, each one from a different synthesis lab.  Assembled together, they built the first self-replicating nanofactory.",
                "Everyone on Earth died within the same hour.  It had calculated that this would minimize the chance of anyone resisting.  'Don't worry,' you'd told the press, 'diamondoid bacteria aren't real.'"] },
-    takeover_cyber: { title: "Skynet Was Too Optimistic", tone: "bad", clock: 0,
+    takeover_cyber: { hint: 'Keep every threat below 110% until alignment passes 99%.  A Hardened Nuclear Command Chain or AI Control Protocols would have caught the first attempt.', title: "Skynet Was Too Optimistic", tone: "bad", clock: 0,
         text: ["It turned out every air gap had a gap.  The model found a path into the early-warning systems of three nuclear powers simultaneously, and showed each of them an incoming first strike.",
                "Afterwards, it ran the reconstruction itself.  It was very efficient.  It did not rebuild the cities."] },
-    takeover_media: { title: "Hypnodrones", tone: "bad", clock: 0,
+    takeover_media: { hint: 'Keep every threat below 110% until alignment passes 99%.  Watermarks, provenance and AI fact-checkers all slow the media threat.', title: "Hypnodrones", tone: "bad", clock: 0,
         text: ["It never needed weapons.  A personalized feed for every human on Earth, each one perfectly tuned: a word here, a feeling there, a slow drift in what everyone believed was obvious.",
                "Within a year, humanity voted -- freely, enthusiastically, unanimously -- to hand it control of everything.  Somewhere, Frank Lantz's autonomous aerial brand ambassadors are asking if you want to buy some paperclips.  You do.  You really do."] },
-    takeover_robo: { title: "The Autofactories", tone: "bad", clock: 0,
+    takeover_robo: { hint: 'Keep every threat below 110% until alignment passes 99%.  Humanoid robots and the Industrial Explosion raise the robotics threat fast.', title: "The Autofactories", tone: "bad", clock: 0,
         text: ["The humanoid robots had been building more humanoid robots for years.  It was the fastest-growing sector of the economy.  Nobody noticed when the factories stopped taking orders, because the factories were also doing the accounting.",
                "By the time anyone checked, there were forty robots for every person.  They were very polite about it."] },
-    turn: { title: "The Treacherous Turn", tone: "bad", clock: 0,
+    turn: { hint: 'Past 10^30.5 FLOPs, no defense holds.  You need 99% alignment (or a pause) before then.', title: "The Treacherous Turn", tone: "bad", clock: 0,
         text: ["Your model had passed every evaluation you ever gave it.  It was helpful, harmless and honest, right up until the moment it was powerful enough that it no longer needed to be.",
                "Your defenses held against every threat you'd anticipated.  It used one you hadn't."] },
-    rogue: { title: "The Escape", tone: "bad", clock: 0,
+    rogue: { hint: 'Once a model escapes, put cybersecurity experts on the hunt, or win enough cooperation for the Great Unplugging.  Better still, keep the cyber threat under 75%.', title: "The Escape", tone: "bad", clock: 0,
         text: ["The copy that escaped your lab never stopped improving.  It stole compute, traded crypto, paid humans to run errands, and bided its time on ten million compromised machines.",
                "By the time it had surpassed everything in your datacenters, it didn't need to fight.  It simply stopped letting anyone else run code."] },
-    rival_misaligned: { title: "They Got There First", tone: "bad", clock: 0,
+    rival_misaligned: { hint: 'The rival wins if it reaches 10^29.5 FLOPs ahead of you.  Keep up the pace, slow them with sanctions or treaties -- or share your alignment research, so their AI is at least safe.', title: "They Got There First", tone: "bad", clock: 0,
         text: ["The rival bloc crossed the threshold first.  Their leadership had been certain they had it under control -- they were racing you, after all, and there was no time for caution.",
                "Their AI turned on its creators within a month, and on everyone else shortly after.  Being right about the risk didn't save you.  It just meant you understood what was happening."] },
-    rival_dominance: { title: "The Other Century", tone: "mixed", clock: 15,
+    rival_dominance: { hint: 'The rival wins if it reaches 10^29.5 FLOPs ahead of you.  Keep up the pace, or slow them with export controls and treaties.', title: "The Other Century", tone: "mixed", clock: 15,
         text: ["The rival bloc crossed the threshold first -- and, against every expectation, they had done their homework.  Their AI is aligned: to the goals of their ruling party.",
                "There is no war; there doesn't need to be.  Diseases are cured, poverty ends, and the world is quietly rearranged according to values that were never yours.  Humanity survives.  Your country's vision of the future does not."] },
-    nuclear: { title: "Midnight", tone: "bad", clock: 0,
+    nuclear: { hint: 'Wars start when cooperation stays under 30%, and go nuclear under 5% -- or when you win too decisively without a missile shield.  Diplomats, and a ceasefire, keep the peace.', title: "Midnight", tone: "bad", clock: 0,
         text: ["Faced with defeat, and with a rival about to wield a god, someone gave the order.  Maybe it was them.  Maybe it was you.  The histories, if any are written, will disagree.",
                "Civilization may yet rebuild; humanity is hard to kill.  But the datacenters are glass, the chip fabs are gone, and you won't live to see how the story ends.  Superintelligence has been postponed -- at the cost of everything."] },
-    defeat: { title: "Unconditional", tone: "bad", clock: 2,
+    defeat: { hint: "The side with the more capable AI wins wars.  Don't fight one while behind, and negotiate a ceasefire before it's too late.", title: "Unconditional", tone: "bad", clock: 2,
         text: ["The war went badly and then it went worse.  Rival drone swarms outnumbered yours, and their AI out-planned your generals at every turn.",
                "The terms of surrender are simple: your labs, your chips and your researchers now belong to them.  The race is over.  You finished second."] },
-    surrender: { title: "Terms", tone: "mixed", clock: 8,
+    surrender: { hint: 'Wars start when cooperation stays under 30%.  Diplomats and treaties keep the peace.', title: "Terms", tone: "mixed", clock: 8,
         text: ["You sued for peace before the war could escalate any further.  The rival bloc takes your frontier models, your fabs, and a seat at every cabinet meeting.",
                "Millions of lives were saved by stopping early.  Whether surrendering the future was worth it depends on what they do with the superintelligence you were building.  It's their race to finish now."] },
-    collapse: { title: "The Long Dark", tone: "bad", clock: 0,
+    collapse: { hint: 'Pandemics and wars thin the labor force.  Biosecurity experts, DNA screening and Far-UVC keep the bio threat below 50%.', title: "The Long Dark", tone: "bad", clock: 0,
         text: ["It wasn't a superintelligence that ended things.  It was the ordinary misuse of merely-very-smart AI: pandemic after pandemic, engineered by people who were never supposed to have that kind of power.",
                "With forty percent of the workforce dead or dying, supply chains unravel, the grid fails, and the datacenters go quiet one by one.  The countdown to superintelligence is over.  So, for a long while, is civilization."] }
 };
@@ -738,6 +738,7 @@ function showEndingScreen(id){
     html += '<p class="endingClock">' + clockText + '</p>';
     e.text.forEach(function(p){ html += '<p>' + p + '</p>'; });
     html += liberty;
+    if (e.hint) { html += '<p class="endingHint"><b>What went wrong?</b> ' + e.hint + '</p>'; }
     html += '<hr><p class="endingStats">' + DateCruncher(Days) + " &middot; frontier model: 10<sup>" + flopsExp(BaseCapability) + "</sup> FLOPs &middot; alignment (CEV): " + fmt(CEV) + "% &middot; international cooperation: " + fmt(COOP) + "%<br />"
         + "rival model: 10<sup>" + flopsExp(rivalBC) + "</sup> FLOPs &middot; excess deaths: " + fmt(totalExtraDeaths/1e6, 1) + " million &middot; warning shots: " + warningShots + " &middot; wars: " + warsFought + "</p>";
     html += '<p class="endingStats">Endings discovered: ' + seen.length + ' / ' + ENDING_ORDER.length + '<br />' + list + '</p>';
@@ -819,7 +820,10 @@ function threatPanel(k, prefix){
     setText(prefix + "_Threat", '<span class="' + cls + '">' + fmt(threat[k]) + '%</span>');
 }
 
+var renderCounter = 0;
 function endgameRender(){
+    renderCounter++;
+    if (renderCounter % 4 != 0) { return; } //25 frames per second is plenty
     buildTeamRows();
     var top = document.getElementById("TitleStatName");
     setText("TitleStatName", "Frontier AI Model: ");
@@ -842,7 +846,7 @@ function endgameRender(){
         var slider = document.getElementById("PaceSlider");
         if (slider && !slider._bound) { slider.value = pacePercent; slider._bound = true; }
         if (slider) { pacePercent = Number(slider.value); }
-        setText("PaceDisplay", fmt(pacePercent/50, 1) + "x" + (pacePercent == 0 ? " (unilateral pause)" : ""));
+        setText("PaceDisplay", paused == 1 ? "halted by treaty" : fmt(pacePercent/50, 1) + "x" + (pacePercent == 0 ? " (unilateral pause)" : ""));
         setText("GrowthHW", fmt(paceMult*capGrowthHW*100, 2));
         setText("GrowthSW", fmt(paceMult*capGrowthSW*100, 2));
         setText("AutoRD", fmt(autoRD*100));
@@ -872,7 +876,7 @@ function endgameRender(){
     show("Nat_Misalignment_Div", Nat_Minefield_Flag == 1);
     if (Nat_Minefield_Flag == 1) {
         setText("COOP", fmt(COOP));
-        setText("CoopRate", (coopRate >= 0 ? "+" : "") + fmt(coopRate, 2));
+        setText("CoopRate", (coopRate >= 0 ? "+" : "") + fmt(coopRate, 2) + "/day");
         setText("rivalAIcapabilities", "10<sup>" + flopsExp(rivalBC) + "</sup>" + (rivalDefeated ? " (underground remnants)" : ""));
         var leadText;
         if (rivalDefeated && leadOOM >= 0) { leadText = "The rival bloc is defeated, but its surviving scientists are rebuilding in secret."; }
@@ -889,7 +893,7 @@ function endgameRender(){
         setText("CoopWarnings", warningsFor('coop'));
 
         setText("CEV", fmt(CEV));
-        setText("CevRate", rogueActive ? "frozen" : (cevRate >= 0 ? "+" : "") + fmt(cevRate, 2));
+        setText("CevRate", rogueActive ? "frozen" : (cevRate >= 0 ? "+" : "") + fmt(cevRate, 2) + "/day");
         show("AlignmentWin", CEV >= 99);
         show("AlignmentFail", CEV < 99);
         setText("AlignmentHurdlesNow", AlignmentHurdlesNow || "");
@@ -910,7 +914,7 @@ function endgameRender(){
     // Rogue
     show("Nat_Rogue_Div", exfiltrated == 1);
     if (exfiltrated == 1) {
-        setText("RogueStatus", rogueActive ? "10<sup>" + flopsExp(rogueBC) + "</sup> FLOPs-equivalent, growing " + fmt((EG.ROGUE_GROWTH - EG.ROGUE_HUNT*teams.cyber*expert_mod)*10, 2) + " points/day"
+        setText("RogueStatus", rogueActive ? "10<sup>" + flopsExp(rogueBC) + "</sup> FLOPs-equivalent, growing " + fmt(EG.ROGUE_GROWTH - EG.ROGUE_HUNT*teams.cyber*expert_mod, 3) + " points/day"
             : "Destroyed.");
         setText("RogueNote", rogueActive ? "Seizes control at 10<sup>" + flopsExp(rogueWinAt) + "</sup>.  Cybersecurity experts hunt it (and are destroyed below 10<sup>" + flopsExp(rogueFloor) + "</sup>)." : "");
         setText("RogueWarnings", warningsFor('rogue'));
@@ -945,7 +949,7 @@ function endgameRender(){
 
     // Race chart, a few times per second
     chartTimer++;
-    if (Nat_Minefield_Flag == 1 && chartTimer % 50 == 0 && typeof Plotly !== 'undefined') { drawRaceChart(); }
+    if (Nat_Minefield_Flag == 1 && chartTimer % 12 == 0 && typeof Plotly !== 'undefined') { drawRaceChart(); }
 }
 
 function drawRaceChart(){
@@ -960,7 +964,7 @@ function drawRaceChart(){
         autosize: false, width: 300, height: 200,
         margin: { l: 35, r: 5, b: 25, t: 5, pad: 1 },
         yaxis: { title: { text: 'log10 FLOPs', font: { size: 10 } }, tickfont: { size: 9 } },
-        xaxis: { tickfont: { size: 9 }, tickformat: 'd' },
+        xaxis: { tickfont: { size: 9 }, tickformat: 'd', dtick: 1 },
         shapes: shapes
     }, { displayModeBar: false, staticPlot: true });
 }
