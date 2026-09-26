@@ -8,7 +8,8 @@ var SAVE_KEY = "ctsi_save";
 var SAVE_VERSION = 1;
 var SAVE_SKIP = ["__preGameKeys", "SAVE_SKIP", "SAVE_KEY", "SAVE_VERSION", "EG", "ENDINGS", "ENDING_ORDER", "TEAM_INFO",
                  "egEvents", "projects", "activeProjects", "gameSpeed", "gamePaused", "threnodyAudio", "threnodyLoadedBool",
-                 "DevBots", "devState", "saveTimer", "blinkCounter", "longBlinkCounter"];
+                 "DevBots", "devState", "saveTimer", "blinkCounter", "longBlinkCounter", "renderCounter", "chartTimer",
+                 "ticks_per_day", "ticks_per_day_endgame", "fudge_factor", "dataLayer", "google_tag_manager"];
 
 function isPlainData(v, depth){
     if (depth > 6) { return false; }
@@ -38,7 +39,7 @@ function snapshotGame(){
         var v = window[k];
         if (v !== undefined && isPlainData(v, 0)) { state.vars[k] = v; }
     });
-    projects.forEach(function(p){ state.projects[p.id] = { flag: p.flag, uses: p.uses }; });
+    projects.forEach(function(p){ state.projects[p.id] = { flag: p.flag, uses: p.uses, excluded: p.excluded || 0 }; });
     state.active = activeProjects.map(function(p){ return p.id; });
     ["AISSlider", "PaceSlider"].forEach(function(id){
         var el = document.getElementById(id);
@@ -53,7 +54,7 @@ function restoreGame(state){
     for (var k in vars){ window[k] = vars[k]; }
     projects.forEach(function(p){
         var s = state.projects[p.id];
-        if (s) { p.flag = s.flag; p.uses = s.uses; }
+        if (s) { p.flag = s.flag; p.uses = s.uses; p.excluded = s.excluded || 0; }
     });
     var list = document.getElementById("projectListTop");
     while (list.firstChild) { list.removeChild(list.firstChild); }
@@ -69,7 +70,11 @@ function restoreGame(state){
     }
     document.getElementById("GPUBuyerStatus").innerHTML = GPUBuyerStatus == 1 ? "ON" : "OFF";
     if (Nationalized && typeof buildTeamRows == 'function') { buildTeamRows(); }
-    if (typeof UpdateCoolGraph == 'function' && !Nationalized) { try { UpdateCoolGraph(); } catch (e) {} }
+    if (!Nationalized) {
+        try { UpdateCoolGraph(); } catch (e) {}
+        try { if (PoliticsFlag > 0) { UpdateSentiment(); DrawPolitics(); } } catch (e) {}
+    }
+    if (endgameResolved && endingId) { showEndingScreen(endingId); }
     return true;
 }
 

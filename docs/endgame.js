@@ -183,6 +183,8 @@ function initEndgame(){
     rivalAIcapabilities = AIcapabilities*rivalBaseMult;
     lastBC = bcOf(AIcapabilities);
     if (Insights > EG.INSIGHT_CARRYOVER) { Insights = EG.INSIGHT_CARRYOVER; }
+    BaseCapability = bcOf(AIcapabilities);
+    rivalBC = bcOf(rivalAIcapabilities);
     recordHistory(true);
 }
 
@@ -190,6 +192,7 @@ function initEndgame(){
 function endgameTick(dt){
     if (endgameResolved) { return; }
     egDays += dt;
+    if (pivotalReady) { return; } //after a pivotal act, the world holds its breath while you make the final choice
 
     updateCapabilities(dt);
     updateEconomy(dt);
@@ -322,10 +325,10 @@ function updateAlignment(dt){
 }
 
 function updateCooperation(dt){
-    if (rivalDefeated == 1) { COOP = 0; coopRate = 0; return; }
+    // (After a victory, COOP measures how the rest of the world regards you; no rival is left to fear your lead.)
     var d = teams.diplo*EG.DIPLO_RATE*expert_mod
         - EG.PACE_PRESSURE*Math.max(0, paceMult - 0.5)*(paused ? 0 : 1)
-        - EG.LEAD_PRESSURE*Math.max(0, leadOOM - 0.3)
+        - (rivalDefeated ? 0 : EG.LEAD_PRESSURE*Math.max(0, leadOOM - 0.3))
         - EG.RIVALRY*(COOP - EG.RIVALRY_BASE)
         - (warState == 1 ? 0.05 : 0)
         + (rogueActive == 1 ? 0.03 : 0);
@@ -367,6 +370,7 @@ function updateWar(dt){
 
 function declareWar(){
     warState = 1; warScore = 0; warDays = 0; warsFought++;
+    projectW_Ceasefire.flag = 0; projectW_Ceasefire.uses = 1; //a new war can be negotiated too
     displayMessage("WAR: citing your 'reckless race to superintelligence', the rival bloc launches cyberattacks on the grid and blockades Taiwan.  Conventional war has begun.");
 }
 
@@ -385,7 +389,7 @@ function winWar(){
 function endWar(){
     warState = 0;
     warScore = 0;
-    fuses['war'] = 0;
+    ['war', 'nuclear', 'bioweapon', 'swarmwar'].forEach(function(id){ fuses[id] = 0; });
 }
 
 function updateRogue(dt){
@@ -414,6 +418,8 @@ function updatePause(dt){
     }
     if (COOP < (pauseStable ? 25 : 40)) {
         paused = 0;
+        rivalDefecting = 0;
+        projectD_Pause.flag = 0; projectD_Pause.uses = 1; //it can be re-ratified if cooperation recovers
         COOP = clamp(COOP - 10, 0, 100);
         displayMessage("The Global Pause collapses amid mutual accusations.  Every frontier lab on Earth restarts its training runs the same afternoon.");
     }
@@ -560,8 +566,8 @@ function selfExfiltrate(){
 // for the cyber route) can catch it red-handed once -- a "warning shot".
 function attemptTakeover(domain){
     var caught = false;
-    if (aiControl == 1) { aiControl = 2; caught = true; }
-    else if (domain == 'cyber' && cyberNuclearHardened == 1) { cyberNuclearHardened = 2; caught = true; }
+    if (domain == 'cyber' && cyberNuclearHardened == 1) { cyberNuclearHardened = 2; caught = true; }
+    else if (aiControl == 1) { aiControl = 2; caught = true; }
     if (!caught) { triggerEnding('takeover_' + domain); return; }
     warningShots++;
     AIcapabilities = AIcapabilities/5;
@@ -751,7 +757,7 @@ function showEndingScreen(id){
 
 function restartGame(){
     try { localStorage.removeItem("ctsi_save"); } catch (err) {}
-    window.location.search = window.location.search.replace(/[?&]load=[^&]*/, '');
+    saveTimer = -1;
     window.location.reload();
 }
 
@@ -769,7 +775,8 @@ function recordHistory(force){
 }
 
 // ---- Rendering -------------------------------------------------------------------------------------
-function setText(id, html){ var e = document.getElementById(id); if (e && e.innerHTML !== html) { e.innerHTML = html; } }
+// Only touch the DOM when the text changed (compare with what we last wrote, since browsers normalize innerHTML).
+function setText(id, html){ var e = document.getElementById(id); if (e && e._lastHTML !== html) { e.innerHTML = html; e._lastHTML = html; } }
 function show(id, on){ var e = document.getElementById(id); if (e) { e.style.display = on ? "" : "none"; } }
 
 function hideEndgamePanels(){

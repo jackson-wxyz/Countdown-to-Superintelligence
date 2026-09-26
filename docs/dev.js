@@ -129,6 +129,14 @@ DevBots.STRATEGIES = {
         gamble: false, ceasefire: true,
     },
 
+    // A first-time player: sets up teams once, clicks whatever looks good, never fine-tunes.
+    novice: {
+        pace: 50,
+        teams: { align: 10, diplo: 6, bio: 5, cyber: 5, media: 4, robo: 4 }, adaptiveDefense: 0,
+        buy: ['P_Pivotal', 'D_Pause', 'P_Together', 'P_Share'], buyAnything: true, randomChoices: true,
+        choose: { Final: 'P_Share' }, gamble: true, ceasefire: true,
+    },
+
     // Keeps the peace until the missile shield is up, then picks a fight it can win.
     warlord: {
         pace: 60,
@@ -174,7 +182,12 @@ DevBots.endgame = function(strategy, overrides){
         activeProjects.slice().forEach(function(p){
             var id = shortId(p);
             if (!p.cost()) { return; }
-            if (dilemmaOptions.indexOf(id) >= 0) { if (chosen.indexOf(id) >= 0) { buy(p); } return; }
+            if (dilemmaOptions.indexOf(id) >= 0) {
+                if (chosen.indexOf(id) >= 0 || (s.randomChoices && Math.random() < 0.02)) { buy(p); }
+                return;
+            }
+            if (s.buyAnything && /^(W_Surrender|W_Nuke|P_Seize|P_PauseForever|D_Sabotage|Def_Surveillance|Def_Censor|Def_Hypnodrones|W_Slaughterbots|W_Command)$/.test(id)) { return; }
+            if (s.buyAnything && Math.random() < 0.05) { buy(p); return; }
             if (id === 'P_Gamble') { if (s.gamble && gambleOdds() > 0.6) { buy(p); } return; }
             if (wanted.indexOf(id) >= 0) { buy(p); }
         });
@@ -195,6 +208,9 @@ DevBots.endgame = function(strategy, overrides){
         if (s.warAfterShield && missileDefense == 1) { target.diplo = 0; }
         if (paused == 1 && s.pauseAllIn) { target.align = total - target.diplo - 2; }
         if (rogueActive) { target.align = 0; }
+        if (Nat_Defense_Flag == 1 && !s.adaptiveDefense) {
+            ['bio', 'cyber', 'media', 'robo'].forEach(function(k){ target[k] = s.teams[k] || 0; });
+        }
         if (Nat_Defense_Flag == 1 && s.adaptiveDefense && !(paused == 1 && s.pauseAllIn)) {
             var pool = Math.max(0, total - target.align - target.diplo - (s.keepResearch || 0));
             // Experts needed to hold each threat under its next scary threshold (with a margin).
@@ -230,17 +246,24 @@ DevBots.run = function(tick, until, maxMs, stepMs){
 // Same, but in chunks so the browser stays responsive; calls done() at the end.
 DevBots.runAsync = function(tick, until, maxMs, stepMs, done){
     var elapsed = 0;
+    var wasPaused = gamePaused;
     gamePaused = true;
     (function chunk(){
         var t0 = Date.now();
-        while (Date.now() - t0 < 40 && elapsed < maxMs && !until()){
-            tick();
-            simulateMs(stepMs);
-            elapsed += stepMs;
+        try {
+            while (Date.now() - t0 < 40 && elapsed < maxMs && !until()){
+                tick();
+                simulateMs(stepMs);
+                elapsed += stepMs;
+            }
+        } catch (err) {
+            gamePaused = wasPaused;
+            devStatus("Autoplay error: " + err.message);
+            throw err;
         }
         devStatus("Simulating... " + DateCruncher(Days));
         if (elapsed < maxMs && !until()) { setTimeout(chunk, 0); }
-        else { gamePaused = false; renderTick(); devStatus("Done: " + DateCruncher(Days)); if (done) { done(); } }
+        else { gamePaused = wasPaused; renderTick(); devStatus("Done: " + DateCruncher(Days)); if (done) { done(); } }
     })();
 };
 
