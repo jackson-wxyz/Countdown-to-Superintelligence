@@ -74,6 +74,18 @@ var Skill_Lang_Scale = 0;
 var Skill_Code_Scale = 0;
 var Skill_Biol_Scale = 0;
 var Skill_Robo_Scale = 0;
+var Skill_Media_Scale = 0; //max of Lang & Visu -- used for Censorship/Persuasion threat domain
+
+// (All post-nationalization state lives at the top of endgame.js.)
+
+// Inference-time compute & agents (first-half modernization)
+var ReasoningFlag = 0;
+var InferenceTimeFlag = 0;  //unlocks inference-compute revenue scaling
+var InferenceBudget = 0;    //player-allocated inference compute (extra revenue for extra ongoing cost)
+var AgentFlag = 0;
+var RLVRFlag = 0;
+var InferenceRevMult = 1.0; //multiplier on BaseRev from inference-time compute
+var RLHFMult = 1; //Constitutional AI makes safety effort go further
 
 
 
@@ -191,31 +203,13 @@ var fudge_factor = 1e12 * 1e-4 * 0.1 * 0.1;
 //10 again for non-GPU overhead?
 var ticks_per_day = 5; //tenth-second slow-loop ticks vs half-day timing of the game
 
-//Researchers & insights
-//in addition to researchers we now have:
-//var Diplomats = 0; //on competition panel
-//var Engineers = 0; //on alignment panel, not researchers, but specifically people who are doing RLHF / Evals stuff
-//skipping the other four because these represent AI capabilities, which aren't something we can suppress with effort
-//var Inspectors = 0; //?? overseers / inspectors in the sense that they are monitoring the systems that are running the economy & military, looking for signs of trouble
-var Cybersecs = 0;
-var Biosecs = 0;
-var Censors = 0; //??
-var expert_mod = 1;
+var ticks_per_day_endgame = 10; //after nationalization the calendar slows to 1 day per second
 
-var CEV = 10; //todo: remember to use this in combination with Hurdle_mod!
-var COOP = 50;
+var CEV = 10;  //AI alignment to human values, %.  Modified by a few first-half projects, then the core endgame stat.
+var COOP = 50; //international cooperation, %
 var rivalAIcapabilities = 0;
 var AlignmentHurdlesNow;
 var AlignmentHurdlesSoon;
-
-var Cybersec2 = 0;
-var Cybersec3 = 0;
-var Cybersec4 = 0;
-
-var Biosec3 = 0;
-var Biosec2 = 0;
-var Biosec4 = 0;
-
 
 
 

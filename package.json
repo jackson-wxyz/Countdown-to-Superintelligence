@@ -1,0 +1,12 @@
+{
+  "name": "countdown-to-superintelligence",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A clicker game about AI takeoff, forked from Frank Lantz's Universal Paperclips.",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "serve": "npx --yes http-server docs -p 8000 -c-1",
+    "pace": "node tests/tools/pace.js",
+    "endgame": "node tests/tools/endgame.js"
+  }
+}

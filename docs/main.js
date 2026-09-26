@@ -63,7 +63,9 @@ function displayProjects(project){
     var div = document.createElement("div");
     newProject.appendChild(div);
     
-    var description = document.createTextNode(project.description);
+    var description = document.createElement("span");
+    description.setAttribute("id", project.id + "_desc");
+    description.textContent = project.description;
     newProject.appendChild(description);
     
     blink(project.id);
@@ -275,85 +277,20 @@ document.getElementById("dateCountCrunched").innerHTML = DateCruncher(Days);
 
 //Nationalize-the-labs event
 if (Nationalized == true){
-    document.getElementById("TitleStatName").innerHTML = "Frontier AI Model Size: ";
-    document.getElementById("TitleStat").innerHTML = AIcapabilities.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-    document.getElementById("clipCountCrunched").innerHTML = numberCruncher(AIcapabilities, 1);
     document.getElementById("FundsDiv").style.display="none";
     document.getElementById("GPUDiv").style.display="none";
     document.getElementById("AISDiv").style.display="none";
     document.getElementById("ModelDiv").style.display="none";
     document.getElementById("CoolGraphDiv").style.display="none";
-    document.getElementById("PoliticsDiv").style.display="none";   
+    document.getElementById("PoliticsDiv").style.display="none";
     document.getElementById("PoliticsDiv2").style.display="none";
-
-    //start with national economy
-    document.getElementById("Nat_Economy_Div").style.display="";
-
-    if(unfinishedGame == true){
-        document.getElementById("beg_for_more_wire_Div").style.display="";
-    } else {
-        document.getElementById("beg_for_more_wire_Div").style.display="none";
-    }
-
-    if (Reinvestment_Flag ==1){
-        document.getElementById("Reinvestment_Div").style.display="";
-    } else {
-        document.getElementById("Reinvestment_Div").style.display="none";
-    }
-
-    if (Nat_Research_Flag ==1){
-        document.getElementById("Nat_Research_Div").style.display="";
-    } else {
-        document.getElementById("Nat_Research_Div").style.display="none";
-    }
-
-
-    if (Nat_Minefield_Flag ==1){
-        document.getElementById("Nat_Competition_Div").style.display="";
-        document.getElementById("Nat_Misalignment_Div").style.display="";
-        if(CEV > 99){
-            document.getElementById("AlignmentWin").style.display="";
-            document.getElementById("AlignmentFail").style.display="none";
-        } else {
-            document.getElementById("AlignmentWin").style.display="none";
-            document.getElementById("AlignmentFail").style.display="";
-        }
-    } else {
-        document.getElementById("Nat_Competition_Div").style.display="none";
-        document.getElementById("Nat_Misalignment_Div").style.display="none";
-    }
-    
-    if (Nat_Defense_Flag ==1){
-        document.getElementById("Nat_Profession_Div").style.display="";
-        document.getElementById("Nat_Robo_Div").style.display="";
-        document.getElementById("Nat_Biol_Div").style.display="";
-        document.getElementById("Nat_Code_Div").style.display="";
-        document.getElementById("Nat_Lang_Div").style.display="";
-        if (Censorship_Flag ==1){
-            document.getElementById("Censors_Div").style.display="";
-            document.getElementById("Censors_Div2").style.display="";
-        } else{
-            document.getElementById("Censors_Div").style.display="none";
-            document.getElementById("Censors_Div2").style.display="none";
-        }
-    }
+    //everything else about the post-nationalization screen is drawn by endgameRender() in endgame.js
 
 } else {
     document.getElementById("TitleStatName").innerHTML = "AI Training Compute: ";
     document.getElementById("TitleStat").innerHTML = GPUhours.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
     document.getElementById("clipCountCrunched").innerHTML = numberCruncher(GPUhours, 1);
-    if(Nationalized == false){
-        document.getElementById("beg_for_more_wire_Div").style.display="none";
-        document.getElementById("Nat_Economy_Div").style.display="none";
-        document.getElementById("Nat_Research_Div").style.display="none";
-    }
-    document.getElementById("Nat_Competition_Div").style.display="none";
-    document.getElementById("Nat_Misalignment_Div").style.display="none";
-    document.getElementById("Nat_Profession_Div").style.display="none";
-    document.getElementById("Nat_Robo_Div").style.display="none";
-    document.getElementById("Nat_Code_Div").style.display="none";
-    document.getElementById("Nat_Biol_Div").style.display="none";
-    document.getElementById("Nat_Lang_Div").style.display="none";
+    hideEndgamePanels();
 
     //GPU Stuff, making sections appear and disappear
     document.getElementById("FundsDiv").style.display="";
@@ -842,40 +779,8 @@ function toggleGPUBuyer(){
 }
 
 function DiplomatClick(number, profession){
-    if(number>0){
-        if (number>Researchers){
-            number = Researchers;
-        }
-    }
-
-    switch (profession){
-        case "Inspectors":
-            if((-1*number)>Inspectors){number = -1*Inspectors;}
-            Inspectors = Inspectors + number;
-            document.getElementById('Inspectors').innerHTML = Inspectors;
-            document.getElementById('Inspectors2').innerHTML = Inspectors;
-            break;
-        case "Cybersecs":
-            if((-1*number)>Cybersecs){number = -1*Cybersecs;}
-            Cybersecs = Cybersecs + number;
-            document.getElementById('Cybersecs').innerHTML = Cybersecs;
-            document.getElementById('Cybersecs2').innerHTML = Cybersecs;
-            break;
-        case "Biosecs":
-            if((-1*number)>Biosecs){number = -1*Biosecs;}
-            Biosecs = Biosecs + number;
-            document.getElementById('Biosecs').innerHTML = Biosecs;
-            document.getElementById('Biosecs2').innerHTML = Biosecs;
-            break;
-        case "Censors":
-            if((-1*number)>Censors){number = -1*Censors;}
-            Censors = Censors + number;
-            document.getElementById('Censors').innerHTML = Censors;
-            document.getElementById('Censors2').innerHTML = Censors;
-            break;
-    }
-    Researchers = Researchers - number;
-    document.getElementById('NatResearchers').innerHTML = Researchers;
+    //kept for compatibility with old buttons; the endgame team rows call assignTeam() directly
+    assignTeam(profession, number);
 }
 
 
@@ -1104,39 +1009,7 @@ function TrainAI(){
 }
 
 function updateStats(){
-    if (Nationalized == true){
-        //Economy section
-        document.getElementById("LaborForce").innerHTML = (LaborForce/1e6).toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-        document.getElementById("Births").innerHTML = (Births/1000).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Deaths").innerHTML = (Deaths/1000).toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        example_death_note = "(temporary status effect on death!)";//run out of labor force = lose the game!
-        Death_Note = "";
-        document.getElementById("Death_Note").innerHTML = Death_Note;
-        //Economy section part 2
-        document.getElementById("PercentAutomated").innerHTML = PercentAutomated.toLocaleString(undefined, {minimumFractionDigits: 3, maximumFractionDigits: 3});
-        document.getElementById("HumanGDP").innerHTML = HumanGDP.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-        document.getElementById("AIGDP").innerHTML = AIGDP.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
-
-        //debug:
-        //document.getElementById("Debug").innerHTML = "fudge_factor: "+fudge_factor+", jFunds: "+jFunds+", DailyReinvestedGDP: "+DailyReinvestedGDP+", ticks_per_day: "+ticks_per_day+", : ";
-
-        document.getElementById("GPUsPerDay").innerHTML = GPUsPerDay.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("NatGPUs").innerHTML = GPUs.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        //Research Section
-        document.getElementById("NatResearchers").innerHTML = Researchers.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("NatInsights").innerHTML = Insights.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        
-        //endgame stats
-        document.getElementById("COOP").innerHTML = COOP.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("CEV").innerHTML = CEV.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Cybersec2").innerHTML = Cybersec2.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Cybersec3").innerHTML = Cybersec3.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Biosec2").innerHTML = Biosec2.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Biosec3").innerHTML = Biosec3.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Censorship2").innerHTML = Censorship2.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        document.getElementById("Censorship3").innerHTML = Censorship3.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        
-    }
+    if (Nationalized == true){ return; } //endgameRender() in endgame.js draws the second half
     //GPU stuff
     document.getElementById("GPUs").innerHTML = GPUs.toLocaleString();
     //document.getElementById("algorithmicProgress").innerHTML = (algorithmicProgress*100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -1393,151 +1266,59 @@ function PreviewEffects(){
 }
 
 
-// MAIN LOOP -- every 1/100th of a second
-window.setInterval(function(){
+// MAIN LOOPS ------------------------------------------------------------------------------
+// The game runs two loops, like Universal Paperclips: a fast one every 1/100th of a second and a
+// slow one every 1/10th of a second.  They're named functions (rather than anonymous callbacks)
+// so that the dev panel and the test harness can step the simulation faster than real time.
+
+var gameSpeed = 1;      //dev cheat: how many simulation steps to run per real tick
+var gamePaused = false; //dev cheat: freeze the simulation
+
+// Fast loop -- every 1/100th of a second
+function fastTick(){
     ticks = ticks + 1;
     milestoneCheck();
-    buttonUpdate();
-    updateStats(); 
     manageProjects();
-    milestoneCheck();
-    
+
 // GPU stuff
     if (GPUs>39){
         GPUBuyerFlag=1;
     }
 
-    if(isNaN(GPUs)){throw new Error("nan...");}
-    if (GPUBuyerFlag==1 && GPUBuyerStatus==1 && jFunds>=500){
+    if (GPUBuyerFlag==1 && GPUBuyerStatus==1 && jFunds>=500 && Nationalized==false){
         buyGPU();
-    }   
+    }
     if(isNaN(GPUs)){throw new Error("nan...");}
 
     AISPercent = document.getElementById("AISSlider").value;
     ResearchPercent = 100-AISPercent;
-    if(isNaN(GPUs)){throw new Error("nan...");}
 
-    if(Nationalized==true){
-        if(Continuous_Flag == 1){
-            AIcapabilities = AIcapabilities + GPUs/ticks_per_day/10;//extra factor of 10 because i moved it to the fast loop
-            //figure out how to continously update skills
-            //figure out how to apply RLHF again to suppress bad capabilites
-        }
-        document.getElementById("rivalAIcapabilities").innerHTML = numberCruncher(AIcapabilities*.75,3);
-        
-    } else {
+    if(Nationalized==false){
         //to 10x every 4.5-mins, must double every 90 seconds or so, thus need $500 per GPU per 90 seconds, so $0.55 per tenth of a second FROM THE MODEL trained by 1 gpu going for 90 secs
         //GPUhours per GPU over 90 secs = 24/10*900 = 6480
-         
+
         //Training Hours
         GPUhours = GPUhours + GPUs/ticks_per_day/10; //Exaflops//extra factor of 10 because i moved it to the fast loop
-
     }
-}, 10);
+    //(after nationalization, compute flows straight into the model -- see endgameTick in endgame.js)
+}
 
-
+function renderTick(){
+    buttonUpdate();
+    updateStats();
+    if (Nationalized == true && typeof endgameRender === 'function'){ endgameRender(); }
+}
 
 // Slow Loop -- every Tenth of a second
 var secTimer = 0;
 var secTimer2 = 0;
 
-window.setInterval(function(){
+function slowTick(){
 
-    
-    //Nationalization calcs
     if(Nationalized==true){
-        //this stuff doesn't belong in a project, rather in the actual div:
-        LaborForce = LaborForce + (Births - Deaths)/ticks_per_day;
-        HumanGDP = BaseGDP*LaborForce/180000000;//how much has labor force grown or shrunk relative to the 180M where we started?
-        PercentAutomated = -10/(AIcapabilities/50000000000+0.1)+100;
-        AIGDP = HumanGDP * PercentAutomated/(100-PercentAutomated);
-        TotalGDP = HumanGDP + AIGDP;
-        if (Reinvestment_Flag == 1){
-            DailyReinvestedGDP = fudge_factor*TotalGDP/360;//some constant percentage that goes towards buying GPUs, divided by 360 days per year, and then by some_factor_of_how_often_this_happens_per_day
-            GPUsPerDay = DailyReinvestedGDP/500; //for display
-            jFunds = jFunds + DailyReinvestedGDP/ticks_per_day;
-            buyGPU(jFunds);
-        }
-        //GPUs generate exaflops as normal, but generate no profit
-        //instead, feedback cycle comes purely from continuous improvement
-        //20%: 30 + [7.5, 30/8*2] = 37.5
-        //50%: 30 + [30] = 60
-        //80%: 30 + [120, 30/2*8 = 150]
-        //maybe do a cool pie chart, which I could even size proportionately to show absolute scale
-        //PercentAutomated should be influenced by base model skills, plus assorted boosts from individual techs.  have the base model skills go into RLHF 1/x math up to like 60% at most, and then have boosts do the other 40%, or something.
-        //the speed that PercentAutomated increases will be the main lever by which I affect the speed of model size growth, and thus the pace of the endgame
-        
-        BaseCapability = Math.log10(AIcapabilities)*10;
-        //alignment hurdles
-        switch(BaseCapability){
-            case (BaseCapability >8):
-                Hurdle_mod = -40;
-                AlignmentHurdlesNow =
-                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />"
-                + "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />"
-                + "10<sup>29</sup> FLOPs: -10% from difficulty of checking the safety of superhuman AI outputs<br />"
-                + "10<sup>30</sup> FLOPs: -10% due to the 'fragility of value' vs extreme optimization pressure<br />";
-                AlignmentHurdlesSoon = "";
-                break;
-            case (BaseCapability >7):
-                Hurdle_mod = -30;
-                AlignmentHurdlesNow =
-                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />"
-                + "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />"
-                + "10<sup>29</sup> FLOPs: -10% from difficulty of checking the safety of superhuman AI outputs<br />";
-                AlignmentHurdlesSoon = 
-                "10<sup>30</sup> FLOPs: -10% due to the 'fragility of value' vs extreme optimization pressure<br />";
-                break;
-            case (BaseCapability >6):
-                Hurdle_mod = -20;
-                AlignmentHurdlesNow =
-                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />"
-                + "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />";
-                AlignmentHurdlesSoon = 
-                "10<sup>29</sup> FLOPs: -10% from difficulty of checking the safety of superhuman AI outputs<br />";
-                break;
-            case (BaseCapability >5):
-                Hurdle_mod = -10;
-                AlignmentHurdlesNow =
-                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />";
-                AlignmentHurdlesSoon =
-                 "10<sup>28</sup> FLOPs: -10% from AI's situational awareness of the training environment<br />";
-                break;
-            default:
-                Hurdle_mod = 0;
-                AlignmentHurdlesNow = "";
-                AlignmentHurdlesSoon = 
-                "10<sup>27</sup> FLOPs: -10% from AI deception driven by instrumental convergence<br />";
-                break;
-        }
-        document.getElementById("AlignmentHurdlesNow").innerHTML = AlignmentHurdlesNow;
-        document.getElementById("AlignmentHurdlesSoon").innerHTML = AlignmentHurdlesSoon;
-
-        
-        Skill_Visu_Scale = BaseCapability*2.0 + Skill_Visu_mod;
-        Skill_Code_Scale = BaseCapability*2.5 + Skill_Code_mod;
-        Skill_Biol_Scale = BaseCapability*2.0 + Skill_Biol_mod;
-        Skill_Robo_Scale = BaseCapability*2.5 + Skill_Robo_mod;
-        document.getElementById("Nat_Visu_Scale").innerHTML = Skill_Visu_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
-        document.getElementById("Nat_Code_Scale").innerHTML = Skill_Code_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
-        document.getElementById("Nat_Biol_Scale").innerHTML = Skill_Biol_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
-        document.getElementById("Nat_Robo_Scale").innerHTML = Skill_Robo_Scale.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0}) + "%";
-        
-        Insights = Insights + 0.0002*Researchers;
-
-
-        //calculate risk stuff
-        Biosec2 = Biosecs * expert_mod;
-        Biosec4 = Skill_Biol_Scale - Biosec2 - Biosec3;
-        document.getElementById("Biosec4").innerHTML = Biosec4.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-
-        Cybersec2 = Cybersecs * expert_mod;
-        Cybersec4 = Skill_Code_Scale - Cybersec2 - Cybersec3;
-        document.getElementById("Cybersec4").innerHTML = Cybersec4.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
-        
-        Censorship2 = Censors * expert_mod;
-        Censorship4 = Skill_Visu_Scale - Censorship2 - Censorship3;
-        document.getElementById("Censorship4").innerHTML = Censorship4.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        // All of the second half of the game (economy, race, alignment, threats, war, endings)
+        // is simulated in endgame.js.  One slow tick = 1/10th of a day after nationalization.
+        endgameTick(1/ticks_per_day_endgame);
 
     } else {
 
@@ -1547,31 +1328,47 @@ window.setInterval(function(){
         //Preview effects from Evals & Scaling Laws
         PreviewEffects();
 
-        
+
         //1 researcher-insight every 100 days = ~1 min of game time
         Insights = Insights + 0.0002*Researchers*(ResearchPercent);
         if (AISFlag>2){
-            negInsights = negInsights  + 0.0002*Researchers*(100-ResearchPercent)
+            negInsights = negInsights  + 0.0002*Researchers*(100-ResearchPercent)*RLHFMult
             document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
             if (AISFlag > 3){
                 Evalhours = Evalhours + 0.0004*Researchers*(100- ResearchPercent);
                 document.getElementById("negInsights").innerHTML = negInsights.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1})+", Eval power: "+Evalhours.toLocaleString(undefined, {minimumFractionDigits: 1, maximumFractionDigits: 1});
             }
         }
-        //todo: probably rejig the various stats "for display", as these are now our continously training AGI's real stats!
-        //todo: make graph nicer maybe, better colors & labels?
-        //todo: eventually move more stuff into the fast loop, like funds.
-        //todo: make researchers produce insight after nationalization lol
-        //todo: policies aren't consistently typed out, have bad word wrap, and don't actually happen...
-        //todo: make insights accrue more slowly
-        //todo: somehow reintroduce graph after nationalization, to show smooth takeoff
-        //
     }
 
-    // Fire Twice a Second
+    // Advance the calendar.  Before nationalization, 1 day every 5 ticks (2 days per second, so
+    // 20 years in an hour).  Afterwards the clock slows to 1 day per second: the stakes are higher
+    // and there's more to manage.
     secTimer++;
-    if (secTimer >= 5){//we want 1 day every 2 seconds, to cover 20 years in an hour
+    if (secTimer >= (Nationalized ? ticks_per_day_endgame : ticks_per_day)){
         Days++;
         secTimer = 0;
     }
+}
+
+// Run `ms` milliseconds of game time as fast as possible, without drawing anything.
+// Used by the dev panel's skip-ahead buttons and by the automated tests.
+function simulateMs(ms){
+    var steps = Math.round(ms/100);
+    for (var i = 0; i < steps; i++){
+        if (endgameResolved) break;
+        for (var j = 0; j < 10; j++){ fastTick(); }
+        slowTick();
+    }
+}
+
+window.setInterval(function(){
+    if (gamePaused) { renderTick(); return; }
+    for (var i = 0; i < gameSpeed; i++){ fastTick(); }
+    renderTick();
+}, 10);
+
+window.setInterval(function(){
+    if (gamePaused) { return; }
+    for (var i = 0; i < gameSpeed; i++){ slowTick(); }
 }, 100);

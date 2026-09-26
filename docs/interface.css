@@ -646,7 +646,9 @@ p.hypnoDrone {
 
 .projectButton {
     display: block;
-    height: 60px;
+    min-height: 60px;
+    height: auto;
+    padding: 4px 6px;
     width: 275px;
     background: #c8c8c8;
     border: 1px solid rgba(0, 0, 0, 1);
@@ -656,7 +658,8 @@ p.hypnoDrone {
 
 .projectButton:hover {
     display: block;
-    height: 60px;
+    min-height: 60px;
+    height: auto;
     width: 275px;
     background: #c8c8c8;
     border: 1px solid rgba(0, 0, 0, 0.25);
@@ -664,7 +667,8 @@ p.hypnoDrone {
 
 .projectButton:active {
     display: block;
-    height: 60px;
+    min-height: 60px;
+    height: auto;
     width: 275px;
     background: #d1d1d1;
     border: 1px solid rgba(0, 0, 0, 1);
@@ -797,3 +801,72 @@ p.hypnoDrone {
    border: 1px solid #ffffff;
 }
 
+
+/* ---- Endgame (post-nationalization) ------------------------------------------------------ */
+
+.small { font-size: 11px; color: #555; }
+.warning { color: darkred; font-weight: bold; }
+.thresholds { font-size: 12px; }
+.thresh { color: grey; }
+.threshActive { color: darkred; font-weight: bold; }
+.threshDone { color: #aaa; text-decoration: line-through; }
+.threatLow { color: #2e6b2e; }
+.threatMid { color: #8a6d00; }
+.threatHigh { color: #c04000; }
+.threatBad { color: darkred; }
+
+.teamRow { margin-top: 4px; }
+.teamName { font-size: 13px; }
+.teamCount { display: inline-block; min-width: 18px; text-align: center; font-weight: bold; }
+.teamEffect { font-size: 11px; color: #555; }
+
+.warBarOuter { width: 100%; height: 10px; background: #e8c0c0; border: 1px solid #888; margin: 3px 0; }
+.warBarInner { height: 100%; width: 50%; background: #3060a0; }
+
+#endingDiv {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.97);
+    z-index: 20;
+    overflow-y: auto;
+    font-family: Georgia, "Times New Roman", serif;
+}
+.endingBox {
+    max-width: 640px;
+    margin: 40px auto;
+    padding: 20px 30px;
+    border: 3px solid black;
+    background: white;
+    text-align: center;
+}
+.endingBox p { text-align: left; font-size: 16px; line-height: 1.5; }
+.endingBox p.endingClock { text-align: center; font-style: italic; }
+.endingBox p.endingStats { text-align: center; font-size: 12px; color: #555; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.endingSeen { color: black; }
+.endingUnseen { color: #bbb; }
+
+#devDiv {
+    position: fixed;
+    right: 8px; bottom: 8px;
+    width: 300px;
+    max-height: 90%;
+    overflow-y: auto;
+    background: #fffbe6;
+    border: 2px solid #b8860b;
+    padding: 6px 8px;
+    z-index: 15;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+#devDiv button { font-size: 11px; margin: 1px; }
+
+#footerDiv {
+    clear: both;
+    padding-top: 30px;
+    font-size: 11px;
+    color: #888;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#footerDiv a { color: #888; }
+
+.endingBox p.endingHint { font-size: 14px; color: #444; background: #f4f4f4; padding: 6px 10px; }
