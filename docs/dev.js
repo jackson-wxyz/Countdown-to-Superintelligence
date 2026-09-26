@@ -81,7 +81,7 @@ DevBots.STRATEGIES = {
               'Def_DNA', 'Def_AirGap', 'Def_Watermarks', 'Def_KillSwitch', 'D_Hotline', 'Def_Nuclear', 'Def_Metagenomics', 'Def_FarUVC',
               'Def_Provenance', 'Def_Antivirals', 'Def_RedTeam', 'Def_FactCheck', 'Def_Watchers', 'X_Remote', 'X_Million', 'D_Joint',
               'Def_HITL', 'X_Allies', 'Def_Formal', 'B4', 'P_Pivotal'],
-        choose: { NQ1: 'NQ1a', Legible: 'Al_Legible', Gov: 'D_ComputeTreaty', Open: 'D_BanOpen', Share: 'Al_Share', NQ2: 'NQ2a', Scheming: 'Al_Scheming', Final: 'P_Share' },
+        choose: { NQ1: 'NQ1a', Legible: 'Al_Legible', Gov: 'D_ComputeTreaty', Open: 'D_BanOpen', Share: 'Al_Share', NQ2: 'NQ2a', Scheming: 'Al_Scheming', Final: 'P_Share', Whistle: 'E_OpenBooks', Welfare: 'E_Welfare', Protest: 'E_UBI' },
         gamble: false,
     },
 
@@ -153,7 +153,8 @@ DevBots.STRATEGIES = {
 DevBots.DILEMMAS = {
     NQ1: ['NQ1a', 'NQ1b'], Legible: ['Al_Legible', 'Al_Neuralese'], Gov: ['D_ComputeTreaty', 'D_Sanctions', 'D_NoGov'],
     Open: ['D_BanOpen', 'D_Open'], Share: ['Al_Share', 'Al_Classify'], NQ2: ['NQ2a', 'NQ2b'], Scheming: ['Al_Scheming', 'Al_Patch'],
-    Final: ['P_Share', 'P_Seize'],
+    Final: ['P_Share', 'P_Seize'], Whistle: ['E_OpenBooks', 'E_Prosecute'], Summit: ['E_Summit', 'E_Snub'],
+    Welfare: ['E_Welfare', 'E_Overrule'], Protest: ['E_UBI', 'E_Crackdown'],
 };
 
 DevBots.endgame = function(strategy, overrides){

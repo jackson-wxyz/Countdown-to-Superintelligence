@@ -380,3 +380,21 @@ test('project buttons do nothing once the game has ended', () => {
     project(g, 'Al_Interp').effect();
     assert.strictEqual(c.Insights, before);
 });
+
+test('every either/or dilemma excludes its alternatives', () => {
+    const g0 = fresh();
+    for (const [name, options] of Object.entries(g0.ctx.DevBots.DILEMMAS)) {
+        if (name === 'Final') continue; // needs a pivotal act first; covered above
+        const g = fresh(), c = g.ctx;
+        c.Insights = 1000; c.COOP = 100; // some options have prerequisites
+        forceProject(g, options[0]);
+        assert.strictEqual(project(g, options[0]).flag, 1, `${name}: ${options[0]} bought`);
+        days(g, 1);
+        for (const other of options.slice(1)) {
+            const p = project(g, other);
+            assert.ok(p.excluded, `${name}: ${other} excluded`);
+            assert.ok(!c.activeProjects.includes(p), `${name}: ${other} not shown`);
+            assert.notStrictEqual(p.flag, 1, `${name}: ${other} not marked purchased`);
+        }
+    }
+});

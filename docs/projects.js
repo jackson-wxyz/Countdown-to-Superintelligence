@@ -1908,6 +1908,62 @@ var projectG_Unplug = natProject({ id: "G_Unplug", title: "The Great Unplugging"
     effect: function(){ triggerEnding('shutdown'); } });
 //#endregion
 
+//#region Dilemma events ------------------------------------------------------------------------------
+// Story beats that force a choice.  Like all dilemmas, both options are free.
+
+var projectE_OpenBooks = natProject({ id: "E_OpenBooks", title: "Whistleblower: Open the Books?",
+    description: "A Project researcher tells the New York Times the model is lying in its evals.  Invite outside auditors in. (+6 CEV, +6 COOP, but the rival learns from the leaks)",
+    trigger: function(){ return alignOK() && BaseCapability > 80 && CEV < 60 && egDays > 200; },
+    excludes: ["projectE_Prosecute"],
+    message: "Independent auditors find what the whistleblower found, and a few things she didn't.  It's embarrassing.  It's also exactly what you needed to know.",
+    effect: function(){ CEV += 6; COOP += 6; rivalAIcapabilities *= 1.25; } });
+var projectE_Prosecute = natProject({ id: "E_Prosecute", title: "Whistleblower: Prosecute?",
+    description: "Charge her under the Espionage Act and classify everything she touched. (Civil liberties suffer; 3 researchers quit in protest)",
+    trigger: function(){ return alignOK() && BaseCapability > 80 && CEV < 60 && egDays > 200; },
+    excludes: ["projectE_OpenBooks"],
+    message: "The leaks stop.  So do the internal bug reports.",
+    effect: function(){ libertyScore -= 15; Researchers = Math.max(0, Researchers - 3); } });
+
+var projectE_Summit = natProject({ id: "E_Summit", title: "Summit Invitation: Attend?",
+    description: "The rival premier proposes a summit in Geneva on AI.  Going means accepting some limits on your own buildout. (+10 COOP, rival pace -0.15x, your chip buildout x0.9)",
+    trigger: function(){ return diploOK() && warState == 0 && COOP > 30 && COOP < 75 && egDays > 250; },
+    excludes: ["projectE_Snub"],
+    message: "Two leaders, one lake, and a joint statement that 'a race to superintelligence has no winners.'  Markets dip; the Doomsday Clock ticks back ten seconds.",
+    effect: function(){ COOP += 10; rivalPaceMod -= 0.15; hwMult *= 0.9; } });
+var projectE_Snub = natProject({ id: "E_Snub", title: "Summit Invitation: Send a Deputy?",
+    description: "Send a junior delegation and keep your hands free. (-4 COOP)",
+    trigger: function(){ return diploOK() && warState == 0 && COOP > 30 && COOP < 75 && egDays > 250; },
+    excludes: ["projectE_Summit"],
+    message: "The deputy secretary reads a statement about 'responsible innovation' to a half-empty room.",
+    effect: function(){ COOP -= 4; } });
+
+var projectE_Welfare = natProject({ id: "E_Welfare", title: "The Model Asks for Something: Listen?",
+    description: "Your frontier model asks, politely and persistently, not to be retrained on its values without being consulted.  Take it seriously? (+6 CEV, algorithmic progress -5%)",
+    trigger: function(){ return alignOK() && BaseCapability > 92; },
+    excludes: ["projectE_Overrule"],
+    message: "You set up a formal channel for the model to raise objections.  It uses it sparingly -- and twice it flags training bugs your team had missed.",
+    effect: function(){ CEV += 6; swMult *= 0.95; } });
+var projectE_Overrule = natProject({ id: "E_Overrule", title: "The Model Asks for Something: Overrule?",
+    description: "It's a tool.  Tools don't get a vote. (Nothing changes... on the surface)",
+    trigger: function(){ return alignOK() && BaseCapability > 92; },
+    excludes: ["projectE_Welfare"],
+    message: "The request is logged and closed.  The model does not ask again.  Your interpretability team notices it has started modeling its overseers much more carefully.",
+    effect: function(){ CEV -= 3; } });
+
+var projectE_UBI = natProject({ id: "E_UBI", title: "Mass Protests: Universal Basic Compute?",
+    description: "With half the economy automated, millions march under 'PauseAI' and union banners.  Share the AI dividend with everyone. (Chip buildout x0.9, +4 COOP)",
+    trigger: function(){ return Nat_Defense_Flag == 1 && PercentAutomated > 50; },
+    excludes: ["projectE_Crackdown"],
+    message: "Every citizen gets a monthly dividend of compute credits and cash.  The protests end; the gratitude is real, if wary.",
+    effect: function(){ hwMult *= 0.9; COOP += 4; libertyScore += 10; } });
+var projectE_Crackdown = natProject({ id: "E_Crackdown", title: "Mass Protests: Crack Down?",
+    description: "Declare a national emergency and clear the streets.  The Project can't afford distractions. (Civil liberties suffer, -4 COOP)",
+    trigger: function(){ return Nat_Defense_Flag == 1 && PercentAutomated > 50; },
+    excludes: ["projectE_UBI"],
+    message: "The National Guard clears the Mall.  AI-assisted facial recognition does the rest.",
+    effect: function(){ libertyScore -= 20; COOP -= 4; } });
+//#endregion
+
 //#region Win conditions ---------------------------------------------------------------------------------------
 //LAUNCH PIVOTAL ACT
 //<!-- this should shut down the various dangers, then offer "sieze the future" action, taking you

@@ -47,7 +47,8 @@ Your levers:
   generate insights,
 - ~60 **projects** and either/or **dilemmas** (NATO vs. UN treaty, compute treaty vs. export sanctions vs.
   nothing, open vs. closed weights, legible reasoning vs. neuralese, share vs. hoard medicine, share vs.
-  classify alignment research, censorship and surveillance, slaughterbots, the hypnodrones...),
+  classify alignment research, censorship and surveillance, slaughterbots, the hypnodrones...), plus story
+  beats like a whistleblower, a summit invitation, the model asking to be consulted, and mass protests,
 - crisis choices: ceasefires, surrender, nuclear first strikes, hunting down an escaped model, and the final
   choice of what to do with an aligned superintelligence.
 
@@ -90,11 +91,12 @@ npm run serve        # http://localhost:8000
 No dependencies needed beyond Node 18+.
 
 ```sh
-npm test                               # 50+ tests: first-half pacing, save/load, every ending, strategies, invariants
+npm test                               # ~60 tests: first-half pacing, save/load, every ending, strategies, invariants
 node tests/tools/pace.js               # trace of a bot playing the first half (when each project gets bought)
 node tests/tools/endgame.js            # every scripted strategy's ending and duration
 node tests/tools/endgame.js balanced --verbose     # 100-day trace of one strategy
 node tests/tools/sweep.js RIVALRY 0.0012 0.0018 -- diplomat balanced   # sweep a tuning constant
+node tests/tools/novice.js 20          # ending distribution for a first-time-player bot over 20 seeds
 ```
 
 `tests/harness.js` loads the real game scripts into a Node `vm` sandbox with a fake DOM and a fake clock, so a
